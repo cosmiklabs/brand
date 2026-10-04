@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="color-scheme" content="dark light"><meta name="description" content="Offline Cosmik v0.2 proposed component and semantic token reference.">
+ <title>Cosmik — proposed component reference v0.2</title>
+ <link rel="stylesheet" href="../tokens/cosmik.css"><link rel="stylesheet" href="components.css">
+</head>
+<body>
+ <a class="skip-link" href="#main">Skip to component reference</a>
+ <header class="wrap"><div class="masthead"><span class="brand-label">Cosmik</span><nav class="nav" aria-label="Reference sections"><a href="#dark">Dark</a><a href="#light">Light</a><a href="#usage">Usage</a></nav></div></header>
+ <main id="main">
+  <section class="hero wrap" aria-labelledby="page-title"><p class="eyebrow muted">Component reference / v0.2</p><h1 id="page-title">A quiet system.<br>Clear interactions.</h1><p>Proposed building blocks for Cosmik interfaces. Neutral surfaces, deliberate typography, and explicit states work together in both themes.</p><p class="hero-note">Offline reference. All system choices are proposed and need owner approval. The live “Cosmik” text above is a label, not an alternative wordmark.</p></section>
+  
+<section class="theme-section" data-theme="dark" id="dark" aria-labelledby="dark-title">
+ <div class="wrap">
+  <div class="theme-heading"><div><p class="eyebrow muted">01 / Proposed theme</p><h2 id="dark-title">Dark components</h2></div><span class="mode-label">data-theme="dark"</span></div>
+  <div class="demo-panel action-panel" id="dark-actions">
+   <div class="panel-heading"><h3>Actions</h3><p class="mono muted">44 px minimum control height</p></div>
+   <div class="state-grid">
+    <div class="state"><span class="specimen-label">Default</span><button type="button" class="button-primary" data-demo="Default">Preview project</button></div>
+    <div class="state"><span class="specimen-label">Hover · shown</span><button type="button" class="button-primary force-hover" data-demo="Hover">Preview project</button></div>
+    <div class="state"><span class="specimen-label">Active · shown</span><button type="button" class="button-primary force-active" data-demo="Active">Preview project</button></div>
+    <div class="state"><span class="specimen-label">Focus · shown</span><button type="button" class="button-primary force-focus" data-demo="Focus">Preview project</button></div>
+    <div class="state"><span class="specimen-label">Disabled</span><button type="button" class="button-primary" disabled>Unavailable</button></div>
+    <div class="state"><span class="specimen-label">Loading · shown</span><button type="button" class="button-primary" disabled aria-busy="true"><span class="loading-mark" aria-hidden="true"></span>Preparing preview</button></div>
+   </div>
+   <div class="action-row"><button type="button" class="button-secondary" data-demo="Secondary">View details</button><a href="#usage">Read usage guidance</a></div>
+   <p class="demo-result" id="dark-result" role="status" aria-live="polite">Interactive preview only. Nothing is sent or saved.</p>
+  </div>
+  <div class="component-grid" id="dark-details">
+   <section class="demo-panel field-panel" aria-labelledby="dark-fields-title">
+    <h3 id="dark-fields-title">Fields &amp; selection</h3>
+    <div class="field"><label for="dark-name">Project name</label><input id="dark-name" type="text" value="HPLX" aria-describedby="dark-name-help" autocomplete="off"><p class="helper" id="dark-name-help">Use the published project name.</p></div>
+    <div class="field"><label for="dark-slug">Project slug · error example</label><input id="dark-slug" type="text" value="hplx?" aria-invalid="true" aria-describedby="dark-slug-help dark-slug-error" data-slug="dark" autocomplete="off" spellcheck="false"><p class="helper" id="dark-slug-help">Use letters, numbers, and hyphens.</p><p class="error" id="dark-slug-error"><span class="error-symbol" aria-hidden="true">[!]</span> Error: remove the question mark.</p></div>
+    <label class="check-label" for="dark-include"><input id="dark-include" type="checkbox" checked><span>Include the project summary</span></label>
+   </section>
+   <article class="project-card" aria-labelledby="dark-project-title">
+    <p class="eyebrow">Project card specimen</p>
+    <h3 id="dark-project-title">HPLX</h3>
+    <p>A modern reimplementation of the HPL engine family.</p>
+    <div class="project-status"><span aria-hidden="true">◷</span><span>In development</span></div>
+    <div class="project-detail"><p class="mono">Proposed component treatment</p><p class="muted">This specimen defines hierarchy and status presentation. It does not imply a release date or a feature commitment.</p></div>
+   </article>
+  </div>
+ </div>
+</section>
+  
+<section class="theme-section" data-theme="light" id="light" aria-labelledby="light-title">
+ <div class="wrap">
+  <div class="theme-heading"><div><p class="eyebrow muted">02 / Proposed theme</p><h2 id="light-title">Light components</h2></div><span class="mode-label">data-theme="light"</span></div>
+  <div class="demo-panel action-panel" id="light-actions">
+   <div class="panel-heading"><h3>Actions</h3><p class="mono muted">44 px minimum control height</p></div>
+   <div class="state-grid">
+    <div class="state"><span class="specimen-label">Default</span><button type="button" class="button-primary" data-demo="Default">Preview project</button></div>
+    <div class="state"><span class="specimen-label">Hover · shown</span><button type="button" class="button-primary force-hover" data-demo="Hover">Preview project</button></div>
+    <div class="state"><span class="specimen-label">Active · shown</span><button type="button" class="button-primary force-active" data-demo="Active">Preview project</button></div>
+    <div class="state"><span class="specimen-label">Focus · shown</span><button type="button" class="button-primary force-focus" data-demo="Focus">Preview project</button></div>
+    <div class="state"><span class="specimen-label">Disabled</span><button type="button" class="button-primary" disabled>Unavailable</button></div>
+    <div class="state"><span class="specimen-label">Loading · shown</span><button type="button" class="button-primary" disabled aria-busy="true"><span class="loading-mark" aria-hidden="true"></span>Preparing preview</button></div>
+   </div>
+   <div class="action-row"><button type="button" class="button-secondary" data-demo="Secondary">View details</button><a href="#usage">Read usage guidance</a></div>
+   <p class="demo-result" id="light-result" role="status" aria-live="polite">Interactive preview only. Nothing is sent or saved.</p>
+  </div>
+  <div class="component-grid" id="light-details">
+   <section class="demo-panel field-panel" aria-labelledby="light-fields-title">
+    <h3 id="light-fields-title">Fields &amp; selection</h3>
+    <div class="field"><label for="light-name">Project name</label><input id="light-name" type="text" value="HPLX" aria-describedby="light-name-help" autocomplete="off"><p class="helper" id="light-name-help">Use the published project name.</p></div>
+    <div class="field"><label for="light-slug">Project slug · error example</label><input id="light-slug" type="text" value="hplx?" aria-invalid="true" aria-describedby="light-slug-help light-slug-error" data-slug="light" autocomplete="off" spellcheck="false"><p class="helper" id="light-slug-help">Use letters, numbers, and hyphens.</p><p class="error" id="light-slug-error"><span class="error-symbol" aria-hidden="true">[!]</span> Error: remove the question mark.</p></div>
+    <label class="check-label" for="light-include"><input id="light-include" type="checkbox" checked><span>Include the project summary</span></label>
+   </section>
+   <article class="project-card" aria-labelledby="light-project-title">
+    <p class="eyebrow">Project card specimen</p>
+    <h3 id="light-project-title">HPLX</h3>
+    <p>A modern reimplementation of the HPL engine family.</p>
+    <div class="project-status"><span aria-hidden="true">◷</span><span>In development</span></div>
+    <div class="project-detail"><p class="mono">Proposed component treatment</p><p class="muted">This specimen defines hierarchy and status presentation. It does not imply a release date or a feature commitment.</p></div>
+   </article>
+  </div>
+ </div>
+</section>
+  <section class="rules wrap" id="usage" aria-labelledby="usage-title"><p class="eyebrow muted">03 / Implementation notes</p><h2 id="usage-title">Use the role. Keep the meaning.</h2>
+   <div class="rules-grid">
+    <div><h3>Semantic first</h3><p>Bind components to background, surface, text, action, and state roles. Both themes redefine every color role. Do not reuse a dark primitive as a light surface.</p></div>
+    <div><h3>Visible &amp; named</h3><p>Pair status with words and a simple symbol. Keep links underlined. Disabled controls use the native disabled attribute and a clear label; never rely on reduced opacity alone.</p></div>
+    <div><h3>Room to operate</h3><p>Standalone controls use a 44 × 44 px house target, beyond WCAG 2.2 AA’s 24 × 24 px minimum and its exceptions. Inline text links remain within the reading flow.</p></div>
+   </div>
+   <pre class="code-sample" aria-label="Semantic token usage example">&lt;section data-theme="light"&gt;
+  &lt;button class="button-primary" type="button"&gt;Preview project&lt;/button&gt;
+&lt;/section&gt;
+
+.button-primary {
+  background: var(--c-action-primary);
+  color: var(--c-action-primary-fg);
+}
+/* Import tokens/cosmik.css, then specimens/components.css. */</pre>
+   <p class="hero-note">Focus: 2 px outline with 2 px offset. Motion: 140 ms state transitions; reduced-motion disables transitions and the loading pulse. In a real product, announce the start and completion of a pending action and restore its previous focus.</p>
+   <p class="hero-note">Typography: Inter 400 body 17/1.55; Inter 600 display 48/1.1 (34/1.15 on small screens), section 30/1.2, card 22/1.3; Inter 500 controls 15/1.4; IBM Plex Mono 400 labels 14/1.5. Only all-caps labels use 0.06em tracking. See the accompanying validation report for tested scope and limitations.</p>
+  </section>
+ </main>
+ <footer class="footer wrap">Cosmik / Proposed system v0.2 / No network requests, forms, or external effects.</footer>
+ <script src="components.js"></script>
+</body></html>

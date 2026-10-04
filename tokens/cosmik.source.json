@@ -1,0 +1,166 @@
+{
+  "name": "Cosmik",
+  "version": "0.2.0",
+  "status": "Proposed system; pending owner approval",
+  "primitives": {
+    "black": "#000000",
+    "paper": "#F6F5F0",
+    "white": "#FFFFFF",
+    "surface-dark": "#121212",
+    "raised-dark": "#1F1F1F",
+    "light-soft": "#E8E7E3",
+    "muted-dark": "#A3A3A3",
+    "muted-light": "#666666",
+    "border-functional": "#767676",
+    "decorative-dark": "#303030"
+  },
+  "semantic": {
+    "dark": {
+      "bg": "black",
+      "surface": "surface-dark",
+      "raised": "raised-dark",
+      "text": "paper",
+      "muted": "muted-dark",
+      "border": "border-functional",
+      "divider": "decorative-dark",
+      "focus": "paper",
+      "link": "paper",
+      "link-hover": "white",
+      "link-active": "paper",
+      "on-selected": "black",
+      "selected": "paper",
+      "action-primary": "paper",
+      "action-primary-hover": "white",
+      "action-primary-active": "light-soft",
+      "action-primary-fg": "black",
+      "action-secondary": "surface-dark",
+      "action-secondary-hover": "raised-dark",
+      "action-secondary-active": "black",
+      "action-secondary-fg": "paper",
+      "input-bg": "black",
+      "input-fg": "paper",
+      "input-placeholder": "muted-dark",
+      "disabled-bg": "raised-dark",
+      "disabled-fg": "muted-dark",
+      "disabled-border": "border-functional",
+      "status-fg": "paper",
+      "status-bg": "raised-dark",
+      "status-border": "border-functional"
+    },
+    "light": {
+      "bg": "paper",
+      "surface": "white",
+      "raised": "light-soft",
+      "text": "black",
+      "muted": "muted-light",
+      "border": "border-functional",
+      "divider": "light-soft",
+      "focus": "black",
+      "link": "black",
+      "link-hover": "surface-dark",
+      "link-active": "raised-dark",
+      "on-selected": "white",
+      "selected": "black",
+      "action-primary": "black",
+      "action-primary-hover": "surface-dark",
+      "action-primary-active": "raised-dark",
+      "action-primary-fg": "white",
+      "action-secondary": "white",
+      "action-secondary-hover": "light-soft",
+      "action-secondary-active": "paper",
+      "action-secondary-fg": "black",
+      "input-bg": "white",
+      "input-fg": "black",
+      "input-placeholder": "muted-light",
+      "disabled-bg": "light-soft",
+      "disabled-fg": "muted-light",
+      "disabled-border": "border-functional",
+      "status-fg": "black",
+      "status-bg": "light-soft",
+      "status-border": "border-functional"
+    }
+  },
+  "space": {
+    "base": "0.25rem",
+    "2": "0.5rem",
+    "4": "1rem",
+    "6": "1.5rem",
+    "8": "2rem",
+    "12": "3rem",
+    "16": "4rem",
+    "24": "6rem"
+  },
+  "layout": {
+    "radius": "0.25rem",
+    "gutter": "1.5rem",
+    "max-content": "70rem",
+    "line": "65ch",
+    "control-min": "2.75rem",
+    "focus-width": "2px",
+    "focus-offset": "2px"
+  },
+  "type": {
+    "body": {
+      "fontFamily": "Inter",
+      "fontWeight": 400,
+      "fontSize": "1.0625rem",
+      "lineHeight": 1.55,
+      "letterSpacing": "0"
+    },
+    "display": {
+      "fontFamily": "Inter",
+      "fontWeight": 600,
+      "fontSize": "3rem",
+      "lineHeight": 1.1,
+      "letterSpacing": "0"
+    },
+    "display-small": {
+      "fontFamily": "Inter",
+      "fontWeight": 600,
+      "fontSize": "2.125rem",
+      "lineHeight": 1.15,
+      "letterSpacing": "0"
+    },
+    "section": {
+      "fontFamily": "Inter",
+      "fontWeight": 600,
+      "fontSize": "1.875rem",
+      "lineHeight": 1.2,
+      "letterSpacing": "0"
+    },
+    "card": {
+      "fontFamily": "Inter",
+      "fontWeight": 600,
+      "fontSize": "1.375rem",
+      "lineHeight": 1.3,
+      "letterSpacing": "0"
+    },
+    "control": {
+      "fontFamily": "Inter",
+      "fontWeight": 500,
+      "fontSize": "0.9375rem",
+      "lineHeight": 1.4,
+      "letterSpacing": "0"
+    },
+    "label": {
+      "fontFamily": "IBM Plex Mono",
+      "fontWeight": 400,
+      "fontSize": "0.875rem",
+      "lineHeight": 1.5,
+      "letterSpacing": "0.06em",
+      "textTransform": "uppercase"
+    },
+    "identity-label": {
+      "fontFamily": "Inter",
+      "fontWeight": 500,
+      "fontSize": "1.25rem",
+      "lineHeight": 1.3,
+      "letterSpacing": "0"
+    }
+  },
+  "motion": {
+    "duration": "140ms",
+    "easing": "ease-out",
+    "reduced-duration": "0ms"
+  }
+}
