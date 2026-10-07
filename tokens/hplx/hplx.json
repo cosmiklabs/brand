@@ -25,8 +25,12 @@
       "family": "Spectral",
       "weights": [600],
       "license": "SIL Open Font License 1.1",
-      "source": "https://fonts.google.com/specimen/Spectral",
-      "bundled": false
+      "license_file": "fonts/licenses/Spectral-OFL.txt",
+      "source": "https://github.com/google/fonts/tree/main/ofl/spectral",
+      "files": {
+        "desktop": "fonts/desktop/Spectral-SemiBold.ttf",
+        "web": "fonts/web/Spectral-SemiBold.woff2"
+      }
     }
   ],
   "description": "Resolved semantic tokens. Use semantic tokens in components; primitives are reference values, not theme roles. All dimensions assume a 16px browser root. All-caps tracking is for labels only.",

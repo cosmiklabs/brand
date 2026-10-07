@@ -2,12 +2,12 @@
 
 Brand kit 0.2.0 · 4 October 2026 · unreleased changes are listed in [CHANGELOG.md](CHANGELOG.md)
 
-Start with the twelve-page PDF in `guides/`. The DOCX is editable.
+Start with the [brand guide](guide/README.md).
 This package turns the visual direction into a practical identity and product-reference system. It is published for reference and implementation trials; it is not a claim that every production asset, legal permission, or accessibility check is complete.
 
 ## Start here
 
-1. Read the [brand guide PDF](guides/Cosmik%20Brand%20Guide%20v0.2.pdf) or open the [editable guide](guides/Cosmik%20Brand%20Guide%20v0.2.docx).
+1. Read the [brand guide](guide/README.md): the rules and judgement behind the identity, in Markdown. The earlier Word/PDF guide (v0.2) is in `guide/archive/`.
 2. Use `assets/vector/cosmik-emblem-master-offwhite.svg` as the accepted standalone emblem master. `cosmik-emblem-ink.svg` reverses the same geometry; `cosmik-emblem-primary.svg` includes the original black canvas. PNG sizes are in `assets/vector/png/`.
 3. Keep the approved original horizontal banner while a faithful outlined wordmark and complete vector lockup are prepared. No supporting font is an identified match for the wordmark. Until then, the **official stand-in** in product UIs is the emblem followed by the live label “Cosmik” in Inter 500 (type role `identity-label`, 20 px / 1.3, tracking 0).
 4. Open `specimens/components.html` locally for the proposed dark/light components. CSS, script, and fonts are local. It has no submission, storage, analytics, or network behavior.
@@ -20,7 +20,7 @@ This package turns the visual direction into a practical identity and product-re
 - **Approved baseline (owner, 2026-10-07):** typography, the semantic dark/light roles, layout and component rules, as generated in `tokens/cosmik/`. The baseline is monochrome: no accent colour, status in words.
 - **Family kits:** product families may have their own style on top of the baseline, under rules the build enforces (`tokens/README.md`). The **HPLX** family (`tokens/hplx/`) is proposed; its values await owner review.
 - Archive: earlier generated light PNGs. They differ geometrically and are not current masters.
-- Incomplete (known gaps, also recorded in `asset-manifest.json`): outlined wordmark/full lockup, optically optimized tiny icon, print-process proofs, browser QA, the HPLX family's Spectral font files, and a guide refresh (the v0.2 guide predates the approved baseline and the family kits).
+- Incomplete (known gaps, also recorded in `asset-manifest.json`): outlined wordmark/full lockup, optically optimized tiny icon, print-process proofs, and browser QA.
 
 Do not redraw, stretch, rotate, crop into the flare, add effects, or recreate the COSMIK wordmark with Inter. The live “Cosmik” interface label is a separate, specified typographic treatment.
 
@@ -33,7 +33,7 @@ Do not redraw, stretch, rotate, crop into the flare, add effects, or recreate th
 - `icons/`: app icons generated from the plate variant (`cosmik.ico`, `cosmik.icns`, 512 px PNG, 180 px apple-touch PNG)
 - `fonts/desktop/`, `fonts/web/`, `fonts/licenses/`: actual supporting typefaces and notices
 - `specimens/`: compact offline component reference in both themes
-- `guides/`: editable guide and reviewed PDF
+- `guide/`: the brand guide in Markdown (rules only; values live in `tokens/`), with the v0.2 Word/PDF guide in `guide/archive/`
 - `templates/`: two-page editable technical-note template, proof PDF, and usage notes
 - `scripts/`: `build.mjs` (regenerate everything) and `check.mjs` (contrast and hashes), and the scripts they run
 - `asset-manifest.json`: entry points, roles, web/desktop font lists, known gaps and SHA-256 for every listed file

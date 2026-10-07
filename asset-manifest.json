@@ -27,16 +27,6 @@
       "id": "browser-qa",
       "status": "open",
       "summary": "Rendered browser, zoom, keyboard and assistive-technology checks remain pending; see references/component-validation.md."
-    },
-    {
-      "id": "spectral-font",
-      "status": "open",
-      "summary": "The HPLX family's heading typeface, Spectral (SIL OFL 1.1), is not bundled yet; consumers load it from its source until its font files and licence notice are added under fonts/."
-    },
-    {
-      "id": "guide-refresh",
-      "status": "open",
-      "summary": "The guide (guides/, v0.2) predates the approved baseline and family kits: it still names the handle cosmik-labs, restates colour values the tokens now own, and has no family-kit page."
     }
   ],
   "entry_points": {
@@ -59,13 +49,15 @@
       "fonts/web/Inter-Regular.woff2",
       "fonts/web/Inter-Medium.woff2",
       "fonts/web/Inter-SemiBold.woff2",
-      "fonts/web/IBMPlexMono-Regular.woff2"
+      "fonts/web/IBMPlexMono-Regular.woff2",
+      "fonts/web/Spectral-SemiBold.woff2"
     ],
     "desktop_fonts": [
       "fonts/desktop/IBMPlexMono-Regular.ttf",
       "fonts/desktop/Inter-Medium.ttf",
       "fonts/desktop/Inter-Regular.ttf",
-      "fonts/desktop/Inter-SemiBold.ttf"
+      "fonts/desktop/Inter-SemiBold.ttf",
+      "fonts/desktop/Spectral-SemiBold.ttf"
     ],
     "app_icon_windows": "icons/cosmik.ico",
     "app_icon_macos": "icons/cosmik.icns",
@@ -835,7 +827,7 @@
         "format": "source"
       },
       "status": "HPLX family source, proposed",
-      "sha256": "27279023974ee5a807a4a8ce74bc99005df3cc4a1a09e9e1964d3159f174d5fe",
+      "sha256": "10e7cf87cd0e8949411d64bf2d53d460ad1e5263d5bb933973978109ea8b4f05",
       "editable": true
     },
     {
@@ -857,7 +849,7 @@
         "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "2952750f0f8b6a78af44afa08ddff21adad5547d05e793d2c7c8588adc1d7ef9"
+      "sha256": "e2469be23ae8977b251d10c087d52b7f683f616979521956b4336c763a4e8dfd"
     },
     {
       "path": "tokens/hplx/hplx.tokens.json",
@@ -933,6 +925,18 @@
       "license": "SIL Open Font License 1.1",
       "license_file": "fonts/licenses/IBM-Plex-OFL.txt",
       "sha256": "7c6fbddca4b700be918f5f6183d9bd4464fa427fe435f0b480d77fe2bb8c5a43"
+    },
+    {
+      "path": "fonts/web/Spectral-SemiBold.woff2",
+      "family": "Spectral",
+      "weight": 600,
+      "style": "normal",
+      "format": "woff2",
+      "kit": "hplx",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "fonts/licenses/Spectral-OFL.txt",
+      "generated_by": "scripts/build-web-fonts.mjs",
+      "sha256": "6cd6a939159630d0ac1a532f6091df645dcd2025cfe94a1374c529b894a8b058"
     }
   ],
   "desktop_fonts": [
@@ -979,6 +983,19 @@
       "license": "SIL Open Font License 1.1",
       "license_file": "fonts/licenses/Inter-OFL.txt",
       "sha256": "78a843fade9d4612a5567302fb595b56976eb5fcebf4fea5a5912d638bafcde3"
+    },
+    {
+      "path": "fonts/desktop/Spectral-SemiBold.ttf",
+      "family": "Spectral",
+      "weight": 600,
+      "style": "normal",
+      "format": "truetype",
+      "kit": "hplx",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/spectral/Spectral-SemiBold.ttf",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "fonts/licenses/Spectral-OFL.txt",
+      "sha256": "5f86915a744832ecf6e4a17ab04bea091b9fa992ef5164ff65ae34c1da2fe94b",
+      "editable": true
     }
   ]
 }

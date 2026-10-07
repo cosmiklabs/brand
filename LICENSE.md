@@ -42,7 +42,7 @@ A permissive licence on the token values lets any project, including a fork, reu
 
 ## 2. Brand marks: trademark-style policy
 
-Covers the **Cosmik marks**: the emblem (every file in `assets/`, the app icons in `icons/`, and any render of them), the COSMIK wordmark and banner, the name "Cosmik" used as the name of a product, project or organisation, and the brand guide and document template in `guides/` and `templates/`.
+Covers the **Cosmik marks**: the emblem (every file in `assets/`, the app icons in `icons/`, and any render of them), the COSMIK wordmark and banner, the name "Cosmik" used as the name of a product, project or organisation, and the brand guide and document template in `guide/` and `templates/`.
 
 These files are **not** licensed under section 1 or under the licence of any project that ships them. The owner of Cosmik Labs keeps all rights in them, subject to the permissions below.
 
@@ -64,6 +64,7 @@ The typefaces in `fonts/` are not Cosmik Labs' work and stay under their own lic
 
 - Inter: `fonts/licenses/Inter-OFL.txt`
 - IBM Plex Mono: `fonts/licenses/IBM-Plex-OFL.txt` (Reserved Font Name "Plex")
+- Spectral (the HPLX family's headings): `fonts/licenses/Spectral-OFL.txt`
 
 Preserve these notices whenever font files are redistributed. `fonts/web/IBMPlexMono-Regular.woff2` is a lossless WOFF2 wrapper of the bundled TTF (every table byte-identical; see `fonts/build-web-fonts.mjs`), made so the web specimen does not need the TTF. Using the fonts here implies no endorsement by their authors.
 
