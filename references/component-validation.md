@@ -1,10 +1,10 @@
-# Cosmik v0.2 · component validation
+# Cosmik 0.2.0 · component validation
 
 **Status: proposed component system.** Contrast and source-integrity checks completed on 4 October 2026. Browser rendering and interactive QA could not be completed in this environment. This report is not an accessibility-conformance claim or production certification.
 
 ## What changed
 
-The earlier light treatment could inherit `surface: #121212` while changing its text to black, a pairing of approximately **1.121:1**. The v0.2 source separates primitive values from semantic roles. Both dark and light now explicitly map the same **30 color roles**, including every surface, text, input, action, disabled, selected, focus, and status role. Paper is **#F6F5F0**, matching the accepted symbol’s off-white.
+The earlier light treatment could inherit `surface: #121212` while changing its text to black, a pairing of approximately **1.121:1**. The 0.2.0 source separates primitive values from semantic roles. Both dark and light now explicitly map the same **30 color roles**, including every surface, text, input, action, disabled, selected, focus, and status role. Paper is **#F6F5F0**, matching the accepted symbol’s off-white.
 
 `tokens/cosmik.source.json` is authoritative. `tokens/generate-tokens.mjs` generates both `cosmik.css` and the resolved `cosmik.json`. Regenerating produced byte-identical outputs. Consumers should use semantic variables, not primitive colors directly.
 

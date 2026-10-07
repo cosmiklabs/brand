@@ -1,13 +1,65 @@
 {
   "name": "Cosmik brand kit",
-  "version": "0.2",
+  "version": "0.2.0",
   "date": "2026-10-04",
   "system_status": "review draft",
   "emblem_status": "accepted traced symbol",
   "wordmark_status": "approved raster only; outlined master not supplied",
+  "interim_identity": "Official stand-in until an outlined wordmark exists: the emblem followed by the live label “Cosmik” in Inter 500 (type role identity-label, 20 px / 1.3, tracking 0). The label is a typographic treatment, not a wordmark; never set COSMIK in capitals with Inter to imitate the wordmark.",
+  "license": "LICENSE.md — Proposed, needs owner approval",
+  "known_gaps": [
+    {
+      "id": "wordmark-lockup",
+      "status": "open",
+      "summary": "No outlined COSMIK wordmark or vector horizontal lockup. Only the approved raster banner exists. Use the interim_identity stand-in."
+    },
+    {
+      "id": "optical-small-icon",
+      "status": "open",
+      "summary": "No optically redrawn small-size emblem. The 16–64 px renders and the icons/ files are faithful reductions of the master geometry; the fine cut and isolated point lose definition at favicon sizes."
+    },
+    {
+      "id": "print-proofs",
+      "status": "open",
+      "summary": "No print-process proofs."
+    },
+    {
+      "id": "browser-qa",
+      "status": "open",
+      "summary": "Rendered browser, zoom, keyboard and assistive-technology checks remain pending; see references/component-validation.md."
+    }
+  ],
+  "entry_points": {
+    "tokens_css": "tokens/cosmik.css",
+    "tokens_json": "tokens/cosmik.json",
+    "tokens_dtcg": "tokens/cosmik.tokens.json",
+    "tokens_rust": "tokens/cosmik_tokens.rs",
+    "tokens_source": "tokens/cosmik.source.json",
+    "emblem_master": "assets/vector/cosmik-emblem-master-offwhite.svg",
+    "web_fonts": [
+      "fonts/web/Inter-Regular.woff2",
+      "fonts/web/Inter-Medium.woff2",
+      "fonts/web/Inter-SemiBold.woff2",
+      "fonts/web/IBMPlexMono-Regular.woff2"
+    ],
+    "desktop_fonts": [
+      "fonts/desktop/IBMPlexMono-Regular.ttf",
+      "fonts/desktop/Inter-Medium.ttf",
+      "fonts/desktop/Inter-Regular.ttf",
+      "fonts/desktop/Inter-SemiBold.ttf"
+    ],
+    "app_icon_windows": "icons/cosmik.ico",
+    "app_icon_macos": "icons/cosmik.icns",
+    "app_icon_png": "icons/cosmik-512.png",
+    "apple_touch_icon": "icons/cosmik-apple-touch-180.png"
+  },
   "assets": [
     {
       "path": "assets/approved-raster/cosmik-mark-original.png",
+      "role": {
+        "kind": "approved-original",
+        "variant": "mark"
+      },
       "source_filename": "Minimalist Crescent Eclipse Emblem(1).png",
       "status": "approved original raster",
       "dimensions_px": [
@@ -19,6 +71,10 @@
     },
     {
       "path": "assets/approved-raster/cosmik-banner-original.png",
+      "role": {
+        "kind": "approved-original",
+        "variant": "banner"
+      },
       "source_filename": "Cosmik GitHub Banner.png",
       "status": "approved original raster",
       "dimensions_px": [
@@ -30,6 +86,10 @@
     },
     {
       "path": "assets/archive/cosmik-mark-light-generated.png",
+      "role": {
+        "kind": "archive",
+        "variant": "mark-light"
+      },
       "source_filename": "Cosmik Profile Picture - Inverted.png",
       "status": "archived separately generated light alternative",
       "dimensions_px": [
@@ -41,6 +101,10 @@
     },
     {
       "path": "assets/archive/cosmik-banner-light-generated.png",
+      "role": {
+        "kind": "archive",
+        "variant": "banner-light"
+      },
       "source_filename": "Cosmik Banner - Inverted.png",
       "status": "archived separately generated light alternative",
       "dimensions_px": [
@@ -52,6 +116,14 @@
     },
     {
       "path": "assets/vector/cosmik-emblem-ink.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "ink",
+        "fill": "#000000",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 1254
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "930e876336a835e45ad6d97a42f92852519007b4d7ce39d709ea3f4cb0828cd9",
       "dimensions_px": [
@@ -61,10 +133,17 @@
     },
     {
       "path": "assets/vector/cosmik-emblem-ink.svg",
+      "role": {
+        "kind": "emblem",
+        "variant": "ink",
+        "fill": "#000000",
+        "background": "transparent",
+        "format": "svg"
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "a2272ccd39cffe1aa9f052e876ee7707f6493ca2632738c07e3d34f1b1f42973",
       "viewBox": "0 0 1254 1254",
-      "visible_bounds": [
+      "visible_bounds_xywh": [
         133.5,
         222.009,
         944.5,
@@ -74,6 +153,14 @@
     },
     {
       "path": "assets/vector/cosmik-emblem-master-offwhite.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "master-offwhite",
+        "fill": "#F6F5F0",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 1254
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "eb9dccc89057deaab947a657c012f7d1f4400f2a49e968b5ad18b87e649baa14",
       "dimensions_px": [
@@ -83,10 +170,18 @@
     },
     {
       "path": "assets/vector/cosmik-emblem-master-offwhite.svg",
+      "role": {
+        "kind": "emblem",
+        "variant": "master-offwhite",
+        "fill": "#F6F5F0",
+        "background": "transparent",
+        "format": "svg",
+        "master": true
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "01b6525b9f05cee1ddb9d9fc30c3cc590b0bfc35a864b114d389e8d314013a45",
       "viewBox": "0 0 1254 1254",
-      "visible_bounds": [
+      "visible_bounds_xywh": [
         133.5,
         222.009,
         944.5,
@@ -96,6 +191,14 @@
     },
     {
       "path": "assets/vector/cosmik-emblem-primary.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "primary",
+        "fill": "#F6F5F0",
+        "background": "black plate",
+        "format": "png",
+        "size_px": 1254
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "ab4e006ff59118d5c3baf036e353315ee4c757437b5d1500a2b6cccb3e04bced",
       "dimensions_px": [
@@ -105,10 +208,17 @@
     },
     {
       "path": "assets/vector/cosmik-emblem-primary.svg",
+      "role": {
+        "kind": "emblem",
+        "variant": "primary",
+        "fill": "#F6F5F0",
+        "background": "black plate",
+        "format": "svg"
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "2ae3a1c47ba4a41f756df4bf631a71b9756bc8d40d006ae0208b151d63921bc5",
       "viewBox": "0 0 1254 1254",
-      "visible_bounds": [
+      "visible_bounds_xywh": [
         133.5,
         222.009,
         944.5,
@@ -118,6 +228,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-ink-1024.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "ink",
+        "fill": "#000000",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 1024
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "cb73f4fc4e75ba6639ce1a5ecce2b4d09e327f127746629f1590620484ec6f60",
       "dimensions_px": [
@@ -127,6 +245,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-ink-128.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "ink",
+        "fill": "#000000",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 128
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "f9cc0a582573f068b4b5a829f49d4f84527a6af712a64913d9d57c542d35a22d",
       "dimensions_px": [
@@ -136,6 +262,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-ink-16.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "ink",
+        "fill": "#000000",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 16
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "82a020c6317794efd5ec307910fba9b621b3edcd54f65c9db1c5dcd7dabb35d5",
       "dimensions_px": [
@@ -145,6 +279,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-ink-24.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "ink",
+        "fill": "#000000",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 24
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "794de9ea7528ee704041f03bb9d21c39952a5796e72328b74fd3a627db80d12b",
       "dimensions_px": [
@@ -154,6 +296,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-ink-256.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "ink",
+        "fill": "#000000",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 256
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "9d5b6dfe726f6f70ce23f856ce2f658af01bbe34715e06c2d270426cd80725b3",
       "dimensions_px": [
@@ -163,6 +313,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-ink-32.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "ink",
+        "fill": "#000000",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 32
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "1be9e4a3b6d3bdfc913004e84053960b293d591ff445dfab8273c4b42b5e1b4a",
       "dimensions_px": [
@@ -172,6 +330,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-ink-48.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "ink",
+        "fill": "#000000",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 48
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "8a6634275c4486ddf4aed42001a4555fb0acea5f2251e4bc25ab8791443b599e",
       "dimensions_px": [
@@ -181,6 +347,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-ink-64.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "ink",
+        "fill": "#000000",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 64
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "34191baf08fc552ee7941f3057a5c9bab432312197748dc3a127fed5bafe673c",
       "dimensions_px": [
@@ -190,6 +364,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-ink-96.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "ink",
+        "fill": "#000000",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 96
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "39050672d1e03c381c1e372f94494913ae7b729c081c3d7caa5d5ec06dd0cc09",
       "dimensions_px": [
@@ -199,6 +381,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-master-offwhite-1024.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "master-offwhite",
+        "fill": "#F6F5F0",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 1024
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "ee4412d1944e48d449c330134708f45f65b256d6ece3b12b44f2f8f734bd79d0",
       "dimensions_px": [
@@ -208,6 +398,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-master-offwhite-128.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "master-offwhite",
+        "fill": "#F6F5F0",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 128
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "f07ef3651c1cd88aef5dec3515016c8a2e186fe3adb26594494eb66102800b04",
       "dimensions_px": [
@@ -217,6 +415,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-master-offwhite-16.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "master-offwhite",
+        "fill": "#F6F5F0",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 16
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "67af5807537a314f4d235603535f84c02ce8a84c4e78118c794705face67197c",
       "dimensions_px": [
@@ -226,6 +432,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-master-offwhite-24.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "master-offwhite",
+        "fill": "#F6F5F0",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 24
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "f436949c1b801d37bfc2ec238e87b5f4437a74f231c777a7b3b67b8db94bc36b",
       "dimensions_px": [
@@ -235,6 +449,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-master-offwhite-256.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "master-offwhite",
+        "fill": "#F6F5F0",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 256
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "9284472d66197f12885fd946d1202e9abf9658f979a79363730c85e1a0ac04e3",
       "dimensions_px": [
@@ -244,6 +466,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-master-offwhite-32.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "master-offwhite",
+        "fill": "#F6F5F0",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 32
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "c067ddbaee51a26e974e0d42087658382e0bc5f9726ad16b8ba971401bb36a7c",
       "dimensions_px": [
@@ -253,6 +483,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-master-offwhite-48.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "master-offwhite",
+        "fill": "#F6F5F0",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 48
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "c7265faa93b38df383156d0eba3c586fc1e44b109297e35dff4dc279f328c504",
       "dimensions_px": [
@@ -262,6 +500,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-master-offwhite-64.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "master-offwhite",
+        "fill": "#F6F5F0",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 64
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "7663fa6462e69ccb42ccbf7630e3b6f85ff2190dda67140d18a40fd4f9bc2347",
       "dimensions_px": [
@@ -271,6 +517,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-master-offwhite-96.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "master-offwhite",
+        "fill": "#F6F5F0",
+        "background": "transparent",
+        "format": "png",
+        "size_px": 96
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "1db38727397e84f204c3a61c53104a9334d5da8d6b480a1169d8953124815c45",
       "dimensions_px": [
@@ -280,6 +534,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-primary-1024.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "primary",
+        "fill": "#F6F5F0",
+        "background": "black plate",
+        "format": "png",
+        "size_px": 1024
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "eb7e0808252cafed0cde4a2d4f0519b0a54a40249949f39045bf02d161b34c7b",
       "dimensions_px": [
@@ -289,6 +551,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-primary-128.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "primary",
+        "fill": "#F6F5F0",
+        "background": "black plate",
+        "format": "png",
+        "size_px": 128
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "209a7241beb2d3a2295ebeb29ef11ddddbd24c48cd43a18e5bf5d1465ae0d8dd",
       "dimensions_px": [
@@ -298,6 +568,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-primary-16.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "primary",
+        "fill": "#F6F5F0",
+        "background": "black plate",
+        "format": "png",
+        "size_px": 16
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "11a5a5d962dc69ba8b367c9c8811dda05e0877904e13301d363b69df9d08d85e",
       "dimensions_px": [
@@ -307,6 +585,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-primary-24.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "primary",
+        "fill": "#F6F5F0",
+        "background": "black plate",
+        "format": "png",
+        "size_px": 24
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "19d7aef57158f222d23c4bb916c522374fd6baffa2794881ff70e9ac4ac5acc1",
       "dimensions_px": [
@@ -316,6 +602,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-primary-256.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "primary",
+        "fill": "#F6F5F0",
+        "background": "black plate",
+        "format": "png",
+        "size_px": 256
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "749d8b8046c8c6622a645797722bcb8b37b9ffa4aa6ad7e0af67608904276a9d",
       "dimensions_px": [
@@ -325,6 +619,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-primary-32.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "primary",
+        "fill": "#F6F5F0",
+        "background": "black plate",
+        "format": "png",
+        "size_px": 32
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "994749713411159ba8c2201ed6299d4e79b7b6152d353662764bb9c378fe83df",
       "dimensions_px": [
@@ -334,6 +636,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-primary-48.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "primary",
+        "fill": "#F6F5F0",
+        "background": "black plate",
+        "format": "png",
+        "size_px": 48
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "1401652d7ba861b092c5f39c577522c5f4995d6e99d034536eb0a97ed6669091",
       "dimensions_px": [
@@ -343,6 +653,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-primary-64.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "primary",
+        "fill": "#F6F5F0",
+        "background": "black plate",
+        "format": "png",
+        "size_px": 64
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "ceec481f31c371896bcb5bb6a48839308b62f887563dc419bc36033f2feaaa19",
       "dimensions_px": [
@@ -352,6 +670,14 @@
     },
     {
       "path": "assets/vector/png/cosmik-emblem-primary-96.png",
+      "role": {
+        "kind": "emblem",
+        "variant": "primary",
+        "fill": "#F6F5F0",
+        "background": "black plate",
+        "format": "png",
+        "size_px": 96
+      },
       "status": "accepted traced emblem geometry; exports derived from same master",
       "sha256": "bf5f9c6f22063a66047fa6b0608c97e7da4207be2e6358b118abc4cc08c974f2",
       "dimensions_px": [
@@ -360,29 +686,222 @@
       ]
     }
   ],
+  "app_icons": [
+    {
+      "path": "icons/cosmik.ico",
+      "role": {
+        "kind": "app-icon",
+        "variant": "primary",
+        "format": "ico",
+        "sizes_px": [
+          16,
+          24,
+          32,
+          48,
+          64,
+          256
+        ]
+      },
+      "generated_by": "icons/build-icons.mjs",
+      "sha256": "ff71098b9f73f51666501d2ae0c420259d953ccc8df819682d048843fcda26d4"
+    },
+    {
+      "path": "icons/cosmik.icns",
+      "role": {
+        "kind": "app-icon",
+        "variant": "primary",
+        "format": "icns",
+        "sizes_px": [
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+          1024
+        ]
+      },
+      "generated_by": "icons/build-icons.mjs",
+      "sha256": "44f7cb09a374a7c68d1a52d229af806765fa3ebb99a56b9a71844fb7795a3ae2"
+    },
+    {
+      "path": "icons/cosmik-512.png",
+      "role": {
+        "kind": "app-icon",
+        "variant": "primary",
+        "format": "png",
+        "size_px": 512
+      },
+      "dimensions_px": [
+        512,
+        512
+      ],
+      "generated_by": "icons/build-icons.mjs",
+      "sha256": "bc2e808cbf5ba5c7af3ebf281314bbaefa39c182bc9f197ee1d92f8d9dbc8ffd"
+    },
+    {
+      "path": "icons/cosmik-apple-touch-180.png",
+      "role": {
+        "kind": "apple-touch-icon",
+        "variant": "primary",
+        "format": "png",
+        "size_px": 180
+      },
+      "dimensions_px": [
+        180,
+        180
+      ],
+      "generated_by": "icons/build-icons.mjs",
+      "sha256": "6681280562abcb9c5dfe373f40ecec2e56c6abedcfc84484716212821f1bddc3"
+    }
+  ],
+  "tokens": [
+    {
+      "path": "tokens/cosmik.source.json",
+      "role": {
+        "kind": "tokens",
+        "format": "source"
+      },
+      "status": "single editable source",
+      "sha256": "edb16d73df4623e0bfab0ee4bddefca08353bf10f597f141b74a40535a2100fb",
+      "editable": true
+    },
+    {
+      "path": "tokens/cosmik.css",
+      "role": {
+        "kind": "tokens",
+        "format": "css"
+      },
+      "generated_by": "tokens/generate-tokens.mjs",
+      "sha256": "2b5f33d742391f8961347d89ff749ef5342a1f22486fb17e00597c01c53b68ba"
+    },
+    {
+      "path": "tokens/cosmik.json",
+      "role": {
+        "kind": "tokens",
+        "format": "json",
+        "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
+      },
+      "generated_by": "tokens/generate-tokens.mjs",
+      "sha256": "f56a9c9eb279505fa5bab120d7731485cb303d97796003628b6304d9969c43c1"
+    },
+    {
+      "path": "tokens/cosmik.tokens.json",
+      "role": {
+        "kind": "tokens",
+        "format": "dtcg"
+      },
+      "generated_by": "tokens/generate-tokens.mjs",
+      "sha256": "294c80ce11284e799ebf738ee15f8e0aff8fecc330296ac697c0f24254056eb5"
+    },
+    {
+      "path": "tokens/cosmik_tokens.rs",
+      "role": {
+        "kind": "tokens",
+        "format": "rust"
+      },
+      "generated_by": "tokens/generate-tokens.mjs",
+      "sha256": "d330b516b4375147dcf0cdba8def58a61859d3ad620f08c9508a98e5bc156e44"
+    }
+  ],
+  "web_fonts": [
+    {
+      "path": "fonts/web/Inter-Regular.woff2",
+      "family": "Inter",
+      "weight": 400,
+      "style": "normal",
+      "format": "woff2",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "fonts/licenses/Inter-OFL.txt",
+      "sha256": "e06f6b1bc553aaea4e4668023ed0ab0a147129c3107f511bc7d03d361b0ae085"
+    },
+    {
+      "path": "fonts/web/Inter-Medium.woff2",
+      "family": "Inter",
+      "weight": 500,
+      "style": "normal",
+      "format": "woff2",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "fonts/licenses/Inter-OFL.txt",
+      "sha256": "0ff3e94614e1493eb556314fd247ae6c4a85a7783b4cc86be539940cf83f2a48"
+    },
+    {
+      "path": "fonts/web/Inter-SemiBold.woff2",
+      "family": "Inter",
+      "weight": 600,
+      "style": "normal",
+      "format": "woff2",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "fonts/licenses/Inter-OFL.txt",
+      "sha256": "5cb7103e4e605989afebc03d989c79201e54b21b5183db33981f70db9178a301"
+    },
+    {
+      "path": "fonts/web/IBMPlexMono-Regular.woff2",
+      "family": "IBM Plex Mono",
+      "weight": 400,
+      "style": "normal",
+      "format": "woff2",
+      "generated_by": "fonts/build-web-fonts.mjs",
+      "derived_from": "fonts/web/IBMPlexMono-Regular.ttf",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "fonts/licenses/IBM-Plex-OFL.txt",
+      "sha256": "7eb6057e1f34f8e2d90466e25d18b21c23a9c4b1837e6c668490cc007e8aa809"
+    },
+    {
+      "path": "fonts/web/IBMPlexMono-Regular.ttf",
+      "family": "IBM Plex Mono",
+      "weight": 400,
+      "style": "normal",
+      "format": "truetype",
+      "note": "Fallback for the WOFF2 file; byte-identical to the desktop file.",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "fonts/licenses/IBM-Plex-OFL.txt",
+      "sha256": "7c6fbddca4b700be918f5f6183d9bd4464fa427fe435f0b480d77fe2bb8c5a43"
+    }
+  ],
   "desktop_fonts": [
     {
       "path": "fonts/desktop/IBMPlexMono-Regular.ttf",
+      "family": "IBM Plex Mono",
+      "weight": 400,
+      "style": "normal",
+      "format": "truetype",
       "embedded_version": "Version 2.005",
       "license": "SIL Open Font License 1.1",
+      "license_file": "fonts/licenses/IBM-Plex-OFL.txt",
       "sha256": "7c6fbddca4b700be918f5f6183d9bd4464fa427fe435f0b480d77fe2bb8c5a43"
     },
     {
       "path": "fonts/desktop/Inter-Medium.ttf",
+      "family": "Inter",
+      "weight": 500,
+      "style": "normal",
+      "format": "truetype",
       "embedded_version": "Version 4.001;git-9221beed3",
       "license": "SIL Open Font License 1.1",
+      "license_file": "fonts/licenses/Inter-OFL.txt",
       "sha256": "97ad806f526e41546d46365bb3a393145f75b7b1568913db74549ad8b8dba872"
     },
     {
       "path": "fonts/desktop/Inter-Regular.ttf",
+      "family": "Inter",
+      "weight": 400,
+      "style": "normal",
+      "format": "truetype",
       "embedded_version": "Version 4.001;git-9221beed3",
       "license": "SIL Open Font License 1.1",
+      "license_file": "fonts/licenses/Inter-OFL.txt",
       "sha256": "40d692fce188e4471e2b3cba937be967878f631ad3ebbbdcd587687c7ebe0c82"
     },
     {
       "path": "fonts/desktop/Inter-SemiBold.ttf",
+      "family": "Inter",
+      "weight": 600,
+      "style": "normal",
+      "format": "truetype",
       "embedded_version": "Version 4.001;git-9221beed3",
       "license": "SIL Open Font License 1.1",
+      "license_file": "fonts/licenses/Inter-OFL.txt",
       "sha256": "78a843fade9d4612a5567302fb595b56976eb5fcebf4fea5a5912d638bafcde3"
     }
   ]

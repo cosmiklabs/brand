@@ -1,0 +1,23 @@
+# Text files are stored and checked out with LF on every platform, so that
+# asset-manifest.json hashes and generated token output match byte for byte.
+* text=auto eol=lf
+*.svg text eol=lf
+*.css text eol=lf
+*.json text eol=lf
+*.mjs text eol=lf
+*.js text eol=lf
+*.html text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.rs text eol=lf
+
+# Upstream licence notices keep their original bytes.
+fonts/licenses/** -text
+
+*.png binary
+*.ico binary
+*.icns binary
+*.ttf binary
+*.woff2 binary
+*.pdf binary
+*.docx binary

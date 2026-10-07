@@ -33,7 +33,7 @@ The page is US Letter portrait with 0.78-inch margins and a 6.94-inch content wi
 
 ## Identity status
 
-The 16 mm square emblem is the supplied approved raster, embedded without cropping, recoloring, redrawing, or changing its original canvas. Preserve its proportions and black plate. The adjacent editable “Cosmik” text uses Inter Medium as a document label; it is not a replacement for the approved wordmark. The typography and document system are part of the proposed v0.2 kit.
+The 16 mm square emblem is the supplied approved raster, embedded without cropping, recoloring, redrawing, or changing its original canvas. Preserve its proportions and black plate. The adjacent editable “Cosmik” text uses Inter Medium as a document label; it is not a replacement for the approved wordmark. The typography and document system are part of the proposed 0.2.0 kit.
 
 ## Verification
 
