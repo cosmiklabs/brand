@@ -10,7 +10,7 @@ This package turns the visual direction into a practical identity and product-re
 1. Read the [brand guide](guide/README.md): the rules and judgement behind the identity, in Markdown. The earlier Word/PDF guide (v0.2) is in `guide/archive/`.
 2. Use `assets/vector/cosmik-emblem-master-offwhite.svg` as the accepted standalone emblem master. `cosmik-emblem-ink.svg` reverses the same geometry; `cosmik-emblem-primary.svg` includes the original black canvas. PNG sizes are in `assets/vector/png/`.
 3. Keep the approved original horizontal banner while a faithful outlined wordmark and complete vector lockup are prepared. No supporting font is an identified match for the wordmark. Until then, the **official stand-in** in product UIs is the emblem followed by the live label “Cosmik” in Inter 500 (type role `identity-label`, 20 px / 1.3, tracking 0).
-4. Open `specimens/components.html` locally for the proposed dark/light components. CSS, script, and fonts are local. It has no submission, storage, analytics, or network behavior.
+4. Open `specimens/components.html` locally for the approved baseline's dark/light component examples (browser QA remains pending). CSS, script, and fonts are local. It has no submission, storage, analytics, or network behavior.
 5. Copy `templates/cosmik-technical-note-template.docx` for a new document. Install the bundled desktop fonts first, replace bracketed content, and review the PDF export.
 
 ## Status and source of truth
@@ -59,7 +59,7 @@ Pending: actual browser rendering, width/zoom/reflow, keyboard and assistive-tec
 
 ## Fonts and rights
 
-Inter desktop files come from the official Inter 4.1 release; internal font version is 4.001. IBM Plex Mono Regular has internal version 2.005. Both are provided under SIL OFL 1.1; preserve the included notices when distributing font files. No typeface match or external rights clearance for the original wordmark is asserted.
+Inter desktop files come from the official Inter 4.1 release; internal font version is 4.001. IBM Plex Mono Regular has internal version 2.005. Spectral SemiBold is also bundled for the proposed HPLX family headings. All three families are provided under SIL OFL 1.1; preserve the included notices when distributing font files. No typeface match or external rights clearance for the original wordmark is asserted.
 
 - Inter: https://rsms.me/inter/download/
 - Plex: https://github.com/IBM/plex/tree/master/packages/plex-mono
@@ -68,7 +68,7 @@ Inter desktop files come from the official Inter 4.1 release; internal font vers
 
 ## Consuming the kit
 
-Pin an exact version; never track `main`. The kit is versioned with semver (`version` in `asset-manifest.json` and `tokens/cosmik/source.json`); a release will be a git tag `vX.Y.Z`.
+Pin an exact version; never track `main`. The kit is versioned with semver (`version` in `asset-manifest.json` and `tokens/cosmik/source.json`); a release will be a git tag `vX.Y.Z`. No release tags exist yet; until one does, pin an exact commit and record that it includes unreleased changes.
 
 - **Tagged release archive** (recommended for the website and design tools): download the archive for a tag and vendor the files you use (`entry_points` in `asset-manifest.json` names them). Check them with the listed SHA-256 hashes.
 - **Git submodule** at a tagged commit (`git submodule add https://github.com/cosmiklabs/brand vendor/brand`, then check out the tag): best when a build reads files from the kit directly. Update by moving the submodule to a newer tag.
@@ -85,4 +85,4 @@ Whichever you use, consume only generated outputs and listed assets, and keep th
 
 ## Publishing
 
-This repository is the home of the Cosmik brand kit (0.2.0). The approved source documents and assets are preserved in their original package layout. The organization profile remains in the separate `.github` repository.
+This repository is the home of the Cosmik brand kit (0.2.0). The current Markdown guide and per-kit token folders supersede the original package layout; earlier guide documents remain in `guide/archive/` as historical references. The organization profile remains in the separate `.github` repository.
