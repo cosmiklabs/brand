@@ -1,11 +1,8 @@
 {
   "name": "Cosmik",
   "version": "0.2.0",
-  "status": "Proposed system; pending owner approval",
-  "proposals": [
-    "Proposed — needs owner approval: status colours (red, amber, green and blue primitives; status-{error,warning,success,info}-{fg,bg,border} roles).",
-    "Proposed — needs owner approval: light-theme counterparts for the website's dark-only greys (divider-strong, ornament, ornament-faint, ornament-text, media-placeholder), scrim and shadow alpha values, the radius scale and elevation levels."
-  ],
+  "status": "Approved baseline (owner, 2026-10-07)",
+  "proposals": [],
   "primitives": {
     "black": "#000000",
     "paper": "#F6F5F0",
@@ -24,33 +21,7 @@
     "rule-light": "#C6C5C0",
     "paper-shade": "#EFEEE9",
     "scrim-dark": "#000000B8",
-    "scrim-light": "#0000007A",
-    "shadow-dark": "#00000099",
-    "shadow-light": "#00000029",
-    "red-50": "#FAEDEB",
-    "red-200": "#F2B8B5",
-    "red-400": "#D0605A",
-    "red-600": "#B3362F",
-    "red-800": "#8A1F1A",
-    "red-950": "#2B1615",
-    "amber-50": "#FAF1DE",
-    "amber-200": "#EDCB8C",
-    "amber-400": "#B08A3E",
-    "amber-600": "#94690F",
-    "amber-800": "#6A4A05",
-    "amber-950": "#2A2112",
-    "green-50": "#E9F3EB",
-    "green-200": "#A9D3B1",
-    "green-400": "#4F9A63",
-    "green-600": "#2F7D46",
-    "green-800": "#1D5530",
-    "green-950": "#13241A",
-    "blue-50": "#EAF0F8",
-    "blue-200": "#B5C7E6",
-    "blue-400": "#6688C0",
-    "blue-600": "#3B66AB",
-    "blue-800": "#1F3F73",
-    "blue-950": "#151D2B"
+    "scrim-light": "#0000007A"
   },
   "semantic": {
     "dark": {
@@ -89,20 +60,7 @@
       "ornament-faint": "ornament-dark-faint",
       "ornament-text": "graphite",
       "media-placeholder": "media-dark",
-      "scrim": "scrim-dark",
-      "shadow": "shadow-dark",
-      "status-error-fg": "red-200",
-      "status-error-bg": "red-950",
-      "status-error-border": "red-400",
-      "status-warning-fg": "amber-200",
-      "status-warning-bg": "amber-950",
-      "status-warning-border": "amber-400",
-      "status-success-fg": "green-200",
-      "status-success-bg": "green-950",
-      "status-success-border": "green-400",
-      "status-info-fg": "blue-200",
-      "status-info-bg": "blue-950",
-      "status-info-border": "blue-400"
+      "scrim": "scrim-dark"
     },
     "light": {
       "bg": "paper",
@@ -140,20 +98,7 @@
       "ornament-faint": "paper-shade",
       "ornament-text": "rule-light",
       "media-placeholder": "light-soft",
-      "scrim": "scrim-light",
-      "shadow": "shadow-light",
-      "status-error-fg": "red-800",
-      "status-error-bg": "red-50",
-      "status-error-border": "red-600",
-      "status-warning-fg": "amber-800",
-      "status-warning-bg": "amber-50",
-      "status-warning-border": "amber-600",
-      "status-success-fg": "green-800",
-      "status-success-bg": "green-50",
-      "status-success-border": "green-600",
-      "status-info-fg": "blue-800",
-      "status-info-bg": "blue-50",
-      "status-info-border": "blue-600"
+      "scrim": "scrim-light"
     }
   },
   "space": {
@@ -175,32 +120,7 @@
     "compact": "720px",
     "narrow": "380px"
   },
-  "elevation": {
-    "1": {
-      "surface": "raised",
-      "offsetX": "0px",
-      "offsetY": "1px",
-      "blur": "2px",
-      "spread": "0px",
-      "color": "shadow"
-    },
-    "2": {
-      "surface": "raised",
-      "offsetX": "0px",
-      "offsetY": "4px",
-      "blur": "12px",
-      "spread": "0px",
-      "color": "shadow"
-    },
-    "3": {
-      "surface": "raised",
-      "offsetX": "0px",
-      "offsetY": "12px",
-      "blur": "32px",
-      "spread": "0px",
-      "color": "shadow"
-    }
-  },
+  "elevation": {},
   "layout": {
     "radius": "0.25rem",
     "gutter": "1.5rem",

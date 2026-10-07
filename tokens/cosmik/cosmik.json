@@ -1,7 +1,7 @@
 {
   "name": "Cosmik",
   "version": "0.2.0",
-  "status": "Proposed system; pending owner approval",
+  "status": "Approved baseline (owner, 2026-10-07)",
   "description": "Resolved semantic tokens. Use semantic tokens in components; primitives are reference values, not theme roles. All dimensions assume a 16px browser root. All-caps tracking is for labels only.",
   "primitives": {
     "black": "#000000",
@@ -21,33 +21,7 @@
     "rule-light": "#C6C5C0",
     "paper-shade": "#EFEEE9",
     "scrim-dark": "#000000B8",
-    "scrim-light": "#0000007A",
-    "shadow-dark": "#00000099",
-    "shadow-light": "#00000029",
-    "red-50": "#FAEDEB",
-    "red-200": "#F2B8B5",
-    "red-400": "#D0605A",
-    "red-600": "#B3362F",
-    "red-800": "#8A1F1A",
-    "red-950": "#2B1615",
-    "amber-50": "#FAF1DE",
-    "amber-200": "#EDCB8C",
-    "amber-400": "#B08A3E",
-    "amber-600": "#94690F",
-    "amber-800": "#6A4A05",
-    "amber-950": "#2A2112",
-    "green-50": "#E9F3EB",
-    "green-200": "#A9D3B1",
-    "green-400": "#4F9A63",
-    "green-600": "#2F7D46",
-    "green-800": "#1D5530",
-    "green-950": "#13241A",
-    "blue-50": "#EAF0F8",
-    "blue-200": "#B5C7E6",
-    "blue-400": "#6688C0",
-    "blue-600": "#3B66AB",
-    "blue-800": "#1F3F73",
-    "blue-950": "#151D2B"
+    "scrim-light": "#0000007A"
   },
   "semantic": {
     "dark": {
@@ -86,20 +60,7 @@
       "ornament-faint": "#181818",
       "ornament-text": "#414141",
       "media-placeholder": "#111111",
-      "scrim": "#000000B8",
-      "shadow": "#00000099",
-      "status-error-fg": "#F2B8B5",
-      "status-error-bg": "#2B1615",
-      "status-error-border": "#D0605A",
-      "status-warning-fg": "#EDCB8C",
-      "status-warning-bg": "#2A2112",
-      "status-warning-border": "#B08A3E",
-      "status-success-fg": "#A9D3B1",
-      "status-success-bg": "#13241A",
-      "status-success-border": "#4F9A63",
-      "status-info-fg": "#B5C7E6",
-      "status-info-bg": "#151D2B",
-      "status-info-border": "#6688C0"
+      "scrim": "#000000B8"
     },
     "light": {
       "bg": "#F6F5F0",
@@ -137,20 +98,7 @@
       "ornament-faint": "#EFEEE9",
       "ornament-text": "#C6C5C0",
       "media-placeholder": "#E8E7E3",
-      "scrim": "#0000007A",
-      "shadow": "#00000029",
-      "status-error-fg": "#8A1F1A",
-      "status-error-bg": "#FAEDEB",
-      "status-error-border": "#B3362F",
-      "status-warning-fg": "#6A4A05",
-      "status-warning-bg": "#FAF1DE",
-      "status-warning-border": "#94690F",
-      "status-success-fg": "#1D5530",
-      "status-success-bg": "#E9F3EB",
-      "status-success-border": "#2F7D46",
-      "status-info-fg": "#1F3F73",
-      "status-info-bg": "#EAF0F8",
-      "status-info-border": "#3B66AB"
+      "scrim": "#0000007A"
     }
   },
   "aliases": {
@@ -190,20 +138,7 @@
       "ornament-faint": "ornament-dark-faint",
       "ornament-text": "graphite",
       "media-placeholder": "media-dark",
-      "scrim": "scrim-dark",
-      "shadow": "shadow-dark",
-      "status-error-fg": "red-200",
-      "status-error-bg": "red-950",
-      "status-error-border": "red-400",
-      "status-warning-fg": "amber-200",
-      "status-warning-bg": "amber-950",
-      "status-warning-border": "amber-400",
-      "status-success-fg": "green-200",
-      "status-success-bg": "green-950",
-      "status-success-border": "green-400",
-      "status-info-fg": "blue-200",
-      "status-info-bg": "blue-950",
-      "status-info-border": "blue-400"
+      "scrim": "scrim-dark"
     },
     "light": {
       "bg": "paper",
@@ -241,20 +176,7 @@
       "ornament-faint": "paper-shade",
       "ornament-text": "rule-light",
       "media-placeholder": "light-soft",
-      "scrim": "scrim-light",
-      "shadow": "shadow-light",
-      "status-error-fg": "red-800",
-      "status-error-bg": "red-50",
-      "status-error-border": "red-600",
-      "status-warning-fg": "amber-800",
-      "status-warning-bg": "amber-50",
-      "status-warning-border": "amber-600",
-      "status-success-fg": "green-800",
-      "status-success-bg": "green-50",
-      "status-success-border": "green-600",
-      "status-info-fg": "blue-800",
-      "status-info-bg": "blue-50",
-      "status-info-border": "blue-600"
+      "scrim": "scrim-light"
     }
   },
   "space": {
@@ -340,10 +262,7 @@
     "easing": "ease-out",
     "reduced-duration": "0ms"
   },
-  "proposals": [
-    "Proposed — needs owner approval: status colours (red, amber, green and blue primitives; status-{error,warning,success,info}-{fg,bg,border} roles).",
-    "Proposed — needs owner approval: light-theme counterparts for the website's dark-only greys (divider-strong, ornament, ornament-faint, ornament-text, media-placeholder), scrim and shadow alpha values, the radius scale and elevation levels."
-  ],
+  "proposals": [],
   "radius": {
     "sm": "0.125rem",
     "md": "0.25rem",
@@ -353,32 +272,7 @@
     "compact": "720px",
     "narrow": "380px"
   },
-  "elevation": {
-    "1": {
-      "surface": "raised",
-      "offsetX": "0px",
-      "offsetY": "1px",
-      "blur": "2px",
-      "spread": "0px",
-      "color": "shadow"
-    },
-    "2": {
-      "surface": "raised",
-      "offsetX": "0px",
-      "offsetY": "4px",
-      "blur": "12px",
-      "spread": "0px",
-      "color": "shadow"
-    },
-    "3": {
-      "surface": "raised",
-      "offsetX": "0px",
-      "offsetY": "12px",
-      "blur": "32px",
-      "spread": "0px",
-      "color": "shadow"
-    }
-  },
+  "elevation": {},
   "native": {
     "description": "Values for non-browser consumers (desktop, game UI, design tools). Lengths are logical px at a 16 px root; letterSpacing is a fraction of the font size; layout.line is a measure in characters; easing is cubic-bezier control points [x1, y1, x2, y2]; colours give hex, straight-alpha sRGB floats [r, g, b, a] and linear-light floats.",
     "rootPx": 16,
@@ -472,136 +366,6 @@
         "hex": "#0000007A",
         "srgb": [0, 0, 0, 0.478431],
         "linear": [0, 0, 0, 0.478431]
-      },
-      "shadow-dark": {
-        "hex": "#00000099",
-        "srgb": [0, 0, 0, 0.6],
-        "linear": [0, 0, 0, 0.6]
-      },
-      "shadow-light": {
-        "hex": "#00000029",
-        "srgb": [0, 0, 0, 0.160784],
-        "linear": [0, 0, 0, 0.160784]
-      },
-      "red-50": {
-        "hex": "#FAEDEB",
-        "srgb": [0.980392, 0.929412, 0.921569, 1],
-        "linear": [0.955973, 0.846873, 0.83077, 1]
-      },
-      "red-200": {
-        "hex": "#F2B8B5",
-        "srgb": [0.94902, 0.721569, 0.709804, 1],
-        "linear": [0.887923, 0.47932, 0.462077, 1]
-      },
-      "red-400": {
-        "hex": "#D0605A",
-        "srgb": [0.815686, 0.376471, 0.352941, 1],
-        "linear": [0.630757, 0.116971, 0.102242, 1]
-      },
-      "red-600": {
-        "hex": "#B3362F",
-        "srgb": [0.701961, 0.211765, 0.184314, 1],
-        "linear": [0.450786, 0.036889, 0.028426, 1]
-      },
-      "red-800": {
-        "hex": "#8A1F1A",
-        "srgb": [0.541176, 0.121569, 0.101961, 1],
-        "linear": [0.254152, 0.013702, 0.01033, 1]
-      },
-      "red-950": {
-        "hex": "#2B1615",
-        "srgb": [0.168627, 0.086275, 0.082353, 1],
-        "linear": [0.024158, 0.008023, 0.007499, 1]
-      },
-      "amber-50": {
-        "hex": "#FAF1DE",
-        "srgb": [0.980392, 0.945098, 0.870588, 1],
-        "linear": [0.955973, 0.879622, 0.730461, 1]
-      },
-      "amber-200": {
-        "hex": "#EDCB8C",
-        "srgb": [0.929412, 0.796078, 0.54902, 1],
-        "linear": [0.846873, 0.597202, 0.262251, 1]
-      },
-      "amber-400": {
-        "hex": "#B08A3E",
-        "srgb": [0.690196, 0.541176, 0.243137, 1],
-        "linear": [0.434154, 0.254152, 0.048172, 1]
-      },
-      "amber-600": {
-        "hex": "#94690F",
-        "srgb": [0.580392, 0.411765, 0.058824, 1],
-        "linear": [0.296138, 0.141263, 0.004777, 1]
-      },
-      "amber-800": {
-        "hex": "#6A4A05",
-        "srgb": [0.415686, 0.290196, 0.019608, 1],
-        "linear": [0.144128, 0.068478, 0.001518, 1]
-      },
-      "amber-950": {
-        "hex": "#2A2112",
-        "srgb": [0.164706, 0.129412, 0.070588, 1],
-        "linear": [0.023153, 0.015209, 0.006049, 1]
-      },
-      "green-50": {
-        "hex": "#E9F3EB",
-        "srgb": [0.913725, 0.952941, 0.921569, 1],
-        "linear": [0.814847, 0.896269, 0.83077, 1]
-      },
-      "green-200": {
-        "hex": "#A9D3B1",
-        "srgb": [0.662745, 0.827451, 0.694118, 1],
-        "linear": [0.396755, 0.651406, 0.439657, 1]
-      },
-      "green-400": {
-        "hex": "#4F9A63",
-        "srgb": [0.309804, 0.603922, 0.388235, 1],
-        "linear": [0.078187, 0.323143, 0.124772, 1]
-      },
-      "green-600": {
-        "hex": "#2F7D46",
-        "srgb": [0.184314, 0.490196, 0.27451, 1],
-        "linear": [0.028426, 0.205079, 0.061246, 1]
-      },
-      "green-800": {
-        "hex": "#1D5530",
-        "srgb": [0.113725, 0.333333, 0.188235, 1],
-        "linear": [0.012286, 0.090842, 0.029557, 1]
-      },
-      "green-950": {
-        "hex": "#13241A",
-        "srgb": [0.07451, 0.141176, 0.101961, 1],
-        "linear": [0.006512, 0.017642, 0.01033, 1]
-      },
-      "blue-50": {
-        "hex": "#EAF0F8",
-        "srgb": [0.917647, 0.941176, 0.972549, 1],
-        "linear": [0.822786, 0.871367, 0.938686, 1]
-      },
-      "blue-200": {
-        "hex": "#B5C7E6",
-        "srgb": [0.709804, 0.780392, 0.901961, 1],
-        "linear": [0.462077, 0.571125, 0.791298, 1]
-      },
-      "blue-400": {
-        "hex": "#6688C0",
-        "srgb": [0.4, 0.533333, 0.752941, 1],
-        "linear": [0.132868, 0.246201, 0.527115, 1]
-      },
-      "blue-600": {
-        "hex": "#3B66AB",
-        "srgb": [0.231373, 0.4, 0.670588, 1],
-        "linear": [0.043735, 0.132868, 0.40724, 1]
-      },
-      "blue-800": {
-        "hex": "#1F3F73",
-        "srgb": [0.121569, 0.247059, 0.45098, 1],
-        "linear": [0.013702, 0.049707, 0.171441, 1]
-      },
-      "blue-950": {
-        "hex": "#151D2B",
-        "srgb": [0.082353, 0.113725, 0.168627, 1],
-        "linear": [0.007499, 0.012286, 0.024158, 1]
       }
     },
     "semantic": {
@@ -785,71 +549,6 @@
           "hex": "#000000B8",
           "srgb": [0, 0, 0, 0.721569],
           "linear": [0, 0, 0, 0.721569]
-        },
-        "shadow": {
-          "hex": "#00000099",
-          "srgb": [0, 0, 0, 0.6],
-          "linear": [0, 0, 0, 0.6]
-        },
-        "status-error-fg": {
-          "hex": "#F2B8B5",
-          "srgb": [0.94902, 0.721569, 0.709804, 1],
-          "linear": [0.887923, 0.47932, 0.462077, 1]
-        },
-        "status-error-bg": {
-          "hex": "#2B1615",
-          "srgb": [0.168627, 0.086275, 0.082353, 1],
-          "linear": [0.024158, 0.008023, 0.007499, 1]
-        },
-        "status-error-border": {
-          "hex": "#D0605A",
-          "srgb": [0.815686, 0.376471, 0.352941, 1],
-          "linear": [0.630757, 0.116971, 0.102242, 1]
-        },
-        "status-warning-fg": {
-          "hex": "#EDCB8C",
-          "srgb": [0.929412, 0.796078, 0.54902, 1],
-          "linear": [0.846873, 0.597202, 0.262251, 1]
-        },
-        "status-warning-bg": {
-          "hex": "#2A2112",
-          "srgb": [0.164706, 0.129412, 0.070588, 1],
-          "linear": [0.023153, 0.015209, 0.006049, 1]
-        },
-        "status-warning-border": {
-          "hex": "#B08A3E",
-          "srgb": [0.690196, 0.541176, 0.243137, 1],
-          "linear": [0.434154, 0.254152, 0.048172, 1]
-        },
-        "status-success-fg": {
-          "hex": "#A9D3B1",
-          "srgb": [0.662745, 0.827451, 0.694118, 1],
-          "linear": [0.396755, 0.651406, 0.439657, 1]
-        },
-        "status-success-bg": {
-          "hex": "#13241A",
-          "srgb": [0.07451, 0.141176, 0.101961, 1],
-          "linear": [0.006512, 0.017642, 0.01033, 1]
-        },
-        "status-success-border": {
-          "hex": "#4F9A63",
-          "srgb": [0.309804, 0.603922, 0.388235, 1],
-          "linear": [0.078187, 0.323143, 0.124772, 1]
-        },
-        "status-info-fg": {
-          "hex": "#B5C7E6",
-          "srgb": [0.709804, 0.780392, 0.901961, 1],
-          "linear": [0.462077, 0.571125, 0.791298, 1]
-        },
-        "status-info-bg": {
-          "hex": "#151D2B",
-          "srgb": [0.082353, 0.113725, 0.168627, 1],
-          "linear": [0.007499, 0.012286, 0.024158, 1]
-        },
-        "status-info-border": {
-          "hex": "#6688C0",
-          "srgb": [0.4, 0.533333, 0.752941, 1],
-          "linear": [0.132868, 0.246201, 0.527115, 1]
         }
       },
       "light": {
@@ -1032,151 +731,12 @@
           "hex": "#0000007A",
           "srgb": [0, 0, 0, 0.478431],
           "linear": [0, 0, 0, 0.478431]
-        },
-        "shadow": {
-          "hex": "#00000029",
-          "srgb": [0, 0, 0, 0.160784],
-          "linear": [0, 0, 0, 0.160784]
-        },
-        "status-error-fg": {
-          "hex": "#8A1F1A",
-          "srgb": [0.541176, 0.121569, 0.101961, 1],
-          "linear": [0.254152, 0.013702, 0.01033, 1]
-        },
-        "status-error-bg": {
-          "hex": "#FAEDEB",
-          "srgb": [0.980392, 0.929412, 0.921569, 1],
-          "linear": [0.955973, 0.846873, 0.83077, 1]
-        },
-        "status-error-border": {
-          "hex": "#B3362F",
-          "srgb": [0.701961, 0.211765, 0.184314, 1],
-          "linear": [0.450786, 0.036889, 0.028426, 1]
-        },
-        "status-warning-fg": {
-          "hex": "#6A4A05",
-          "srgb": [0.415686, 0.290196, 0.019608, 1],
-          "linear": [0.144128, 0.068478, 0.001518, 1]
-        },
-        "status-warning-bg": {
-          "hex": "#FAF1DE",
-          "srgb": [0.980392, 0.945098, 0.870588, 1],
-          "linear": [0.955973, 0.879622, 0.730461, 1]
-        },
-        "status-warning-border": {
-          "hex": "#94690F",
-          "srgb": [0.580392, 0.411765, 0.058824, 1],
-          "linear": [0.296138, 0.141263, 0.004777, 1]
-        },
-        "status-success-fg": {
-          "hex": "#1D5530",
-          "srgb": [0.113725, 0.333333, 0.188235, 1],
-          "linear": [0.012286, 0.090842, 0.029557, 1]
-        },
-        "status-success-bg": {
-          "hex": "#E9F3EB",
-          "srgb": [0.913725, 0.952941, 0.921569, 1],
-          "linear": [0.814847, 0.896269, 0.83077, 1]
-        },
-        "status-success-border": {
-          "hex": "#2F7D46",
-          "srgb": [0.184314, 0.490196, 0.27451, 1],
-          "linear": [0.028426, 0.205079, 0.061246, 1]
-        },
-        "status-info-fg": {
-          "hex": "#1F3F73",
-          "srgb": [0.121569, 0.247059, 0.45098, 1],
-          "linear": [0.013702, 0.049707, 0.171441, 1]
-        },
-        "status-info-bg": {
-          "hex": "#EAF0F8",
-          "srgb": [0.917647, 0.941176, 0.972549, 1],
-          "linear": [0.822786, 0.871367, 0.938686, 1]
-        },
-        "status-info-border": {
-          "hex": "#3B66AB",
-          "srgb": [0.231373, 0.4, 0.670588, 1],
-          "linear": [0.043735, 0.132868, 0.40724, 1]
         }
       }
     },
     "elevation": {
-      "dark": {
-        "1": {
-          "surface": "raised",
-          "offsetXPx": 0,
-          "offsetYPx": 1,
-          "blurPx": 2,
-          "spreadPx": 0,
-          "color": {
-            "hex": "#00000099",
-            "srgb": [0, 0, 0, 0.6],
-            "linear": [0, 0, 0, 0.6]
-          }
-        },
-        "2": {
-          "surface": "raised",
-          "offsetXPx": 0,
-          "offsetYPx": 4,
-          "blurPx": 12,
-          "spreadPx": 0,
-          "color": {
-            "hex": "#00000099",
-            "srgb": [0, 0, 0, 0.6],
-            "linear": [0, 0, 0, 0.6]
-          }
-        },
-        "3": {
-          "surface": "raised",
-          "offsetXPx": 0,
-          "offsetYPx": 12,
-          "blurPx": 32,
-          "spreadPx": 0,
-          "color": {
-            "hex": "#00000099",
-            "srgb": [0, 0, 0, 0.6],
-            "linear": [0, 0, 0, 0.6]
-          }
-        }
-      },
-      "light": {
-        "1": {
-          "surface": "raised",
-          "offsetXPx": 0,
-          "offsetYPx": 1,
-          "blurPx": 2,
-          "spreadPx": 0,
-          "color": {
-            "hex": "#00000029",
-            "srgb": [0, 0, 0, 0.160784],
-            "linear": [0, 0, 0, 0.160784]
-          }
-        },
-        "2": {
-          "surface": "raised",
-          "offsetXPx": 0,
-          "offsetYPx": 4,
-          "blurPx": 12,
-          "spreadPx": 0,
-          "color": {
-            "hex": "#00000029",
-            "srgb": [0, 0, 0, 0.160784],
-            "linear": [0, 0, 0, 0.160784]
-          }
-        },
-        "3": {
-          "surface": "raised",
-          "offsetXPx": 0,
-          "offsetYPx": 12,
-          "blurPx": 32,
-          "spreadPx": 0,
-          "color": {
-            "hex": "#00000029",
-            "srgb": [0, 0, 0, 0.160784],
-            "linear": [0, 0, 0, 0.160784]
-          }
-        }
-      }
+      "dark": {},
+      "light": {}
     },
     "space": {
       "2": 8,

@@ -2,11 +2,11 @@
   "name": "Cosmik brand kit",
   "version": "0.2.0",
   "date": "2026-10-04",
-  "system_status": "review draft",
+  "system_status": "baseline approved (owner, 2026-10-07); the HPLX family kit is proposed",
   "emblem_status": "accepted traced symbol",
   "wordmark_status": "approved raster only; outlined master not supplied",
   "interim_identity": "Official stand-in until an outlined wordmark exists: the emblem followed by the live label “Cosmik” in Inter 500 (type role identity-label, 20 px / 1.3, tracking 0). The label is a typographic treatment, not a wordmark; never set COSMIK in capitals with Inter to imitate the wordmark.",
-  "license": "LICENSE.md — Proposed, needs owner approval",
+  "license": "LICENSE.md",
   "known_gaps": [
     {
       "id": "wordmark-lockup",
@@ -27,14 +27,33 @@
       "id": "browser-qa",
       "status": "open",
       "summary": "Rendered browser, zoom, keyboard and assistive-technology checks remain pending; see references/component-validation.md."
+    },
+    {
+      "id": "spectral-font",
+      "status": "open",
+      "summary": "The HPLX family's heading typeface, Spectral (SIL OFL 1.1), is not bundled yet; consumers load it from its source until its font files and licence notice are added under fonts/."
+    },
+    {
+      "id": "guide-refresh",
+      "status": "open",
+      "summary": "The guide (guides/, v0.2) predates the approved baseline and family kits: it still names the handle cosmik-labs, restates colour values the tokens now own, and has no family-kit page."
     }
   ],
   "entry_points": {
-    "tokens_css": "tokens/cosmik.css",
-    "tokens_json": "tokens/cosmik.json",
-    "tokens_dtcg": "tokens/cosmik.tokens.json",
-    "tokens_rust": "tokens/cosmik_tokens.rs",
-    "tokens_source": "tokens/cosmik.source.json",
+    "tokens": {
+      "cosmik": {
+        "css": "tokens/cosmik/cosmik.css",
+        "json": "tokens/cosmik/cosmik.json",
+        "dtcg": "tokens/cosmik/cosmik.tokens.json",
+        "rust": "tokens/cosmik/cosmik_tokens.rs"
+      },
+      "hplx": {
+        "css": "tokens/hplx/hplx.css",
+        "json": "tokens/hplx/hplx.json",
+        "dtcg": "tokens/hplx/hplx.tokens.json",
+        "rust": "tokens/hplx/hplx_tokens.rs"
+      }
+    },
     "emblem_master": "assets/vector/cosmik-emblem-master-offwhite.svg",
     "web_fonts": [
       "fonts/web/Inter-Regular.woff2",
@@ -702,7 +721,7 @@
           256
         ]
       },
-      "generated_by": "icons/build-icons.mjs",
+      "generated_by": "scripts/build-icons.mjs",
       "sha256": "ff71098b9f73f51666501d2ae0c420259d953ccc8df819682d048843fcda26d4"
     },
     {
@@ -721,7 +740,7 @@
           1024
         ]
       },
-      "generated_by": "icons/build-icons.mjs",
+      "generated_by": "scripts/build-icons.mjs",
       "sha256": "44f7cb09a374a7c68d1a52d229af806765fa3ebb99a56b9a71844fb7795a3ae2"
     },
     {
@@ -736,7 +755,7 @@
         512,
         512
       ],
-      "generated_by": "icons/build-icons.mjs",
+      "generated_by": "scripts/build-icons.mjs",
       "sha256": "bc2e808cbf5ba5c7af3ebf281314bbaefa39c182bc9f197ee1d92f8d9dbc8ffd"
     },
     {
@@ -751,57 +770,114 @@
         180,
         180
       ],
-      "generated_by": "icons/build-icons.mjs",
+      "generated_by": "scripts/build-icons.mjs",
       "sha256": "6681280562abcb9c5dfe373f40ecec2e56c6abedcfc84484716212821f1bddc3"
     }
   ],
   "tokens": [
     {
-      "path": "tokens/cosmik.source.json",
+      "path": "tokens/cosmik/source.json",
       "role": {
         "kind": "tokens",
+        "kit": "cosmik",
         "format": "source"
       },
-      "status": "single editable source",
-      "sha256": "edb16d73df4623e0bfab0ee4bddefca08353bf10f597f141b74a40535a2100fb",
+      "status": "baseline source, approved",
+      "sha256": "016706cba204e040f368f35df17f62eac2d822db10a869eb22cc28a4628fe9b8",
       "editable": true
     },
     {
-      "path": "tokens/cosmik.css",
+      "path": "tokens/cosmik/cosmik.css",
       "role": {
         "kind": "tokens",
+        "kit": "cosmik",
         "format": "css"
       },
-      "generated_by": "tokens/generate-tokens.mjs",
-      "sha256": "2b5f33d742391f8961347d89ff749ef5342a1f22486fb17e00597c01c53b68ba"
+      "generated_by": "scripts/generate-tokens.mjs",
+      "sha256": "2ce5f140ae12b29d2fe624b6ef7ddbe8fce3898010f4712c23a5e1b3f50a95df"
     },
     {
-      "path": "tokens/cosmik.json",
+      "path": "tokens/cosmik/cosmik.json",
       "role": {
         "kind": "tokens",
+        "kit": "cosmik",
         "format": "json",
         "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
       },
-      "generated_by": "tokens/generate-tokens.mjs",
-      "sha256": "f56a9c9eb279505fa5bab120d7731485cb303d97796003628b6304d9969c43c1"
+      "generated_by": "scripts/generate-tokens.mjs",
+      "sha256": "ab74f6ac0421020d3a0a04a80a169c7bda4835bc38ef783472d27409f04206be"
     },
     {
-      "path": "tokens/cosmik.tokens.json",
+      "path": "tokens/cosmik/cosmik.tokens.json",
       "role": {
         "kind": "tokens",
+        "kit": "cosmik",
         "format": "dtcg"
       },
-      "generated_by": "tokens/generate-tokens.mjs",
-      "sha256": "294c80ce11284e799ebf738ee15f8e0aff8fecc330296ac697c0f24254056eb5"
+      "generated_by": "scripts/generate-tokens.mjs",
+      "sha256": "2748162478a1258b7ff86ba2d79d56007e1e6f23af197ba66dfeabeb5e497ead"
     },
     {
-      "path": "tokens/cosmik_tokens.rs",
+      "path": "tokens/cosmik/cosmik_tokens.rs",
       "role": {
         "kind": "tokens",
+        "kit": "cosmik",
         "format": "rust"
       },
-      "generated_by": "tokens/generate-tokens.mjs",
-      "sha256": "d330b516b4375147dcf0cdba8def58a61859d3ad620f08c9508a98e5bc156e44"
+      "generated_by": "scripts/generate-tokens.mjs",
+      "sha256": "05e67840609250ee13a156469e68a2b33184a9d9912086f8f8c860c6bd0f9efa"
+    },
+    {
+      "path": "tokens/hplx/family.json",
+      "role": {
+        "kind": "tokens",
+        "kit": "hplx",
+        "format": "source"
+      },
+      "status": "HPLX family source, proposed",
+      "sha256": "27279023974ee5a807a4a8ce74bc99005df3cc4a1a09e9e1964d3159f174d5fe",
+      "editable": true
+    },
+    {
+      "path": "tokens/hplx/hplx.css",
+      "role": {
+        "kind": "tokens",
+        "kit": "hplx",
+        "format": "css"
+      },
+      "generated_by": "scripts/generate-tokens.mjs",
+      "sha256": "f94a0c6f412209a5bfe1f9739cd2bf340c79409f229f1b68670acf9595784449"
+    },
+    {
+      "path": "tokens/hplx/hplx.json",
+      "role": {
+        "kind": "tokens",
+        "kit": "hplx",
+        "format": "json",
+        "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
+      },
+      "generated_by": "scripts/generate-tokens.mjs",
+      "sha256": "2952750f0f8b6a78af44afa08ddff21adad5547d05e793d2c7c8588adc1d7ef9"
+    },
+    {
+      "path": "tokens/hplx/hplx.tokens.json",
+      "role": {
+        "kind": "tokens",
+        "kit": "hplx",
+        "format": "dtcg"
+      },
+      "generated_by": "scripts/generate-tokens.mjs",
+      "sha256": "53692b6c6438816287582766f513ac66fb458b8aac116bfa7008d4b022247ee8"
+    },
+    {
+      "path": "tokens/hplx/hplx_tokens.rs",
+      "role": {
+        "kind": "tokens",
+        "kit": "hplx",
+        "format": "rust"
+      },
+      "generated_by": "scripts/generate-tokens.mjs",
+      "sha256": "be59cf1dcded247400237e2a812eb33ff38bb3ceeda6766c1bc4d6a074682e5d"
     }
   ],
   "web_fonts": [
@@ -841,7 +917,7 @@
       "weight": 400,
       "style": "normal",
       "format": "woff2",
-      "generated_by": "fonts/build-web-fonts.mjs",
+      "generated_by": "scripts/build-web-fonts.mjs",
       "derived_from": "fonts/web/IBMPlexMono-Regular.ttf",
       "license": "SIL Open Font License 1.1",
       "license_file": "fonts/licenses/IBM-Plex-OFL.txt",

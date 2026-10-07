@@ -17,10 +17,10 @@ This package turns the visual direction into a practical identity and product-re
 
 - Accepted: traced standalone emblem geometry, based on the approved original. Dark/light SVGs share the same path.
 - Approved references: original square and banner PNG compositions, unchanged. Their source names and checksums are in `asset-manifest.json`.
-- Proposed: supporting typography, exact semantic themes, component behavior, layout rules, document styles, and voice guidance.
+- **Approved baseline (owner, 2026-10-07):** typography, the semantic dark/light roles, layout and component rules, as generated in `tokens/cosmik/`. The baseline is monochrome: no accent colour, status in words.
+- **Family kits:** product families may have their own style on top of the baseline, under rules the build enforces (`tokens/README.md`). The **HPLX** family (`tokens/hplx/`) is proposed; its values await owner review.
 - Archive: earlier generated light PNGs. They differ geometrically and are not current masters.
-- Incomplete (known gaps, also recorded in `asset-manifest.json`): outlined wordmark/full lockup, optically optimized tiny icon, print-process proofs, and downstream product validation.
-- Proposed, awaiting owner approval: status colours and the other roles marked as proposals in `tokens/cosmik.source.json`.
+- Incomplete (known gaps, also recorded in `asset-manifest.json`): outlined wordmark/full lockup, optically optimized tiny icon, print-process proofs, browser QA, the HPLX family's Spectral font files, and a guide refresh (the v0.2 guide predates the approved baseline and the family kits).
 
 Do not redraw, stretch, rotate, crop into the flare, add effects, or recreate the COSMIK wordmark with Inter. The live “Cosmik” interface label is a separate, specified typographic treatment.
 
@@ -29,13 +29,14 @@ Do not redraw, stretch, rotate, crop into the flare, add effects, or recreate th
 - `assets/approved-raster/`: original selected square and banner
 - `assets/vector/`: accepted emblem SVGs, full renders, and named pixel-size exports
 - `assets/archive/`: prior generated alternatives for reference
-- `guides/`: editable guide and reviewed PDF
-- `tokens/`: single editable source; generated CSS, JSON, W3C DTCG JSON and Rust constants; generator, validator, usage notes
-- `icons/`: app icons generated from the plate variant (`cosmik.ico`, `cosmik.icns`, 512 px PNG, 180 px apple-touch PNG) and their build script
+- `tokens/`: one folder per kit. `cosmik/` is the baseline (`source.json` plus generated CSS, JSON, W3C DTCG JSON and Rust constants); `hplx/` is the HPLX family (`family.json` plus the same outputs). `tokens/README.md` explains both and the family contract.
+- `icons/`: app icons generated from the plate variant (`cosmik.ico`, `cosmik.icns`, 512 px PNG, 180 px apple-touch PNG)
+- `fonts/desktop/`, `fonts/web/`, `fonts/licenses/`: actual supporting typefaces and notices
 - `specimens/`: compact offline component reference in both themes
+- `guides/`: editable guide and reviewed PDF
 - `templates/`: two-page editable technical-note template, proof PDF, and usage notes
-- `fonts/desktop/`, `fonts/web/`, `fonts/licenses/`: actual supporting typefaces and notices; `fonts/build-web-fonts.mjs` builds the Plex Mono WOFF2
-- `asset-manifest.json`: entry points, roles, web/desktop font lists, known gaps and SHA-256 for every listed file; `verify-manifest.mjs` checks them
+- `scripts/`: `build.mjs` (regenerate everything) and `check.mjs` (contrast and hashes), and the scripts they run
+- `asset-manifest.json`: entry points, roles, web/desktop font lists, known gaps and SHA-256 for every listed file
 - `LICENSE.md`: the licence (MIT for tooling and tokens) and the brand-use policy for the marks
 - `references/`: validation results, remaining tests, and vector source/trace evidence
 
@@ -43,20 +44,18 @@ For raster exports, the numeric suffix is the full canvas width and height in ph
 
 ## Tokens and verification
 
-Use semantic variables, not individual gray values. Both themes map every surface, foreground, interaction, input, focus, and status role. Paper is #F6F5F0 to match the accepted emblem fill. The light-mode surface inheritance defect from v0.1 is fixed.
+Use semantic roles, not individual colour values: both modes of every kit map every surface, foreground, interaction, input, focus and status role. Paper is #F6F5F0 to match the accepted emblem fill.
 
-From the extracted root, with Node.js and no third-party packages:
+From the repository root, with Node.js and no third-party packages:
 
-- `node tokens/generate-tokens.mjs` regenerates `cosmik.css`, `cosmik.json`, `cosmik.tokens.json` and `cosmik_tokens.rs`;
-- `node tokens/validate-tokens.mjs` checks the 178 defined contrast pairs (94 in the 0.2.0 review, plus disabled borders, muted text on input and status fills, and the status tones);
-- `node icons/build-icons.mjs` and `node fonts/build-web-fonts.mjs` rebuild the app icons and the Plex Mono WOFF2;
-- `node verify-manifest.mjs` verifies every hash in `asset-manifest.json` (add `--update-generated` after regenerating).
+- `node scripts/build.mjs` regenerates every kit's tokens, the app icons and the Plex Mono WOFF2, then refreshes the generated files' hashes in `asset-manifest.json`;
+- `node scripts/check.mjs` checks every kit's contrast pairs (each kit passes the baseline's; a family adds pairs for its own roles) and verifies every hash in the manifest.
 
-`.gitattributes` keeps text files LF on every platform so hashes and regenerated output match the committed bytes. See `tokens/README.md` for theme scope, native units, the DTCG file and font setup.
+`.gitattributes` keeps text files LF on every platform, so hashes and regenerated output match the committed bytes.
 
-Completed in the 0.2.0 review: twelve guide pages and two template pages visually reviewed; correct Inter SemiBold verified in both PDFs; original raster byte checks; real SVG path/source checks; 30-role theme parity; reproducible CSS/JSON; 94 contrast-pair checks; static label/reference/script checks. Since then: 49-role theme parity and 178 contrast-pair checks (see CHANGELOG).
+Completed in the 0.2.0 review: twelve guide pages and two template pages visually reviewed; correct Inter SemiBold verified in both PDFs; original raster byte checks; real SVG path/source checks; reproducible CSS/JSON; contrast-pair checks. Since then: contrast checks for every kit (see CHANGELOG).
 
-Pending: actual browser rendering, width/zoom/reflow, keyboard and assistive-technology checks. Browser execution was unavailable for this review. Guide component figures are drawn specifications, not screenshots. The detailed manual test list is in `references/component-validation.md`. These results do not certify a future product.
+Pending: actual browser rendering, width/zoom/reflow, keyboard and assistive-technology checks. Guide component figures are drawn specifications, not screenshots. The detailed manual test list is in `references/component-validation.md`. These results do not certify a future product.
 
 ## Fonts and rights
 
@@ -69,20 +68,20 @@ Inter desktop files come from the official Inter 4.1 release; internal font vers
 
 ## Consuming the kit
 
-Pin an exact version; never track `main`. The kit is versioned with semver (`version` in `asset-manifest.json` and `tokens/cosmik.source.json`); a release will be a git tag `vX.Y.Z`.
+Pin an exact version; never track `main`. The kit is versioned with semver (`version` in `asset-manifest.json` and `tokens/cosmik/source.json`); a release will be a git tag `vX.Y.Z`.
 
 - **Tagged release archive** (recommended for the website and design tools): download the archive for a tag and vendor the files you use (`entry_points` in `asset-manifest.json` names them). Check them with the listed SHA-256 hashes.
 - **Git submodule** at a tagged commit (`git submodule add https://github.com/cosmiklabs/brand vendor/brand`, then check out the tag): best when a build reads files from the kit directly. Update by moving the submodule to a newer tag.
 - **Git subtree** (`git subtree add --prefix vendor/brand https://github.com/cosmiklabs/brand vX.Y.Z --squash`): the files live in the consumer's history, so clones need no submodule step.
 
-Whichever you use, consume only generated outputs and listed assets, and keep the font licence files with any font you ship.
+Whichever you use, consume only generated outputs and listed assets, and keep the font licence files with any font you ship. A product in a family consumes that family's kit (`tokens/<family>/`); the organisation's own surfaces consume the baseline (`tokens/cosmik/`).
 
 **Rust consumers** (desktop launcher, in-game editor; Bevy UI or egui):
 
-- Compile-time constants: include `tokens/cosmik_tokens.rs` from a submodule or subtree with `#[path]`, or copy it into the crate at a pinned version. It has no dependencies; convert `srgb` arrays to `bevy::color::Color::srgba` or the hex bytes to `egui::Color32`.
-- Data at runtime or in `build.rs`: parse `tokens/cosmik.json` → `native` with `serde_json` (px, fractions, ms, bezier points, sRGB and linear floats); useful if a theme should be swappable without a rebuild.
+- Compile-time constants: include the kit's Rust file (`tokens/hplx/hplx_tokens.rs` for an HPLX product) from a submodule or subtree with `#[path]`, or copy it into the crate at a pinned version. It has no dependencies; convert `srgb` arrays to `bevy::color::Color::srgba` or the hex bytes to `egui::Color32`.
+- Data at runtime or in `build.rs`: parse the kit's JSON (`tokens/hplx/hplx.json`) → `native` with `serde_json` (px, fractions, ms, bezier points, sRGB and linear floats); useful if a theme should be swappable without a rebuild.
 - Fonts: load `fonts/desktop/*.ttf` (Bevy and egui both take TTF bytes, for example with `include_bytes!`). Icons: `icons/cosmik.ico` for the Windows executable resource, `icons/cosmik-512.png` for a window icon, `icons/cosmik.icns` for a macOS bundle.
-- Use the `LIGHT`/`DARK` theme roles in UI code, never primitives directly, as on the web.
+- Use the `LIGHT`/`DARK` theme roles in UI code, never primitives directly, as on the web. A family's files already include the baseline's values.
 
 ## Publishing
 

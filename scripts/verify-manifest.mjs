@@ -1,4 +1,4 @@
-/** Manifest check. Run: node verify-manifest.mjs from the bundle root.
+/** Manifest check (run through `node scripts/check.mjs`; `node scripts/build.mjs` runs it with --update-generated).
  * Verifies the SHA-256 of every file asset-manifest.json lists, that every entry point is listed and
  * hashed, and that vector entries carry visible_bounds_xywh. With --update-generated it first rewrites
  * the hashes of entries marked generated_by or editable (never approved originals). Node.js only. */
@@ -6,7 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-const root = path.dirname(fileURLToPath(import.meta.url));
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const file = path.join(root, 'asset-manifest.json');
 const manifest = JSON.parse(fs.readFileSync(file, 'utf8'));
 const sha256 = (p) => crypto.createHash('sha256').update(fs.readFileSync(path.join(root, p))).digest('hex');
@@ -28,7 +28,10 @@ for (const e of entries) {
   if ('visible_bounds' in e) problems.push(`legacy visible_bounds key: ${e.path}`);
 }
 const listed = new Set(entries.map((e) => e.path));
-const entryPoints = Object.values(manifest.entry_points).flat();
+// Entry points nest (tokens per kit); every string leaf is a path.
+const entryPoints = [];
+const leaves = (node) => { if (typeof node === 'string') entryPoints.push(node); else Object.values(node).forEach(leaves); };
+leaves(manifest.entry_points);
 for (const p of entryPoints) if (!listed.has(p)) problems.push(`entry point not listed with a hash: ${p}`);
 console.log(JSON.stringify({ files: entries.length, entry_points: entryPoints.length, problems }, null, 2));
 process.exit(problems.length ? 1 : 0);

@@ -1,4 +1,4 @@
-/** Web-font builder. Run: node fonts/build-web-fonts.mjs from the bundle root.
+/** Web-font builder (run through `node scripts/build.mjs`).
  * Wraps fonts/web/IBMPlexMono-Regular.ttf as fonts/web/IBMPlexMono-Regular.woff2 (WOFF 2.0, W3C REC).
  * Every table is stored unchanged with the null transform (glyf/loca version 3), compressed with
  * Node's built-in Brotli; no glyph, metric or name data is altered. The script decodes its own output

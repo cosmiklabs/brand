@@ -8,8 +8,8 @@ This repository mixes three kinds of material with different rights. Each part i
 
 Covers:
 
-- scripts: `tokens/generate-tokens.mjs`, `tokens/validate-tokens.mjs`, `icons/build-icons.mjs`, `fonts/build-web-fonts.mjs`, `verify-manifest.mjs`;
-- token source and generated token files in `tokens/` (`cosmik.source.json`, `cosmik.css`, `cosmik.json`, `cosmik.tokens.json`, `cosmik_tokens.rs`);
+- scripts: everything in `scripts/`;
+- token sources and generated token files in `tokens/` (every kit: the baseline and the families);
 - the specimen code in `specimens/` (HTML, CSS, JavaScript);
 - `asset-manifest.json`, `.gitattributes` and the Markdown documentation.
 

@@ -1,56 +1,74 @@
-# Cosmik tokens · proposed 0.2.0
+# Cosmik tokens
 
-## Use
+Design tokens for every Cosmik surface, as **kits**: one **baseline** (`cosmik/`) that the organisation itself uses (website, GitHub profile, documents) and **family kits** (`hplx/`, …) for product families with a style of their own. Every kit is generated from one source file by `node scripts/build.mjs` and checked by `node scripts/check.mjs`; never hand-edit the generated files.
 
-Open `../specimens/components.html` directly in a browser. Its stylesheet, script, and fonts are local; it requires no server, installation, or internet connection. Controls demonstrate local states only.
+| Kit | Source | Status | Outputs |
+|---|---|---|---|
+| `cosmik/` (baseline) | `source.json` | Approved (owner, 2026-10-07) | `cosmik.css`, `cosmik.json`, `cosmik.tokens.json`, `cosmik_tokens.rs` |
+| `hplx/` (HPLX family: the engine, its Redux games, launcher and editor) | `family.json` | Proposed: values pending owner review | `hplx.css`, `hplx.json`, `hplx.tokens.json`, `hplx_tokens.rs` |
 
-For implementation, load `cosmik.css` before your component CSS. Set `data-theme="dark"` or `data-theme="light"` on the root or a containing section. Dark is the default. This explicit theme mechanism is intentional; it does not silently follow or override the operating system preference.
+## The baseline
 
-Use role variables such as `--c-bg`, `--c-surface`, `--c-text`, `--c-muted`, and `--c-action-primary-fg`. Do not compose a theme by overriding just its text value, or by applying a dark-only primitive to a light surface. The two theme maps include identical role keys.
+The identity is black and warm off-white with no accent colour, and status is carried by words and structure, not hue (guide §5, §7). The baseline defines:
 
-The `--c-divider` token is decorative. Use `--c-border` for an essential control boundary. Status treatments always need explicit words; error meaning must never depend on color.
+- **Semantic roles** in a dark and a light mode, every role in both: surfaces (`bg`, `surface`, `raised`), text (`text`, `muted`), boundaries (`border` for essential control edges, `divider` and `divider-strong` decorative), focus, links, selection, primary and secondary actions, inputs, disabled and neutral status (`status-fg`/`-bg`/`-border`), decorative greys (`ornament`, `ornament-faint`, `ornament-text`, `media-placeholder`) and `scrim` (a translucent backdrop behind a modal).
+- **Type roles:** Inter for reading and interface (`body`, `display`, `display-small`, `section`, `card`, `control`), IBM Plex Mono for short technical labels (`label`), and the live `identity-label` (Inter 500, 20 px).
+- **Rhythm:** a 4 px spacing base (8, 16, 24, 32, 48, 64, 96), 4 px radii (`radius-sm` 2 px, `radius-md` 4 px, `radius-full`), layout values (44 px control minimum, 2 px focus outline with 2 px offset, a 65-character reading measure), breakpoints (720 px compact, 380 px narrow) and motion (140 ms ease-out; 0 ms under reduced motion).
 
-### Added roles (unreleased)
+### Use on the web
 
-- **Status:** `--c-status-{error,warning,success,info}-{fg,bg,border}` in both themes. **Proposed — needs owner approval.** Muted red, amber, green and blue primitives chosen to sit beside the neutral palette; every fg/bg/border pairing passes the validator. The neutral `--c-status-*` roles remain for status without a tone. Colour never carries the meaning alone.
-- **Decorative greys** that the website hard-coded: `--c-divider-strong` (#C6C5C0 rule on light), `--c-ornament` (#252525 line), `--c-ornament-faint` (#181818 line), `--c-ornament-text` (#414141 index numeral), `--c-media-placeholder` (#111111 image backdrop). Decorative only: not contrast-checked, never the only cue. Their counterparts in the other theme are proposed.
-- **Overlay and elevation:** `--c-scrim` (translucent backdrop behind a modal), `--c-shadow`, and `--c-elevation-{1,2,3}-surface` / `--c-elevation-{1,2,3}-shadow` (a ready `box-shadow` value). Elevation values are declared inside each theme scope, so a nested light section gets light shadows. On dark, elevation shows mainly through the raised surface; the shadow is secondary.
-- **Radius:** `--c-radius-sm` (2 px), `--c-radius-md` (4 px, same as `--c-layout-radius`), `--c-radius-full`.
-- **Breakpoints:** `--c-breakpoint-compact` (720 px) and `--c-breakpoint-narrow` (380 px), as used by the specimen. Custom properties cannot be used inside `@media`; they are reference values for scripts and other platforms.
+Load `cosmik/cosmik.css` before your component CSS. Set `data-theme="dark"` or `data-theme="light"` on the root or a section; dark is the default. The theme is explicit on purpose: it does not follow or override the operating-system preference. Use role variables (`--c-bg`, `--c-surface`, `--c-text`, `--c-muted`, `--c-action-primary-fg`, …), never primitives, and switch a whole theme together rather than overriding one value. `--c-divider` is decorative; use `--c-border` for an essential boundary. Breakpoint variables are reference values: custom properties cannot be used inside `@media`.
 
-## Build
+## Family kits
 
-Run `node tokens/generate-tokens.mjs` from the extracted bundle root. The generator needs Node.js and no third-party packages. It reads `cosmik.source.json`, checks that both theme maps are complete, and writes `cosmik.css`, `cosmik.json`, `cosmik.tokens.json` and `cosmik_tokens.rs` beside it. Do not hand-edit the generated files. After regenerating, run `node verify-manifest.mjs --update-generated` to refresh their hashes in `asset-manifest.json`.
+A family gives a product family its own mood while staying recognisably Cosmik (guide §10: "A project can have its own visual mood while keeping the endorsement and utility type consistent"). `scripts/generate-tokens.mjs` merges `tokens/<id>/family.json` over the baseline and **refuses a family that breaks the contract**; `scripts/validate-tokens.mjs` checks every kit against the same contrast pairs.
 
-- `cosmik.source.json`: primitive values, semantic aliases, spacing, typography, layout, and motion source
-- `cosmik.json`: resolved semantic colors plus their aliases and supporting values; a simple kit-specific JSON contract. Its `native` section restates everything for non-browser consumers (below).
-- `cosmik.tokens.json`: the same tokens in W3C Design Tokens (DTCG 2025.10) format, for design tools and token pipelines (below).
-- `cosmik_tokens.rs`: dependency-free Rust constants generated from the same values (below).
-- `cosmik.css`: generated custom properties and explicit theme scopes
-- `../specimens/components.css`: example components, local font definitions, focus, responsive and reduced-motion treatments
+| A family… | |
+|---|---|
+| **must** | define both of the baseline's modes; keep every baseline role (any it does not override comes from the baseline); pass every baseline contrast pair (4.5:1 text, 3:1 essential boundaries and focus) |
+| **may change** | the colour of any baseline role, through primitives of its own (names that do not collide with the baseline's); the typeface and weight of the heading roles `display`, `display-small`, `section` and `card` |
+| **may add** | roles of its own under `extensions`, named in every mode (for example `accent` and the status tones); elevation levels; heading fonts it needs, listed with their licence |
+| **never changes** | utility type (`body`, `control`, `label`, `identity-label`), spacing, layout, radii, breakpoints and motion; and, outside the tokens, the emblem, the name and the endorsement ("A Cosmik project") |
 
-Rem values assume a 16 px browser root but leave the user’s browser root setting intact. The proposed scale is a 4 px base with 8, 16, 24, 32, 48, 64, and 96 px intervals. Typography uses body tracking of zero; only all-caps labels use 0.06em. The live identity label is Inter 500, 20 px/1.3, and is not an alternative wordmark.
+### Use a family on the web
 
-These are proposed design-system choices. The HTML is a compact reference, not a production UI package. Keep accessible names, error relationships, disabled semantics, focus behavior, and localization under review when adapting a component. See `../references/component-validation.md` for completed checks and remaining browser-QA limitations.
+Load the family's CSS after the baseline's, and mark the region it styles:
 
-Recheck the defined contrast pairs with `node tokens/validate-tokens.mjs`. This uses Node.js only and does not perform browser or assistive-technology testing.
+```html
+<link rel="stylesheet" href="tokens/cosmik/cosmik.css">
+<link rel="stylesheet" href="tokens/hplx/hplx.css">
+…
+<main data-family="hplx"> <!-- this product's content; the site's header and footer stay baseline -->
+  <section data-theme="light">…</section>
+</main>
+```
+
+Inside `[data-family="hplx"]` the same role variables take the family's values: dark by default, light where the family element or a section inside it carries `data-theme="light"` (or where the family element sits inside a light section). Components need no changes; they only ever read roles.
+
+### The HPLX family (proposed)
+
+The launcher art board's look: warm blacks and bone text, a lantern-amber accent for primary actions, focus and highlights, Spectral 600 for headings, and what HPLX's tools need that the monochrome baseline leaves out: `accent`, status tones `status-{error,warning,success,info}-{fg,bg,border}` (muted red, amber, green and blue; status still also says it in words) and `shadow` with elevation levels 1–3 for menus and dialogs. Spectral is SIL OFL 1.1 and not bundled yet (a known gap in `asset-manifest.json`).
 
 ## Native consumers
 
-`cosmik.json` → `native` and `cosmik_tokens.rs` give values that need no browser:
+Each kit's `<kit>.json` → `native` and `<kit>_tokens.rs` give values that need no browser:
 
 - lengths (space, radius, gutter, control height, breakpoints, type sizes, elevation offsets) as logical px at a 16 px root;
-- `layout.line` as `{ "chars": 65 }`, a reading measure in characters (multiply by the advance of `0` in the body font if a width is needed);
+- `layout.line` as `{ "chars": 65 }`, a reading measure in characters;
 - letter spacing as a fraction of the font size (`0.06` for labels), plus the px value at the role's size;
 - easing as cubic-bezier control points `[x1, y1, x2, y2]` (`ease-out` is `[0, 0, 0.58, 1]`), and durations in ms;
 - every colour as `hex`, straight-alpha sRGB floats `srgb: [r, g, b, a]` and linear-light floats `linear: [r, g, b, a]`. In Bevy, `Color::srgba(r, g, b, a)` takes the `srgb` array; in egui, `Color32::from_rgba_unmultiplied` takes the hex bytes.
 
-`cosmik_tokens.rs` defines `Color`, `TypeRole`, `Elevation` and `Theme` structs, a `primitive` module, `DARK` and `LIGHT` themes with every role, and `space`, `radius`, `breakpoint`, `layout`, `typography` and `motion` modules. It has no dependencies; include it with `#[path = "…/tokens/cosmik_tokens.rs"] mod cosmik_tokens;` (add `#[allow(dead_code)]` on the `mod` to silence unused constants) or copy it into a crate.
+A family's files are complete on their own (baseline values included), so a product includes one kit only. `<kit>_tokens.rs` defines `Color`, `TypeRole`, `Elevation` and `Theme` structs, a `primitive` module, `DARK` and `LIGHT` themes with every role, and `space`, `radius`, `breakpoint`, `layout`, `typography` and `motion` modules. It has no dependencies; include it with `#[path = "…/tokens/hplx/hplx_tokens.rs"] mod hplx_tokens;` (add `#[allow(dead_code)]` on the `mod`) or copy it into a crate.
 
-## DTCG file
+## DTCG files
 
-`cosmik.tokens.json` follows the W3C Design Tokens Format Module 2025.10: `$type`/`$value`, colour values as `{ colorSpace, components, alpha, hex }`, dimensions as `{ value, unit }`, durations in ms, easing as `cubicBezier`, typography and shadow composites.
+`<kit>.tokens.json` follows the W3C Design Tokens Format Module 2025.10: `$type`/`$value`, colours as `{ colorSpace, components, alpha, hex }`, dimensions as `{ value, unit }`, durations in ms, easing as `cubicBezier`, typography and shadow composites.
 
 - `primitive.color.*` holds raw values; `color.*` holds the semantic roles as `{primitive.color.…}` aliases; elevation shadows alias `{color.shadow}`.
-- **Modes:** DTCG 2025.10 has no theme mechanism in the format itself. Each `color.*` `$value` is the default **dark** alias, and `$extensions["com.cosmiklabs.modes"]` lists the alias for every theme (`dark`, `light`). A tool that understands the extension (or a small transform) can build the light set; a tool that does not sees the dark theme.
-- Letter spacing is given in px at the role's size, because DTCG dimensions allow only px and rem; the em fraction is in `$extensions["com.cosmiklabs"].letterSpacingEm`. `layout.line` is a `number` (characters).
+- **Modes:** DTCG 2025.10 has no theme mechanism. Each `color.*` `$value` is the default **dark** alias, and `$extensions["com.cosmiklabs.modes"]` lists the alias for every mode (`dark`, `light`). A tool that does not read the extension sees the dark theme.
+- Letter spacing is given in px at the role's size (DTCG dimensions allow only px and rem); the em fraction is in `$extensions["com.cosmiklabs"].letterSpacingEm`. `layout.line` is a `number` (characters).
+
+## Scope
+
+These tokens and the specimens are a design-system reference, not a production UI package and not an accessibility certification: contrast is checked for the defined pairs only (`node scripts/check.mjs`), and browser, keyboard and assistive-technology checks remain pending (`../references/component-validation.md`).

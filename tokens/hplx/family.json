@@ -1,0 +1,210 @@
+{
+  "id": "hplx",
+  "name": "HPLX",
+  "extends": "Cosmik baseline 0.2.0",
+  "version": "0.1.0",
+  "status": "Proposed family; values pending owner review",
+  "description": "The HPLX product family: the engine, its Redux games, the launcher and the editor. Warm blacks and bone text, a lantern-amber accent, Spectral for titles, and the status hues its tools need. Everything else comes from the Cosmik baseline, whose rules it keeps.",
+  "proposals": [
+    "Proposed — needs owner approval: every value in this family (palette, amber accent, Spectral titles, status hues, elevation)."
+  ],
+  "fonts": [
+    {
+      "family": "Spectral",
+      "weights": [
+        600
+      ],
+      "license": "SIL Open Font License 1.1",
+      "source": "https://fonts.google.com/specimen/Spectral",
+      "bundled": false
+    }
+  ],
+  "primitives": {
+    "hplx-ink": "#0E0F11",
+    "hplx-panel": "#131518",
+    "hplx-raised": "#1E2226",
+    "hplx-bone": "#ECE7DD",
+    "hplx-ash": "#A7A196",
+    "hplx-rule": "#2E3339",
+    "hplx-edge": "#7E786E",
+    "hplx-amber": "#E0A53A",
+    "hplx-amber-hover": "#EBB75C",
+    "hplx-amber-active": "#C98F2A",
+    "hplx-tar": "#1A1408",
+    "hplx-vellum": "#F3EFE6",
+    "hplx-parchment": "#E7E0D2",
+    "hplx-soot": "#1A1714",
+    "hplx-umber": "#5C554B",
+    "hplx-rule-light": "#D6CFC1",
+    "hplx-edge-light": "#7A7266",
+    "hplx-amber-deep": "#875709",
+    "hplx-amber-deep-hover": "#734A07",
+    "hplx-amber-deep-active": "#5F3D06",
+    "shadow-dark": "#00000099",
+    "shadow-light": "#00000029",
+    "red-50": "#FAEDEB",
+    "red-200": "#F2B8B5",
+    "red-400": "#D0605A",
+    "red-600": "#B3362F",
+    "red-800": "#8A1F1A",
+    "red-950": "#2B1615",
+    "amber-50": "#FAF1DE",
+    "amber-200": "#EDCB8C",
+    "amber-400": "#B08A3E",
+    "amber-600": "#94690F",
+    "amber-800": "#6A4A05",
+    "amber-950": "#2A2112",
+    "green-50": "#E9F3EB",
+    "green-200": "#A9D3B1",
+    "green-400": "#4F9A63",
+    "green-600": "#2F7D46",
+    "green-800": "#1D5530",
+    "green-950": "#13241A",
+    "blue-50": "#EAF0F8",
+    "blue-200": "#B5C7E6",
+    "blue-400": "#6688C0",
+    "blue-600": "#3B66AB",
+    "blue-800": "#1F3F73",
+    "blue-950": "#151D2B"
+  },
+  "semantic": {
+    "dark": {
+      "bg": "hplx-ink",
+      "surface": "hplx-panel",
+      "raised": "hplx-raised",
+      "text": "hplx-bone",
+      "muted": "hplx-ash",
+      "border": "hplx-edge",
+      "divider": "hplx-rule",
+      "focus": "hplx-amber",
+      "link": "hplx-bone",
+      "link-hover": "hplx-amber-hover",
+      "link-active": "hplx-bone",
+      "on-selected": "hplx-ink",
+      "selected": "hplx-bone",
+      "action-primary": "hplx-amber",
+      "action-primary-hover": "hplx-amber-hover",
+      "action-primary-active": "hplx-amber-active",
+      "action-primary-fg": "hplx-tar",
+      "action-secondary": "hplx-panel",
+      "action-secondary-hover": "hplx-raised",
+      "action-secondary-active": "hplx-ink",
+      "action-secondary-fg": "hplx-bone",
+      "input-bg": "hplx-ink",
+      "input-fg": "hplx-bone",
+      "input-placeholder": "hplx-ash",
+      "disabled-bg": "hplx-raised",
+      "disabled-fg": "hplx-ash",
+      "disabled-border": "hplx-edge",
+      "status-fg": "hplx-bone",
+      "status-bg": "hplx-raised",
+      "status-border": "hplx-edge"
+    },
+    "light": {
+      "bg": "hplx-vellum",
+      "surface": "white",
+      "raised": "hplx-parchment",
+      "text": "hplx-soot",
+      "muted": "hplx-umber",
+      "border": "hplx-edge-light",
+      "divider": "hplx-rule-light",
+      "focus": "hplx-amber-deep",
+      "link": "hplx-soot",
+      "link-hover": "hplx-amber-deep",
+      "link-active": "hplx-soot",
+      "on-selected": "hplx-vellum",
+      "selected": "hplx-soot",
+      "action-primary": "hplx-amber-deep",
+      "action-primary-hover": "hplx-amber-deep-hover",
+      "action-primary-active": "hplx-amber-deep-active",
+      "action-primary-fg": "white",
+      "action-secondary": "white",
+      "action-secondary-hover": "hplx-parchment",
+      "action-secondary-active": "hplx-vellum",
+      "action-secondary-fg": "hplx-soot",
+      "input-bg": "white",
+      "input-fg": "hplx-soot",
+      "input-placeholder": "hplx-umber",
+      "disabled-bg": "hplx-parchment",
+      "disabled-fg": "hplx-umber",
+      "disabled-border": "hplx-edge-light",
+      "status-fg": "hplx-soot",
+      "status-bg": "hplx-parchment",
+      "status-border": "hplx-edge-light"
+    }
+  },
+  "extensions": {
+    "dark": {
+      "accent": "hplx-amber",
+      "shadow": "shadow-dark",
+      "status-error-fg": "red-200",
+      "status-error-bg": "red-950",
+      "status-error-border": "red-400",
+      "status-warning-fg": "amber-200",
+      "status-warning-bg": "amber-950",
+      "status-warning-border": "amber-400",
+      "status-success-fg": "green-200",
+      "status-success-bg": "green-950",
+      "status-success-border": "green-400",
+      "status-info-fg": "blue-200",
+      "status-info-bg": "blue-950",
+      "status-info-border": "blue-400"
+    },
+    "light": {
+      "accent": "hplx-amber-deep",
+      "shadow": "shadow-light",
+      "status-error-fg": "red-800",
+      "status-error-bg": "red-50",
+      "status-error-border": "red-600",
+      "status-warning-fg": "amber-800",
+      "status-warning-bg": "amber-50",
+      "status-warning-border": "amber-600",
+      "status-success-fg": "green-800",
+      "status-success-bg": "green-50",
+      "status-success-border": "green-600",
+      "status-info-fg": "blue-800",
+      "status-info-bg": "blue-50",
+      "status-info-border": "blue-600"
+    }
+  },
+  "type": {
+    "display": {
+      "fontFamily": "Spectral"
+    },
+    "display-small": {
+      "fontFamily": "Spectral"
+    },
+    "section": {
+      "fontFamily": "Spectral"
+    },
+    "card": {
+      "fontFamily": "Spectral"
+    }
+  },
+  "elevation": {
+    "1": {
+      "surface": "raised",
+      "offsetX": "0px",
+      "offsetY": "1px",
+      "blur": "2px",
+      "spread": "0px",
+      "color": "shadow"
+    },
+    "2": {
+      "surface": "raised",
+      "offsetX": "0px",
+      "offsetY": "4px",
+      "blur": "12px",
+      "spread": "0px",
+      "color": "shadow"
+    },
+    "3": {
+      "surface": "raised",
+      "offsetX": "0px",
+      "offsetY": "12px",
+      "blur": "32px",
+      "spread": "0px",
+      "color": "shadow"
+    }
+  }
+}

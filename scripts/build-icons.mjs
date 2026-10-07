@@ -1,4 +1,4 @@
-/** App-icon builder. Run: node icons/build-icons.mjs from the bundle root.
+/** App-icon builder (run through `node scripts/build.mjs`).
  * Packs the existing plate-variant renders (assets/vector/png/cosmik-emblem-primary-*.png) into
  * cosmik.ico and cosmik.icns, and area-downsamples the 1024 px render to the 512 px and 180 px
  * (apple-touch) PNGs. Node.js only; no third-party packages. The embedded renders are used byte for
