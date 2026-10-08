@@ -1,6 +1,6 @@
 /** App-icon builder (run through `node scripts/build.mjs`).
- * Packs the existing plate-variant renders (assets/vector/png/cosmik-emblem-primary-*.png) into
- * cosmik.ico and cosmik.icns, and area-downsamples the 1024 px render to the 512 px and 180 px
+ * Packs each identity's plate-variant renders into ICO and ICNS, and area-downsamples
+ * its 1024 px render to the 512 px and 180 px
  * (apple-touch) PNGs. Node.js only; no third-party packages. The embedded renders are used byte for
  * byte; no optical small-size redesign is implied (see asset-manifest.json known_gaps). */
 import fs from 'node:fs';
@@ -8,8 +8,10 @@ import path from 'node:path';
 import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const render = (size) => fs.readFileSync(path.join(root, `assets/vector/png/cosmik-emblem-primary-${size}.png`));
-const out = (name, bytes) => fs.writeFileSync(path.join(root, 'icons', name), bytes);
+const kits = [
+  {name:'cosmik', prefix:'assets/vector/png/cosmik-emblem-primary'},
+  {name:'hplx-ember', prefix:'assets/hplx/png/hplx-ember-primary'},
+];
 
 // ---- Minimal PNG codec: 8-bit RGBA or RGB, non-interlaced ----
 const SIGNATURE = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
@@ -94,10 +96,13 @@ function downsample({ width, height, px }, size) {
 }
 
 // ---- Outputs ----
+for (const {name, prefix} of kits) {
+const render = size => fs.readFileSync(path.join(root, `${prefix}-${size}.png`));
+const out = (suffix, bytes) => fs.writeFileSync(path.join(root, 'icons', `${name}${suffix}`), bytes);
 const master = decodePng(render(1024));
 const png512 = encodePng(downsample(master, 512));
-out('cosmik-512.png', png512);
-out('cosmik-apple-touch-180.png', encodePng(downsample(master, 180)));
+out('-512.png', png512);
+out('-apple-touch-180.png', encodePng(downsample(master, 180)));
 
 const icoSizes = [16, 24, 32, 48, 64, 256];
 const icoImages = icoSizes.map(render);
@@ -111,7 +116,7 @@ icoSizes.forEach((size, i) => {
   ico.writeUInt32LE(icoImages[i].length, e + 8); ico.writeUInt32LE(offset, e + 12);
   offset += icoImages[i].length;
 });
-out('cosmik.ico', Buffer.concat([ico, ...icoImages]));
+out('.ico', Buffer.concat([ico, ...icoImages]));
 
 // ICNS PNG element types: icp4 16, icp5 32, icp6 64, ic07 128, ic08 256, ic09 512, ic10 1024 (512@2x),
 // ic11 32 (16@2x), ic12 64 (32@2x), ic13 256 (128@2x), ic14 512 (256@2x).
@@ -120,6 +125,7 @@ const icnsEntries = [['icp4', render(16)], ['icp5', render(32)], ['icp6', render
 const elements = icnsEntries.map(([type, data]) => { const h = Buffer.alloc(8); h.write(type, 0, 'latin1'); h.writeUInt32BE(8 + data.length, 4); return Buffer.concat([h, data]); });
 const icnsHead = Buffer.alloc(8); icnsHead.write('icns', 0, 'latin1');
 icnsHead.writeUInt32BE(8 + elements.reduce((n, e) => n + e.length, 0), 4);
-out('cosmik.icns', Buffer.concat([icnsHead, ...elements]));
+out('.icns', Buffer.concat([icnsHead, ...elements]));
 
-console.log(`Generated icons/cosmik.ico (${icoSizes.join('/')}), cosmik.icns, cosmik-512.png and cosmik-apple-touch-180.png from the plate variant.`);
+console.log(`Generated icons/${name}.ico (${icoSizes.join('/')}), ${name}.icns, ${name}-512.png and ${name}-apple-touch-180.png from the plate variant.`);
+}
