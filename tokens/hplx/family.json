@@ -1,7 +1,7 @@
 {
   "id": "hplx",
   "name": "HPLX",
-  "extends": "Cosmik baseline 0.2.0",
+  "extends": "Cosmik baseline 0.3.0",
   "version": "0.1.0",
   "status": "Proposed family; values pending owner review",
   "description": "The HPLX product family: the engine, its game reimplementations, the launcher and the editor. Warm blacks and bone text, a lantern-amber accent, Spectral for titles, and the status hues its tools need. Everything else comes from the Cosmik baseline, whose rules it keeps.",

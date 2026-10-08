@@ -1,6 +1,6 @@
 # Cosmik brand kit
 
-Brand kit 0.2.0 baseline; work toward 0.3.0 is unreleased. See [CHANGELOG.md](CHANGELOG.md).
+Brand kit 0.3.0 release candidate (8 October 2026); the release tag is pending. See [CHANGELOG.md](CHANGELOG.md).
 
 Start with the [brand guide](guide/README.md).
 This package turns the visual direction into a practical identity and product-reference system. It is published for reference and implementation trials; it is not a claim that every production asset, legal permission, or accessibility check is complete.
@@ -87,4 +87,4 @@ Whichever you use, consume only generated outputs and listed assets, and keep th
 
 ## Publishing
 
-This repository is the home of the Cosmik brand kit (0.2.0). The current Markdown guide and per-kit token folders supersede the original package layout; earlier guide documents remain in `guide/archive/` as historical references. The organization profile remains in the separate `.github` repository.
+This repository is the home of the Cosmik brand kit (0.3.0 release candidate). The current Markdown guide and per-kit token folders supersede the original package layout; earlier guide documents remain in `guide/archive/` as historical references. The organization profile remains in the separate `.github` repository.

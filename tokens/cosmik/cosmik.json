@@ -1,6 +1,6 @@
 {
   "name": "Cosmik",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "status": "Approved baseline (owner, 2026-10-07)",
   "description": "Resolved semantic tokens. Use semantic tokens in components; primitives are reference values, not theme roles. All dimensions assume a 16px browser root. All-caps tracking is for labels only.",
   "primitives": {

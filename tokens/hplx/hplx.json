@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "status": "Proposed family; values pending owner review",
   "family": "hplx",
-  "extends": "Cosmik baseline 0.2.0",
+  "extends": "Cosmik baseline 0.3.0",
   "extensionRoles": [
     "accent",
     "shadow",

@@ -1,7 +1,7 @@
 {
   "name": "Cosmik brand kit",
-  "version": "0.2.0",
-  "date": "2026-10-04",
+  "version": "0.3.0",
+  "date": "2026-10-08",
   "system_status": "baseline approved (owner, 2026-10-07); the HPLX family kit is proposed",
   "emblem_status": "accepted traced symbol",
   "wordmark_status": "approved raster only; outlined master not supplied",
@@ -775,7 +775,7 @@
         "format": "source"
       },
       "status": "baseline source, approved",
-      "sha256": "016706cba204e040f368f35df17f62eac2d822db10a869eb22cc28a4628fe9b8",
+      "sha256": "7ee17ee54f7c34334b8bbb3fb115957062ca327f6cc0be272a3fbd90fd6ed792",
       "editable": true
     },
     {
@@ -786,7 +786,7 @@
         "format": "css"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "2ce5f140ae12b29d2fe624b6ef7ddbe8fce3898010f4712c23a5e1b3f50a95df"
+      "sha256": "6f81628930223d4870729df6d8990306d47618c0072393baeb35020db4a44573"
     },
     {
       "path": "tokens/cosmik/cosmik.json",
@@ -797,7 +797,7 @@
         "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "ab74f6ac0421020d3a0a04a80a169c7bda4835bc38ef783472d27409f04206be"
+      "sha256": "ef1b61e043aca3396e59c92f1444b1245915c3336926130337d1a165a7cc3c76"
     },
     {
       "path": "tokens/cosmik/cosmik.tokens.json",
@@ -807,7 +807,7 @@
         "format": "dtcg"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "2748162478a1258b7ff86ba2d79d56007e1e6f23af197ba66dfeabeb5e497ead"
+      "sha256": "0aa35d4d8390d4dfe8fe0f1a2bf6f45752742b385ff7f6ac97f6f03df0db7aec"
     },
     {
       "path": "tokens/cosmik/cosmik_tokens.rs",
@@ -817,7 +817,7 @@
         "format": "rust"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "05e67840609250ee13a156469e68a2b33184a9d9912086f8f8c860c6bd0f9efa"
+      "sha256": "40f147122c6295f9df5bcd95d9b214117488287773d7ad24df8a7f176ea2ddc5"
     },
     {
       "path": "tokens/hplx/family.json",
@@ -827,7 +827,7 @@
         "format": "source"
       },
       "status": "HPLX family source, proposed",
-      "sha256": "018dbc45299e584ab7e15287c8b64095dfc3529488166c34afef3b72e240de48",
+      "sha256": "384d3e26895897449239a24cefc2927cd674d5d9203be047ea52ad2ae1bdc1b3",
       "editable": true
     },
     {
@@ -849,7 +849,7 @@
         "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "e2469be23ae8977b251d10c087d52b7f683f616979521956b4336c763a4e8dfd"
+      "sha256": "b48dc59abcfad8c115d5e9343364c54e37ebbaf24ddd1a1d3549863692257c7b"
     },
     {
       "path": "tokens/hplx/hplx.tokens.json",
@@ -859,7 +859,7 @@
         "format": "dtcg"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "53692b6c6438816287582766f513ac66fb458b8aac116bfa7008d4b022247ee8"
+      "sha256": "3d26d6427cf782b5d6f9acdf88b0be7121bc9a72767415895afda22ccda5e555"
     },
     {
       "path": "tokens/hplx/hplx_tokens.rs",
