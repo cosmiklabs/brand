@@ -1,8 +1,8 @@
 # Changes
 
-Versions follow semver. Release tags will be `vX.Y.Z`; none exist yet.
+Versions follow semver. Release tags use `vX.Y.Z`; the first is `v0.3.0`.
 
-## Unreleased (0.3.0)
+## 0.3.0 · 8 October 2026
 
 - **HPLX Ember symbol:** added the owner's selected original Ember (diamond above two shallow arcs), faithfully reconstructed as clean vector geometry. SVG variants, transparent PNGs and square platform-icon derivatives rebuild from `assets/hplx/ember.source.json`; the manifest exposes HPLX-specific entry points. No wordmark or splash artwork was invented, no consuming product was changed, and all HPLX theme values remain proposed.
 - **Theme inheritance:** family CSS now follows the nearest explicit theme, including a dark family inside a light ancestor, using `light-dark()` and the inherited colour scheme.

@@ -1,6 +1,6 @@
 # Cosmik brand kit
 
-Brand kit 0.3.0 release candidate (8 October 2026); the release tag is pending. See [CHANGELOG.md](CHANGELOG.md).
+Brand kit 0.3.0 (8 October 2026), tagged `v0.3.0`. See [CHANGELOG.md](CHANGELOG.md).
 
 Start with the [brand guide](guide/README.md).
 This package turns the visual direction into a practical identity and product-reference system. It is published for reference and implementation trials; it is not a claim that every production asset, legal permission, or accessibility check is complete.
@@ -70,7 +70,7 @@ Inter desktop files come from the official Inter 4.1 release; internal font vers
 
 ## Consuming the kit
 
-Pin an exact version; never track `main`. The kit is versioned with semver (`version` in `asset-manifest.json` and `tokens/cosmik/source.json`); a release will be a git tag `vX.Y.Z`. No release tags exist yet; until one does, pin an exact commit and record that it includes unreleased changes.
+Pin an exact version; never track `main`. The kit is versioned with semver (`version` in `asset-manifest.json` and `tokens/cosmik/source.json`); releases use git tags `vX.Y.Z`. The first tagged release is `v0.3.0`.
 
 - **Tagged release archive** (recommended for the website and design tools): download the archive for a tag and vendor the files you use (`entry_points` in `asset-manifest.json` names them). Check them with the listed SHA-256 hashes.
 - **Git submodule** at a tagged commit (`git submodule add https://github.com/cosmiklabs/brand vendor/brand`, then check out the tag): best when a build reads files from the kit directly. Update by moving the submodule to a newer tag.
@@ -87,4 +87,4 @@ Whichever you use, consume only generated outputs and listed assets, and keep th
 
 ## Publishing
 
-This repository is the home of the Cosmik brand kit (0.3.0 release candidate). The current Markdown guide and per-kit token folders supersede the original package layout; earlier guide documents remain in `guide/archive/` as historical references. The organization profile remains in the separate `.github` repository.
+This repository is the home of the Cosmik brand kit (0.3.0). The current Markdown guide and per-kit token folders supersede the original package layout; earlier guide documents remain in `guide/archive/` as historical references. The organization profile remains in the separate `.github` repository.
