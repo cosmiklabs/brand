@@ -66,7 +66,7 @@ The typefaces in `fonts/` are not Cosmik Labs' work and stay under their own lic
 - IBM Plex Mono: `fonts/licenses/IBM-Plex-OFL.txt` (Reserved Font Name "Plex")
 - Spectral (the HPLX family's headings): `fonts/licenses/Spectral-OFL.txt`
 
-Preserve these notices whenever font files are redistributed. `fonts/web/IBMPlexMono-Regular.woff2` is a lossless WOFF2 wrapper of the bundled TTF (every table byte-identical; see `fonts/build-web-fonts.mjs`), made so the web specimen does not need the TTF. Using the fonts here implies no endorsement by their authors.
+Preserve these notices whenever font files are redistributed. `fonts/web/IBMPlexMono-Regular.woff2` is a lossless WOFF2 wrapper of the bundled TTF (every table byte-identical; see `scripts/build-web-fonts.mjs`), made so the web specimen does not need the TTF. Using the fonts here implies no endorsement by their authors.
 
 ## Notes
 

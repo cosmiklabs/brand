@@ -7,3 +7,4 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 for (const script of ['validate-tokens.mjs', 'verify-manifest.mjs']) {
   execFileSync(process.execPath, [path.join(here, script)], { stdio: 'inherit' });
 }
+execFileSync(process.execPath, ['--test', path.join(here, '../tests/manifest.test.mjs')], {stdio:'inherit'});

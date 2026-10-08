@@ -2,15 +2,15 @@
 <html lang="en" data-theme="dark">
 <head>
  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
- <meta name="color-scheme" content="dark light"><meta name="description" content="Offline Cosmik baseline component and semantic token reference; browser QA pending.">
+ <meta name="color-scheme" content="dark light"><meta name="description" content="Offline Cosmik and HPLX component and semantic token reference.">
  <title>Cosmik — baseline component reference</title>
- <link rel="stylesheet" href="../tokens/cosmik/cosmik.css"><link rel="stylesheet" href="components.css">
+ <link rel="stylesheet" href="../tokens/cosmik/cosmik.css"><link rel="stylesheet" href="../tokens/hplx/hplx.css"><link rel="stylesheet" href="components.css">
 </head>
 <body>
  <a class="skip-link" href="#main">Skip to component reference</a>
  <header class="wrap"><div class="masthead"><span class="brand-label">Cosmik</span><nav class="nav" aria-label="Reference sections"><a href="#dark">Dark</a><a href="#light">Light</a><a href="#usage">Usage</a></nav></div></header>
  <main id="main">
-  <section class="hero wrap" aria-labelledby="page-title"><p class="eyebrow muted">Component reference / Baseline</p><h1 id="page-title">A quiet system.<br>Clear interactions.</h1><p>Building blocks for Cosmik interfaces. Neutral surfaces, deliberate typography, and explicit states work together in both themes.</p><p class="hero-note">Offline reference. The baseline is approved; browser, keyboard and assistive-technology checks remain pending. The live “Cosmik” text above is a label, not an alternative wordmark.</p></section>
+  <section class="hero wrap" aria-labelledby="page-title"><p class="eyebrow muted">Component reference / Cosmik and HPLX</p><h1 id="page-title">A quiet system.<br>Clear interactions.</h1><p>Building blocks for Cosmik interfaces. Neutral surfaces, deliberate typography, and explicit states work together in both themes.</p><p class="hero-note">Offline reference. The baseline is approved; HPLX is proposed. These examples do not change project data. The live “Cosmik” text above is a label, not an alternative wordmark.</p><div class="kit-picker field"><label for="kit-picker">Preview kit</label><select id="kit-picker"><option value="cosmik">Cosmik baseline (approved)</option><option value="hplx">HPLX (proposed)</option></select><p class="helper" id="kit-status" role="status">Showing the approved Cosmik baseline.</p></div><noscript><p>Kit switching and interactive examples need JavaScript.</p></noscript></section>
   
 <section class="theme-section" data-theme="dark" id="dark" aria-labelledby="dark-title">
  <div class="wrap">
@@ -40,9 +40,38 @@
     <h3 id="dark-project-title">HPLX</h3>
     <p>A modern reimplementation of the HPL engine family.</p>
     <div class="project-status"><span aria-hidden="true">◷</span><span>In development</span></div>
-    <div class="project-detail"><p class="mono">Proposed component treatment</p><p class="muted">This specimen defines hierarchy and status presentation. It does not imply a release date or a feature commitment.</p></div>
+    <div class="project-detail"><p class="mono">Component treatment</p><p class="muted">This specimen defines hierarchy and status presentation. It does not imply a release date or a feature commitment.</p></div>
    </article>
   </div>
+
+  <section class="demo-panel interaction-panel" aria-labelledby="dark-interaction-title">
+   <h3 id="dark-interaction-title">Tabs and story actions</h3>
+   <div class="tab-list" role="tablist" aria-label="Dark story workspace">
+    <button type="button" role="tab" id="dark-play-tab" aria-controls="dark-play-panel" aria-selected="true">Play</button>
+    <button type="button" role="tab" id="dark-create-tab" aria-controls="dark-create-panel" aria-selected="false" tabindex="-1">Create</button>
+   </div>
+   <div role="tabpanel" id="dark-play-panel" aria-labelledby="dark-play-tab" tabindex="0"><p>Continue your custom story from its latest save.</p><button type="button" class="button-primary" data-demo="Continue">Continue</button></div>
+   <div role="tabpanel" id="dark-create-panel" aria-labelledby="dark-create-tab" tabindex="0" hidden>
+    <p>Your editable projects stay in your HPLX directory.</p>
+    <button type="button" class="button-primary" data-demo="Editor">Launch editor</button>
+    <details class="story-actions"><summary>Story actions</summary><div class="action-menu">
+     <button type="button" class="button-secondary" data-confirm="duplicate">Duplicate</button>
+     <button type="button" class="button-secondary" data-confirm="copy">Create editable copy</button>
+     <button type="button" class="button-danger" data-confirm="delete">Delete project</button>
+    </div></details>
+   </div>
+   <div class="elevation-sample">Raised surface: a place for supporting project details.</div>
+   <div class="status-grid" aria-label="Status examples">
+    <div class="status-example status-error"><strong>Error</strong><p>The project could not be opened. Choose its folder again.</p></div>
+    <div class="status-example status-warning"><strong>Warning</strong><p>Save your changes before closing the editor.</p></div>
+    <div class="status-example status-success"><strong>Saved</strong><p>Your project changes have been saved.</p></div>
+    <div class="status-example status-info"><strong>Information</strong><p>The editor is planned and is not available yet.</p></div>
+   </div>
+   <dialog aria-labelledby="dark-dialog-title" aria-describedby="dark-dialog-description">
+    <h3 id="dark-dialog-title"></h3><p id="dark-dialog-description"></p>
+    <div class="dialog-actions"><button type="button" class="button-secondary" data-cancel autofocus>Cancel</button><button type="button" class="button-primary" data-accept>Confirm</button></div>
+   </dialog>
+  </section>
  </div>
 </section>
   
@@ -74,12 +103,41 @@
     <h3 id="light-project-title">HPLX</h3>
     <p>A modern reimplementation of the HPL engine family.</p>
     <div class="project-status"><span aria-hidden="true">◷</span><span>In development</span></div>
-    <div class="project-detail"><p class="mono">Proposed component treatment</p><p class="muted">This specimen defines hierarchy and status presentation. It does not imply a release date or a feature commitment.</p></div>
+    <div class="project-detail"><p class="mono">Component treatment</p><p class="muted">This specimen defines hierarchy and status presentation. It does not imply a release date or a feature commitment.</p></div>
    </article>
   </div>
+
+  <section class="demo-panel interaction-panel" aria-labelledby="light-interaction-title">
+   <h3 id="light-interaction-title">Tabs and story actions</h3>
+   <div class="tab-list" role="tablist" aria-label="Light story workspace">
+    <button type="button" role="tab" id="light-play-tab" aria-controls="light-play-panel" aria-selected="true">Play</button>
+    <button type="button" role="tab" id="light-create-tab" aria-controls="light-create-panel" aria-selected="false" tabindex="-1">Create</button>
+   </div>
+   <div role="tabpanel" id="light-play-panel" aria-labelledby="light-play-tab" tabindex="0"><p>Continue your custom story from its latest save.</p><button type="button" class="button-primary" data-demo="Continue">Continue</button></div>
+   <div role="tabpanel" id="light-create-panel" aria-labelledby="light-create-tab" tabindex="0" hidden>
+    <p>Your editable projects stay in your HPLX directory.</p>
+    <button type="button" class="button-primary" data-demo="Editor">Launch editor</button>
+    <details class="story-actions"><summary>Story actions</summary><div class="action-menu">
+     <button type="button" class="button-secondary" data-confirm="duplicate">Duplicate</button>
+     <button type="button" class="button-secondary" data-confirm="copy">Create editable copy</button>
+     <button type="button" class="button-danger" data-confirm="delete">Delete project</button>
+    </div></details>
+   </div>
+   <div class="elevation-sample">Raised surface: a place for supporting project details.</div>
+   <div class="status-grid" aria-label="Status examples">
+    <div class="status-example status-error"><strong>Error</strong><p>The project could not be opened. Choose its folder again.</p></div>
+    <div class="status-example status-warning"><strong>Warning</strong><p>Save your changes before closing the editor.</p></div>
+    <div class="status-example status-success"><strong>Saved</strong><p>Your project changes have been saved.</p></div>
+    <div class="status-example status-info"><strong>Information</strong><p>The editor is planned and is not available yet.</p></div>
+   </div>
+   <dialog aria-labelledby="light-dialog-title" aria-describedby="light-dialog-description">
+    <h3 id="light-dialog-title"></h3><p id="light-dialog-description"></p>
+    <div class="dialog-actions"><button type="button" class="button-secondary" data-cancel autofocus>Cancel</button><button type="button" class="button-primary" data-accept>Confirm</button></div>
+   </dialog>
+  </section>
  </div>
 </section>
-  <section class="rules wrap" id="usage" aria-labelledby="usage-title"><p class="eyebrow muted">03 / Implementation notes</p><h2 id="usage-title">Use the role. Keep the meaning.</h2>
+  <section class="rules wrap" id="usage" aria-labelledby="usage-title"><p class="eyebrow muted">Implementation notes</p><h2 id="usage-title">Use the role. Keep the meaning.</h2>
    <div class="rules-grid">
     <div><h3>Semantic first</h3><p>Bind components to background, surface, text, action, and state roles. Both themes redefine every color role. Do not reuse a dark primitive as a light surface.</p></div>
     <div><h3>Visible &amp; named</h3><p>Pair status with words and a simple symbol. Keep links underlined. Disabled controls use the native disabled attribute and a clear label; never rely on reduced opacity alone.</p></div>
@@ -95,9 +153,9 @@
 }
 /* Import tokens/cosmik/cosmik.css, then specimens/components.css. */</pre>
    <p class="hero-note">Focus: 2 px outline with 2 px offset. Motion: 140 ms state transitions; reduced-motion disables transitions and the loading pulse. In a real product, announce the start and completion of a pending action and restore its previous focus.</p>
-   <p class="hero-note">Typography: Inter 400 body 17/1.55; Inter 600 display 48/1.1 (34/1.15 on small screens), section 30/1.2, card 22/1.3; Inter 500 controls 15/1.4; IBM Plex Mono 400 labels 14/1.5. Only all-caps labels use 0.06em tracking. See the accompanying validation report for tested scope and limitations.</p>
+   <p class="hero-note">Typography and colors come from the selected kit. Inter stays on controls and reading text; HPLX uses Spectral headings. See the <a href="../references/component-validation.md">validation scope and remaining checks</a>.</p>
   </section>
  </main>
- <footer class="footer wrap">Cosmik / Approved baseline / Browser QA pending / No network requests, forms, or external effects.</footer>
+ <footer class="footer wrap">Cosmik / Approved baseline / Proposed HPLX family / Local examples only.</footer>
  <script src="components.js"></script>
 </body></html>

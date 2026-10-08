@@ -1,6 +1,6 @@
 # Interface
 
-Rules for websites, tools and in-game interfaces. The offline [component specimens](../specimens/components.html) show them with the baseline tokens; they are examples, not a UI framework.
+Rules for websites, tools and in-game interfaces. The offline [component specimens](../specimens/components.html) show them with a selector for the approved baseline and proposed HPLX family tokens; they are examples, not a UI framework.
 
 ## Actions
 

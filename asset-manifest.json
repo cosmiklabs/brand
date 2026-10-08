@@ -26,7 +26,7 @@
     {
       "id": "browser-qa",
       "status": "open",
-      "summary": "Rendered browser, zoom, keyboard and assistive-technology checks remain pending; see references/component-validation.md."
+      "summary": "Headless Chromium checks cover both kits; full browser zoom, other browser engines and assistive-technology checks remain pending. See references/component-validation.md."
     }
   ],
   "entry_points": {
@@ -827,7 +827,7 @@
         "format": "source"
       },
       "status": "HPLX family source, proposed",
-      "sha256": "10e7cf87cd0e8949411d64bf2d53d460ad1e5263d5bb933973978109ea8b4f05",
+      "sha256": "018dbc45299e584ab7e15287c8b64095dfc3529488166c34afef3b72e240de48",
       "editable": true
     },
     {
@@ -838,7 +838,7 @@
         "format": "css"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "f94a0c6f412209a5bfe1f9739cd2bf340c79409f229f1b68670acf9595784449"
+      "sha256": "82f15d2752f162cedb9f934d5d91675f2597d5d6aa57c78f008a6dc51d20a3c4"
     },
     {
       "path": "tokens/hplx/hplx.json",
@@ -996,6 +996,20 @@
       "license_file": "fonts/licenses/Spectral-OFL.txt",
       "sha256": "5f86915a744832ecf6e4a17ab04bea091b9fa992ef5164ff65ae34c1da2fe94b",
       "editable": true
+    }
+  ],
+  "font_licenses": [
+    {
+      "path": "fonts/licenses/Inter-OFL.txt",
+      "sha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a"
+    },
+    {
+      "path": "fonts/licenses/IBM-Plex-OFL.txt",
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+    },
+    {
+      "path": "fonts/licenses/Spectral-OFL.txt",
+      "sha256": "501d6ceca8e552630fe3aa9442b9a818565680a1a2f79f3fb8c13d6f309a9e98"
     }
   ]
 }

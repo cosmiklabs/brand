@@ -10,7 +10,7 @@ This package turns the visual direction into a practical identity and product-re
 1. Read the [brand guide](guide/README.md): the rules and judgement behind the identity, in Markdown. The earlier Word/PDF guide (v0.2) is in `guide/archive/`.
 2. Use `assets/vector/cosmik-emblem-master-offwhite.svg` as the accepted standalone emblem master. `cosmik-emblem-ink.svg` reverses the same geometry; `cosmik-emblem-primary.svg` includes the original black canvas. PNG sizes are in `assets/vector/png/`.
 3. Keep the approved original horizontal banner while a faithful outlined wordmark and complete vector lockup are prepared. No supporting font is an identified match for the wordmark. Until then, the **official stand-in** in product UIs is the emblem followed by the live label “Cosmik” in Inter 500 (type role `identity-label`, 20 px / 1.3, tracking 0).
-4. Open `specimens/components.html` locally for the approved baseline's dark/light component examples (browser QA remains pending). CSS, script, and fonts are local. It has no submission, storage, analytics, or network behavior.
+4. Open `specimens/components.html` locally and use the kit selector to compare the approved baseline and proposed HPLX family in dark/light themes. CSS, script, and fonts are local. It has no submission, storage, analytics, or network behavior.
 5. Copy `templates/cosmik-technical-note-template.docx` for a new document. Install the bundled desktop fonts first, replace bracketed content, and review the PDF export.
 
 ## Status and source of truth
@@ -20,7 +20,7 @@ This package turns the visual direction into a practical identity and product-re
 - **Approved baseline (owner, 2026-10-07):** typography, the semantic dark/light roles, layout and component rules, as generated in `tokens/cosmik/`. The baseline is monochrome: no accent colour, status in words.
 - **Family kits:** product families may have their own style on top of the baseline, under rules the build enforces (`tokens/README.md`). The **HPLX** family (`tokens/hplx/`) is proposed; its values await owner review.
 - Archive: earlier generated light PNGs. They differ geometrically and are not current masters.
-- Incomplete (known gaps, also recorded in `asset-manifest.json`): outlined wordmark/full lockup, optically optimized tiny icon, print-process proofs, and browser QA.
+- Incomplete (known gaps, also recorded in `asset-manifest.json`): outlined wordmark/full lockup, optically optimized tiny icon, print-process proofs, and remaining browser/accessibility QA.
 
 Do not redraw, stretch, rotate, crop into the flare, add effects, or recreate the COSMIK wordmark with Inter. The live “Cosmik” interface label is a separate, specified typographic treatment.
 
@@ -35,7 +35,7 @@ Do not redraw, stretch, rotate, crop into the flare, add effects, or recreate th
 - `specimens/`: compact offline component reference in both themes
 - `guide/`: the brand guide in Markdown (rules only; values live in `tokens/`), with the v0.2 Word/PDF guide in `guide/archive/`
 - `templates/`: two-page editable technical-note template, proof PDF, and usage notes
-- `scripts/`: `build.mjs` (regenerate everything) and `check.mjs` (contrast and hashes), and the scripts they run
+- `scripts/`: `build.mjs` (regenerate everything) and `check.mjs` (contrast, hashes and font-notice regression checks), `check-browser.mjs` (headless Chromium), and the scripts they run
 - `asset-manifest.json`: entry points, roles, web/desktop font lists, known gaps and SHA-256 for every listed file
 - `LICENSE.md`: the licence (MIT for tooling and tokens) and the brand-use policy for the marks
 - `references/`: validation results, remaining tests, and vector source/trace evidence
@@ -46,16 +46,17 @@ For raster exports, the numeric suffix is the full canvas width and height in ph
 
 Use semantic roles, not individual colour values: both modes of every kit map every surface, foreground, interaction, input, focus and status role. Paper is #F6F5F0 to match the accepted emblem fill.
 
-From the repository root, with Node.js and no third-party packages:
+From the repository root, with Node.js 22+ and no third-party packages:
 
-- `node scripts/build.mjs` regenerates every kit's tokens, the app icons and the Plex Mono WOFF2, then refreshes the generated files' hashes in `asset-manifest.json`;
-- `node scripts/check.mjs` checks every kit's contrast pairs (each kit passes the baseline's; a family adds pairs for its own roles) and verifies every hash in the manifest.
+- `node scripts/build.mjs` regenerates every kit's tokens, the app icons and the Plex Mono and Spectral WOFF2 files, then refreshes the generated files' hashes in `asset-manifest.json`;
+- `node scripts/check.mjs` checks every kit's contrast pairs (each kit passes the baseline's; a family adds pairs for its own roles), verifies every hash in the manifest, and tests that font notices cannot be omitted or silently rehashed;
+- `node scripts/check-browser.mjs` checks the specimen in an installed Chromium browser. Set `BRAND_BROWSER` to its executable path; optionally set `BRAND_SCREENSHOTS` to an output folder for review images.
 
 `.gitattributes` keeps text files LF on every platform, so hashes and regenerated output match the committed bytes.
 
 Completed in the 0.2.0 review: twelve guide pages and two template pages visually reviewed; correct Inter SemiBold verified in both PDFs; original raster byte checks; real SVG path/source checks; reproducible CSS/JSON; contrast-pair checks. Since then: contrast checks for every kit (see CHANGELOG).
 
-Pending: actual browser rendering, width/zoom/reflow, keyboard and assistive-technology checks. Guide component figures are drawn specifications, not screenshots. The detailed manual test list is in `references/component-validation.md`. These results do not certify a future product.
+Headless Chrome and Edge checks now cover both kits, nested themes, fonts, responsive widths, 200% root text size and the specimen interactions. Full browser zoom, assistive technologies and other browser engines remain to be checked; see `references/component-validation.md`. Guide component figures are drawn specifications, not screenshots. These results do not certify a future product.
 
 ## Fonts and rights
 

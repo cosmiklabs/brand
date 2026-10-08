@@ -4,6 +4,10 @@ Versions follow semver. Release tags will be `vX.Y.Z`; none exist yet.
 
 ## Unreleased (0.3.0)
 
+- **Theme inheritance:** family CSS now follows the nearest explicit theme, including a dark family inside a light ancestor, using `light-dark()` and the inherited colour scheme.
+- **Component reference:** compare the baseline and proposed HPLX family in the same specimen. Headings consume type roles; tabs, story actions, confirmation dialogs, status hues and elevation examples are interactive. Narrow layouts reflow at 200% root text size.
+- **Verification:** headless Chromium checks cover both kits and the new interactions. Font licence notices are hashed immutable inputs; regression checks reject missing or changed notices, including during generated-hash refreshes.
+
 - **Baseline approved (owner, 2026-10-07):** typography, the semantic dark/light roles, layout and component rules. It stays monochrome, as the guide says (§5, §7): the status hues, the shadow role and the elevation levels proposed earlier in this release moved to the HPLX family; the `scrim` role stays.
 - **Family kits:** product families get their own style on top of the baseline. `scripts/generate-tokens.mjs` merges `tokens/<id>/family.json` over the baseline and refuses a family that breaks the contract (every baseline role and mode kept; colours through its own primitives; its own typeface only for heading roles; utility type, spacing, layout, radii, breakpoints and motion fixed). Each family gets the same outputs as the baseline, its CSS scoped to `[data-family="<id>"]`. The validator checks every kit against the baseline's pairs, plus pairs for a family's own roles.
 - **HPLX family (proposed):** `tokens/hplx/`: warm blacks and bone text, a lantern-amber accent, Spectral 600 headings, the status tones `status-{error,warning,success,info}-{fg,bg,border}`, `accent`, `shadow` and elevation levels 1–3. 50 roles per mode; 184 contrast pairs pass.

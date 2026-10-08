@@ -5,7 +5,7 @@ Design tokens for every Cosmik surface, as **kits**: one **baseline** (`cosmik/`
 | Kit | Source | Status | Outputs |
 |---|---|---|---|
 | `cosmik/` (baseline) | `source.json` | Approved (owner, 2026-10-07) | `cosmik.css`, `cosmik.json`, `cosmik.tokens.json`, `cosmik_tokens.rs` |
-| `hplx/` (HPLX family: the engine, its Redux games, launcher and editor) | `family.json` | Proposed: values pending owner review | `hplx.css`, `hplx.json`, `hplx.tokens.json`, `hplx_tokens.rs` |
+| `hplx/` (HPLX family: the engine, its game reimplementations, launcher and editor) | `family.json` | Proposed: values pending owner review | `hplx.css`, `hplx.json`, `hplx.tokens.json`, `hplx_tokens.rs` |
 
 ## The baseline
 
@@ -43,7 +43,7 @@ Load the family's CSS after the baseline's, and mark the region it styles:
 </main>
 ```
 
-Inside `[data-family="hplx"]` the same role variables take the family's values: dark by default, light where the family element or a section inside it carries `data-theme="light"` (or where the family element sits inside a light section). Components need no changes; they only ever read roles.
+Inside `[data-family="hplx"]` the same role variables take the family's values: dark by default, light where the family element or a section inside it carries `data-theme="light"` (or where the family element sits inside a light section). Components read the roles, including the typography variables, and load the fonts the kit lists. Family colors use `light-dark()` (current browsers) with the nearest explicit `data-theme` color scheme, including a dark family inside a light ancestor. The root stays explicitly dark by default; OS preference does not switch it.
 
 ### The HPLX family (proposed)
 

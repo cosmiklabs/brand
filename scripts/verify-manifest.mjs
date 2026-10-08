@@ -17,7 +17,8 @@ const walk = (node) => {
 };
 walk(manifest);
 if (process.argv.includes('--update-generated')) {
-  for (const e of entries) if (e.generated_by || e.editable) e.sha256 = sha256(e.path);
+  const notices = new Set((manifest.font_licenses ?? []).map(e => e.path));
+  for (const e of entries) if ((e.generated_by || e.editable) && !notices.has(e.path)) e.sha256 = sha256(e.path);
   fs.writeFileSync(file, JSON.stringify(manifest, null, 2) + '\n');
 }
 const problems = [];
@@ -28,6 +29,16 @@ for (const e of entries) {
   if ('visible_bounds' in e) problems.push(`legacy visible_bounds key: ${e.path}`);
 }
 const listed = new Set(entries.map((e) => e.path));
+// Font notices are distribution inputs, not generated files. Their committed hashes
+// must never be refreshed by --update-generated, even if a notice changes upstream.
+const fonts = [...(manifest.web_fonts ?? []), ...(manifest.desktop_fonts ?? [])];
+for (const font of fonts) {
+  if (!font.license_file) problems.push(`font has no license_file: ${font.path}`);
+  else if (!listed.has(font.license_file)) problems.push(`font notice not listed with a hash: ${font.license_file}`);
+}
+for (const notice of manifest.font_licenses ?? []) {
+  if (notice.generated_by || notice.editable) problems.push(`font notice must have an immutable hash: ${notice.path}`);
+}
 // Entry points nest (tokens per kit); every string leaf is a path.
 const entryPoints = [];
 const leaves = (node) => { if (typeof node === 'string') entryPoints.push(node); else Object.values(node).forEach(leaves); };

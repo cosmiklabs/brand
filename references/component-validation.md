@@ -2,22 +2,22 @@
 
 Run `node scripts/check.mjs` for current contrast and source-integrity results from `tokens/cosmik/source.json` and `tokens/hplx/family.json`. These checks cover defined combinations and do not establish browser or accessibility conformance.
 
-The baseline was approved on 7 October 2026; the HPLX family remains proposed. The manual checks below remain open from the 4 October review.
+The baseline was approved on 7 October 2026; the HPLX family remains proposed.
 
-## Browser checks not completed
+## Browser checks
 
-**No rendered widths, browser zoom levels, keyboard flows, reduced-motion behavior, or screenshots are reported as passed.** Browser execution was unavailable in this review environment. These checks remain pending.
+On 7 October 2026, `node scripts/check-browser.mjs` passed in headless Chrome and Edge on Windows. Set `BRAND_BROWSER` to an installed Chromium executable and optionally `BRAND_SCREENSHOTS` to a review-image folder. The script uses Node.js 22+ without dependencies.
 
-The following checks remain required before adopting these examples in a product:
+Coverage includes both kits in dark/light themes at 1280, 768, 390 and 320 CSS pixels, with 100% and 200% root text size; nested theme precedence; local font loading and heading/control faces; tab keyboard navigation; all three confirmations, safe initial focus, inert background and focus restoration; slug validation; checkbox keyboard activation; and reduced-motion behavior. Selected Chrome desktop, narrow-layout and dialog captures were visually reviewed. Forced-colors captures are provided for inspection, without claiming accessibility conformance.
 
-1. Open `specimens/components.html` locally and inspect dark/light sections at 1280, 768, 390, and 320 CSS-pixel widths for clipping, overflow, and hierarchy. Verify the 720 px breakpoint.
-2. Test browser zoom at 200% and 400%, and text resizing to 200%. Confirm no lost content or control labels, usable reflow, and readable focus.
-3. Use Tab/Shift+Tab through the skip link, navigation, buttons, fields, and checkboxes. Confirm visible 2 px focus, expected order, no trap, skipped disabled buttons, Enter/Space activation, and repeated activation without side effects.
-4. Correct each slug error, toggle selection with Space, and verify helper/error relationships and announcements with a screen reader. Verify labels, names, state changes, and the skip link.
-5. Enable reduced motion and confirm the loading pulse and transitions stop. Check actual loading-start/completion announcements in the consuming product; these specimen loading states are illustrative.
-6. Confirm all bundled local font faces load at their real weights. Repeat visual and functional checks in target browsers, high contrast/forced-colors mode, and intended assistive technologies.
+Still required before adopting these examples in a product:
 
-Any diagram elsewhere in the guide is an illustrative design figure unless explicitly identified as an actual browser screenshot.
+- Full browser zoom at 200% and 400%, with clipping, reflow and visible-focus review. Root text resizing is a separate check.
+- A complete keyboard pass through the skip link, navigation and all control states, including disabled controls and responsive dialogs.
+- Screen-reader verification of names, field errors, tabs, modal context and live announcements, including real asynchronous loading in the consuming product.
+- Visual and functional checks in other browser engines, intended assistive technologies and system high-contrast settings.
+
+Guide diagrams remain illustrative unless explicitly identified as browser screenshots. These checks do not certify a future product.
 
 ## Reference basis
 
