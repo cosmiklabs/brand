@@ -27,6 +27,11 @@
       "id": "browser-qa",
       "status": "open",
       "summary": "Headless Chromium checks cover both kits; full browser zoom, other browser engines and assistive-technology checks remain pending. See references/component-validation.md."
+    },
+    {
+      "id": "hplx-optical-small-icon",
+      "status": "open",
+      "summary": "Ember 16–32 px exports are faithful reductions, not an optical redesign; the upper arc and diamond lose definition at tiny sizes. No HPLX wordmark or splash composition is supplied."
     }
   ],
   "entry_points": {
@@ -62,7 +67,21 @@
     "app_icon_windows": "icons/cosmik.ico",
     "app_icon_macos": "icons/cosmik.icns",
     "app_icon_png": "icons/cosmik-512.png",
-    "apple_touch_icon": "icons/cosmik-apple-touch-180.png"
+    "apple_touch_icon": "icons/cosmik-apple-touch-180.png",
+    "families": {
+      "hplx": {
+        "guide": "assets/hplx/README.md",
+        "source": "assets/hplx/ember.source.json",
+        "emblem_amber": "assets/hplx/hplx-ember-amber.svg",
+        "emblem_bone": "assets/hplx/hplx-ember-bone.svg",
+        "emblem_ink": "assets/hplx/hplx-ember-ink.svg",
+        "icon_plate": "assets/hplx/hplx-ember-primary.svg",
+        "app_icon_windows": "icons/hplx-ember.ico",
+        "app_icon_macos": "icons/hplx-ember.icns",
+        "app_icon_png": "icons/hplx-ember-512.png",
+        "apple_touch_icon": "icons/hplx-ember-apple-touch-180.png"
+      }
+    }
   },
   "assets": [
     {
@@ -695,6 +714,364 @@
         96,
         96
       ]
+    },
+    {
+      "path": "assets/hplx/README.md",
+      "role": {
+        "kind": "documentation",
+        "kit": "hplx"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "41c54cc0d20927d0e22b2299a2e4424976fff32055b10edddbf1b3207e2c6fcb",
+      "editable": true
+    },
+    {
+      "path": "assets/hplx/ember.source.json",
+      "role": {
+        "kind": "selected-symbol-source",
+        "kit": "hplx"
+      },
+      "status": "Owner-selected original Ember; immutable reconstruction source checksum",
+      "sha256": "a3f037c74454b63f242cc27ed1c8af78d668bf1e1fb0e226eae46fd3cc5cb355"
+    },
+    {
+      "path": "assets/hplx/hplx-ember-amber.svg",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "svg"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "887fbc9a070ea50a8323cb464219f27f279cd82293eb88e7168106acc8ab306d",
+      "viewBox": [
+        135,
+        289,
+        400,
+        150
+      ],
+      "visible_bounds_xywh": [
+        140.232,
+        294.205,
+        389.56,
+        140.221
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/hplx-ember-bone.svg",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "svg"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "16b130f69215052188e6eef31f3ef8b6dee1aa0891a4bb5005a54cc2e6ec9601",
+      "viewBox": [
+        135,
+        289,
+        400,
+        150
+      ],
+      "visible_bounds_xywh": [
+        140.232,
+        294.205,
+        389.56,
+        140.221
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/hplx-ember-ink.svg",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "svg"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "e167df5e68985454fea41963bea5356ba36685d67f18e0c6971137556d3c9557",
+      "viewBox": [
+        135,
+        289,
+        400,
+        150
+      ],
+      "visible_bounds_xywh": [
+        140.232,
+        294.205,
+        389.56,
+        140.221
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/hplx-ember-primary.svg",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "svg"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "da6f6c37a7e7e83bb409510c2d47beaf57b86f80f467b8fbec93c3ede8806426",
+      "viewBox": [
+        79,
+        108,
+        512,
+        512
+      ],
+      "visible_bounds_xywh": [
+        79,
+        108,
+        512,
+        512
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-amber-1024x384.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "png"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "5bee9e0d78132b81b3d560144036e8af213a98eee2ee677a509710a4ab0a5153",
+      "dimensions_px": [
+        1024,
+        384
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-bone-1024x384.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "png"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "85bd572a6f4ccbb3efe22a175a43f60ff5530b12c0c354e43069968798c4e611",
+      "dimensions_px": [
+        1024,
+        384
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-ink-1024x384.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "png"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "9e138527515503118d8dbf8e0a104577b874b8a30b2538c0a2cb0648d0b15b1a",
+      "dimensions_px": [
+        1024,
+        384
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-primary-1024.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "png"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "96ae21959141269380c1b062dbf3958c39cdbb4ad17f1235f9e367bcccf8561f",
+      "dimensions_px": [
+        1024,
+        1024
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-primary-128.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "png"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "32ee12b721407d11ea87b8166e5ce07103aa25606b5807e193f6fda6c6d28570",
+      "dimensions_px": [
+        128,
+        128
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-primary-16.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "png"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "b4b4c3efafd481b1cd6b4507959b88622eb01aa9124fa927655736ae39570ecd",
+      "dimensions_px": [
+        16,
+        16
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-primary-24.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "png"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "55bea93070b8324b3042308e1b19d8357520cf80566415cc421b8bff53dca7c1",
+      "dimensions_px": [
+        24,
+        24
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-primary-256.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "png"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "8cea979606c1b87c9e2e7ae841463a9c89509912d56841c2a8348506633766c7",
+      "dimensions_px": [
+        256,
+        256
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-primary-32.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "png"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "aed3ed4fdbce5aa8351e0e1650dba6aeb271eebf7d1401f7e930980e5ee233f0",
+      "dimensions_px": [
+        32,
+        32
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-primary-48.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "png"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "29e1251503d3570943564654a4f20a7546629c5444dc0c64e233b4dcad8b5016",
+      "dimensions_px": [
+        48,
+        48
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-primary-512.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "png"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "d7b12f387ac4968894e9cb1011ca94b8aa6721fe87b302e0bb626ffa05f10e36",
+      "dimensions_px": [
+        512,
+        512
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-primary-64.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "png"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "39f731abf4eaaf5da04643b12898950503a20b58318553e032a36928c5fce90a",
+      "dimensions_px": [
+        64,
+        64
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-primary-96.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "png"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "597e2751791e970dcc6d6aa86470e63292a720642d940577158b8c95aae440fe",
+      "dimensions_px": [
+        96,
+        96
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "icons/hplx-ember-512.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "png"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "843f03e1d258b858eb9d76c5b6af147a1b7be067d18c93c0caf6521300dc9b9d",
+      "dimensions_px": [
+        512,
+        512
+      ],
+      "generated_by": "scripts/build-icons.mjs"
+    },
+    {
+      "path": "icons/hplx-ember-apple-touch-180.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "png"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "13099929572583b5ecd2cc910651f1cf94d9d3ecbd9cf63b7aa34d71ebaaf890",
+      "dimensions_px": [
+        180,
+        180
+      ],
+      "generated_by": "scripts/build-icons.mjs"
+    },
+    {
+      "path": "icons/hplx-ember.icns",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "icns"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "288d0b181c64bca7315f6b51b91f860d946d29ea1bfa3692bd3f56f9a544e1e7",
+      "generated_by": "scripts/build-icons.mjs"
+    },
+    {
+      "path": "icons/hplx-ember.ico",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "format": "ico"
+      },
+      "status": "Selected Ember symbol; faithful derived delivery",
+      "sha256": "903b369ed0dd9e850ca92cfa3a40bb58ee76c039464eaf140026b40ea4660aa0",
+      "generated_by": "scripts/build-icons.mjs"
     }
   ],
   "app_icons": [
@@ -1011,5 +1388,16 @@
       "path": "fonts/licenses/Spectral-OFL.txt",
       "sha256": "501d6ceca8e552630fe3aa9442b9a818565680a1a2f79f3fb8c13d6f309a9e98"
     }
-  ]
+  ],
+  "family_identities": {
+    "hplx": {
+      "symbol": "Ember",
+      "status": "Owner-selected original concept, faithfully reconstructed as vector geometry",
+      "selected_date": "2026-10-08",
+      "wordmark": "not supplied",
+      "splash": "not supplied",
+      "theme_status": "Proposed; values pending owner review",
+      "note": "Symbol selection does not approve the family palette, type or other theme values. The Cosmik parent emblem is separate."
+    }
+  }
 }

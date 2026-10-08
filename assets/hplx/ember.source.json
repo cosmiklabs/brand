@@ -1,0 +1,169 @@
+{
+  "name": "HPLX Ember",
+  "selection": "Original 01 / EMBER",
+  "status": "Owner-selected concept; faithful vector reconstruction",
+  "selected_date": "2026-10-08",
+  "source_reference": {
+    "filename": "HPLX-light-and-dark-concepts.png",
+    "sha256": "2974ee218de055ed716719fe4e24fe9e700afaf3bd8f773a747f36ffb273f961",
+    "dimensions_px": [
+      1254,
+      1254
+    ],
+    "symbol_bounds_xywh": [
+      140.232,
+      294.205,
+      389.56,
+      140.221
+    ],
+    "note": "Only the selected symbol is reconstructed. The concept board, its other designs and its lettering are not distribution assets."
+  },
+  "reconstruction": "Four diamond line segments and two cubic B\u00e9zier segments per arc edge; flat median source amber; original shape spacing and mild asymmetry retained.",
+  "viewBox": [
+    135,
+    289,
+    400,
+    150
+  ],
+  "iconViewBox": [
+    79,
+    108,
+    512,
+    512
+  ],
+  "colours": {
+    "amber": "#F7B041",
+    "bone": "#ECE7DD",
+    "ink": "#1A1714",
+    "background": "#0E0F11"
+  },
+  "colour_note": "Amber is the median interior colour of the selected concept, flattened for a clean mark. Bone, ink and the dark icon plate use existing HPLX proposal values; this does not approve the wider theme.",
+  "shapes": [
+    {
+      "id": "diamond",
+      "commands": [
+        [
+          "M",
+          334.499,
+          294.205
+        ],
+        [
+          "L",
+          356.742,
+          316.672
+        ],
+        [
+          "L",
+          334.496,
+          339.049
+        ],
+        [
+          "L",
+          312.09,
+          316.68
+        ],
+        [
+          "Z"
+        ]
+      ]
+    },
+    {
+      "id": "upper_arc",
+      "commands": [
+        [
+          "M",
+          214.53,
+          385.318
+        ],
+        [
+          "C",
+          274.014,
+          390.892,
+          320.575,
+          389.834,
+          334.5,
+          389.926
+        ],
+        [
+          "C",
+          376.636,
+          390.205,
+          435.443,
+          387.016,
+          456.7,
+          383.673
+        ],
+        [
+          "C",
+          420.885,
+          396.97,
+          356.497,
+          399.163,
+          334.5,
+          399.194
+        ],
+        [
+          "C",
+          291.225,
+          399.253,
+          241.087,
+          394.86,
+          214.53,
+          385.318
+        ],
+        [
+          "Z"
+        ]
+      ]
+    },
+    {
+      "id": "lower_arc",
+      "commands": [
+        [
+          "M",
+          140.232,
+          405.99
+        ],
+        [
+          "C",
+          183.968,
+          415.663,
+          285.939,
+          417.186,
+          334.5,
+          416.858
+        ],
+        [
+          "C",
+          420.385,
+          416.279,
+          490.113,
+          413.123,
+          529.792,
+          404.867
+        ],
+        [
+          "C",
+          483.742,
+          427.818,
+          398.522,
+          434.215,
+          334.5,
+          434.421
+        ],
+        [
+          "C",
+          241.764,
+          434.718,
+          171.759,
+          422.67,
+          140.232,
+          405.99
+        ],
+        [
+          "Z"
+        ]
+      ]
+    }
+  ]
+}

@@ -4,6 +4,7 @@ Versions follow semver. Release tags will be `vX.Y.Z`; none exist yet.
 
 ## Unreleased (0.3.0)
 
+- **HPLX Ember symbol:** added the owner's selected original Ember (diamond above two shallow arcs), faithfully reconstructed as clean vector geometry. SVG variants, transparent PNGs and square platform-icon derivatives rebuild from `assets/hplx/ember.source.json`; the manifest exposes HPLX-specific entry points. No wordmark or splash artwork was invented, no consuming product was changed, and all HPLX theme values remain proposed.
 - **Theme inheritance:** family CSS now follows the nearest explicit theme, including a dark family inside a light ancestor, using `light-dark()` and the inherited colour scheme.
 - **Component reference:** compare the baseline and proposed HPLX family in the same specimen. Headings consume type roles; tabs, story actions, confirmation dialogs, status hues and elevation examples are interactive. Narrow layouts reflow at 200% root text size.
 - **Verification:** headless Chromium checks cover both kits and the new interactions. Font licence notices are hashed immutable inputs; regression checks reject missing or changed notices, including during generated-hash refreshes.
