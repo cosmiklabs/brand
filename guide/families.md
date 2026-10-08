@@ -5,7 +5,7 @@
 ## Who uses what
 
 - **The organisation itself** (the website, the GitHub profile, Cosmik documents) uses the **baseline**: monochrome, Inter and Plex Mono.
-- **A product family** (a group of related projects, such as HPLX: the engine, its Redux games, the launcher and the editor) may use a **family kit**: the baseline with a style of its own on top.
+- **A product family** (one product or a group of related products, such as HPLX: the engine, its game reimplementations, the launcher and the planned editor) may use a **family kit**: the baseline with a style of its own on top.
 - **A product page on the Cosmik website** may apply its family to its own content, while the site's header, navigation and footer stay baseline, so it reads as a product hosted by Cosmik.
 
 ## What a family may change
@@ -29,4 +29,4 @@ Let the project's title lead. Place "A Cosmik project" beneath the title or in t
 
 ## Names and claims
 
-Use Cosmik in prose and `cosmiklabs` as the handle. HPLX is the engine project; each game built on it (such as the reimplementation of *Amnesia: The Dark Descent*) is a project of its own. Never imply official affiliation, ownership of a game's intellectual property, or one licence across all code and assets. Keep original creators' credits and licence notices readable and separate from the Cosmik endorsement.
+Use Cosmik in prose and `cosmiklabs` as the handle. HPLX names the product family and its foundational engine. Each game built on it (such as the reimplementation of *Amnesia: The Dark Descent*), the launcher and the planned editor has its own name and status. Never imply official affiliation, ownership of a game's intellectual property, or one licence across all code and assets. Keep original creators' credits and licence notices readable and separate from the Cosmik endorsement.

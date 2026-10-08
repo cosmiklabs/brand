@@ -1,6 +1,6 @@
 # Cosmik brand kit
 
-Brand kit 0.2.0 · 4 October 2026 · unreleased changes are listed in [CHANGELOG.md](CHANGELOG.md)
+Brand kit 0.2.0 baseline; work toward 0.3.0 is unreleased. See [CHANGELOG.md](CHANGELOG.md).
 
 Start with the [brand guide](guide/README.md).
 This package turns the visual direction into a practical identity and product-reference system. It is published for reference and implementation trials; it is not a claim that every production asset, legal permission, or accessibility check is complete.
@@ -63,6 +63,7 @@ Inter desktop files come from the official Inter 4.1 release; internal font vers
 
 - Inter: https://rsms.me/inter/download/
 - Plex: https://github.com/IBM/plex/tree/master/packages/plex-mono
+- Spectral: https://github.com/google/fonts/tree/main/ofl/spectral
 
 [LICENSE.md](LICENSE.md) sets the terms: tooling and token data under MIT, the emblem, wordmark and name under a trademark-style policy (official Cosmik projects ship them unmodified; forks remove them), and the fonts under their own OFL. Publishing this repository grants no other brand-asset reuse. A software repository's code license does not automatically resolve brand-artwork permissions. Keep upstream creator and license credits separate from Cosmik's endorsement.
 
