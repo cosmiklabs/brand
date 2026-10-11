@@ -87,6 +87,19 @@ export function paint(cover, fill, background) {
   return pixels;
 }
 
+/** RGBA pixels of several fills that never overlap (a symbol and a wordmark in different colours). */
+export function paintLayers(layers, background) {
+  const n = layers[0].cover.length, pixels = Buffer.alloc(n * 4), bg = background ? rgb(background) : null, fills = layers.map(l => rgb(l.fill));
+  for (let i = 0, p = 0; i < n; i++, p += 4) {
+    let a = 0; const c = [0, 0, 0];
+    layers.forEach((layer, k) => { const ak = Math.min(1, layer.cover[i]); a += ak; for (let j = 0; j < 3; j++) c[j] += fills[k][j] * ak; });
+    const total = a; a = Math.min(1, a);
+    for (let j = 0; j < 3; j++) pixels[p + j] = bg ? Math.round(c[j] + bg[j] * (1 - a)) : (total ? Math.round(c[j] / total) : 0);
+    pixels[p + 3] = bg ? 255 : Math.round(a * 255);
+  }
+  return pixels;
+}
+
 const crcTable = new Uint32Array(256).map((_, n) => { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; return c; });
 const crc32 = bytes => { let c = 0xffffffff; for (const b of bytes) c = crcTable[(c ^ b) & 255] ^ (c >>> 8); return (c ^ 0xffffffff) >>> 0; };
 const chunk = (type, data) => { const h = Buffer.alloc(8), t = Buffer.from(type), crc = Buffer.alloc(4); h.writeUInt32BE(data.length); t.copy(h, 4); crc.writeUInt32BE(crc32(Buffer.concat([t, data]))); return Buffer.concat([h, data, crc]); };

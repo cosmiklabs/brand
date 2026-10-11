@@ -1,0 +1,20 @@
+{
+  "name": "HPLX lockup",
+  "status": "Owner-chosen lettering (2026-10-11); awaiting owner review",
+  "arrangement": "Ember centred above the name, both centred on the banner",
+  "text": "HPLX",
+  "font": {
+    "path": "fonts/desktop/Spectral-SemiBold.ttf",
+    "family": "Spectral",
+    "weight": 600,
+    "license_file": "fonts/licenses/Spectral-OFL.txt"
+  },
+  "canvas_px": [2172, 724],
+  "cap_height_px": 136,
+  "tracking_em": 0.14,
+  "symbol": {
+    "source": "assets/hplx/ember.source.json",
+    "width_of_wordmark": 0.66,
+    "gap_cap_heights": 0.5
+  }
+}

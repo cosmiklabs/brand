@@ -12,7 +12,9 @@ The owner selected the original **01 / EMBER** symbol on 8 October 2026: one dia
 
 Keep the diamond, both arcs, their spacing and their proportions together. Do not crop into a tip, stretch, rotate, merge the arcs, add glow or reconstruct the symbol from text. The SVG viewBox includes a small safety margin; allow additional surrounding space in the consuming layout.
 
-This is a **symbol only**. There is no supplied HPLX wordmark, combined lockup or splash composition. Set the product name as ordinary live interface text when needed. Do not substitute the Cosmik emblem or combine the two symbols into a new logo.
+## The lockup
+
+`hplx-lockup-*.svg` set Ember centred above **HPLX** in Spectral SemiBold, as outlines from the bundled font (SIL OFL 1.1, `fonts/licenses/Spectral-OFL.txt`): `primary` on the dark plate (the banner), and transparent `amber` (amber Ember, bone letters, for dark surfaces), `bone` and `ink`. `png/hplx-lockup-*` are 2172 × 724 and 1024 × 341. The layout (size, tracking, spacing) is in `hplx-lockup.source.json`; `scripts/build-hplx-lockup.mjs` builds everything from it, the font and Ember's geometry. The owner chose the lettering on 11 October 2026; the lockup awaits review. There is no splash composition. Elsewhere, set the product name as ordinary live interface text. Do not substitute the Cosmik emblem or combine the two symbols into a new logo.
 
 Use an accessible name such as `alt="HPLX"` when the symbol identifies a link on its own. If an adjacent product name already supplies the same meaning, use an empty image alternative. Prefer the SVG for scalable UI use and preserve its aspect ratio.
 

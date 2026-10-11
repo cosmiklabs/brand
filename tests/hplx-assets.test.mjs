@@ -58,7 +58,7 @@ test('platform containers contain the HPLX plate exports at the documented sizes
 test('HPLX identity entry points refer only to real HPLX assets',()=>{
   const m=JSON.parse(read('asset-manifest.json'));
   assert.equal(m.family_identities.hplx.symbol,'Ember');
-  assert.equal(m.family_identities.hplx.wordmark,'not supplied');
+  assert.match(m.family_identities.hplx.wordmark,/^HPLX in Spectral SemiBold/);
   for(const p of Object.values(m.entry_points.families.hplx)){
     assert.match(p,/^(assets\/hplx\/|icons\/hplx-ember)/);assert.ok(fs.existsSync(path.join(root,p)));
   }
