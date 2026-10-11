@@ -5,7 +5,7 @@ Design tokens for every Cosmik surface, as **kits**: one **baseline** (`cosmik/`
 | Kit | Source | Status | Outputs |
 |---|---|---|---|
 | `cosmik/` (baseline) | `source.json` | Approved (owner, 2026-10-07) | `cosmik.css`, `cosmik.json`, `cosmik.tokens.json`, `cosmik_tokens.rs` |
-| `hplx/` (HPLX family: the engine, its game reimplementations, launcher and editor) | `family.json` | Proposed: values pending owner review | `hplx.css`, `hplx.json`, `hplx.tokens.json`, `hplx_tokens.rs` |
+| `hplx/` (HPLX family: the engine, its game reimplementations, desktop app and editor) | `family.json` | Proposed: values pending owner review | `hplx.css`, `hplx.json`, `hplx.tokens.json`, `hplx_tokens.rs` |
 
 ## The baseline
 
@@ -47,7 +47,7 @@ Inside `[data-family="hplx"]` the same role variables take the family's values: 
 
 ### The HPLX family (proposed)
 
-The launcher art board's look: warm blacks and bone text, a lantern-amber accent for primary actions, focus and highlights, Spectral 600 for headings, and what HPLX's tools need that the monochrome baseline leaves out: `accent`, status tones `status-{error,warning,success,info}-{fg,bg,border}` (muted red, amber, green and blue; status still also says it in words) and `shadow` with elevation levels 1–3 for menus and dialogs. Spectral SemiBold (SIL OFL 1.1, The Spectral Project Authors) is bundled: `fonts/desktop/Spectral-SemiBold.ttf`, `fonts/web/Spectral-SemiBold.woff2`, notice in `fonts/licenses/Spectral-OFL.txt`.
+The HPLX app art board's look: warm blacks and bone text, a lantern-amber accent for primary actions, focus and highlights, Spectral 600 for headings, and what HPLX's tools need that the monochrome baseline leaves out: `accent`, status tones `status-{error,warning,success,info}-{fg,bg,border}` (muted red, amber, green and blue; status still also says it in words) and `shadow` with elevation levels 1–3 for menus and dialogs. Spectral SemiBold (SIL OFL 1.1, The Spectral Project Authors) is bundled: `fonts/desktop/Spectral-SemiBold.ttf`, `fonts/web/Spectral-SemiBold.woff2`, notice in `fonts/licenses/Spectral-OFL.txt`.
 
 ## Native consumers
 

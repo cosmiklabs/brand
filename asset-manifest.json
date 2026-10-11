@@ -722,7 +722,7 @@
         "kit": "hplx"
       },
       "status": "Selected Ember symbol; faithful derived delivery",
-      "sha256": "41c54cc0d20927d0e22b2299a2e4424976fff32055b10edddbf1b3207e2c6fcb",
+      "sha256": "b0105f46bd6784d3717d77ff5dfe08bd996e6ea146e1e82d02d33156a4ce91d9",
       "editable": true
     },
     {
@@ -1204,7 +1204,7 @@
         "format": "source"
       },
       "status": "HPLX family source, proposed",
-      "sha256": "384d3e26895897449239a24cefc2927cd674d5d9203be047ea52ad2ae1bdc1b3",
+      "sha256": "6c9dd2434ad61b498953a4e08c7c3bc6c80d9188b5765f4f4a29e7b139d6abe0",
       "editable": true
     },
     {

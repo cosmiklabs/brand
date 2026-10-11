@@ -78,7 +78,7 @@ Pin an exact version; never track `main`. The kit is versioned with semver (`ver
 
 Whichever you use, consume only generated outputs and listed assets, and keep the font licence files with any font you ship. A product in a family consumes that family's kit (`tokens/<family>/`); the organisation's own surfaces consume the baseline (`tokens/cosmik/`).
 
-**Rust consumers** (desktop launcher, in-game editor; Bevy UI or egui):
+**Rust consumers** (desktop app, in-game editor; Bevy UI or egui):
 
 - Compile-time constants: include the kit's Rust file (`tokens/hplx/hplx_tokens.rs` for an HPLX product) from a submodule or subtree with `#[path]`, or copy it into the crate at a pinned version. It has no dependencies; convert `srgb` arrays to `bevy::color::Color::srgba` or the hex bytes to `egui::Color32`.
 - Data at runtime or in `build.rs`: parse the kit's JSON (`tokens/hplx/hplx.json`) → `native` with `serde_json` (px, fractions, ms, bezier points, sRGB and linear floats); useful if a theme should be swappable without a rebuild.
