@@ -10,7 +10,7 @@ Use one approved source for each identity role. Keep the original compositions a
 | Traced emblem and its exact reverses (`assets/vector/`) | Accepted vector master | The reusable symbol; proof it in the final medium |
 | App icons (`icons/`) | Generated from the vector master | Executables, windows, bundles and touch icons |
 | Generated light PNGs (`assets/archive/`) | Archived alternatives | Reference only: their geometry differs from the original |
-| Traced vector lockup (`assets/vector/cosmik-lockup-*`) | Awaiting owner acceptance | None yet: keep using the approved raster banner; never recreate the wordmark (see below) |
+| Traced vector lockup (`assets/vector/cosmik-lockup-*`) | Accepted vector lockup | The reusable logo; never recreate the wordmark (see below) |
 
 **One shape across colours.** The vector reverses use the same geometry with a different fill; derive every transparent and solid-background export from the accepted vector source, never from the archived PNGs.
 
@@ -29,7 +29,7 @@ Cosmik is a personal GitHub organisation, not a company: never imply a larger te
 
 ## The live identity label
 
-Until the traced lockup is accepted, interfaces may show the emblem followed by the word "Cosmik" set live in the `identity-label` type role (Inter Medium), centred vertically beside a 48 px emblem with a 12 px gap. It is an interface label, not a replacement for the COSMIK wordmark: never use it as a logo on its own.
+Where a logo would be too large, interfaces may show the emblem followed by the word "Cosmik" set live in the `identity-label` type role (Inter Medium), centred vertically beside a 48 px emblem with a 12 px gap. It is an interface label, not a replacement for the COSMIK wordmark: never use it as a logo on its own.
 
 ## Clear space and size
 

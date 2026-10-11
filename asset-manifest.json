@@ -4,19 +4,14 @@
   "date": "2026-10-08",
   "system_status": "baseline approved (owner, 2026-10-07); the HPLX family kit is proposed",
   "emblem_status": "accepted traced symbol",
-  "wordmark_status": "outlined trace of the approved banner (assets/vector/cosmik-lockup-*.svg), awaiting owner acceptance; the approved raster stays the reference",
-  "interim_identity": "Official stand-in until the traced lockup is accepted: the emblem followed by the live label “Cosmik” in Inter 500 (type role identity-label, 20 px / 1.3, tracking 0). The label is a typographic treatment, not a wordmark; never set COSMIK in capitals with Inter to imitate the wordmark.",
+  "wordmark_status": "outlined trace of the approved banner (assets/vector/cosmik-lockup-*.svg), accepted (owner, 2026-10-11); the approved raster stays the reference",
+  "interim_identity": "Small identity where the lockup would be too large: the emblem followed by the live label “Cosmik” in Inter 500 (type role identity-label, 20 px / 1.3, tracking 0). The label is a typographic treatment, not a wordmark; never set COSMIK in capitals with Inter to imitate the wordmark.",
   "license": "LICENSE.md",
   "known_gaps": [
     {
-      "id": "wordmark-lockup",
-      "status": "awaiting acceptance",
-      "summary": "A vector lockup traced from the approved banner (assets/vector/cosmik-lockup-*.svg; evidence in references/lockup-qa.json and lockup-trace-overlay.png) awaits owner acceptance. Its emblem is the accepted master, which differs slightly from the banner's own drawing (93.6% overlap); the wordmark overlaps the banner by 99.1%. Until accepted, use the approved raster banner and the interim_identity stand-in."
-    },
-    {
       "id": "optical-small-icon",
       "status": "open",
-      "summary": "No optically redrawn small-size Cosmik emblem: the 16–64 px renders and icons/cosmik.* are faithful reductions of the master geometry, and the fine cut and isolated point lose definition at favicon sizes. HPLX Ember has an optical redraw for 16–48 px (assets/hplx/ember-small.source.json), used by icons/hplx-ember.*, awaiting owner review."
+      "summary": "No optically redrawn small-size Cosmik emblem: the 16–64 px renders and icons/cosmik.* are faithful reductions of the master geometry, and the fine cut and isolated point lose definition at favicon sizes. HPLX Ember has an optical redraw for 16–48 px (assets/hplx/ember-small.source.json), used by icons/hplx-ember.*, accepted (owner, 2026-10-11)."
     },
     {
       "id": "print-proofs",
@@ -729,8 +724,8 @@
         "kind": "lockup",
         "format": "source"
       },
-      "status": "traced from the approved banner; awaiting owner acceptance",
-      "sha256": "5324928203c9edd4cf9e479124f7d4d3142a7901351e5d6d6b6c2c1c1d3816d9",
+      "status": "traced from the approved banner; accepted (owner, 2026-10-11)",
+      "sha256": "d226c3410e07f5b0b24f4c6c8de91b146fbffd918e0cb3afe3109b3478879606",
       "generated_by": "scripts/trace-cosmik-lockup.mjs"
     },
     {
@@ -742,7 +737,7 @@
         "background": "transparent",
         "format": "svg"
       },
-      "status": "traced from the approved banner; awaiting owner acceptance",
+      "status": "traced from the approved banner; accepted (owner, 2026-10-11)",
       "sha256": "356956d8a8fa5259a36b55de47d8dff8f213b823be48ff73266d30062c9a415c",
       "viewBox": "0 0 2172 724",
       "visible_bounds_xywh": [
@@ -762,7 +757,7 @@
         "background": "transparent",
         "format": "svg"
       },
-      "status": "traced from the approved banner; awaiting owner acceptance",
+      "status": "traced from the approved banner; accepted (owner, 2026-10-11)",
       "sha256": "21c83d3f69fb1b74a012cd039679de63797be6ce9756d9ba443b861b15de089e",
       "viewBox": "0 0 2172 724",
       "visible_bounds_xywh": [
@@ -782,7 +777,7 @@
         "background": "black plate",
         "format": "svg"
       },
-      "status": "traced from the approved banner; awaiting owner acceptance",
+      "status": "traced from the approved banner; accepted (owner, 2026-10-11)",
       "sha256": "b5b8c12080c4cb6a051a47f9fe740004edc4493242d68822ef7f4ee559b26a7c",
       "viewBox": "0 0 2172 724",
       "visible_bounds_xywh": [
@@ -802,7 +797,7 @@
         "background": "transparent",
         "format": "png"
       },
-      "status": "traced from the approved banner; awaiting owner acceptance",
+      "status": "traced from the approved banner; accepted (owner, 2026-10-11)",
       "sha256": "3cbba3333f2355f709a4c956b4ce4e6906c71bb45bfe9a4258606ce9d638c79f",
       "dimensions_px": [
         2172,
@@ -819,7 +814,7 @@
         "background": "transparent",
         "format": "png"
       },
-      "status": "traced from the approved banner; awaiting owner acceptance",
+      "status": "traced from the approved banner; accepted (owner, 2026-10-11)",
       "sha256": "b7f6e4fd5c4e733d89448b9a409bf5680b4c56c7588ebc46e555a49bf80783e1",
       "dimensions_px": [
         2172,
@@ -836,7 +831,7 @@
         "background": "black plate",
         "format": "png"
       },
-      "status": "traced from the approved banner; awaiting owner acceptance",
+      "status": "traced from the approved banner; accepted (owner, 2026-10-11)",
       "sha256": "3218a22a48b6a1884fce664dd89909c05926e8a00969aefda4af6b5ff76181ee",
       "dimensions_px": [
         2172,
@@ -853,7 +848,7 @@
         "background": "transparent",
         "format": "png"
       },
-      "status": "traced from the approved banner; awaiting owner acceptance",
+      "status": "traced from the approved banner; accepted (owner, 2026-10-11)",
       "sha256": "48e7f79d38fee5eb6e0c98ce58a92ba55ee32f601c311d9a1317afbe212a9d85",
       "dimensions_px": [
         1024,
@@ -870,7 +865,7 @@
         "background": "transparent",
         "format": "png"
       },
-      "status": "traced from the approved banner; awaiting owner acceptance",
+      "status": "traced from the approved banner; accepted (owner, 2026-10-11)",
       "sha256": "b144c34a181b8cc2809fe6dd0b8db8b385d6f119140be15274ef16321f783068",
       "dimensions_px": [
         1024,
@@ -887,7 +882,7 @@
         "background": "black plate",
         "format": "png"
       },
-      "status": "traced from the approved banner; awaiting owner acceptance",
+      "status": "traced from the approved banner; accepted (owner, 2026-10-11)",
       "sha256": "fe66e364aefaa3baf0e330f0d8c9f1b4d2fa00bc2050826c80b8eb572551c3fa",
       "dimensions_px": [
         1024,
@@ -902,7 +897,7 @@
         "kit": "hplx"
       },
       "status": "Selected Ember symbol; faithful derived delivery",
-      "sha256": "166e9e3595b1920ac11c09f778da7e5e33127311a078f405ad103d2a92308296",
+      "sha256": "20e42a125a4e3f2c122e1ae21fe8bd70af8c911d754ada63ac1c956651379bbd",
       "editable": true
     },
     {
@@ -1209,8 +1204,8 @@
         "small": true,
         "format": "source"
       },
-      "status": "Optical small-size redraw; awaiting owner review",
-      "sha256": "09a933fa200c791f066ec03de8933eedbccda55ea4ce20de99dbf5a6e3955422",
+      "status": "Optical small-size redraw; accepted (owner, 2026-10-11)",
+      "sha256": "e3739cc6d9a4fbf636329b5af9d5e99e684926af8460e6549dd67935e430dbc5",
       "editable": true
     },
     {
@@ -1222,7 +1217,7 @@
         "format": "svg",
         "grid_px": 32
       },
-      "status": "Optical small-size redraw; awaiting owner review",
+      "status": "Optical small-size redraw; accepted (owner, 2026-10-11)",
       "sha256": "1bd01c6ee7123a09a78ed6a5cce97892ece5d11c36189819040ae9a18948cbb0",
       "viewBox": [
         0,
@@ -1246,7 +1241,7 @@
         "small": true,
         "format": "png"
       },
-      "status": "Optical small-size redraw; awaiting owner review",
+      "status": "Optical small-size redraw; accepted (owner, 2026-10-11)",
       "sha256": "242c3999cfc7e0c1505c7057d2e2820c8ef996838dbd92f01cbe58b6999ea111",
       "dimensions_px": [
         16,
@@ -1262,7 +1257,7 @@
         "small": true,
         "format": "png"
       },
-      "status": "Optical small-size redraw; awaiting owner review",
+      "status": "Optical small-size redraw; accepted (owner, 2026-10-11)",
       "sha256": "7a43ef95e571ae6506fadfb9570f5dfa9aae378bcc3de35f1e17d97be0e55311",
       "dimensions_px": [
         24,
@@ -1278,7 +1273,7 @@
         "small": true,
         "format": "png"
       },
-      "status": "Optical small-size redraw; awaiting owner review",
+      "status": "Optical small-size redraw; accepted (owner, 2026-10-11)",
       "sha256": "cb620755ae62f47681f50feaea53cefe44f7f1a38b2f9e0b33ecc4b24f550066",
       "dimensions_px": [
         32,
@@ -1294,7 +1289,7 @@
         "small": true,
         "format": "png"
       },
-      "status": "Optical small-size redraw; awaiting owner review",
+      "status": "Optical small-size redraw; accepted (owner, 2026-10-11)",
       "sha256": "bf333e8817650f9fdd55e90c63e80eb14f039d9fb56d9cbd8bb30cefe2f14cae",
       "dimensions_px": [
         48,
@@ -1310,8 +1305,8 @@
         "lockup": true,
         "format": "source"
       },
-      "status": "Owner-chosen lettering; lockup awaiting owner review",
-      "sha256": "24deb97456dbc6c7d2bf73a60b7795e1598a7c24a434da72db1249ff10c868a6",
+      "status": "Owner-chosen lettering; lockup accepted (owner, 2026-10-11)",
+      "sha256": "5bbf257371a80544cfd755c8cfc4d7bbdd00e0a0ae24f9a9dc5d03136d6d470d",
       "editable": true
     },
     {
@@ -1324,7 +1319,7 @@
         "colours": "amber symbol, bone letters, dark plate",
         "format": "svg"
       },
-      "status": "Owner-chosen lettering; lockup awaiting owner review",
+      "status": "Owner-chosen lettering; lockup accepted (owner, 2026-10-11)",
       "sha256": "85593e9286465d522f3982595f799c957cac0beba6ac2130a034457ff6a21438",
       "viewBox": [
         0,
@@ -1350,7 +1345,7 @@
         "colours": "amber symbol, bone letters, transparent",
         "format": "svg"
       },
-      "status": "Owner-chosen lettering; lockup awaiting owner review",
+      "status": "Owner-chosen lettering; lockup accepted (owner, 2026-10-11)",
       "sha256": "4f391fb5abe37c4376d96e37b5700b206989093f82cc14432be54644fa26a094",
       "viewBox": [
         0,
@@ -1376,7 +1371,7 @@
         "colours": "bone, transparent",
         "format": "svg"
       },
-      "status": "Owner-chosen lettering; lockup awaiting owner review",
+      "status": "Owner-chosen lettering; lockup accepted (owner, 2026-10-11)",
       "sha256": "acf1d2c88d6f09ff2572af7ea6e4bbc9a6b8fd39a28850050ddee7c361f4ba1f",
       "viewBox": [
         0,
@@ -1402,7 +1397,7 @@
         "colours": "ink, transparent",
         "format": "svg"
       },
-      "status": "Owner-chosen lettering; lockup awaiting owner review",
+      "status": "Owner-chosen lettering; lockup accepted (owner, 2026-10-11)",
       "sha256": "f8d01240c710b17c9e43abf8df8a74ee4835c19f54e2127496056861ca7cb326",
       "viewBox": [
         0,
@@ -1428,7 +1423,7 @@
         "colours": "amber symbol, bone letters, dark plate",
         "format": "png"
       },
-      "status": "Owner-chosen lettering; lockup awaiting owner review",
+      "status": "Owner-chosen lettering; lockup accepted (owner, 2026-10-11)",
       "sha256": "4beb0fbd0faecd910a6fdea59c4c89667c99c27fa2271cac1bf028122aa6adb5",
       "dimensions_px": [
         2172,
@@ -1446,7 +1441,7 @@
         "colours": "amber symbol, bone letters, dark plate",
         "format": "png"
       },
-      "status": "Owner-chosen lettering; lockup awaiting owner review",
+      "status": "Owner-chosen lettering; lockup accepted (owner, 2026-10-11)",
       "sha256": "02ee3d712bac629952b400a8810f245cfa9fe61e9ca5122c383c257b39811328",
       "dimensions_px": [
         1024,
@@ -1464,7 +1459,7 @@
         "colours": "amber symbol, bone letters, transparent",
         "format": "png"
       },
-      "status": "Owner-chosen lettering; lockup awaiting owner review",
+      "status": "Owner-chosen lettering; lockup accepted (owner, 2026-10-11)",
       "sha256": "d59d5c0f94166103a7a8a5a16ce65418dac095a1dd17e5ae716673ae2062cf67",
       "dimensions_px": [
         2172,
@@ -1482,7 +1477,7 @@
         "colours": "amber symbol, bone letters, transparent",
         "format": "png"
       },
-      "status": "Owner-chosen lettering; lockup awaiting owner review",
+      "status": "Owner-chosen lettering; lockup accepted (owner, 2026-10-11)",
       "sha256": "486eb0179d43bd2a17dc03bad24f7e14503c88642162091e3d20b9679e533e88",
       "dimensions_px": [
         1024,
@@ -1500,7 +1495,7 @@
         "colours": "bone, transparent",
         "format": "png"
       },
-      "status": "Owner-chosen lettering; lockup awaiting owner review",
+      "status": "Owner-chosen lettering; lockup accepted (owner, 2026-10-11)",
       "sha256": "113e7684b281a09ab036329df7dec26f99576c0e9ea6707675f9c100a7fc1ff2",
       "dimensions_px": [
         2172,
@@ -1518,7 +1513,7 @@
         "colours": "bone, transparent",
         "format": "png"
       },
-      "status": "Owner-chosen lettering; lockup awaiting owner review",
+      "status": "Owner-chosen lettering; lockup accepted (owner, 2026-10-11)",
       "sha256": "fade604331c9612fb82ac9cfbeb109b11adb5adbc11aab01e2c3536d8b13182b",
       "dimensions_px": [
         1024,
@@ -1536,7 +1531,7 @@
         "colours": "ink, transparent",
         "format": "png"
       },
-      "status": "Owner-chosen lettering; lockup awaiting owner review",
+      "status": "Owner-chosen lettering; lockup accepted (owner, 2026-10-11)",
       "sha256": "7aa156cb1a566af840f86e875f8aba564fa30e21c76d03453565173b6324615b",
       "dimensions_px": [
         2172,
@@ -1554,7 +1549,7 @@
         "colours": "ink, transparent",
         "format": "png"
       },
-      "status": "Owner-chosen lettering; lockup awaiting owner review",
+      "status": "Owner-chosen lettering; lockup accepted (owner, 2026-10-11)",
       "sha256": "de937cd93abd7809ea30a32b8a93c4bf734f63659c49f72369eeb995d0de2863",
       "dimensions_px": [
         1024,
@@ -1935,7 +1930,7 @@
       "symbol": "Ember",
       "status": "Owner-selected original concept, faithfully reconstructed as vector geometry",
       "selected_date": "2026-10-08",
-      "wordmark": "HPLX in Spectral SemiBold, as outlines (owner, 2026-10-11); the lockup awaits owner review",
+      "wordmark": "HPLX in Spectral SemiBold, as outlines (owner, 2026-10-11); lockup accepted",
       "splash": "not supplied",
       "theme_status": "Proposed; values pending owner review",
       "note": "Symbol selection does not approve the family palette, type or other theme values. The Cosmik parent emblem is separate."

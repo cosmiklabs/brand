@@ -279,7 +279,7 @@ const [wx0, wy0, wx1, wy1] = bounds(wordmark.flat().length ? wordmark.flat() : [
 const [ex0, ey0, ex1, ey1] = bounds(emblem);
 const source = {
   name: 'Cosmik horizontal lockup',
-  status: 'Traced from the approved banner; awaiting owner acceptance',
+  status: 'Traced from the approved banner; accepted (owner, 2026-10-11)',
   source_reference: { path: SOURCE, sha256: crypto.createHash('sha256').update(bytes).digest('hex'), dimensions_px: [W, H] },
   method: `COSMIK outlined at mean RGB > ${THRESHOLD} (marching squares with sub-pixel edges); antialiased corners restored where both sides run straight; cubic Béziers and lines fitted within ${TOLERANCE} px (Schneider). The emblem is the accepted master (${MASTER}), uniformly scaled and moved to the banner's emblem by best overlap.`,
   viewBox: [0, 0, W, H],

@@ -1,6 +1,6 @@
 {
   "name": "HPLX Ember, small sizes",
-  "status": "Optical redraw for 16–48 px; awaiting owner review",
+  "status": "Optical redraw for 16–48 px; accepted (owner, 2026-10-11)",
   "note": "At icon sizes the faithful Ember's upper arc is a third of a pixel thick and vanishes. These redraws keep the composition (a diamond centred above two shallow, tapered arcs, the upper about 62% as wide as the lower) and the arcs' character: the top edges stay as shallow as the selected mark's (a dip of about 6% of the half-width), and the extra thickness goes to the bottom edges, so the tips stay pointed. Per size, the arcs' middles sit on whole pixel rows, the diamond is larger, and the mark fills more of the plate. Larger sizes use the faithful renders.",
   "curve": "Both arcs use the selected lower arc's control-point fractions: top edge 0.225 and 0.75 of the half-width at 0.89 and 1.0 of the edge's sag; bottom edge 0.477 and 0.836 at 1.0 and 0.587.",
   "sizes": {

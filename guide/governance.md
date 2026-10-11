@@ -16,4 +16,4 @@
 
 ## Still open
 
-Acceptance of the traced vector lockup, an optically redrawn small icon, print-process proofs, and browser, keyboard and assistive-technology checks of the specimens. The current list is `known_gaps` in `asset-manifest.json`.
+An optically redrawn small Cosmik icon, print-process proofs, and browser, keyboard and assistive-technology checks of the specimens. The current list is `known_gaps` in `asset-manifest.json`.
