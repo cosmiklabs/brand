@@ -4,14 +4,14 @@
   "date": "2026-10-08",
   "system_status": "baseline approved (owner, 2026-10-07); the HPLX family kit is proposed",
   "emblem_status": "accepted traced symbol",
-  "wordmark_status": "approved raster only; outlined master not supplied",
-  "interim_identity": "Official stand-in until an outlined wordmark exists: the emblem followed by the live label “Cosmik” in Inter 500 (type role identity-label, 20 px / 1.3, tracking 0). The label is a typographic treatment, not a wordmark; never set COSMIK in capitals with Inter to imitate the wordmark.",
+  "wordmark_status": "outlined trace of the approved banner (assets/vector/cosmik-lockup-*.svg), awaiting owner acceptance; the approved raster stays the reference",
+  "interim_identity": "Official stand-in until the traced lockup is accepted: the emblem followed by the live label “Cosmik” in Inter 500 (type role identity-label, 20 px / 1.3, tracking 0). The label is a typographic treatment, not a wordmark; never set COSMIK in capitals with Inter to imitate the wordmark.",
   "license": "LICENSE.md",
   "known_gaps": [
     {
       "id": "wordmark-lockup",
-      "status": "open",
-      "summary": "No outlined COSMIK wordmark or vector horizontal lockup. Only the approved raster banner exists. Use the interim_identity stand-in."
+      "status": "awaiting acceptance",
+      "summary": "A vector lockup traced from the approved banner (assets/vector/cosmik-lockup-*.svg; evidence in references/lockup-qa.json and lockup-trace-overlay.png) awaits owner acceptance. Its emblem is the accepted master, which differs slightly from the banner's own drawing (93.6% overlap); the wordmark overlaps the banner by 99.1%. Until accepted, use the approved raster banner and the interim_identity stand-in."
     },
     {
       "id": "optical-small-icon",
@@ -50,6 +50,8 @@
       }
     },
     "emblem_master": "assets/vector/cosmik-emblem-master-offwhite.svg",
+    "lockup_master": "assets/vector/cosmik-lockup-offwhite.svg",
+    "lockup_source": "assets/vector/cosmik-lockup.source.json",
     "web_fonts": [
       "fonts/web/Inter-Regular.woff2",
       "fonts/web/Inter-Medium.woff2",
@@ -714,6 +716,178 @@
         96,
         96
       ]
+    },
+    {
+      "path": "assets/vector/cosmik-lockup.source.json",
+      "role": {
+        "kind": "lockup",
+        "format": "source"
+      },
+      "status": "traced from the approved banner; awaiting owner acceptance",
+      "sha256": "5324928203c9edd4cf9e479124f7d4d3142a7901351e5d6d6b6c2c1c1d3816d9",
+      "generated_by": "scripts/trace-cosmik-lockup.mjs"
+    },
+    {
+      "path": "assets/vector/cosmik-lockup-offwhite.svg",
+      "role": {
+        "kind": "lockup",
+        "variant": "offwhite",
+        "fill": "#F6F5F0",
+        "background": "transparent",
+        "format": "svg"
+      },
+      "status": "traced from the approved banner; awaiting owner acceptance",
+      "sha256": "356956d8a8fa5259a36b55de47d8dff8f213b823be48ff73266d30062c9a415c",
+      "viewBox": "0 0 2172 724",
+      "visible_bounds_xywh": [
+        413.021,
+        188.101,
+        1336.64,
+        334.185
+      ],
+      "generated_by": "scripts/build-cosmik-lockup.mjs"
+    },
+    {
+      "path": "assets/vector/cosmik-lockup-ink.svg",
+      "role": {
+        "kind": "lockup",
+        "variant": "ink",
+        "fill": "#000000",
+        "background": "transparent",
+        "format": "svg"
+      },
+      "status": "traced from the approved banner; awaiting owner acceptance",
+      "sha256": "21c83d3f69fb1b74a012cd039679de63797be6ce9756d9ba443b861b15de089e",
+      "viewBox": "0 0 2172 724",
+      "visible_bounds_xywh": [
+        413.021,
+        188.101,
+        1336.64,
+        334.185
+      ],
+      "generated_by": "scripts/build-cosmik-lockup.mjs"
+    },
+    {
+      "path": "assets/vector/cosmik-lockup-primary.svg",
+      "role": {
+        "kind": "lockup",
+        "variant": "primary",
+        "fill": "#F6F5F0",
+        "background": "black plate",
+        "format": "svg"
+      },
+      "status": "traced from the approved banner; awaiting owner acceptance",
+      "sha256": "b5b8c12080c4cb6a051a47f9fe740004edc4493242d68822ef7f4ee559b26a7c",
+      "viewBox": "0 0 2172 724",
+      "visible_bounds_xywh": [
+        413.021,
+        188.101,
+        1336.64,
+        334.185
+      ],
+      "generated_by": "scripts/build-cosmik-lockup.mjs"
+    },
+    {
+      "path": "assets/vector/cosmik-lockup-offwhite.png",
+      "role": {
+        "kind": "lockup",
+        "variant": "offwhite",
+        "fill": "#F6F5F0",
+        "background": "transparent",
+        "format": "png"
+      },
+      "status": "traced from the approved banner; awaiting owner acceptance",
+      "sha256": "3cbba3333f2355f709a4c956b4ce4e6906c71bb45bfe9a4258606ce9d638c79f",
+      "dimensions_px": [
+        2172,
+        724
+      ],
+      "generated_by": "scripts/build-cosmik-lockup.mjs"
+    },
+    {
+      "path": "assets/vector/cosmik-lockup-ink.png",
+      "role": {
+        "kind": "lockup",
+        "variant": "ink",
+        "fill": "#000000",
+        "background": "transparent",
+        "format": "png"
+      },
+      "status": "traced from the approved banner; awaiting owner acceptance",
+      "sha256": "b7f6e4fd5c4e733d89448b9a409bf5680b4c56c7588ebc46e555a49bf80783e1",
+      "dimensions_px": [
+        2172,
+        724
+      ],
+      "generated_by": "scripts/build-cosmik-lockup.mjs"
+    },
+    {
+      "path": "assets/vector/cosmik-lockup-primary.png",
+      "role": {
+        "kind": "lockup",
+        "variant": "primary",
+        "fill": "#F6F5F0",
+        "background": "black plate",
+        "format": "png"
+      },
+      "status": "traced from the approved banner; awaiting owner acceptance",
+      "sha256": "3218a22a48b6a1884fce664dd89909c05926e8a00969aefda4af6b5ff76181ee",
+      "dimensions_px": [
+        2172,
+        724
+      ],
+      "generated_by": "scripts/build-cosmik-lockup.mjs"
+    },
+    {
+      "path": "assets/vector/png/cosmik-lockup-offwhite-1024x341.png",
+      "role": {
+        "kind": "lockup",
+        "variant": "offwhite",
+        "fill": "#F6F5F0",
+        "background": "transparent",
+        "format": "png"
+      },
+      "status": "traced from the approved banner; awaiting owner acceptance",
+      "sha256": "48e7f79d38fee5eb6e0c98ce58a92ba55ee32f601c311d9a1317afbe212a9d85",
+      "dimensions_px": [
+        1024,
+        341
+      ],
+      "generated_by": "scripts/build-cosmik-lockup.mjs"
+    },
+    {
+      "path": "assets/vector/png/cosmik-lockup-ink-1024x341.png",
+      "role": {
+        "kind": "lockup",
+        "variant": "ink",
+        "fill": "#000000",
+        "background": "transparent",
+        "format": "png"
+      },
+      "status": "traced from the approved banner; awaiting owner acceptance",
+      "sha256": "b144c34a181b8cc2809fe6dd0b8db8b385d6f119140be15274ef16321f783068",
+      "dimensions_px": [
+        1024,
+        341
+      ],
+      "generated_by": "scripts/build-cosmik-lockup.mjs"
+    },
+    {
+      "path": "assets/vector/png/cosmik-lockup-primary-1024x341.png",
+      "role": {
+        "kind": "lockup",
+        "variant": "primary",
+        "fill": "#F6F5F0",
+        "background": "black plate",
+        "format": "png"
+      },
+      "status": "traced from the approved banner; awaiting owner acceptance",
+      "sha256": "fe66e364aefaa3baf0e330f0d8c9f1b4d2fa00bc2050826c80b8eb572551c3fa",
+      "dimensions_px": [
+        1024,
+        341
+      ],
+      "generated_by": "scripts/build-cosmik-lockup.mjs"
     },
     {
       "path": "assets/hplx/README.md",

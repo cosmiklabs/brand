@@ -2,6 +2,10 @@
 
 Versions follow semver. Release tags use `vX.Y.Z`; the first is `v0.3.0`.
 
+## Unreleased
+
+- **Vector lockup (awaiting acceptance):** the horizontal banner as vectors. `scripts/trace-cosmik-lockup.mjs` outlines the COSMIK wordmark from the approved banner (which stays unchanged) and places the accepted emblem master where the banner shows it; `scripts/build-cosmik-lockup.mjs` builds off-white, ink and primary SVGs at the banner's 2172 × 724 composition with full-size and 1024 px PNGs. The wordmark overlaps the banner by 99.1%; the master emblem differs slightly from the banner's own drawing (93.6%). Evidence is in `references/lockup-qa.json` and `lockup-trace-overlay.png`. The interim identity label stays until the owner accepts the lockup.
+
 ## 0.3.0 · 8 October 2026
 
 - **HPLX Ember symbol:** added the owner's selected original Ember (diamond above two shallow arcs), faithfully reconstructed as clean vector geometry. SVG variants, transparent PNGs and square platform-icon derivatives rebuild from `assets/hplx/ember.source.json`; the manifest exposes HPLX-specific entry points. No wordmark or splash artwork was invented, no consuming product was changed, and all HPLX theme values remain proposed.

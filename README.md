@@ -9,7 +9,7 @@ This package turns the visual direction into a practical identity and product-re
 
 1. Read the [brand guide](guide/README.md): the rules and judgement behind the identity, in Markdown. The earlier Word/PDF guide (v0.2) is in `guide/archive/`.
 2. Use `assets/vector/cosmik-emblem-master-offwhite.svg` as the accepted standalone emblem master. `cosmik-emblem-ink.svg` reverses the same geometry; `cosmik-emblem-primary.svg` includes the original black canvas. PNG sizes are in `assets/vector/png/`.
-3. Keep the approved original horizontal banner while a faithful outlined wordmark and complete vector lockup are prepared. No supporting font is an identified match for the wordmark. Until then, the **official stand-in** in product UIs is the emblem followed by the live label “Cosmik” in Inter 500 (type role `identity-label`, 20 px / 1.3, tracking 0).
+3. Keep the approved original horizontal banner. A vector lockup traced from it (`assets/vector/cosmik-lockup-*.svg`: the accepted emblem beside the outlined COSMIK wordmark) awaits owner acceptance. No supporting font is an identified match for the wordmark. Until the lockup is accepted, the **official stand-in** in product UIs is the emblem followed by the live label “Cosmik” in Inter 500 (type role `identity-label`, 20 px / 1.3, tracking 0).
 4. Open `specimens/components.html` locally and use the kit selector to compare the approved baseline and proposed HPLX family in dark/light themes. CSS, script, and fonts are local. It has no submission, storage, analytics, or network behavior.
 5. Copy `templates/cosmik-technical-note-template.docx` for a new document. Install the bundled desktop fonts first, replace bracketed content, and review the PDF export.
 
@@ -19,15 +19,16 @@ This package turns the visual direction into a practical identity and product-re
 - Approved references: original square and banner PNG compositions, unchanged. Their source names and checksums are in `asset-manifest.json`.
 - **Approved baseline (owner, 2026-10-07):** typography, the semantic dark/light roles, layout and component rules, as generated in `tokens/cosmik/`. The baseline is monochrome: no accent colour, status in words.
 - **Family kits:** product families may have their own style on top of the baseline, under rules the build enforces (`tokens/README.md`). The **HPLX** family (`tokens/hplx/`) is proposed; its values await owner review.
+- Awaiting acceptance: the vector lockup, traced from the approved banner by `scripts/trace-cosmik-lockup.mjs` (geometry in `assets/vector/cosmik-lockup.source.json`, evidence in `references/lockup-qa.json` and `lockup-trace-overlay.png`). The wordmark overlaps the banner by 99.1% with every edge within 1 px. The emblem is the accepted master, which differs slightly from the banner's own drawing (93.6% overlap; its horn tips and inner flare).
 - Archive: earlier generated light PNGs. They differ geometrically and are not current masters.
-- Incomplete (known gaps, also recorded in `asset-manifest.json`): outlined wordmark/full lockup, optically optimized tiny icon, print-process proofs, and remaining browser/accessibility QA.
+- Incomplete (known gaps, also recorded in `asset-manifest.json`): acceptance of the traced lockup, optically optimized tiny icon, print-process proofs, and remaining browser/accessibility QA.
 
 Do not redraw, stretch, rotate, crop into the flare, add effects, or recreate the COSMIK wordmark with Inter. The live “Cosmik” interface label is a separate, specified typographic treatment.
 
 ## Package map
 
 - `assets/approved-raster/`: original selected square and banner
-- `assets/vector/`: accepted emblem SVGs, full renders, and named pixel-size exports
+- `assets/vector/`: accepted emblem SVGs, the traced lockup, full renders, and named pixel-size exports
 - `assets/archive/`: prior generated alternatives for reference
 - `tokens/`: one folder per kit. `cosmik/` is the baseline (`source.json` plus generated CSS, JSON, W3C DTCG JSON and Rust constants); `hplx/` is the HPLX family (`family.json` plus the same outputs). `tokens/README.md` explains both and the family contract.
 - `icons/`: app icons generated from the plate variant (`cosmik.ico`, `cosmik.icns`, 512 px PNG, 180 px apple-touch PNG)

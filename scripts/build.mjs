@@ -7,6 +7,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const run = (script, ...args) => execFileSync(process.execPath, [path.join(here, script), ...args], { stdio: 'inherit' });
 run('generate-tokens.mjs');
 run('build-hplx-assets.mjs');
+run('build-cosmik-lockup.mjs');
 run('build-icons.mjs');
 run('build-web-fonts.mjs');
 run('verify-manifest.mjs', '--update-generated');

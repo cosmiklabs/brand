@@ -1,0 +1,40 @@
+{
+  "source": "assets/approved-raster/cosmik-banner-original.png",
+  "threshold": 123,
+  "fit_tolerance_px": 0.5,
+  "wordmark": {
+    "iou": 0.99063,
+    "symmetric_difference_pixels": 402,
+    "source_only_pixels": 234,
+    "vector_only_pixels": 168,
+    "edge_mean_px": 0.11999,
+    "edge_p95_px": 1,
+    "edge_max_px": 1
+  },
+  "emblem": {
+    "iou": 0.93557,
+    "symmetric_difference_pixels": 3141,
+    "source_only_pixels": 1747,
+    "vector_only_pixels": 1394,
+    "edge_mean_px": 1.39742,
+    "edge_p95_px": 5,
+    "edge_max_px": 12
+  },
+  "lockup": {
+    "iou": 0.96135,
+    "symmetric_difference_pixels": 3543,
+    "source_only_pixels": 1981,
+    "vector_only_pixels": 1562,
+    "edge_mean_px": 0.60733,
+    "edge_p95_px": 3.60555,
+    "edge_max_px": 12
+  },
+  "emblem_transform": [
+    0.429205,
+    0,
+    0,
+    0.429205,
+    355.722,
+    92.813
+  ]
+}
