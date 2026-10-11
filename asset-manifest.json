@@ -16,7 +16,7 @@
     {
       "id": "optical-small-icon",
       "status": "open",
-      "summary": "No optically redrawn small-size emblem. The 16–64 px renders and the icons/ files are faithful reductions of the master geometry; the fine cut and isolated point lose definition at favicon sizes."
+      "summary": "No optically redrawn small-size Cosmik emblem: the 16–64 px renders and icons/cosmik.* are faithful reductions of the master geometry, and the fine cut and isolated point lose definition at favicon sizes. HPLX Ember has an optical redraw for 16–48 px (assets/hplx/ember-small.source.json), used by icons/hplx-ember.*, awaiting owner review."
     },
     {
       "id": "print-proofs",
@@ -86,7 +86,8 @@
         "lockup_primary": "assets/hplx/hplx-lockup-primary.svg",
         "lockup_amber": "assets/hplx/hplx-lockup-amber.svg",
         "lockup_bone": "assets/hplx/hplx-lockup-bone.svg",
-        "lockup_ink": "assets/hplx/hplx-lockup-ink.svg"
+        "lockup_ink": "assets/hplx/hplx-lockup-ink.svg",
+        "icon_small": "assets/hplx/hplx-ember-small.svg"
       }
     }
   },
@@ -901,7 +902,7 @@
         "kit": "hplx"
       },
       "status": "Selected Ember symbol; faithful derived delivery",
-      "sha256": "7c26eca256edc44c4e9650b7b58f0d47d488a9708f81da9588813c8d84432636",
+      "sha256": "166e9e3595b1920ac11c09f778da7e5e33127311a078f405ad103d2a92308296",
       "editable": true
     },
     {
@@ -1197,6 +1198,107 @@
       "dimensions_px": [
         96,
         96
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/ember-small.source.json",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "small": true,
+        "format": "source"
+      },
+      "status": "Optical small-size redraw; awaiting owner review",
+      "sha256": "09a933fa200c791f066ec03de8933eedbccda55ea4ce20de99dbf5a6e3955422",
+      "editable": true
+    },
+    {
+      "path": "assets/hplx/hplx-ember-small.svg",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "small": true,
+        "format": "svg",
+        "grid_px": 32
+      },
+      "status": "Optical small-size redraw; awaiting owner review",
+      "sha256": "1bd01c6ee7123a09a78ed6a5cce97892ece5d11c36189819040ae9a18948cbb0",
+      "viewBox": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "visible_bounds_xywh": [
+        2,
+        7.5,
+        28,
+        16.5
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-small-16.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "small": true,
+        "format": "png"
+      },
+      "status": "Optical small-size redraw; awaiting owner review",
+      "sha256": "242c3999cfc7e0c1505c7057d2e2820c8ef996838dbd92f01cbe58b6999ea111",
+      "dimensions_px": [
+        16,
+        16
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-small-24.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "small": true,
+        "format": "png"
+      },
+      "status": "Optical small-size redraw; awaiting owner review",
+      "sha256": "7a43ef95e571ae6506fadfb9570f5dfa9aae378bcc3de35f1e17d97be0e55311",
+      "dimensions_px": [
+        24,
+        24
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-small-32.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "small": true,
+        "format": "png"
+      },
+      "status": "Optical small-size redraw; awaiting owner review",
+      "sha256": "cb620755ae62f47681f50feaea53cefe44f7f1a38b2f9e0b33ecc4b24f550066",
+      "dimensions_px": [
+        32,
+        32
+      ],
+      "generated_by": "scripts/build-hplx-assets.mjs"
+    },
+    {
+      "path": "assets/hplx/png/hplx-ember-small-48.png",
+      "role": {
+        "kind": "family-identity",
+        "kit": "hplx",
+        "small": true,
+        "format": "png"
+      },
+      "status": "Optical small-size redraw; awaiting owner review",
+      "sha256": "bf333e8817650f9fdd55e90c63e80eb14f039d9fb56d9cbd8bb30cefe2f14cae",
+      "dimensions_px": [
+        48,
+        48
       ],
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
@@ -1498,7 +1600,7 @@
         "format": "icns"
       },
       "status": "Selected Ember symbol; faithful derived delivery",
-      "sha256": "288d0b181c64bca7315f6b51b91f860d946d29ea1bfa3692bd3f56f9a544e1e7",
+      "sha256": "567b1f1f3a8af8e178c61b7f0a444d6efc120e9433ad7b3b47141575ea525bdf",
       "generated_by": "scripts/build-icons.mjs"
     },
     {
@@ -1509,7 +1611,7 @@
         "format": "ico"
       },
       "status": "Selected Ember symbol; faithful derived delivery",
-      "sha256": "903b369ed0dd9e850ca92cfa3a40bb58ee76c039464eaf140026b40ea4660aa0",
+      "sha256": "5760eda78675731ef54db987b35b8e65acaffe09f6ddfb2aa03549e4fe12d76a",
       "generated_by": "scripts/build-icons.mjs"
     }
   ],

@@ -32,6 +32,6 @@ Run `node scripts/build.mjs` from the repository root. The Node-only HPLX builde
 
 At original source scale, the reconstructed silhouette overlaps the selected source by 99.33% intersection-over-union. The two curve-edge fits have approximately 0.05–0.06 source-pixel RMS error. These are tracing measurements, not a print or accessibility certification.
 
-The very thin upper arc and small diamond lose definition at favicon sizes. The supplied 16–32 px files are faithful reductions, not an approved optical redesign. Review the actual target size before shipping; no app, website or other consuming product is changed by this asset kit.
+The very thin upper arc and small diamond vanish at icon sizes, so `png/hplx-ember-small-{16,24,32,48}.png` and `hplx-ember-small.svg` (drawn on a 32 px grid) are an optical redraw for them: the same diamond above two shallow, tapered arcs, drawn per size on whole pixels with thicker arcs and a larger diamond. `ember-small.source.json` holds the drawing and says how it departs from the master. The platform icons use it up to 48 px; the faithful `hplx-ember-primary-16`–`48` reductions remain. The redraw awaits owner review; no app, website or other consuming product is changed by this asset kit.
 
 The mark and its geometry are covered by the repository's [brand-use policy](../../LICENSE.md#2-brand-marks-trademark-style-policy), not the MIT licence for tooling. The selected concept was AI-generated; the vector reconstruction adds no claim of registration or third-party rights clearance.

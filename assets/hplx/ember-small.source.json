@@ -1,0 +1,13 @@
+{
+  "name": "HPLX Ember, small sizes",
+  "status": "Optical redraw for 16–48 px; awaiting owner review",
+  "note": "At icon sizes the faithful Ember's upper arc is a third of a pixel thick and vanishes. These redraws keep the composition (a diamond centred above two shallow, tapered arcs, the upper about 62% as wide as the lower) and the arcs' character: the top edges stay as shallow as the selected mark's (a dip of about 6% of the half-width), and the extra thickness goes to the bottom edges, so the tips stay pointed. Per size, the arcs' middles sit on whole pixel rows, the diamond is larger, and the mark fills more of the plate. Larger sizes use the faithful renders.",
+  "curve": "Both arcs use the selected lower arc's control-point fractions: top edge 0.225 and 0.75 of the half-width at 0.89 and 1.0 of the edge's sag; bottom edge 0.477 and 0.836 at 1.0 and 0.587.",
+  "sizes": {
+    "16": { "diamond": { "cy": 6, "r": 2 }, "upper": { "hw": 4.25, "tipY": 9.75, "topMid": 10, "bottomMid": 11 }, "lower": { "hw": 7, "tipY": 11.5, "topMid": 12, "bottomMid": 14 } },
+    "24": { "diamond": { "cy": 10, "r": 2.75 }, "upper": { "hw": 6.5, "tipY": 14.625, "topMid": 15, "bottomMid": 17 }, "lower": { "hw": 10.5, "tipY": 17.375, "topMid": 18, "bottomMid": 21 } },
+    "32": { "diamond": { "cy": 14, "r": 3.5 }, "upper": { "hw": 8.75, "tipY": 19.5, "topMid": 20, "bottomMid": 22 }, "lower": { "hw": 14, "tipY": 23.25, "topMid": 24, "bottomMid": 27 } },
+    "48": { "diamond": { "cy": 22, "r": 4.5 }, "upper": { "hw": 13, "tipY": 29.25, "topMid": 30, "bottomMid": 32 }, "lower": { "hw": 21, "tipY": 33.75, "topMid": 35, "bottomMid": 39 } }
+  },
+  "svg_size": 32
+}

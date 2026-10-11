@@ -10,7 +10,8 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const kits = [
   {name:'cosmik', prefix:'assets/vector/png/cosmik-emblem-primary'},
-  {name:'hplx-ember', prefix:'assets/hplx/png/hplx-ember-primary'},
+  // HPLX's icon sizes up to 48 px use its optical redraw; larger ones the faithful renders.
+  {name:'hplx-ember', prefix:'assets/hplx/png/hplx-ember-primary', small:{prefix:'assets/hplx/png/hplx-ember-small', sizes:[16, 24, 32, 48]}},
 ];
 
 // ---- Minimal PNG codec: 8-bit RGBA or RGB, non-interlaced ----
@@ -96,8 +97,8 @@ function downsample({ width, height, px }, size) {
 }
 
 // ---- Outputs ----
-for (const {name, prefix} of kits) {
-const render = size => fs.readFileSync(path.join(root, `${prefix}-${size}.png`));
+for (const {name, prefix, small} of kits) {
+const render = size => fs.readFileSync(path.join(root, `${small?.sizes.includes(size) ? small.prefix : prefix}-${size}.png`));
 const out = (suffix, bytes) => fs.writeFileSync(path.join(root, 'icons', `${name}${suffix}`), bytes);
 const master = decodePng(render(1024));
 const png512 = encodePng(downsample(master, 512));

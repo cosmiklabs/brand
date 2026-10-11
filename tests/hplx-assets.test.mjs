@@ -50,7 +50,7 @@ test('platform containers contain the HPLX plate exports at the documented sizes
   assert.deepEqual(pngSize(read('icons/hplx-ember-apple-touch-180.png')),[180,180]);
   const ico=read('icons/hplx-ember.ico'),sizes=[16,24,32,48,64,256];
   assert.equal(ico.readUInt16LE(2),1);assert.equal(ico.readUInt16LE(4),sizes.length);
-  sizes.forEach((size,i)=>{const e=6+16*i,n=ico.readUInt32LE(e+8),at=ico.readUInt32LE(e+12);assert.equal(ico[e]||256,size);assert.deepEqual(ico.subarray(at,at+n),read(`assets/hplx/png/hplx-ember-primary-${size}.png`));});
+  sizes.forEach((size,i)=>{const e=6+16*i,n=ico.readUInt32LE(e+8),at=ico.readUInt32LE(e+12);assert.equal(ico[e]||256,size);assert.deepEqual(ico.subarray(at,at+n),read(`assets/hplx/png/hplx-ember-${size<=48?'small':'primary'}-${size}.png`));});
   const icns=read('icons/hplx-ember.icns');assert.equal(icns.toString('ascii',0,4),'icns');assert.equal(icns.readUInt32BE(4),icns.length);
   let at=8,count=0;while(at<icns.length){const n=icns.readUInt32BE(at+4);assert.ok(n>8&&at+n<=icns.length);pngSize(icns.subarray(at+8,at+n));at+=n;count++;}assert.equal(at,icns.length);assert.equal(count,11);
 });

@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
 import {fileURLToPath} from 'node:url';
+import {flatten as flattenContour, coverage, paint, encodePng} from './vector-raster.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dir = path.join(root, 'assets/hplx');
 const source = JSON.parse(fs.readFileSync(path.join(dir, 'ember.source.json'), 'utf8'));
@@ -88,3 +89,26 @@ for(const size of [16,24,32,48,64,96,128,256,512,1024]) {
   write(`png/hplx-ember-primary-${size}.png`,raster(source.iconViewBox,size,size,source.colours.amber,source.colours.background));
 }
 console.log('Generated HPLX Ember SVGs and PNGs from the selected original geometry.');
+
+// ---- Small sizes: an optical redraw per size (assets/hplx/ember-small.source.json) ----
+const small = JSON.parse(fs.readFileSync(path.join(dir, 'ember-small.source.json'), 'utf8'));
+const round3 = v => Math.round(v * 1000) / 1000;
+/** A shallow, tapered arc between two tips, with the selected lower arc's curve character. */
+function arc(cx, {hw, tipY, topMid, bottomMid}) {
+  const top = t => tipY + t * (topMid - tipY), bottom = t => tipY + t * (bottomMid - tipY), l = cx - hw, r = cx + hw;
+  return [['M', l, tipY], ['C', l + 0.225 * hw, top(0.89), l + 0.75 * hw, top(1), cx, topMid], ['C', cx + 0.25 * hw, top(1), cx + 0.775 * hw, top(0.89), r, tipY],
+    ['C', cx + 0.836 * hw, bottom(0.587), cx + 0.477 * hw, bottom(1), cx, bottomMid], ['C', cx - 0.477 * hw, bottom(1), cx - 0.836 * hw, bottom(0.587), l, tipY], ['Z']];
+}
+function smallShapes(size) {
+  const {diamond: {cy, r}, upper, lower} = small.sizes[size], cx = size / 2;
+  // Centred on the plate by whole pixels, so the arcs' middles stay on pixel rows.
+  const dy = Math.round((size - (cy - r + lower.bottomMid)) / 2), down = c => c.map(([op, ...v]) => [op, ...v.map((n, i) => round3(i % 2 ? n + dy : n))]);
+  return [down([['M', cx, cy - r], ['L', cx + r, cy], ['L', cx, cy + r], ['L', cx - r, cy], ['Z']]), down(arc(cx, upper)), down(arc(cx, lower))];
+}
+for (const size of Object.keys(small.sizes).map(Number)) {
+  write(`png/hplx-ember-small-${size}.png`, encodePng(size, size, paint(coverage(smallShapes(size).map(c => [flattenContour(c)]), [0, 0, size, size], size, size), source.colours.amber, source.colours.background)));
+}
+const svgSize = small.svg_size;
+write('hplx-ember-small.svg', `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${svgSize} ${svgSize}" role="img" aria-labelledby="title"><title id="title">HPLX Ember</title><rect width="${svgSize}" height="${svgSize}" fill="${source.colours.background}"/><g fill="${source.colours.amber}">${smallShapes(svgSize).map(c => `<path d="${c.map(x => x.join(' ')).join(' ')}"/>`).join('')}</g></svg>
+`);
+console.log('Generated the small-size HPLX Ember redraws.');
