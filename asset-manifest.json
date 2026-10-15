@@ -1688,7 +1688,7 @@
         "format": "source"
       },
       "status": "baseline source, approved",
-      "sha256": "7ee17ee54f7c34334b8bbb3fb115957062ca327f6cc0be272a3fbd90fd6ed792",
+      "sha256": "08d87805825fb27969bd7d59548f8d73645d3612163ccc5cc0ce9a2b20caf193",
       "editable": true
     },
     {
@@ -1740,7 +1740,7 @@
         "format": "source"
       },
       "status": "HPLX family source, approved (owner, 2026-10-15)",
-      "sha256": "bbfcdc4c17cd81860d6bb3735caf4b9ab9e2810acd9a1c30296b3d63adc6d1c9",
+      "sha256": "b0ef578ae2cd3056c3271a7c98508b133508f8a978ed9014cfc02c5301c5fe49",
       "editable": true
     },
     {
