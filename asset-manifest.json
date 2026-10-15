@@ -2,7 +2,7 @@
   "name": "Cosmik brand kit",
   "version": "0.3.0",
   "date": "2026-10-08",
-  "system_status": "baseline approved (owner, 2026-10-07); the HPLX family kit is proposed",
+  "system_status": "baseline approved (owner, 2026-10-07); the HPLX family kit approved (owner, 2026-10-15)",
   "emblem_status": "accepted traced symbol",
   "wordmark_status": "outlined trace of the approved banner (assets/vector/cosmik-lockup-*.svg), accepted (owner, 2026-10-11); the approved raster stays the reference",
   "interim_identity": "Small identity where the lockup would be too large: the emblem followed by the live label “Cosmik” in Inter 500 (type role identity-label, 20 px / 1.3, tracking 0). The label is a typographic treatment, not a wordmark; never set COSMIK in capitals with Inter to imitate the wordmark.",
@@ -897,7 +897,7 @@
         "kit": "hplx"
       },
       "status": "Selected Ember symbol; faithful derived delivery",
-      "sha256": "20e42a125a4e3f2c122e1ae21fe8bd70af8c911d754ada63ac1c956651379bbd",
+      "sha256": "97791165bd4fbb7ae9ad5d05b3c005c7239de758c199f8d41671d341b1512193",
       "editable": true
     },
     {
@@ -1739,8 +1739,8 @@
         "kit": "hplx",
         "format": "source"
       },
-      "status": "HPLX family source, proposed",
-      "sha256": "6c9dd2434ad61b498953a4e08c7c3bc6c80d9188b5765f4f4a29e7b139d6abe0",
+      "status": "HPLX family source, approved (owner, 2026-10-15)",
+      "sha256": "bbfcdc4c17cd81860d6bb3735caf4b9ab9e2810acd9a1c30296b3d63adc6d1c9",
       "editable": true
     },
     {
@@ -1751,7 +1751,7 @@
         "format": "css"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "82f15d2752f162cedb9f934d5d91675f2597d5d6aa57c78f008a6dc51d20a3c4"
+      "sha256": "579e031f79b70a12a1cfa8254d467586addfe8a2e58a05c446812edce307e0e9"
     },
     {
       "path": "tokens/hplx/hplx.json",
@@ -1762,7 +1762,7 @@
         "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "b48dc59abcfad8c115d5e9343364c54e37ebbaf24ddd1a1d3549863692257c7b"
+      "sha256": "c3959b1a7c52b0a7915f93da24a176c55295fe76d1be5b7b6d01d0ee6a98bcd6"
     },
     {
       "path": "tokens/hplx/hplx.tokens.json",
@@ -1772,7 +1772,7 @@
         "format": "dtcg"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "3d26d6427cf782b5d6f9acdf88b0be7121bc9a72767415895afda22ccda5e555"
+      "sha256": "173738377fa769546ff5ce2175816108b449bca483c56963f41dbd8a02332099"
     },
     {
       "path": "tokens/hplx/hplx_tokens.rs",
@@ -1782,7 +1782,7 @@
         "format": "rust"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "be59cf1dcded247400237e2a812eb33ff38bb3ceeda6766c1bc4d6a074682e5d"
+      "sha256": "5e9d1584573c40c5d68b6c838294f944ecb910f14b930699fa6daf1b04319ab2"
     }
   ],
   "web_fonts": [
@@ -1932,8 +1932,8 @@
       "selected_date": "2026-10-08",
       "wordmark": "HPLX in Spectral SemiBold, as outlines (owner, 2026-10-11); lockup accepted",
       "splash": "not supplied",
-      "theme_status": "Proposed; values pending owner review",
-      "note": "Symbol selection does not approve the family palette, type or other theme values. The Cosmik parent emblem is separate."
+      "theme_status": "Approved (owner, 2026-10-15)",
+      "note": "The symbol and the family's theme values were approved separately. The Cosmik parent emblem is separate."
     }
   }
 }

@@ -10,11 +10,11 @@ const source=JSON.parse(read('assets/hplx/ember.source.json'));
 const paths=source.shapes.map(shape=>shape.commands.map(c=>c.join(' ')).join(' '));
 const pngSize=b=>{assert.equal(b.subarray(0,8).toString('hex'),'89504e470d0a1a0a');return [b.readUInt32BE(16),b.readUInt32BE(20)];};
 
-test('selected Ember has three true-vector shapes and leaves theme approval unchanged',()=>{
+test('selected Ember has three true-vector shapes, and the family theme is approved on its own record',()=>{
   assert.equal(source.selection,'Original 01 / EMBER');
   assert.deepEqual(source.shapes.map(s=>s.id),['diamond','upper_arc','lower_arc']);
   assert.equal(source.shapes.flatMap(s=>s.commands).filter(c=>c[0]==='C').length,8);
-  assert.match(JSON.parse(read('tokens/hplx/family.json')).status,/^Proposed/);
+  assert.match(JSON.parse(read('tokens/hplx/family.json')).status,/^Approved \(owner, \d{4}-\d{2}-\d{2}\)/);
   for(const variant of ['amber','bone','ink','primary']) {
     const svg=read(`assets/hplx/hplx-ember-${variant}.svg`).toString();
     assert.deepEqual([...svg.matchAll(/<path d="([^"]+)"/g)].map(m=>m[1]),paths);

@@ -1,6 +1,6 @@
 # Interface
 
-Rules for websites, tools and in-game interfaces. The offline [component specimens](../specimens/components.html) show them with a selector for the approved baseline and proposed HPLX family tokens; they are examples, not a UI framework.
+Rules for websites, tools and in-game interfaces. The offline [component specimens](../specimens/components.html) show them with a selector for the approved baseline and HPLX family tokens; they are examples, not a UI framework.
 
 ## Actions
 
@@ -13,6 +13,7 @@ Rules for websites, tools and in-game interfaces. The offline [component specime
 | Loading | Keep the control's width; use a meaningful loading label and expose the busy state |
 
 - Standalone targets are at least 44 × 44 CSS px. WCAG 2.2 AA asks for 24 px with exceptions; the larger house size gives touch and pointer users more room.
+- **Dense tool panels are the exception** (owner, 2026-10-15): the HPLX Editor's panels use 28 px rows with 13 px text by default, with a density setting for 24 or 32 px. Every target there is still at least 24 × 24 px.
 - Underline inline links. A button performs an action; a link navigates.
 - Keep keyboard order meaningful, and give touch, pointer and keyboard users the same useful content.
 

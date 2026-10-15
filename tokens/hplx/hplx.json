@@ -1,7 +1,7 @@
 {
   "name": "Cosmik · HPLX",
   "version": "0.1.0",
-  "status": "Proposed family; values pending owner review",
+  "status": "Approved (owner, 2026-10-15)",
   "family": "hplx",
   "extends": "Cosmik baseline 0.3.0",
   "extensionRoles": [
@@ -395,9 +395,7 @@
     "easing": "ease-out",
     "reduced-duration": "0ms"
   },
-  "proposals": [
-    "Proposed — needs owner approval: every value in this family (palette, amber accent, Spectral titles, status hues, elevation)."
-  ],
+  "proposals": [],
   "radius": {
     "sm": "0.125rem",
     "md": "0.25rem",

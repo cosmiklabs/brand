@@ -21,7 +21,7 @@ Keep a family's genre imagery inside it: horror imagery belongs to a horror proj
 
 | Family | Kit | Status |
 |---|---|---|
-| HPLX | `tokens/hplx/` | Proposed: warm blacks and bone text, a lantern-amber accent, Spectral headings, status hues |
+| HPLX | `tokens/hplx/` | Approved (2026-10-15): warm blacks and bone text, a lantern-amber accent, Spectral headings, status hues |
 
 ## Endorsement
 

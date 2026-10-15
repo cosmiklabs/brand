@@ -24,10 +24,10 @@ kitPicker.addEventListener('change', () => {
     if (family) section.dataset.family = 'hplx';
     else delete section.dataset.family;
     section.querySelector('.theme-heading .eyebrow').textContent = family
-      ? 'HPLX / Proposed family' : 'Cosmik / Approved baseline';
+      ? 'HPLX / Approved family' : 'Cosmik / Approved baseline';
   });
   document.getElementById('kit-status').textContent = family
-    ? 'Showing the proposed HPLX family.' : 'Showing the approved Cosmik baseline.';
+    ? 'Showing the approved HPLX family.' : 'Showing the approved Cosmik baseline.';
 });
 
 document.querySelectorAll('[role="tablist"]').forEach(list => {

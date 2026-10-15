@@ -15,6 +15,6 @@ Cosmik is Matthew Downs's independent open-source gaming workshop: modern reimpl
 | [Documents](documents.md) | The technical-note template |
 | [Governance](governance.md) | Who decides, how to propose a change, release checks |
 
-**Status words.** *Approved* means existing artwork, published language, or a decision the owner has made. *Proposed* means a specification awaiting review. *Archive* means a reference that must not be used as a production master. The baseline (identity, type, themes, interface rules) was approved on 7 October 2026; the HPLX family kit is proposed.
+**Status words.** *Approved* means existing artwork, published language, or a decision the owner has made. *Proposed* means a specification awaiting review. *Archive* means a reference that must not be used as a production master. The baseline (identity, type, themes, interface rules) was approved on 7 October 2026, and the HPLX family kit on 15 October 2026.
 
 The earlier Word and PDF guide (v0.2, twelve pages) is kept in [archive/](archive/) for reference. It predates the approved baseline and the family kits; where it disagrees with these pages, these pages win.

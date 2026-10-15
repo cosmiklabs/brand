@@ -10,7 +10,7 @@ This package turns the visual direction into a practical identity and product-re
 1. Read the [brand guide](guide/README.md): the rules and judgement behind the identity, in Markdown. The earlier Word/PDF guide (v0.2) is in `guide/archive/`.
 2. Use `assets/vector/cosmik-emblem-master-offwhite.svg` as the accepted standalone emblem master. `cosmik-emblem-ink.svg` reverses the same geometry; `cosmik-emblem-primary.svg` includes the original black canvas. PNG sizes are in `assets/vector/png/`.
 3. Keep the approved original horizontal banner. Its vector lockup (`assets/vector/cosmik-lockup-*.svg`: the accepted emblem beside the outlined COSMIK wordmark) is the reusable logo. No supporting font is an identified match for the wordmark. Where a product UI needs a small identity instead, use the emblem followed by the live label “Cosmik” in Inter 500 (type role `identity-label`, 20 px / 1.3, tracking 0).
-4. Open `specimens/components.html` locally and use the kit selector to compare the approved baseline and proposed HPLX family in dark/light themes. CSS, script, and fonts are local. It has no submission, storage, analytics, or network behavior.
+4. Open `specimens/components.html` locally and use the kit selector to compare the approved baseline and the approved HPLX family in dark/light themes. CSS, script, and fonts are local. It has no submission, storage, analytics, or network behavior.
 5. Copy `templates/cosmik-technical-note-template.docx` for a new document. Install the bundled desktop fonts first, replace bracketed content, and review the PDF export.
 
 ## Status and source of truth
@@ -18,7 +18,7 @@ This package turns the visual direction into a practical identity and product-re
 - Accepted: traced standalone emblem geometry, based on the approved original. Dark/light SVGs share the same path.
 - Approved references: original square and banner PNG compositions, unchanged. Their source names and checksums are in `asset-manifest.json`.
 - **Approved baseline (owner, 2026-10-07):** typography, the semantic dark/light roles, layout and component rules, as generated in `tokens/cosmik/`. The baseline is monochrome: no accent colour, status in words.
-- **Family kits:** product families may have their own style on top of the baseline, under rules the build enforces (`tokens/README.md`). The **HPLX** family (`tokens/hplx/`) is proposed; its values await owner review.
+- **Family kits:** product families may have their own style on top of the baseline, under rules the build enforces (`tokens/README.md`). The **HPLX** family (`tokens/hplx/`) was approved by the owner on 2026-10-15.
 - Accepted (owner, 2026-10-11): the vector lockup, traced from the approved banner by `scripts/trace-cosmik-lockup.mjs` (geometry in `assets/vector/cosmik-lockup.source.json`, evidence in `references/lockup-qa.json` and `lockup-trace-overlay.png`). The wordmark overlaps the banner by 99.1% with every edge within 1 px. The emblem is the accepted master, which differs slightly from the banner's own drawing (93.6% overlap; its horn tips and inner flare).
 - Archive: earlier generated light PNGs. They differ geometrically and are not current masters.
 - Incomplete (known gaps, also recorded in `asset-manifest.json`): optically optimized tiny icon, print-process proofs, and remaining browser/accessibility QA.
@@ -61,7 +61,7 @@ Headless Chrome and Edge checks now cover both kits, nested themes, fonts, respo
 
 ## Fonts and rights
 
-Inter desktop files come from the official Inter 4.1 release; internal font version is 4.001. IBM Plex Mono Regular has internal version 2.005. Spectral SemiBold is also bundled for the proposed HPLX family headings. All three families are provided under SIL OFL 1.1; preserve the included notices when distributing font files. No typeface match or external rights clearance for the original wordmark is asserted.
+Inter desktop files come from the official Inter 4.1 release; internal font version is 4.001. IBM Plex Mono Regular has internal version 2.005. Spectral SemiBold is also bundled for the HPLX family headings. All three families are provided under SIL OFL 1.1; preserve the included notices when distributing font files. No typeface match or external rights clearance for the original wordmark is asserted.
 
 - Inter: https://rsms.me/inter/download/
 - Plex: https://github.com/IBM/plex/tree/master/packages/plex-mono

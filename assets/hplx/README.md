@@ -20,7 +20,7 @@ Use an accessible name such as `alt="HPLX"` when the symbol identifies a link on
 
 ## Theme integration
 
-The HPLX family still consumes `tokens/hplx/`. Symbol selection is independent of theme approval: the existing palette, Spectral headings, status hues and elevation remain **proposed**. This addition does not change those token values or the shared interface rules.
+The HPLX family consumes `tokens/hplx/`. Its palette, Spectral headings, status hues and elevation were approved on 2026-10-15, separately from the symbol.
 
 The root `asset-manifest.json` lists the HPLX identity separately under `family_identities.hplx` and its usable paths under `entry_points.families.hplx`. Global Cosmik chrome keeps the Cosmik identity; HPLX content can use its own symbol and the separate “A Cosmik project” endorsement. See [product families](../../guide/families.md).
 

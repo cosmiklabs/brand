@@ -3,11 +3,9 @@
   "name": "HPLX",
   "extends": "Cosmik baseline 0.3.0",
   "version": "0.1.0",
-  "status": "Proposed family; values pending owner review",
+  "status": "Approved (owner, 2026-10-15)",
   "description": "The HPLX product family: the engine, its game reimplementations, the desktop app and the editor. Warm blacks and bone text, a lantern-amber accent, Spectral for titles, and the status hues its tools need. Everything else comes from the Cosmik baseline, whose rules it keeps.",
-  "proposals": [
-    "Proposed — needs owner approval: every value in this family (palette, amber accent, Spectral titles, status hues, elevation)."
-  ],
+  "proposals": [],
   "fonts": [
     {
       "family": "Spectral",
