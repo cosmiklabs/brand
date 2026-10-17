@@ -92,4 +92,4 @@ This repository is the home of the Cosmik brand kit (0.3.0). The current Markdow
 
 ## Tecton family
 
-The mineral-and-teal theme was approved on 17 October 2026. Tecton inherits Inter headings and all baseline utility, layout and motion rules. No symbol has been selected. See [family source](tokens/tecton/family.json), [family guide](assets/tecton/README.md) and [offline review board](specimens/tecton.html). The logo remains pending, and rendered consumer accessibility QA is still required.
+The mineral-and-teal theme was approved on 17 October 2026. Tecton inherits Inter headings and all baseline utility, layout and motion rules. The angle-corrected Latch symbol was approved on 17 October 2026. See [family source](tokens/tecton/family.json), [family guide](assets/tecton/README.md) and [offline review board](specimens/tecton.html). Canonical Latch assets are in `assets/tecton/`; rendered consumer accessibility QA is still required.

@@ -2,13 +2,15 @@
 
 ## Tecton family 0.1.0 — 17 October 2026
 
-- Owner-approved mineral/teal theme. Logo remains pending; rendered browser accessibility checks remain unverified.
+- Add the approved original angle-only Latch, five transparent symbol variants and matching outlined Inter lockups. Preserve exact source paths; document clear space and minimum sizes.
+
+- Owner-approved mineral/teal theme. Angle-only Latch symbol and Inter lockups approved; rendered browser accessibility checks remain unverified.
 
 - Improve specimen accessibility: scalable HTML diagram legends, 14 px small labels, wrapping, explicit pressed states, forced-colour treatment and board-specific regression coverage.
 - Mark the former organisation motto for retirement/replacement; no new motto adopted.
 - Lead Tecton presentation with creative benefits and intended workflow; exclude implementation architecture and unannounced commercial terms.
-- Add proposed mineral/teal family tokens and offline review board, with Inter inherited throughout. Direction accepted; final values and applications await owner review.
-- Extend component selection and browser regression coverage to Tecton. No existing family values or parent rules changed. No Tecton symbol, published release or consumer rollout.
+- Add approved mineral/teal family tokens and offline review board, with Inter inherited throughout. Theme values and applications approved by owner.
+- Extend component selection and browser regression coverage to Tecton. No existing family values or parent rules changed. No product release or consumer rollout.
 
 Versions follow semver. Release tags use `vX.Y.Z`; the first is `v0.3.0`.
 

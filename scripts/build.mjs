@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const run = (script, ...args) => execFileSync(process.execPath, [path.join(here, script), ...args], { stdio: 'inherit' });
 run('generate-tokens.mjs');
+run('build-tecton-assets.mjs');
 run('build-hplx-assets.mjs');
 run('build-hplx-lockup.mjs');
 run('build-cosmik-lockup.mjs');

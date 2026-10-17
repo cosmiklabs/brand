@@ -9,7 +9,7 @@ Base: cosmiklabs/brand main at 24fd4bf49bc57d9af4add52aea60900a390cfb68. Owner a
 
 Before consumer rollout: render the offline board in current browsers, check 320/390/768/1280 px widths and 200% text size, keyboard and forced-colour behavior, nested dark/light scoping, and real consumer examples. Run BRAND_BROWSER=<browser> node scripts/check-browser.mjs in an environment that supports Chromium. Product-specific accessibility remains separate.
 
-No symbol, optical icon, banner, approved wordmark, print proof or production consumer rollout is included. Theme approval does not imply approval of a future logo or completion of rendered accessibility QA.
+The angle-only Latch symbol and matching outlined Inter lockup were added after owner approval on 17 October 2026. Exact source paths are regression-tested. Optical icons, banners, print proofs and consumer rollout are not included; rendered accessibility QA remains pending.
 
 ## Positioning update
 

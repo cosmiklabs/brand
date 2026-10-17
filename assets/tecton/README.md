@@ -1,10 +1,14 @@
 # Tecton family kit
 
-Theme approved on 17 October 2026: cool mineral surfaces, restrained teal, clean utility typography and construction relationships. The palette, typography and applications have owner approval; rendered consumer accessibility QA remains required. This is a design reference, not a product release or a new approved logo.
+Theme approved on 17 October 2026: cool mineral surfaces, restrained teal, clean utility typography and construction relationships. The palette, typography and applications have owner approval; rendered consumer accessibility QA remains required. This is a design reference, not a product release.
 
 ## Identity and hierarchy
 
-Set **Tecton** as live Inter text using the inherited display or section role. No symbol or custom wordmark has been selected. Do not use the Cosmik emblem or HPLX Ember as the Tecton mark; do not fuse parent and family marks. Keep the separate “A Cosmik project” endorsement at least 16 px from the title block, following the parent guide.
+The approved **Latch** is the original mark with only its cut angles corrected, accepted on 17 October 2026. Its exact two paths live in `latch.source.json`; do not close its openings, alter its proportions or use the later closed-fit/airy explorations. Use the supplied symbol or horizontal lockup. The lockup pairs the unchanged symbol with outlined Inter SemiBold; it is a typographic label treatment, not a custom-lettered wordmark. Keep the separate “A Cosmik project” endorsement at least 16 px away.
+
+Use `tecton-latch-dark.svg` / `tecton-lockup-dark.svg` on dark surfaces and the `light` versions on light surfaces. Black and white variants serve monochrome applications. `currentColor` inherits colour when inlined; an external `<img>` does not inherit page text colour. All exports are transparent. Keep at least 8 source units of clear space around visible artwork (one sixth of the symbol's 48-unit visible width). The lockup's 16-unit symbol/label gap is fixed.
+
+Recommended minimum CSS width: symbol 24 px; horizontal lockup 160 px. At 24 px, the narrowest 4-unit feature is 1.5 px; validate rendering on the actual display before using it smaller. No separate optical favicon redraw or platform icon package is approved. Preserve the viewBox, aspect ratio, silhouette and contrast. For linked identities use an accessible name such as “Tecton”; hide a decorative symbol from assistive technology when adjacent text already names the product.
 
 Cosmik navigation, headers and footers keep the baseline. Tecton content uses `data-family="tecton"` with explicit dark/light modes. The kit applies to the family, including its documentation, bindings, adapters and showcase presentation; these are not separate logo systems.
 
@@ -47,6 +51,6 @@ Use the inherited interface duration and easing, and zero duration under reduced
 - Generated CSS, JSON, DTCG and Rust under `tokens/tecton/`.
 - [Validation record](../../references/tecton-validation.md).
 
-Pending separate design approval: symbol, wordmark/lockup, tiny optical icon, platform icons, social/banner exports and any identity animation. No placeholder image is distributed as a production mark. Once a mark is selected, derive SVG/raster/platform exports from one documented source and validate small sizes before use.
+The symbol and supplied horizontal lockup are approved for integration. Platform icons, banners, identity animation and an optical small-size redraw remain separate future deliverables. Generate canonical variants with `node scripts/build-tecton-assets.mjs`; Inter's existing font notice continues to apply.
 
 Tecton remains experimental; a brand kit does not certify API stability, host compatibility or software availability. Describe capabilities from current project evidence, separately from identity guidance.

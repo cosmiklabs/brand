@@ -2,7 +2,7 @@
   "name": "Cosmik brand kit",
   "version": "0.3.0",
   "date": "2026-10-08",
-  "system_status": "baseline approved (owner, 2026-10-07); the HPLX family kit approved (owner, 2026-10-15); Tecton family draft (direction accepted 2026-10-17; final review pending)",
+  "system_status": "baseline approved (owner, 2026-10-07); HPLX family approved (owner, 2026-10-15); Tecton family and angle-only Latch approved (owner, 2026-10-17)",
   "emblem_status": "accepted traced symbol",
   "wordmark_status": "outlined trace of the approved banner (assets/vector/cosmik-lockup-*.svg), accepted (owner, 2026-10-11); the approved raster stays the reference",
   "interim_identity": "Small identity where the lockup would be too large: the emblem followed by the live label “Cosmik” in Inter 500 (type role identity-label, 20 px / 1.3, tracking 0). The label is a typographic treatment, not a wordmark; never set COSMIK in capitals with Inter to imitate the wordmark.",
@@ -94,6 +94,19 @@
         "guide": "assets/tecton/README.md",
         "preview": "specimens/tecton.html"
       }
+    },
+    "tecton_identity": {
+      "tecton-latch-black": "assets/tecton/tecton-latch-black.svg",
+      "tecton-latch-currentColor": "assets/tecton/tecton-latch-currentColor.svg",
+      "tecton-latch-dark": "assets/tecton/tecton-latch-dark.svg",
+      "tecton-latch-light": "assets/tecton/tecton-latch-light.svg",
+      "tecton-latch-white": "assets/tecton/tecton-latch-white.svg",
+      "tecton-lockup-black": "assets/tecton/tecton-lockup-black.svg",
+      "tecton-lockup-currentColor": "assets/tecton/tecton-lockup-currentColor.svg",
+      "tecton-lockup-dark": "assets/tecton/tecton-lockup-dark.svg",
+      "tecton-lockup-light": "assets/tecton/tecton-lockup-light.svg",
+      "tecton-lockup-white": "assets/tecton/tecton-lockup-white.svg",
+      "source": "assets/tecton/latch.source.json"
     }
   },
   "assets": [
@@ -1625,9 +1638,9 @@
         "kind": "family-reference",
         "family": "tecton"
       },
-      "status": "draft",
+      "status": "Approved (owner, 2026-10-17)",
       "editable": true,
-      "sha256": "19eb57d98768c7a49693fcb760c44862913d3d7ed67e9d9d3553506a35f94790"
+      "sha256": "197142d0bb0017c696875c16ec468cb3a9096242fa547dc5f514c12e1de47cfb"
     },
     {
       "path": "specimens/tecton.html",
@@ -1635,9 +1648,9 @@
         "kind": "family-reference",
         "family": "tecton"
       },
-      "status": "draft",
+      "status": "Approved (owner, 2026-10-17)",
       "editable": true,
-      "sha256": "97b957dcad228edd1b2857537b4f7ae9310965d94cb37c04b71b555392433e34"
+      "sha256": "2f43639fe6ad129cf6574f5b9819b570c499b7287285ffccd505551f576a95ab"
     },
     {
       "path": "specimens/tecton.css",
@@ -1645,7 +1658,7 @@
         "kind": "family-reference",
         "family": "tecton"
       },
-      "status": "draft",
+      "status": "Approved (owner, 2026-10-17)",
       "editable": true,
       "sha256": "0bb382a1551c1505e246d0cd03b2f38ed265aaefb6483f614391a8fc452eb028"
     }
@@ -1831,9 +1844,9 @@
         "kit": "tecton",
         "format": "source"
       },
-      "sha256": "337166ebb97452e5fcfaf6aa57a15babab4bb92e60ccf11b40860ea98ef27be1",
+      "sha256": "0513d5706da52b254ff0b34ba7bebd7f2e8eec67d0efab45aaa1685f8cbe9ab6",
       "editable": true,
-      "status": "Draft; final kit review pending"
+      "status": "Approved (owner, 2026-10-17)"
     },
     {
       "path": "tokens/tecton/tecton.css",
@@ -1852,7 +1865,7 @@
         "kit": "tecton",
         "format": "json"
       },
-      "sha256": "d7e7b28ca702ff6a3ed81fae40f54d929f9227baa28a3b3c5ae403ef27f6c832",
+      "sha256": "769c89ae644695d1f58c9ab37193b0389d0fa9ca20068a108e29205295212102",
       "generated_by": "scripts/generate-tokens.mjs"
     },
     {
@@ -1862,7 +1875,7 @@
         "kit": "tecton",
         "format": "dtcg"
       },
-      "sha256": "c3f99504b73324ac4a21e1aa799b7229fcb73fca19aaa263e818ef542a3df545",
+      "sha256": "e666e67a89942ae64d0604d3f0c3ba04fe62b5db1716c17caeaec300be0550ab",
       "generated_by": "scripts/generate-tokens.mjs"
     },
     {
@@ -2027,10 +2040,190 @@
       "note": "The symbol and the family's theme values were approved separately. The Cosmik parent emblem is separate."
     },
     "tecton": {
-      "status": "Draft; no symbol or custom wordmark selected",
-      "theme_status": "Direction accepted 2026-10-17; final kit review pending",
-      "interim_identity": "Live Tecton text in inherited Inter heading roles; separate A Cosmik project endorsement",
-      "note": "No app icon, splash or production logo supplied."
+      "status": "Approved angle-only Latch (owner, 2026-10-17)",
+      "theme_status": "Approved (owner, 2026-10-17)",
+      "identity": "Approved symbol with outlined Inter horizontal lockup or live Inter heading; separate A Cosmik project endorsement",
+      "note": "No optical icon, platform icon package or splash supplied. Rendered consumer QA remains pending."
     }
+  },
+  "tecton_identity": {
+    "status": "approved angle-only Latch",
+    "assets": [
+      {
+        "path": "assets/tecton/tecton-latch-black.svg",
+        "sha256": "ca302df8c0ca6c39fa3974dd8f066c07dc65845c76341709db9b87278008e6d3",
+        "generated_by": "scripts/build-tecton-assets.mjs",
+        "viewBox": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "visible_bounds_xywh": [
+          8,
+          12,
+          48,
+          40
+        ]
+      },
+      {
+        "path": "assets/tecton/tecton-latch-currentColor.svg",
+        "sha256": "83d3a20873b0e420e4e9304a969e5ea5b0808a40a7928201358082b91b1c400d",
+        "generated_by": "scripts/build-tecton-assets.mjs",
+        "viewBox": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "visible_bounds_xywh": [
+          8,
+          12,
+          48,
+          40
+        ]
+      },
+      {
+        "path": "assets/tecton/tecton-latch-dark.svg",
+        "sha256": "9db4e618946b8d4c27b501035f44577c16709f4b672415bc19de8f9c2f469155",
+        "generated_by": "scripts/build-tecton-assets.mjs",
+        "viewBox": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "visible_bounds_xywh": [
+          8,
+          12,
+          48,
+          40
+        ]
+      },
+      {
+        "path": "assets/tecton/tecton-latch-light.svg",
+        "sha256": "3c4ab1961c6505649a8ee2e83669ff789676de322678182b62de3266201f4f5d",
+        "generated_by": "scripts/build-tecton-assets.mjs",
+        "viewBox": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "visible_bounds_xywh": [
+          8,
+          12,
+          48,
+          40
+        ]
+      },
+      {
+        "path": "assets/tecton/tecton-latch-white.svg",
+        "sha256": "4d8e89c044cea44e8cf3d181aa5712545ebd256f71ae49ec60144f2b96e708e6",
+        "generated_by": "scripts/build-tecton-assets.mjs",
+        "viewBox": [
+          0,
+          0,
+          64,
+          64
+        ],
+        "visible_bounds_xywh": [
+          8,
+          12,
+          48,
+          40
+        ]
+      },
+      {
+        "path": "assets/tecton/tecton-lockup-black.svg",
+        "sha256": "e4a8c2d2610b4b26349ea8165f25832345dc1bfe8107ba9248b972e4c6018ed5",
+        "generated_by": "scripts/build-tecton-assets.mjs",
+        "viewBox": [
+          0,
+          0,
+          204,
+          64
+        ],
+        "visible_bounds_xywh": [
+          8,
+          12,
+          187.613,
+          40
+        ]
+      },
+      {
+        "path": "assets/tecton/tecton-lockup-currentColor.svg",
+        "sha256": "c453365417a57b603ce6678ad7e5808232fb46887ea0946b7070c996646f4c18",
+        "generated_by": "scripts/build-tecton-assets.mjs",
+        "viewBox": [
+          0,
+          0,
+          204,
+          64
+        ],
+        "visible_bounds_xywh": [
+          8,
+          12,
+          187.613,
+          40
+        ]
+      },
+      {
+        "path": "assets/tecton/tecton-lockup-dark.svg",
+        "sha256": "41d3466e2c6b99f03a0e3e5066c86f81523442f45c58c62e15b345fe9545e202",
+        "generated_by": "scripts/build-tecton-assets.mjs",
+        "viewBox": [
+          0,
+          0,
+          204,
+          64
+        ],
+        "visible_bounds_xywh": [
+          8,
+          12,
+          187.613,
+          40
+        ]
+      },
+      {
+        "path": "assets/tecton/tecton-lockup-light.svg",
+        "sha256": "09b5d61b9cf2cd5730a775495057eed94b584b0134d90acf14acf18088e3d571",
+        "generated_by": "scripts/build-tecton-assets.mjs",
+        "viewBox": [
+          0,
+          0,
+          204,
+          64
+        ],
+        "visible_bounds_xywh": [
+          8,
+          12,
+          187.613,
+          40
+        ]
+      },
+      {
+        "path": "assets/tecton/tecton-lockup-white.svg",
+        "sha256": "85952a00a6ff049857ca866075e5eed5b94a6280e0ce7f108f771c0e981db466",
+        "generated_by": "scripts/build-tecton-assets.mjs",
+        "viewBox": [
+          0,
+          0,
+          204,
+          64
+        ],
+        "visible_bounds_xywh": [
+          8,
+          12,
+          187.613,
+          40
+        ]
+      },
+      {
+        "path": "assets/tecton/latch.source.json",
+        "sha256": "16a88ca03ab9cc0fe7d6deed56b7e1b42e22462c7938ab161a0534c6eb2bcc43",
+        "editable": true
+      }
+    ]
   }
 }

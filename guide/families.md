@@ -33,7 +33,7 @@ Use Cosmik in prose and `cosmiklabs` as the handle. HPLX names the product famil
 
 ## Tecton family
 
-The mineral-and-teal theme was approved on 17 October 2026. Tecton inherits Inter headings and all baseline utility, layout and motion rules. No symbol has been selected. See [family source](../tokens/tecton/family.json), [family guide](../assets/tecton/README.md) and [offline review board](../specimens/tecton.html). The logo remains pending, and rendered consumer accessibility QA is still required.
+The mineral-and-teal theme was approved on 17 October 2026. Tecton inherits Inter headings and all baseline utility, layout and motion rules. The angle-corrected Latch symbol was approved on 17 October 2026. See [family source](../tokens/tecton/family.json), [family guide](../assets/tecton/README.md) and [offline review board](../specimens/tecton.html). Canonical Latch assets are in `assets/tecton/`; rendered consumer accessibility QA is still required.
 
 Lead public-facing copy with creative benefits and the intended authoring workflow. Keep business-model facts in governance or relevant commercial details, not hero labels. Pricing, access and any free-credit allowance are undecided.
 

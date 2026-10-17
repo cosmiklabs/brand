@@ -3,11 +3,11 @@
   "name": "Tecton",
   "extends": "Cosmik baseline 0.3.0",
   "version": "0.1.0",
-  "status": "Approved \u2014 17 October 2026; logo pending",
+  "status": "Approved \u2014 17 October 2026; angle-only Latch approved",
   "description": "A mineral-and-teal family for Tecton: a planned agent-driven authoring workflow from envisioning and planning through construction, rendering and review. Art direction belongs to the user. All utility, layout and motion rules inherit the Cosmik baseline.",
   "proposals": [
     "Theme palette, typography and applications approved by owner on 2026-10-17; product-specific rendered accessibility QA remains required.",
-    "A distinct Tecton symbol and wordmark are not supplied.",
+    "Approved angle-only Latch symbol and outlined Inter label lockups are supplied in assets/tecton/.",
     "Public examples must distinguish verified capabilities from intended workflow; pricing and availability claims require separate approval."
   ],
   "fonts": [],
