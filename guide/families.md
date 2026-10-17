@@ -30,3 +30,11 @@ Let the project's title lead. Place "A Cosmik project" beneath the title or in t
 ## Names and claims
 
 Use Cosmik in prose and `cosmiklabs` as the handle. HPLX names the product family and its foundational engine. Each game built on it (such as the reimplementation of *Amnesia: The Dark Descent*), the desktop app and the planned editor has its own name and status. Never imply official affiliation, ownership of a game's intellectual property, or one licence across all code and assets. Keep original creators' credits and licence notices readable and separate from the Cosmik endorsement.
+
+## Tecton family
+
+The mineral-and-teal theme was approved on 17 October 2026. Tecton inherits Inter headings and all baseline utility, layout and motion rules. No symbol has been selected. See [family source](../tokens/tecton/family.json), [family guide](../assets/tecton/README.md) and [offline review board](../specimens/tecton.html). The logo remains pending, and rendered consumer accessibility QA is still required.
+
+### Tecton product scope (internal planning)
+
+Tecton is a closed-source product: the internal construction library and full SaaS platform belong in one private repository. The planned paid platform covers the overall agent-driven authoring workflow; the internal library remains scoped to construction. These are internal responsibilities, not separate external offerings. No pricing or launch is announced. Cosmik can include open-source and proprietary products. HPLX’s no-payment commitment remains separate. This branding kit changes no product repository visibility, code or licence.

@@ -89,3 +89,7 @@ Whichever you use, consume only generated outputs and listed assets, and keep th
 ## Publishing
 
 This repository is the home of the Cosmik brand kit (0.3.0). The current Markdown guide and per-kit token folders supersede the original package layout; earlier guide documents remain in `guide/archive/` as historical references. The organization profile remains in the separate `.github` repository.
+
+## Tecton family
+
+The mineral-and-teal theme was approved on 17 October 2026. Tecton inherits Inter headings and all baseline utility, layout and motion rules. No symbol has been selected. See [family source](tokens/tecton/family.json), [family guide](assets/tecton/README.md) and [offline review board](specimens/tecton.html). The logo remains pending, and rendered consumer accessibility QA is still required.

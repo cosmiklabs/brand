@@ -19,15 +19,16 @@ document.querySelectorAll('[data-slug]').forEach(input=>{
 
 const kitPicker = document.getElementById('kit-picker');
 kitPicker.addEventListener('change', () => {
-  const family = kitPicker.value === 'hplx';
+  const kits = {cosmik: ['Cosmik', 'Approved baseline'], hplx: ['HPLX', 'Approved family'], tecton: ['Tecton', 'Draft family']};
+  const id = Object.hasOwn(kits, kitPicker.value) ? kitPicker.value : 'cosmik';
+  const [name, status] = kits[id];
   document.querySelectorAll('.theme-section').forEach(section => {
-    if (family) section.dataset.family = 'hplx';
+    if (id !== 'cosmik') section.dataset.family = id;
     else delete section.dataset.family;
-    section.querySelector('.theme-heading .eyebrow').textContent = family
-      ? 'HPLX / Approved family' : 'Cosmik / Approved baseline';
+    section.querySelector('.theme-heading .eyebrow').textContent = `${name} / ${status}`;
   });
-  document.getElementById('kit-status').textContent = family
-    ? 'Showing the approved HPLX family.' : 'Showing the approved Cosmik baseline.';
+  document.getElementById('kit-status').textContent = `Showing ${name}: ${status.toLowerCase()}.`;
+
 });
 
 document.querySelectorAll('[role="tablist"]').forEach(list => {

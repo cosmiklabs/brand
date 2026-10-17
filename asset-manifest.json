@@ -2,7 +2,7 @@
   "name": "Cosmik brand kit",
   "version": "0.3.0",
   "date": "2026-10-08",
-  "system_status": "baseline approved (owner, 2026-10-07); the HPLX family kit approved (owner, 2026-10-15)",
+  "system_status": "baseline approved (owner, 2026-10-07); the HPLX family kit approved (owner, 2026-10-15); Tecton family draft (direction accepted 2026-10-17; final review pending)",
   "emblem_status": "accepted traced symbol",
   "wordmark_status": "outlined trace of the approved banner (assets/vector/cosmik-lockup-*.svg), accepted (owner, 2026-10-11); the approved raster stays the reference",
   "interim_identity": "Small identity where the lockup would be too large: the emblem followed by the live label “Cosmik” in Inter 500 (type role identity-label, 20 px / 1.3, tracking 0). The label is a typographic treatment, not a wordmark; never set COSMIK in capitals with Inter to imitate the wordmark.",
@@ -42,6 +42,12 @@
         "json": "tokens/hplx/hplx.json",
         "dtcg": "tokens/hplx/hplx.tokens.json",
         "rust": "tokens/hplx/hplx_tokens.rs"
+      },
+      "tecton": {
+        "css": "tokens/tecton/tecton.css",
+        "json": "tokens/tecton/tecton.json",
+        "dtcg": "tokens/tecton/tecton.tokens.json",
+        "rust": "tokens/tecton/tecton_tokens.rs"
       }
     },
     "emblem_master": "assets/vector/cosmik-emblem-master-offwhite.svg",
@@ -83,6 +89,10 @@
         "lockup_bone": "assets/hplx/hplx-lockup-bone.svg",
         "lockup_ink": "assets/hplx/hplx-lockup-ink.svg",
         "icon_small": "assets/hplx/hplx-ember-small.svg"
+      },
+      "tecton": {
+        "guide": "assets/tecton/README.md",
+        "preview": "specimens/tecton.html"
       }
     }
   },
@@ -1608,6 +1618,36 @@
       "status": "Selected Ember symbol; faithful derived delivery",
       "sha256": "5760eda78675731ef54db987b35b8e65acaffe09f6ddfb2aa03549e4fe12d76a",
       "generated_by": "scripts/build-icons.mjs"
+    },
+    {
+      "path": "assets/tecton/README.md",
+      "role": {
+        "kind": "family-reference",
+        "family": "tecton"
+      },
+      "status": "draft",
+      "editable": true,
+      "sha256": "8a146f27d4c05c51b86d16f450a6687b82a942c6e9eb0fcda11eed8ad140f1e3"
+    },
+    {
+      "path": "specimens/tecton.html",
+      "role": {
+        "kind": "family-reference",
+        "family": "tecton"
+      },
+      "status": "draft",
+      "editable": true,
+      "sha256": "b64e420f080f21da6095ab39c554cd3d93e38a110402f23178c69849447c2338"
+    },
+    {
+      "path": "specimens/tecton.css",
+      "role": {
+        "kind": "family-reference",
+        "family": "tecton"
+      },
+      "status": "draft",
+      "editable": true,
+      "sha256": "0bb382a1551c1505e246d0cd03b2f38ed265aaefb6483f614391a8fc452eb028"
     }
   ],
   "app_icons": [
@@ -1783,6 +1823,57 @@
       },
       "generated_by": "scripts/generate-tokens.mjs",
       "sha256": "5e9d1584573c40c5d68b6c838294f944ecb910f14b930699fa6daf1b04319ab2"
+    },
+    {
+      "path": "tokens/tecton/family.json",
+      "role": {
+        "kind": "tokens",
+        "kit": "tecton",
+        "format": "source"
+      },
+      "sha256": "1e43ac52e93f763990a15406f9ef6df74d8a0a5fc3835b880cd060a3cb9fa6a4",
+      "editable": true,
+      "status": "Draft; final kit review pending"
+    },
+    {
+      "path": "tokens/tecton/tecton.css",
+      "role": {
+        "kind": "tokens",
+        "kit": "tecton",
+        "format": "css"
+      },
+      "sha256": "45d26ae9a96d7d8a27afb972dc632da8e270d677d56fbf8b084cf7084b73dee3",
+      "generated_by": "scripts/generate-tokens.mjs"
+    },
+    {
+      "path": "tokens/tecton/tecton.json",
+      "role": {
+        "kind": "tokens",
+        "kit": "tecton",
+        "format": "json"
+      },
+      "sha256": "96e51116aa3cbf09133bbd874761b2d30bf705daa0bdb511632692fec4baca68",
+      "generated_by": "scripts/generate-tokens.mjs"
+    },
+    {
+      "path": "tokens/tecton/tecton.tokens.json",
+      "role": {
+        "kind": "tokens",
+        "kit": "tecton",
+        "format": "dtcg"
+      },
+      "sha256": "52a32fafb9e3868a9b6437439c15971d5482c24e17c153b55d7f9bee86ef81f1",
+      "generated_by": "scripts/generate-tokens.mjs"
+    },
+    {
+      "path": "tokens/tecton/tecton_tokens.rs",
+      "role": {
+        "kind": "tokens",
+        "kit": "tecton",
+        "format": "rust"
+      },
+      "sha256": "b5866f0f6460205badee1a572214134ba0ef7a7d1875b571706ee5af02f9a8c6",
+      "generated_by": "scripts/generate-tokens.mjs"
     }
   ],
   "web_fonts": [
@@ -1934,6 +2025,12 @@
       "splash": "not supplied",
       "theme_status": "Approved (owner, 2026-10-15)",
       "note": "The symbol and the family's theme values were approved separately. The Cosmik parent emblem is separate."
+    },
+    "tecton": {
+      "status": "Draft; no symbol or custom wordmark selected",
+      "theme_status": "Direction accepted 2026-10-17; final kit review pending",
+      "interim_identity": "Live Tecton text in inherited Inter heading roles; separate A Cosmik project endorsement",
+      "note": "No app icon, splash or production logo supplied."
     }
   }
 }

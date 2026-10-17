@@ -87,7 +87,7 @@ try {
   }
   assert.equal(await evaluate('new Set([...document.querySelectorAll("[id]")].map(e=>e.id)).size === document.querySelectorAll("[id]").length'), true, 'unique IDs');
   assert.equal(await evaluate(`[...document.querySelectorAll('[aria-controls],[aria-labelledby],[aria-describedby]')].every(e=>['aria-controls','aria-labelledby','aria-describedby'].every(a=>!e.hasAttribute(a)||e.getAttribute(a).split(' ').every(id=>document.getElementById(id))))`), true, 'ARIA references resolve');
-  for (const kit of ['cosmik', 'hplx']) {
+  for (const kit of ['cosmik', 'hplx', 'tecton']) {
     await evaluate(`{const p=document.querySelector('#kit-picker');p.value='${kit}';p.dispatchEvent(new Event('change'));}`);
     await evaluate('document.fonts.ready.then(()=>true)');
     const heading = await evaluate(`getComputedStyle(document.querySelector('#dark-title')).fontFamily`);
@@ -146,13 +146,15 @@ try {
   }
   // Every combination of distant, nearest and explicit themes, including both orders.
   await evaluate(`{const box=document.createElement('div');box.id='probes';document.body.append(box)}`);
-  const colors = JSON.parse(fs.readFileSync(path.join(root, 'tokens/hplx/hplx.json'), 'utf8')).semantic;
+  for (const family of ['hplx', 'tecton']) {
+  const colors = JSON.parse(fs.readFileSync(path.join(root, `tokens/${family}/${family}.json`), 'utf8')).semantic;
   const rgb = hex => `rgb(${hex.slice(1).match(/../g).map(x=>parseInt(x,16)).join(', ')})`;
   for (const distant of ['dark','light']) for (const nearest of ['dark','light']) for (const explicit of ['', 'dark', 'light']) {
-    await evaluate(`document.querySelector('#probes').innerHTML='<div data-theme="${distant}"><div data-theme="${nearest}"><div data-family="hplx" ${explicit ? `data-theme="${explicit}"` : ''} id="probe" style="background:var(--c-bg)"><div data-theme="light"><div data-theme="dark" id="inner" style="background:var(--c-bg);box-shadow:var(--c-elevation-2-shadow)">Probe</div></div></div></div></div>'`);
+    await evaluate(`document.querySelector('#probes').innerHTML='<div data-theme="${distant}"><div data-theme="${nearest}"><div data-family="${family}" ${explicit ? `data-theme="${explicit}"` : ''} id="probe" style="background:var(--c-bg)"><div data-theme="light"><div data-theme="dark" id="inner" style="background:var(--c-bg);box-shadow:var(--c-elevation-2-shadow)">Probe</div></div></div></div></div>'`);
     assert.equal(await evaluate('getComputedStyle(document.querySelector("#probe")).backgroundColor'), rgb(colors[explicit || nearest].bg));
     assert.equal(await evaluate('getComputedStyle(document.querySelector("#inner")).backgroundColor'), rgb(colors.dark.bg));
-    assert.notEqual(await evaluate('getComputedStyle(document.querySelector("#inner")).boxShadow'), 'none');
+    if (family === 'hplx') assert.notEqual(await evaluate('getComputedStyle(document.querySelector("#inner")).boxShadow'), 'none');
+  }
   }
   await evaluate('document.querySelector("#probes").remove()');
   await evaluate(`{const input=document.querySelector('#dark-slug');input.value='valid-slug';input.dispatchEvent(new Event('input'));}`);
@@ -166,9 +168,30 @@ try {
   const fonts = await evaluate('[...document.fonts].map(f=>({family:f.family,weight:f.weight,status:f.status}))');
   assert.ok(fonts.every(f => f.status === 'loaded'), JSON.stringify(fonts));
   await cdp('Emulation.setEmulatedMedia', {features:[{name:'forced-colors', value:'active'}]});
-  await evaluate('document.querySelector("#light-details").scrollIntoView()'); await shot('hplx-forced-colors');
+  await evaluate('document.querySelector("#light-details").scrollIntoView()'); await shot('tecton-forced-colors');
   assert.deepEqual(errors, []);
-  console.log('Browser checks passed: both kits, 32 layout/text cases, nested themes, fonts, tabs, confirmations, focus, forms and reduced motion.');
+  console.log('Browser checks passed: three kits, 48 mode/layout/text cases, nested themes, fonts, tabs, confirmations, focus, forms and reduced motion.');
+  // Tecton board: simulated enlarged text and a 320-CSS-px reflow viewport.
+  // Viewport emulation is not a claim of actual browser zoom or assistive-tech testing.
+  await cdp('Emulation.setEmulatedMedia', {features:[]});
+  await cdp('Page.navigate', {url:`http://127.0.0.1:${server.address().port}/specimens/tecton.html`});
+  for (let i=0;i<100;i++) { if(await evaluate('document.readyState === "complete" && !!document.querySelector(".diagram-legend")')) break; await pause(50); }
+  await evaluate('document.fonts.ready.then(()=>true)');
+  for (const width of [1280,768,390,320]) for (const scale of [100,200]) {
+    await size(width); await evaluate(`document.documentElement.style.fontSize='${scale}%'`);
+    for (const spacing of [false,true]) {
+      await evaluate(`{document.querySelector('#text-spacing-test')?.remove();if(${spacing}){const s=document.createElement('style');s.id='text-spacing-test';s.textContent='*{line-height:1.5!important;letter-spacing:.12em!important;word-spacing:.16em!important}p{margin-bottom:2em!important}';document.head.append(s)}}`);
+      assert.equal(await evaluate('document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1'),true,`Tecton board overflow: ${width}px, ${scale}%, spacing ${spacing}`);
+      assert.equal(await evaluate('[...document.querySelectorAll(".control")].every(e=>{const r=e.getBoundingClientRect();return r.width>=44&&r.height>=44})'),true);
+    }
+  }
+  await evaluate('document.querySelector("#text-spacing-test").remove();document.documentElement.style.fontSize="100%"');
+  await size(1280); await evaluate('document.querySelector(".skip-link").focus()');
+  assert.equal(await evaluate('document.activeElement.classList.contains("skip-link")'),true);
+  await cdp('Emulation.setEmulatedMedia', {features:[{name:'forced-colors',value:'active'}]});
+  await shot('tecton-board-forced-colors');
+  assert.deepEqual(errors, []);
+  console.log('Tecton board checks passed: 16 viewport/text cases, each with default and user text spacing. Actual browser zoom and assistive technology still require manual review.');
   await cdp('Browser.close');
   for (let i=0; i<30 && browser.exitCode===null; i++) await pause(100);
 } finally {

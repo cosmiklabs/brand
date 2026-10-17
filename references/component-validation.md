@@ -26,3 +26,7 @@ Guide diagrams remain illustrative unless explicitly identified as browser scree
 - [W3C: Target Size (Minimum), SC 2.5.8](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html)
 
 Reference pages checked 4 October 2026. Product-level testing is still required.
+
+## Tecton draft extension (17 October 2026)
+
+Three-kit and nested Tecton mode tests were added. They are not yet browser-verified: Chromium could not create its process socket in this execution environment. See [Tecton validation](tecton-validation.md). Existing historical results above remain unchanged.

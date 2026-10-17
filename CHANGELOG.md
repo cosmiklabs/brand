@@ -1,5 +1,15 @@
 # Changes
 
+## Tecton family 0.1.0 — 17 October 2026
+
+- Owner-approved mineral/teal theme. Logo remains pending; rendered browser accessibility checks remain unverified.
+
+- Improve specimen accessibility: scalable HTML diagram legends, 14 px small labels, wrapping, explicit pressed states, forced-colour treatment and board-specific regression coverage.
+- Mark the former organisation motto for retirement/replacement; no new motto adopted.
+- Reflect the owner’s closed-source Tecton direction: one private repository for the internal construction library and planned paid SaaS. No price, launch, licence or repository-setting changes.
+- Add proposed mineral/teal family tokens and offline review board, with Inter inherited throughout. Direction accepted; final values and applications await owner review.
+- Extend component selection and browser regression coverage to Tecton. No existing family values or parent rules changed. No Tecton symbol, published release or consumer rollout.
+
 Versions follow semver. Release tags use `vX.Y.Z`; the first is `v0.3.0`.
 
 ## Unreleased

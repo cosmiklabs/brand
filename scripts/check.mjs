@@ -7,4 +7,4 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 for (const script of ['validate-tokens.mjs', 'verify-manifest.mjs']) {
   execFileSync(process.execPath, [path.join(here, script)], { stdio: 'inherit' });
 }
-execFileSync(process.execPath, ['--test', path.join(here, '../tests/manifest.test.mjs'), path.join(here, '../tests/hplx-assets.test.mjs'), path.join(here, '../tests/cosmik-lockup.test.mjs'), path.join(here, '../tests/hplx-lockup.test.mjs')], {stdio:'inherit'});
+execFileSync(process.execPath, ['--test', path.join(here, '../tests/manifest.test.mjs'), path.join(here, '../tests/hplx-assets.test.mjs'), path.join(here, '../tests/cosmik-lockup.test.mjs'), path.join(here, '../tests/hplx-lockup.test.mjs'), path.join(here, '../tests/tecton-accessibility.test.mjs')], {stdio:'inherit'});
