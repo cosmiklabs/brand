@@ -4,11 +4,11 @@
   "extends": "Cosmik baseline 0.3.0",
   "version": "0.1.0",
   "status": "Approved \u2014 17 October 2026; logo pending",
-  "description": "A mineral-and-teal family for the closed-source Tecton product: an internal construction library and the surrounding planned SaaS platform in one private repository. Art direction belongs to the user. All utility, layout and motion rules inherit the Cosmik baseline.",
+  "description": "A mineral-and-teal family for Tecton: a planned agent-driven authoring workflow from envisioning and planning through construction, rendering and review. Art direction belongs to the user. All utility, layout and motion rules inherit the Cosmik baseline.",
   "proposals": [
     "Theme palette, typography and applications approved by owner on 2026-10-17; product-specific rendered accessibility QA remains required.",
     "A distinct Tecton symbol and wordmark are not supplied.",
-    "Closed-source direction selected by owner. Paid SaaS planned; pricing and launch pending."
+    "Public examples must distinguish verified capabilities from intended workflow; pricing and availability claims require separate approval."
   ],
   "fonts": [],
   "primitives": {

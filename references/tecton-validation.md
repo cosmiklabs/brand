@@ -13,7 +13,7 @@ No symbol, optical icon, banner, approved wordmark, print proof or production co
 
 ## Positioning update
 
-On 17 October the owner decided Tecton will be closed-source, with the internal construction library and surrounding planned paid SaaS in one private repository. Current copy reflects that decision and distinguishes internal responsibilities without inventing separate external offerings. Pricing, launch and implementation claims remain unannounced. This updates branding only, not code, licences, repository settings or product publication status. Palette and interface rules are unchanged.
+Public copy leads with creative benefits and intended workflow. Implementation architecture and repository plans are excluded. Pricing, access and launch claims require separate approval; no workflow completion is asserted. Palette and interface rules are unchanged.
 
 ## Accessibility review and fixes — 17 October 2026
 

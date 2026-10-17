@@ -1627,7 +1627,7 @@
       },
       "status": "draft",
       "editable": true,
-      "sha256": "8a146f27d4c05c51b86d16f450a6687b82a942c6e9eb0fcda11eed8ad140f1e3"
+      "sha256": "19eb57d98768c7a49693fcb760c44862913d3d7ed67e9d9d3553506a35f94790"
     },
     {
       "path": "specimens/tecton.html",
@@ -1637,7 +1637,7 @@
       },
       "status": "draft",
       "editable": true,
-      "sha256": "b64e420f080f21da6095ab39c554cd3d93e38a110402f23178c69849447c2338"
+      "sha256": "97b957dcad228edd1b2857537b4f7ae9310965d94cb37c04b71b555392433e34"
     },
     {
       "path": "specimens/tecton.css",
@@ -1831,7 +1831,7 @@
         "kit": "tecton",
         "format": "source"
       },
-      "sha256": "1e43ac52e93f763990a15406f9ef6df74d8a0a5fc3835b880cd060a3cb9fa6a4",
+      "sha256": "337166ebb97452e5fcfaf6aa57a15babab4bb92e60ccf11b40860ea98ef27be1",
       "editable": true,
       "status": "Draft; final kit review pending"
     },
@@ -1852,7 +1852,7 @@
         "kit": "tecton",
         "format": "json"
       },
-      "sha256": "96e51116aa3cbf09133bbd874761b2d30bf705daa0bdb511632692fec4baca68",
+      "sha256": "d7e7b28ca702ff6a3ed81fae40f54d929f9227baa28a3b3c5ae403ef27f6c832",
       "generated_by": "scripts/generate-tokens.mjs"
     },
     {
@@ -1862,7 +1862,7 @@
         "kit": "tecton",
         "format": "dtcg"
       },
-      "sha256": "52a32fafb9e3868a9b6437439c15971d5482c24e17c153b55d7f9bee86ef81f1",
+      "sha256": "c3f99504b73324ac4a21e1aa799b7229fcb73fca19aaa263e818ef542a3df545",
       "generated_by": "scripts/generate-tokens.mjs"
     },
     {

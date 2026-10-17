@@ -35,6 +35,8 @@ Use Cosmik in prose and `cosmiklabs` as the handle. HPLX names the product famil
 
 The mineral-and-teal theme was approved on 17 October 2026. Tecton inherits Inter headings and all baseline utility, layout and motion rules. No symbol has been selected. See [family source](../tokens/tecton/family.json), [family guide](../assets/tecton/README.md) and [offline review board](../specimens/tecton.html). The logo remains pending, and rendered consumer accessibility QA is still required.
 
-### Tecton product scope (internal planning)
+Lead public-facing copy with creative benefits and the intended authoring workflow. Keep business-model facts in governance or relevant commercial details, not hero labels. Pricing, access and any free-credit allowance are undecided.
 
-Tecton is a closed-source product: the internal construction library and full SaaS platform belong in one private repository. The planned paid platform covers the overall agent-driven authoring workflow; the internal library remains scoped to construction. These are internal responsibilities, not separate external offerings. No pricing or launch is announced. Cosmik can include open-source and proprietary products. HPLX’s no-payment commitment remains separate. This branding kit changes no product repository visibility, code or licence.
+### Tecton presentation
+
+Describe intended creative outcomes and workflow without exposing implementation architecture or repository organisation. Use one Tecton identity throughout. Cosmik can include open-source and proprietary products; HPLX’s no-payment commitment remains separate. No pricing, launch or availability is announced by this kit.

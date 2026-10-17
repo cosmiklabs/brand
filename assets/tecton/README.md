@@ -12,15 +12,17 @@ Cosmik navigation, headers and footers keep the baseline. Tecton content uses `d
 
 Do not carry the former “Reimagine / Extend / Create” motto into this family. The owner requested reworking or removing it; no replacement is approved. The Tecton review board contains no organisation motto. Its construction-specific line is a family reference, not a new Cosmik-wide promise.
 
-## Product architecture — internal planning
+## Marketing emphasis
 
-Matthew has chosen a **closed-source Tecton product**, with the construction library and entire SaaS platform together in one private repository. The SaaS is planned as a paid product; no price, launch date or public availability is announced here. The library is an internal component, not a separate open-source offering.
+Lead with what Tecton helps people create and how the intended authoring workflow supports their ideas. Explain envisioning, planning, building and reviewing in plain language, while distinguishing planned workflow from verified capabilities. Keep artistic direction with the creator.
 
-The construction library owns the building phase: explicit relationships and checked changes. The surrounding platform owns the broader agent-driven workflow, including envisioning, planning, orchestration, rendering and review. These are internal responsibilities within one product, not two separately marketed offerings.
+Business-model labels are not the headline, hero badge or primary reason to use the product. Do not frame pricing as its defining feature. Pricing, access and any free-credit allowance remain undecided; do not promise a free tier, credits, a trial or a price. Explain commercial terms separately when they are settled and relevant.
 
-Use one Tecton family identity across the product, its documentation and interfaces. Do not create separate product names or logos for the internal library. Leave the user's artistic choices intact. Cosmik's umbrella can contain both open-source and proprietary products; do not describe every Cosmik product as open-source or free forever. HPLX's existing no-payment commitment remains specific to HPLX.
+## Product presentation
 
-The product workflow is planning context, not a launch announcement. Current software remains private and experimental. This kit update does not change repository settings, licences or code, and does not certify that the proposed SaaS workflow has been implemented.
+Use one Tecton family identity across the product, documentation and interfaces. Leave the user's artistic choices intact. Public copy explains useful outcomes and intended workflow without exposing implementation architecture or repository organisation. Distinguish verified capabilities from plans and avoid implying launch or availability.
+
+Cosmik can include open-source and proprietary products. Do not describe every Cosmik product as open-source or free forever. HPLX's existing no-payment commitment remains specific to HPLX.
 
 ## Colour and type
 

@@ -10,6 +10,8 @@ Write like an independent developer sharing useful work: say what a project does
 
 Interface copy uses short labels; put clarifications behind an info control, in plain American English rather than jargon.
 
+For Tecton, lead with creative benefits and the intended agent-driven workflow. Do not use “paid” or “closed-source” as marketing headlines. Any pricing, access or free-credit allowance remains undecided; avoid promises until those terms are approved.
+
 ## Imagery and icons
 
 - Use real project screenshots, diagrams or relevant artwork when they explain the work. Keep proportions; crop only when the essential information stays visible.
@@ -25,4 +27,4 @@ The identity animation is still being explored: a centred emblem slides left and
 
 The prior “Reimagine / Extend / Create” motto is pending retirement or replacement at the owner’s request. Do not reuse it in new materials. No replacement wording is approved. “Tools for building interactive worlds.” (descriptor) and “Give worlds shape.” (short line) are exploratory options only; neither is official brand copy. This wording review does not change existing approved visual tokens or imply a free-only or paid-only organisation.
 
-Current internal direction: Cosmik accommodates open-source and proprietary work. Tecton is closed-source with a planned paid SaaS; HPLX retains its own commitments. Do not announce availability, price or a revised organisation motto without approval.
+Cosmik accommodates open-source and proprietary work; HPLX retains its own commitments. Lead with what each product helps people do. Keep implementation architecture out of public descriptions, and do not announce availability, price or a revised organisation motto without approval.
