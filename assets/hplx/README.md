@@ -1,37 +1,25 @@
-# HPLX Ember
+# HPLX Glimmer
 
-The owner selected the original **01 / EMBER** symbol on 8 October 2026: one diamond above two shallow, tapered arcs. These are clean vector and raster deliveries of that selected shape. They are not a new logo concept.
+Glimmer is the official HPLX symbol, selected and approved on 17 October 2026. A compact light above an enclosing shadow expresses the family’s light-and-dark motif. Use the exact approved paths in `glimmer.source.json`; do not reshape, stretch, rotate or add effects.
 
-## Use the mark
+## Canonical assets
 
-- `hplx-ember-amber.svg`: primary transparent symbol, using the selected concept's measured amber.
-- `hplx-ember-bone.svg` and `hplx-ember-ink.svg`: identical geometry in the existing HPLX bone/ink colours, for contrasting backgrounds.
-- `hplx-ember-primary.svg`: the amber symbol centred on a square dark plate for icon delivery.
-- `png/`: transparent symbol exports (1024 × 384) and square dark-plate exports (16–1024 px). The square files retain the same proportions; they are not optically redrawn small icons.
-- `../../icons/hplx-ember.ico`, `hplx-ember.icns`, `hplx-ember-512.png` and `hplx-ember-apple-touch-180.png`: platform containers/exports derived from the square plate.
+- `hplx-glimmer-dark.svg`: amber #E0A53A on dark surfaces.
+- `hplx-glimmer-light.svg`: umber #875709 on light surfaces.
+- `hplx-glimmer-black.svg`, `hplx-glimmer-white.svg`: monochrome variants.
+- `hplx-glimmer-currentColor.svg`: inherits colour when inlined. External img elements do not inherit page text colour.
+- `hplx-glimmer-lockup-{dark,light,black,white,currentColor}.svg`: the approved horizontal pairing with HPLX outlined in Spectral SemiBold. Preserve the Spectral font notice in `fonts/licenses/Spectral-OFL.txt`.
 
-Keep the diamond, both arcs, their spacing and their proportions together. Do not crop into a tip, stretch, rotate, merge the arcs, add glow or reconstruct the symbol from text. The SVG viewBox includes a small safety margin; allow additional surrounding space in the consuming layout.
+The symbol has a 64×64 viewBox and visible bounds [8,6,48,54]. Keep at least 8 source units of clear space outside the visible mark. Recommended minimum symbol width is 24 CSS px; smaller exports require consumer-specific visual testing. Recommended lockup minimum width is 160 CSS px. Keep the exact approved geometry at every size; no optical redraw is implied.
 
-## The lockup
+If a linked logo alone identifies the destination, use an accessible name such as “HPLX”. If adjacent text already identifies it, hide the decorative symbol from assistive technology. Preserve transparent backgrounds and use a contrasting approved variant. Keep Cosmik’s endorsement separate.
 
-`hplx-lockup-*.svg` set Ember centred above **HPLX** in Spectral SemiBold, as outlines from the bundled font (SIL OFL 1.1, `fonts/licenses/Spectral-OFL.txt`): `primary` on the dark plate (the banner), and transparent `amber` (amber Ember, bone letters, for dark surfaces), `bone` and `ink`. `png/hplx-lockup-*` are 2172 × 724 and 1024 × 341. The layout (size, tracking, spacing) is in `hplx-lockup.source.json`; `scripts/build-hplx-lockup.mjs` builds everything from it, the font and Ember's geometry. The owner chose the lettering and accepted the lockup on 11 October 2026. There is no splash composition. Elsewhere, set the product name as ordinary live interface text. Do not substitute the Cosmik emblem or combine the two symbols into a new logo.
+## Theme and generation
 
-Use an accessible name such as `alt="HPLX"` when the symbol identifies a link on its own. If an adjacent product name already supplies the same meaning, use an empty image alternative. Prefer the SVG for scalable UI use and preserve its aspect ratio.
+The approved HPLX palette and Spectral headings are unchanged. Global navigation remains Cosmik; family content uses HPLX. Run `node scripts/build.mjs` to regenerate the canonical SVGs through `scripts/build-glimmer-assets.mjs`; `node scripts/check.mjs` tests the exact approved geometry, manifest and contrast roles.
 
-## Theme integration
+## Migration and limits
 
-The HPLX family consumes `tokens/hplx/`. Its palette, Spectral headings, status hues and elevation were approved on 2026-10-15, separately from the symbol.
+Ember, its previous lockups and platform icons are deprecated historical assets, retained byte-for-byte so existing consumers do not break. Canonical manifest entry points now select Glimmer. See [historical Ember notes](EMBER-HISTORICAL.md) only for maintenance of old integrations. Existing Ember builders and tests remain to preserve those historical files. No platform icon package, optical redraw, splash, print proof or cross-browser conformance claim is included in this change.
 
-The root `asset-manifest.json` lists the HPLX identity separately under `family_identities.hplx` and its usable paths under `entry_points.families.hplx`. Global Cosmik chrome keeps the Cosmik identity; HPLX content can use its own symbol and the separate “A Cosmik project” endorsement. See [product families](../../guide/families.md).
-
-## Source, reproduction and limits
-
-`ember.source.json` holds the measured original geometry and source reference checksum. The three shapes were reconstructed as four diamond edges and eight cubic Bézier segments, retaining the source spacing and slight asymmetry. The source's texture was flattened to its median interior amber for a clean, transparent production mark. No board lettering, background, other concept or embedded raster is distributed.
-
-Run `node scripts/build.mjs` from the repository root. The Node-only HPLX builder creates the SVG and PNG files from the same geometry; the existing icon packer creates the platform files. `node scripts/check.mjs` verifies hashes, asset structure and the unchanged theme contrast requirements.
-
-At original source scale, the reconstructed silhouette overlaps the selected source by 99.33% intersection-over-union. The two curve-edge fits have approximately 0.05–0.06 source-pixel RMS error. These are tracing measurements, not a print or accessibility certification.
-
-The very thin upper arc and small diamond vanish at icon sizes, so `png/hplx-ember-small-{16,24,32,48}.png` and `hplx-ember-small.svg` (drawn on a 32 px grid) are an optical redraw for them: the same diamond above two shallow, tapered arcs, drawn per size on whole pixels with thicker arcs and a larger diamond. `ember-small.source.json` holds the drawing and says how it departs from the master. The platform icons use it up to 48 px; the faithful `hplx-ember-primary-16`–`48` reductions remain. The owner accepted the redraw (11 October 2026); no app, website or other consuming product is changed by this asset kit.
-
-The mark and its geometry are covered by the repository's [brand-use policy](../../LICENSE.md#2-brand-marks-trademark-style-policy), not the MIT licence for tooling. The selected concept was AI-generated; the vector reconstruction adds no claim of registration or third-party rights clearance.
+Brand artwork remains covered by the [brand-use policy](../../LICENSE.md#2-brand-marks-trademark-style-policy). Approval does not imply trademark registration or third-party rights clearance.

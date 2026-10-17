@@ -26,7 +26,7 @@
     {
       "id": "hplx-optical-small-icon",
       "status": "open",
-      "summary": "Ember 16–32 px exports are faithful reductions, not an optical redesign; the upper arc and diamond lose definition at tiny sizes. No HPLX wordmark or splash composition is supplied."
+      "summary": "Glimmer uses the approved geometry at all sizes. No separate optical redraw or platform icon pack is supplied. Historical Ember icons remain deprecated."
     }
   ],
   "entry_points": {
@@ -74,21 +74,17 @@
     "families": {
       "hplx": {
         "guide": "assets/hplx/README.md",
-        "source": "assets/hplx/ember.source.json",
-        "emblem_amber": "assets/hplx/hplx-ember-amber.svg",
-        "emblem_bone": "assets/hplx/hplx-ember-bone.svg",
-        "emblem_ink": "assets/hplx/hplx-ember-ink.svg",
-        "icon_plate": "assets/hplx/hplx-ember-primary.svg",
-        "app_icon_windows": "icons/hplx-ember.ico",
-        "app_icon_macos": "icons/hplx-ember.icns",
-        "app_icon_png": "icons/hplx-ember-512.png",
-        "apple_touch_icon": "icons/hplx-ember-apple-touch-180.png",
-        "lockup_source": "assets/hplx/hplx-lockup.source.json",
-        "lockup_primary": "assets/hplx/hplx-lockup-primary.svg",
-        "lockup_amber": "assets/hplx/hplx-lockup-amber.svg",
-        "lockup_bone": "assets/hplx/hplx-lockup-bone.svg",
-        "lockup_ink": "assets/hplx/hplx-lockup-ink.svg",
-        "icon_small": "assets/hplx/hplx-ember-small.svg"
+        "source": "assets/hplx/glimmer.source.json",
+        "black": "assets/hplx/hplx-glimmer-black.svg",
+        "currentColor": "assets/hplx/hplx-glimmer-currentColor.svg",
+        "dark": "assets/hplx/hplx-glimmer-dark.svg",
+        "light": "assets/hplx/hplx-glimmer-light.svg",
+        "lockup-black": "assets/hplx/hplx-glimmer-lockup-black.svg",
+        "lockup-currentColor": "assets/hplx/hplx-glimmer-lockup-currentColor.svg",
+        "lockup-dark": "assets/hplx/hplx-glimmer-lockup-dark.svg",
+        "lockup-light": "assets/hplx/hplx-glimmer-lockup-light.svg",
+        "lockup-white": "assets/hplx/hplx-glimmer-lockup-white.svg",
+        "white": "assets/hplx/hplx-glimmer-white.svg"
       },
       "tecton": {
         "guide": "assets/tecton/README.md",
@@ -107,6 +103,24 @@
       "tecton-lockup-light": "assets/tecton/tecton-lockup-light.svg",
       "tecton-lockup-white": "assets/tecton/tecton-lockup-white.svg",
       "source": "assets/tecton/latch.source.json"
+    },
+    "historical_hplx_ember": {
+      "guide": "assets/hplx/README.md",
+      "source": "assets/hplx/ember.source.json",
+      "emblem_amber": "assets/hplx/hplx-ember-amber.svg",
+      "emblem_bone": "assets/hplx/hplx-ember-bone.svg",
+      "emblem_ink": "assets/hplx/hplx-ember-ink.svg",
+      "icon_plate": "assets/hplx/hplx-ember-primary.svg",
+      "app_icon_windows": "icons/hplx-ember.ico",
+      "app_icon_macos": "icons/hplx-ember.icns",
+      "app_icon_png": "icons/hplx-ember-512.png",
+      "apple_touch_icon": "icons/hplx-ember-apple-touch-180.png",
+      "lockup_source": "assets/hplx/hplx-lockup.source.json",
+      "lockup_primary": "assets/hplx/hplx-lockup-primary.svg",
+      "lockup_amber": "assets/hplx/hplx-lockup-amber.svg",
+      "lockup_bone": "assets/hplx/hplx-lockup-bone.svg",
+      "lockup_ink": "assets/hplx/hplx-lockup-ink.svg",
+      "icon_small": "assets/hplx/hplx-ember-small.svg"
     }
   },
   "assets": [
@@ -920,7 +934,7 @@
         "kit": "hplx"
       },
       "status": "Selected Ember symbol; faithful derived delivery",
-      "sha256": "97791165bd4fbb7ae9ad5d05b3c005c7239de758c199f8d41671d341b1512193",
+      "sha256": "cd53b3037a87e9dabd469a41631d8f3ad13288b7bd2d6ed7059f21d8d6a121fe",
       "editable": true
     },
     {
@@ -2031,13 +2045,14 @@
   ],
   "family_identities": {
     "hplx": {
-      "symbol": "Ember",
-      "status": "Owner-selected original concept, faithfully reconstructed as vector geometry",
-      "selected_date": "2026-10-08",
-      "wordmark": "HPLX in Spectral SemiBold, as outlines (owner, 2026-10-11); lockup accepted",
-      "splash": "not supplied",
-      "theme_status": "Approved (owner, 2026-10-15)",
-      "note": "The symbol and the family's theme values were approved separately. The Cosmik parent emblem is separate."
+      "name": "HPLX Glimmer",
+      "status": "Official symbol approved (owner, 2026-10-17)",
+      "theme_status": "Approved (owner, 2026-10-15), unchanged",
+      "source": "assets/hplx/glimmer.source.json",
+      "lockup": "Approved horizontal Spectral SemiBold outlined lockup",
+      "historical": "Ember and its former lockups/icons are deprecated; retained for existing consumers.",
+      "symbol": "Glimmer",
+      "wordmark": "HPLX in Spectral SemiBold, approved horizontal outlined lockup"
     },
     "tecton": {
       "status": "Approved angle-only Latch (owner, 2026-10-17)",
@@ -2225,5 +2240,187 @@
         "editable": true
       }
     ]
-  }
+  },
+  "glimmer_assets": [
+    {
+      "path": "assets/hplx/hplx-glimmer-black.svg",
+      "sha256": "512289d25e9ce2512f4ed44bd4ee14b328d0adc75aaf0af52fd028243503ede3",
+      "generated_by": "scripts/build-glimmer-assets.mjs",
+      "viewBox": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "visible_bounds_xywh": [
+        8,
+        6,
+        48,
+        54
+      ]
+    },
+    {
+      "path": "assets/hplx/hplx-glimmer-currentColor.svg",
+      "sha256": "87bf9db1ea1300f7e4c0a9bf8cbd624bd945c2d8b205dbaafbe993a98cb7e3b3",
+      "generated_by": "scripts/build-glimmer-assets.mjs",
+      "viewBox": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "visible_bounds_xywh": [
+        8,
+        6,
+        48,
+        54
+      ]
+    },
+    {
+      "path": "assets/hplx/hplx-glimmer-dark.svg",
+      "sha256": "4e62f4c11e5e84ec17d7d0705aba472767596aede653f4211a4dfeca26b680d7",
+      "generated_by": "scripts/build-glimmer-assets.mjs",
+      "viewBox": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "visible_bounds_xywh": [
+        8,
+        6,
+        48,
+        54
+      ]
+    },
+    {
+      "path": "assets/hplx/hplx-glimmer-light.svg",
+      "sha256": "7e19dd4f686c248b174831f569b94b71247e673ff5db1dbea7a767b2c6ef45e0",
+      "generated_by": "scripts/build-glimmer-assets.mjs",
+      "viewBox": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "visible_bounds_xywh": [
+        8,
+        6,
+        48,
+        54
+      ]
+    },
+    {
+      "path": "assets/hplx/hplx-glimmer-lockup-black.svg",
+      "sha256": "e9d1a2cfbbfbfd26e6257330eae5638da118231db15da25b6ce89f90a569833f",
+      "generated_by": "scripts/build-glimmer-assets.mjs",
+      "viewBox": [
+        0,
+        0,
+        192,
+        64
+      ],
+      "visible_bounds_xywh": [
+        8,
+        6,
+        178.892,
+        54
+      ]
+    },
+    {
+      "path": "assets/hplx/hplx-glimmer-lockup-currentColor.svg",
+      "sha256": "447070d695965df9ef4216e5c395c42dbc0a64ea0d844127fd4be1028d72ca9a",
+      "generated_by": "scripts/build-glimmer-assets.mjs",
+      "viewBox": [
+        0,
+        0,
+        192,
+        64
+      ],
+      "visible_bounds_xywh": [
+        8,
+        6,
+        178.892,
+        54
+      ]
+    },
+    {
+      "path": "assets/hplx/hplx-glimmer-lockup-dark.svg",
+      "sha256": "0c96db08d97f510e519ab24356b92f0fe9b56ba4a1f9cb7d2704ece34121ef3d",
+      "generated_by": "scripts/build-glimmer-assets.mjs",
+      "viewBox": [
+        0,
+        0,
+        192,
+        64
+      ],
+      "visible_bounds_xywh": [
+        8,
+        6,
+        178.892,
+        54
+      ]
+    },
+    {
+      "path": "assets/hplx/hplx-glimmer-lockup-light.svg",
+      "sha256": "a333d34d5a8a8c12369ece1646b9c5f7e1b06f9a0dd18d46c69855fa75fd94e7",
+      "generated_by": "scripts/build-glimmer-assets.mjs",
+      "viewBox": [
+        0,
+        0,
+        192,
+        64
+      ],
+      "visible_bounds_xywh": [
+        8,
+        6,
+        178.892,
+        54
+      ]
+    },
+    {
+      "path": "assets/hplx/hplx-glimmer-lockup-white.svg",
+      "sha256": "80cbad23c6ef6af3d41454a4e420b14d17687ac06619ac1363981e97f08eba52",
+      "generated_by": "scripts/build-glimmer-assets.mjs",
+      "viewBox": [
+        0,
+        0,
+        192,
+        64
+      ],
+      "visible_bounds_xywh": [
+        8,
+        6,
+        178.892,
+        54
+      ]
+    },
+    {
+      "path": "assets/hplx/hplx-glimmer-white.svg",
+      "sha256": "fd20079b4f735a8242438e095da14f4c981f25397c80343c776f9424606473b5",
+      "generated_by": "scripts/build-glimmer-assets.mjs",
+      "viewBox": [
+        0,
+        0,
+        64,
+        64
+      ],
+      "visible_bounds_xywh": [
+        8,
+        6,
+        48,
+        54
+      ]
+    },
+    {
+      "path": "assets/hplx/glimmer.source.json",
+      "sha256": "1857e5d361852d8386aeaf75c457ae58c3ce09f6b3db5de3c406e917612372d8",
+      "editable": true
+    },
+    {
+      "path": "assets/hplx/EMBER-HISTORICAL.md",
+      "sha256": "d0167d252bc761feb123299940e3c194fd78325c63a662077db8d21e7c71ab27",
+      "editable": true
+    }
+  ]
 }

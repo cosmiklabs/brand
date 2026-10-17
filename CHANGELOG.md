@@ -1,5 +1,11 @@
 # Changes
 
+## HPLX Glimmer — 17 October 2026
+
+- Adopt the approved compact Glimmer as the official HPLX symbol, with five transparent variants and matching Spectral lockups.
+- Canonical manifest paths select Glimmer. Preserve Ember assets and builders as deprecated historical compatibility files. HPLX theme values and Tecton remain unchanged.
+
+
 ## Tecton family 0.1.0 — 17 October 2026
 
 - Add the approved original angle-only Latch, five transparent symbol variants and matching outlined Inter lockups. Preserve exact source paths; document clear space and minimum sizes.

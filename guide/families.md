@@ -40,3 +40,7 @@ Lead public-facing copy with creative benefits and the intended authoring workfl
 ### Tecton presentation
 
 Describe intended creative outcomes and workflow without exposing implementation architecture or repository organisation. Use one Tecton identity throughout. Cosmik can include open-source and proprietary products; HPLX’s no-payment commitment remains separate. No pricing, launch or availability is announced by this kit.
+
+## HPLX identity update
+
+Glimmer is the official HPLX symbol from 17 October 2026. Use canonical paths in `entry_points.families.hplx` and the [HPLX guide](../assets/hplx/README.md). Ember paths are retained as deprecated historical assets; do not select them for new work. The HPLX theme is unchanged.
