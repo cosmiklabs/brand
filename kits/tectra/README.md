@@ -10,7 +10,7 @@ Use `tectra-latch-dark.svg` / `tectra-lockup-dark.svg` on dark surfaces and the 
 
 Recommended minimum CSS width: symbol 24 px; horizontal lockup 160 px. At 24 px, the narrowest 4-unit feature is 1.5 px; validate rendering on the actual display before using it smaller. No separate optical favicon redraw or platform icon package is approved. Preserve the viewBox, aspect ratio, silhouette and contrast. For linked identities use an accessible name such as “Tectra”; hide a decorative symbol from assistive technology when adjacent text already names the product.
 
-Cosmik navigation, headers and footers keep the baseline. Tectra content uses `data-family="tectra"` with explicit dark/light modes. The kit applies to the family, including its documentation, bindings, adapters and showcase presentation; these are not separate logo systems.
+Cosmik navigation, headers and footers keep the baseline. Tectra content uses `data-family="tectra"` in either mode. The kit applies to the family, including its documentation, bindings, adapters and showcase presentation; these are not separate logo systems.
 
 ## Organisation wording under review
 

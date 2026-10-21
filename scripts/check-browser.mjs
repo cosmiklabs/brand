@@ -157,6 +157,19 @@ try {
   }
   }
   await evaluate('document.querySelector("#probes").remove()');
+  // A root that names no theme follows the operating system, and families with it.
+  {
+    const was = await evaluate('document.documentElement.getAttribute("data-theme")');
+    await evaluate(`document.documentElement.removeAttribute('data-theme');{const p=document.createElement('div');p.id='system-probe';p.dataset.family='tectra';p.style.background='var(--c-bg)';document.body.append(p)}`);
+    const tectra = JSON.parse(fs.readFileSync(path.join(root, 'kits/tectra/tokens/tectra.json'), 'utf8')).semantic;
+    const hex = h => `rgb(${h.slice(1).match(/../g).map(x=>parseInt(x,16)).join(', ')})`;
+    for (const scheme of ['light', 'dark']) {
+      await cdp('Emulation.setEmulatedMedia', {features:[{name:'prefers-color-scheme', value:scheme}]});
+      assert.equal(await evaluate('getComputedStyle(document.querySelector("#system-probe")).backgroundColor'), hex(tectra[scheme].bg));
+    }
+    await cdp('Emulation.setEmulatedMedia', {features:[]});
+    await evaluate(`document.querySelector('#system-probe').remove();${was === null ? '' : `document.documentElement.setAttribute('data-theme', ${JSON.stringify(was)})`}`);
+  }
   await evaluate(`{const input=document.querySelector('#dark-slug');input.value='valid-slug';input.dispatchEvent(new Event('input'));}`);
   assert.equal(await evaluate('document.querySelector("#dark-slug").getAttribute("aria-invalid")'), 'false');
   assert.equal(await evaluate('document.querySelector("#dark-slug-error").hidden'), true);

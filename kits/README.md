@@ -18,7 +18,7 @@ The identity is black and warm off-white with no accent colour, and status is ca
 
 ### Use on the web
 
-Load `cosmik/cosmik.css` before your component CSS. Set `data-theme="dark"` or `data-theme="light"` on the root or a section; dark is the default. The theme is explicit on purpose: it does not follow or override the operating-system preference. Use role variables (`--c-bg`, `--c-surface`, `--c-text`, `--c-muted`, `--c-action-primary-fg`, …), never primitives, and switch a whole theme together rather than overriding one value. `--c-divider` is decorative; use `--c-border` for an essential boundary. Breakpoint variables are reference values: custom properties cannot be used inside `@media`.
+Load `cosmik/cosmik.css` before your component CSS. Set `data-theme="dark"` or `data-theme="light"` on the root or a section to choose a mode; a root without one follows the operating system's light or dark preference. Use role variables (`--c-bg`, `--c-surface`, `--c-text`, `--c-muted`, `--c-action-primary-fg`, …), never primitives, and switch a whole theme together rather than overriding one value. `--c-divider` is decorative; use `--c-border` for an essential boundary. Breakpoint variables are reference values: custom properties cannot be used inside `@media`.
 
 ## Family kits
 
@@ -44,7 +44,7 @@ Load the family's CSS after the baseline's, and mark the region it styles:
 </main>
 ```
 
-Inside `[data-family="hplx"]` the same role variables take the family's values: dark by default, light where the family element or a section inside it carries `data-theme="light"` (or where the family element sits inside a light section). Components read the roles, including the typography variables, and load the fonts the kit lists. Family colors use `light-dark()` (current browsers) with the nearest explicit `data-theme` color scheme, including a dark family inside a light ancestor. The root stays explicitly dark by default; OS preference does not switch it.
+Inside `[data-family="hplx"]` the same role variables take the family's values: following the page's mode, light where the family element or a section inside it carries `data-theme="light"` (or where the family element sits inside a light section). Components read the roles, including the typography variables, and load the fonts the kit lists. Family colors use `light-dark()` (current browsers) with the nearest explicit `data-theme` color scheme, including a dark family inside a light ancestor.
 
 ### The HPLX family (approved)
 

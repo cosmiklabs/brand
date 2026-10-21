@@ -1,6 +1,6 @@
 {
   "name": "Cosmik brand kit",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "date": "2026-10-21",
   "system_status": "baseline approved (owner, 2026-10-07); HPLX family approved (owner, 2026-10-15); Tectra family and angle-only Latch approved (owner, 2026-10-17)",
   "emblem_status": "accepted traced symbol",
@@ -1654,7 +1654,7 @@
       },
       "status": "Approved (owner, 2026-10-17)",
       "editable": true,
-      "sha256": "715db8eb94941db192e0af8791d4b990fb49e2039b0b1236d81699e0534102a7"
+      "sha256": "07396706bc139af0431b0d76d929fc3bb78e976d11eddfdf94197289db2422e6"
     },
     {
       "path": "kits/tectra/specimen.html",
@@ -1755,7 +1755,7 @@
         "format": "source"
       },
       "status": "baseline source, approved",
-      "sha256": "af1c93d285aa026908264d313aa6d95f41803031b99b865106c1c24d842ee2c0",
+      "sha256": "82a0961ef49fe8839e377e722909871ae5326675d243ac912ab9e16d0e2a924f",
       "editable": true
     },
     {
@@ -1766,7 +1766,7 @@
         "format": "css"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "2ebfc1e2ac62caa70fc2f2e30064bbfb05a8187177cbd5f9d32ec932657fd6f3"
+      "sha256": "c28edecafc9850f782a3a028402e441f8fabb49b821174601e6cb5c28ee639eb"
     },
     {
       "path": "kits/cosmik/tokens/cosmik.json",
@@ -1777,7 +1777,7 @@
         "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "825dea626392adc250977659c1d316900900dc35ffda004f2e80fc8ddf026610"
+      "sha256": "9c2eb0f1ffe300f33b9060d4fd8c2e4d7efbb621e8d7dabf894a13cca6fae68e"
     },
     {
       "path": "kits/cosmik/tokens/cosmik.tokens.json",
@@ -1787,7 +1787,7 @@
         "format": "dtcg"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "1aacd5f1b1c0b4fd14a333d5c506f14d9aed273b0736b6ac3fda2d775f0b5bd5"
+      "sha256": "41c8e42f2f6d763645259ec0e66b5a9b3767a1ce6d144a8f013a09f712dd3873"
     },
     {
       "path": "kits/cosmik/tokens/cosmik_tokens.rs",
@@ -1797,7 +1797,7 @@
         "format": "rust"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "224b2b1f2f532037edc2ede72b162e4411b9b0768ce6c777ebe2eb4df218c4d0"
+      "sha256": "5bfcb76cdc2cac1c7a769e731309ac4cc26138cbec4489f56a21b3a4d27611b8"
     },
     {
       "path": "kits/hplx/tokens/family.json",
@@ -1839,7 +1839,7 @@
         "format": "dtcg"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "6e3f08ff8a3da5585fdc6c907949cb3a38ed33407f2dce7f8b34d420f34e6c13"
+      "sha256": "1723c809c65700fc72c715f18ba00e72bfcd606974c478083aecc572bf53a5ea"
     },
     {
       "path": "kits/hplx/tokens/hplx_tokens.rs",
@@ -1889,7 +1889,7 @@
         "kit": "tectra",
         "format": "dtcg"
       },
-      "sha256": "4148cda7febcb79070284668f4e305be2845a1a206007979784b266957311fbc",
+      "sha256": "a9759d41721ec3daeeb677ad9f3655ee46cae8e1a6a0e54a19777f6067d36684",
       "generated_by": "scripts/generate-tokens.mjs"
     },
     {

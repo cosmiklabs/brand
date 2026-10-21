@@ -7,8 +7,7 @@
 Product code reads **semantic roles** (`bg`, `surface`, `raised`, `text`, `muted`, `border`, `focus`, the action, input, disabled and status roles), never raw colours or primitives. Every role exists in both a dark and a light mode. The values, and the full list, are in the [tokens](../kits/README.md).
 
 - **Switch a whole mode together.** Never change text without its surfaces, or put a dark-only colour on a light surface.
-- **Dark is the default.** A page or section chooses its mode explicitly; it does not follow the operating system's preference silently.
-- **Desktop products let the person choose** (owner, 2026-10-15): the HPLX Editor follows the operating system's light or dark preference until the person picks System, Dark or Light. The product still sets the mode explicitly from that choice.
+- **Choosing a mode is the product's decision.** `data-theme` sets one on a page or section; without it the page follows the operating system's light or dark preference.
 - **Essential boundaries use `border`.** `divider`, `divider-strong` and the ornament greys are decorative and must never be the only cue.
 
 ## Contrast

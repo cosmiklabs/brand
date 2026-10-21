@@ -3,6 +3,13 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`.
 
+## 0.6.0 · 21 October 2026
+
+- **Behaviour change:** a root without `data-theme` now follows the operating
+  system's light or dark preference instead of staying dark, and family kits
+  follow with it. `data-theme="dark"` or `"light"` still fixes a mode. The guide
+  no longer prescribes a default mode; that is each product's decision.
+
 ## 0.5.0 · 21 October 2026
 
 - Add dense application roles to the baseline, so every kit has them: type roles
