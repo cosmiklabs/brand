@@ -1,8 +1,8 @@
 {
-  "name": "Cosmik · Tecton",
-  "version": "0.1.0",
+  "name": "Cosmik · Tectra",
+  "version": "0.2.0",
   "status": "Approved — 17 October 2026; angle-only Latch approved",
-  "family": "tecton",
+  "family": "tectra",
   "extends": "Cosmik baseline 0.3.0",
   "extensionRoles": [
     "accent"
@@ -28,64 +28,64 @@
     "paper-shade": "#EFEEE9",
     "scrim-dark": "#000000B8",
     "scrim-light": "#0000007A",
-    "tecton-dark-bg": "#0F1719",
-    "tecton-dark-surface": "#172125",
-    "tecton-dark-raised": "#233034",
-    "tecton-dark-text": "#EDF4F3",
-    "tecton-dark-muted": "#ADC1BE",
-    "tecton-dark-border": "#849B98",
-    "tecton-dark-divider": "#344744",
-    "tecton-dark-focus": "#71D6C3",
-    "tecton-dark-link": "#EDF4F3",
-    "tecton-dark-link-hover": "#71D6C3",
-    "tecton-dark-link-active": "#EDF4F3",
-    "tecton-dark-on-selected": "#0F1719",
-    "tecton-dark-selected": "#EDF4F3",
-    "tecton-dark-action-primary": "#71D6C3",
-    "tecton-dark-action-primary-hover": "#92E5D4",
-    "tecton-dark-action-primary-active": "#50B5A3",
-    "tecton-dark-action-primary-fg": "#0F1719",
-    "tecton-dark-action-secondary": "#172125",
-    "tecton-dark-action-secondary-hover": "#233034",
-    "tecton-dark-action-secondary-active": "#0F1719",
-    "tecton-dark-action-secondary-fg": "#EDF4F3",
-    "tecton-dark-input-bg": "#172125",
-    "tecton-dark-input-fg": "#EDF4F3",
-    "tecton-dark-input-placeholder": "#ADC1BE",
-    "tecton-dark-disabled-bg": "#233034",
-    "tecton-dark-disabled-fg": "#ADC1BE",
-    "tecton-dark-disabled-border": "#849B98",
-    "tecton-dark-status-fg": "#EDF4F3",
-    "tecton-dark-status-bg": "#233034",
-    "tecton-dark-status-border": "#849B98",
-    "tecton-dark-accent": "#71D6C3",
-    "tecton-light-bg": "#F2F6F5",
-    "tecton-light-raised": "#E0EAE7",
-    "tecton-light-text": "#142925",
-    "tecton-light-muted": "#4D6761",
-    "tecton-light-border": "#657F78",
-    "tecton-light-divider": "#C2D1CC",
-    "tecton-light-focus": "#126B5E",
-    "tecton-light-link": "#142925",
-    "tecton-light-link-hover": "#126B5E",
-    "tecton-light-link-active": "#142925",
-    "tecton-light-on-selected": "#F2F6F5",
-    "tecton-light-selected": "#142925",
-    "tecton-light-action-primary": "#126B5E",
-    "tecton-light-action-primary-hover": "#0D5B50",
-    "tecton-light-action-primary-active": "#084B41",
-    "tecton-light-action-secondary-hover": "#E0EAE7",
-    "tecton-light-action-secondary-active": "#F2F6F5",
-    "tecton-light-action-secondary-fg": "#142925",
-    "tecton-light-input-fg": "#142925",
-    "tecton-light-input-placeholder": "#4D6761",
-    "tecton-light-disabled-bg": "#E0EAE7",
-    "tecton-light-disabled-fg": "#4D6761",
-    "tecton-light-disabled-border": "#657F78",
-    "tecton-light-status-fg": "#142925",
-    "tecton-light-status-bg": "#E0EAE7",
-    "tecton-light-status-border": "#657F78",
-    "tecton-light-accent": "#126B5E"
+    "tectra-dark-bg": "#0F1719",
+    "tectra-dark-surface": "#172125",
+    "tectra-dark-raised": "#233034",
+    "tectra-dark-text": "#EDF4F3",
+    "tectra-dark-muted": "#ADC1BE",
+    "tectra-dark-border": "#849B98",
+    "tectra-dark-divider": "#344744",
+    "tectra-dark-focus": "#71D6C3",
+    "tectra-dark-link": "#EDF4F3",
+    "tectra-dark-link-hover": "#71D6C3",
+    "tectra-dark-link-active": "#EDF4F3",
+    "tectra-dark-on-selected": "#0F1719",
+    "tectra-dark-selected": "#EDF4F3",
+    "tectra-dark-action-primary": "#71D6C3",
+    "tectra-dark-action-primary-hover": "#92E5D4",
+    "tectra-dark-action-primary-active": "#50B5A3",
+    "tectra-dark-action-primary-fg": "#0F1719",
+    "tectra-dark-action-secondary": "#172125",
+    "tectra-dark-action-secondary-hover": "#233034",
+    "tectra-dark-action-secondary-active": "#0F1719",
+    "tectra-dark-action-secondary-fg": "#EDF4F3",
+    "tectra-dark-input-bg": "#172125",
+    "tectra-dark-input-fg": "#EDF4F3",
+    "tectra-dark-input-placeholder": "#ADC1BE",
+    "tectra-dark-disabled-bg": "#233034",
+    "tectra-dark-disabled-fg": "#ADC1BE",
+    "tectra-dark-disabled-border": "#849B98",
+    "tectra-dark-status-fg": "#EDF4F3",
+    "tectra-dark-status-bg": "#233034",
+    "tectra-dark-status-border": "#849B98",
+    "tectra-dark-accent": "#71D6C3",
+    "tectra-light-bg": "#F2F6F5",
+    "tectra-light-raised": "#E0EAE7",
+    "tectra-light-text": "#142925",
+    "tectra-light-muted": "#4D6761",
+    "tectra-light-border": "#657F78",
+    "tectra-light-divider": "#C2D1CC",
+    "tectra-light-focus": "#126B5E",
+    "tectra-light-link": "#142925",
+    "tectra-light-link-hover": "#126B5E",
+    "tectra-light-link-active": "#142925",
+    "tectra-light-on-selected": "#F2F6F5",
+    "tectra-light-selected": "#142925",
+    "tectra-light-action-primary": "#126B5E",
+    "tectra-light-action-primary-hover": "#0D5B50",
+    "tectra-light-action-primary-active": "#084B41",
+    "tectra-light-action-secondary-hover": "#E0EAE7",
+    "tectra-light-action-secondary-active": "#F2F6F5",
+    "tectra-light-action-secondary-fg": "#142925",
+    "tectra-light-input-fg": "#142925",
+    "tectra-light-input-placeholder": "#4D6761",
+    "tectra-light-disabled-bg": "#E0EAE7",
+    "tectra-light-disabled-fg": "#4D6761",
+    "tectra-light-disabled-border": "#657F78",
+    "tectra-light-status-fg": "#142925",
+    "tectra-light-status-bg": "#E0EAE7",
+    "tectra-light-status-border": "#657F78",
+    "tectra-light-accent": "#126B5E"
   },
   "semantic": {
     "dark": {
@@ -169,82 +169,82 @@
   },
   "aliases": {
     "dark": {
-      "bg": "tecton-dark-bg",
-      "surface": "tecton-dark-surface",
-      "raised": "tecton-dark-raised",
-      "text": "tecton-dark-text",
-      "muted": "tecton-dark-muted",
-      "border": "tecton-dark-border",
-      "divider": "tecton-dark-divider",
-      "focus": "tecton-dark-focus",
-      "link": "tecton-dark-link",
-      "link-hover": "tecton-dark-link-hover",
-      "link-active": "tecton-dark-link-active",
-      "on-selected": "tecton-dark-on-selected",
-      "selected": "tecton-dark-selected",
-      "action-primary": "tecton-dark-action-primary",
-      "action-primary-hover": "tecton-dark-action-primary-hover",
-      "action-primary-active": "tecton-dark-action-primary-active",
-      "action-primary-fg": "tecton-dark-action-primary-fg",
-      "action-secondary": "tecton-dark-action-secondary",
-      "action-secondary-hover": "tecton-dark-action-secondary-hover",
-      "action-secondary-active": "tecton-dark-action-secondary-active",
-      "action-secondary-fg": "tecton-dark-action-secondary-fg",
-      "input-bg": "tecton-dark-input-bg",
-      "input-fg": "tecton-dark-input-fg",
-      "input-placeholder": "tecton-dark-input-placeholder",
-      "disabled-bg": "tecton-dark-disabled-bg",
-      "disabled-fg": "tecton-dark-disabled-fg",
-      "disabled-border": "tecton-dark-disabled-border",
-      "status-fg": "tecton-dark-status-fg",
-      "status-bg": "tecton-dark-status-bg",
-      "status-border": "tecton-dark-status-border",
+      "bg": "tectra-dark-bg",
+      "surface": "tectra-dark-surface",
+      "raised": "tectra-dark-raised",
+      "text": "tectra-dark-text",
+      "muted": "tectra-dark-muted",
+      "border": "tectra-dark-border",
+      "divider": "tectra-dark-divider",
+      "focus": "tectra-dark-focus",
+      "link": "tectra-dark-link",
+      "link-hover": "tectra-dark-link-hover",
+      "link-active": "tectra-dark-link-active",
+      "on-selected": "tectra-dark-on-selected",
+      "selected": "tectra-dark-selected",
+      "action-primary": "tectra-dark-action-primary",
+      "action-primary-hover": "tectra-dark-action-primary-hover",
+      "action-primary-active": "tectra-dark-action-primary-active",
+      "action-primary-fg": "tectra-dark-action-primary-fg",
+      "action-secondary": "tectra-dark-action-secondary",
+      "action-secondary-hover": "tectra-dark-action-secondary-hover",
+      "action-secondary-active": "tectra-dark-action-secondary-active",
+      "action-secondary-fg": "tectra-dark-action-secondary-fg",
+      "input-bg": "tectra-dark-input-bg",
+      "input-fg": "tectra-dark-input-fg",
+      "input-placeholder": "tectra-dark-input-placeholder",
+      "disabled-bg": "tectra-dark-disabled-bg",
+      "disabled-fg": "tectra-dark-disabled-fg",
+      "disabled-border": "tectra-dark-disabled-border",
+      "status-fg": "tectra-dark-status-fg",
+      "status-bg": "tectra-dark-status-bg",
+      "status-border": "tectra-dark-status-border",
       "divider-strong": "graphite",
       "ornament": "ornament-dark",
       "ornament-faint": "ornament-dark-faint",
       "ornament-text": "graphite",
       "media-placeholder": "media-dark",
       "scrim": "scrim-dark",
-      "accent": "tecton-dark-accent"
+      "accent": "tectra-dark-accent"
     },
     "light": {
-      "bg": "tecton-light-bg",
+      "bg": "tectra-light-bg",
       "surface": "white",
-      "raised": "tecton-light-raised",
-      "text": "tecton-light-text",
-      "muted": "tecton-light-muted",
-      "border": "tecton-light-border",
-      "divider": "tecton-light-divider",
-      "focus": "tecton-light-focus",
-      "link": "tecton-light-link",
-      "link-hover": "tecton-light-link-hover",
-      "link-active": "tecton-light-link-active",
-      "on-selected": "tecton-light-on-selected",
-      "selected": "tecton-light-selected",
-      "action-primary": "tecton-light-action-primary",
-      "action-primary-hover": "tecton-light-action-primary-hover",
-      "action-primary-active": "tecton-light-action-primary-active",
+      "raised": "tectra-light-raised",
+      "text": "tectra-light-text",
+      "muted": "tectra-light-muted",
+      "border": "tectra-light-border",
+      "divider": "tectra-light-divider",
+      "focus": "tectra-light-focus",
+      "link": "tectra-light-link",
+      "link-hover": "tectra-light-link-hover",
+      "link-active": "tectra-light-link-active",
+      "on-selected": "tectra-light-on-selected",
+      "selected": "tectra-light-selected",
+      "action-primary": "tectra-light-action-primary",
+      "action-primary-hover": "tectra-light-action-primary-hover",
+      "action-primary-active": "tectra-light-action-primary-active",
       "action-primary-fg": "white",
       "action-secondary": "white",
-      "action-secondary-hover": "tecton-light-action-secondary-hover",
-      "action-secondary-active": "tecton-light-action-secondary-active",
-      "action-secondary-fg": "tecton-light-action-secondary-fg",
+      "action-secondary-hover": "tectra-light-action-secondary-hover",
+      "action-secondary-active": "tectra-light-action-secondary-active",
+      "action-secondary-fg": "tectra-light-action-secondary-fg",
       "input-bg": "white",
-      "input-fg": "tecton-light-input-fg",
-      "input-placeholder": "tecton-light-input-placeholder",
-      "disabled-bg": "tecton-light-disabled-bg",
-      "disabled-fg": "tecton-light-disabled-fg",
-      "disabled-border": "tecton-light-disabled-border",
-      "status-fg": "tecton-light-status-fg",
-      "status-bg": "tecton-light-status-bg",
-      "status-border": "tecton-light-status-border",
+      "input-fg": "tectra-light-input-fg",
+      "input-placeholder": "tectra-light-input-placeholder",
+      "disabled-bg": "tectra-light-disabled-bg",
+      "disabled-fg": "tectra-light-disabled-fg",
+      "disabled-border": "tectra-light-disabled-border",
+      "status-fg": "tectra-light-status-fg",
+      "status-bg": "tectra-light-status-bg",
+      "status-border": "tectra-light-status-border",
       "divider-strong": "rule-light",
       "ornament": "light-soft",
       "ornament-faint": "paper-shade",
       "ornament-text": "rule-light",
       "media-placeholder": "light-soft",
       "scrim": "scrim-light",
-      "accent": "tecton-light-accent"
+      "accent": "tectra-light-accent"
     }
   },
   "space": {
@@ -332,7 +332,7 @@
   },
   "proposals": [
     "Theme palette, typography and applications approved by owner on 2026-10-17; product-specific rendered accessibility QA remains required.",
-    "Approved angle-only Latch symbol and outlined Inter label lockups are supplied in assets/tecton/.",
+    "Approved angle-only Latch symbol and outlined Inter label lockups are supplied in assets/tectra/.",
     "Public examples must distinguish verified capabilities from intended workflow; pricing and availability claims require separate approval."
   ],
   "radius": {
@@ -439,292 +439,292 @@
         "srgb": [0, 0, 0, 0.478431],
         "linear": [0, 0, 0, 0.478431]
       },
-      "tecton-dark-bg": {
+      "tectra-dark-bg": {
         "hex": "#0F1719",
         "srgb": [0.058824, 0.090196, 0.098039, 1],
         "linear": [0.004777, 0.008568, 0.009721, 1]
       },
-      "tecton-dark-surface": {
+      "tectra-dark-surface": {
         "hex": "#172125",
         "srgb": [0.090196, 0.129412, 0.145098, 1],
         "linear": [0.008568, 0.015209, 0.0185, 1]
       },
-      "tecton-dark-raised": {
+      "tectra-dark-raised": {
         "hex": "#233034",
         "srgb": [0.137255, 0.188235, 0.203922, 1],
         "linear": [0.016807, 0.029557, 0.03434, 1]
       },
-      "tecton-dark-text": {
+      "tectra-dark-text": {
         "hex": "#EDF4F3",
         "srgb": [0.929412, 0.956863, 0.952941, 1],
         "linear": [0.846873, 0.904661, 0.896269, 1]
       },
-      "tecton-dark-muted": {
+      "tectra-dark-muted": {
         "hex": "#ADC1BE",
         "srgb": [0.678431, 0.756863, 0.745098, 1],
         "linear": [0.417885, 0.533276, 0.514918, 1]
       },
-      "tecton-dark-border": {
+      "tectra-dark-border": {
         "hex": "#849B98",
         "srgb": [0.517647, 0.607843, 0.596078, 1],
         "linear": [0.23074, 0.327778, 0.313989, 1]
       },
-      "tecton-dark-divider": {
+      "tectra-dark-divider": {
         "hex": "#344744",
         "srgb": [0.203922, 0.278431, 0.266667, 1],
         "linear": [0.03434, 0.06301, 0.057805, 1]
       },
-      "tecton-dark-focus": {
+      "tectra-dark-focus": {
         "hex": "#71D6C3",
         "srgb": [0.443137, 0.839216, 0.764706, 1],
         "linear": [0.165132, 0.672443, 0.545724, 1]
       },
-      "tecton-dark-link": {
+      "tectra-dark-link": {
         "hex": "#EDF4F3",
         "srgb": [0.929412, 0.956863, 0.952941, 1],
         "linear": [0.846873, 0.904661, 0.896269, 1]
       },
-      "tecton-dark-link-hover": {
+      "tectra-dark-link-hover": {
         "hex": "#71D6C3",
         "srgb": [0.443137, 0.839216, 0.764706, 1],
         "linear": [0.165132, 0.672443, 0.545724, 1]
       },
-      "tecton-dark-link-active": {
+      "tectra-dark-link-active": {
         "hex": "#EDF4F3",
         "srgb": [0.929412, 0.956863, 0.952941, 1],
         "linear": [0.846873, 0.904661, 0.896269, 1]
       },
-      "tecton-dark-on-selected": {
+      "tectra-dark-on-selected": {
         "hex": "#0F1719",
         "srgb": [0.058824, 0.090196, 0.098039, 1],
         "linear": [0.004777, 0.008568, 0.009721, 1]
       },
-      "tecton-dark-selected": {
+      "tectra-dark-selected": {
         "hex": "#EDF4F3",
         "srgb": [0.929412, 0.956863, 0.952941, 1],
         "linear": [0.846873, 0.904661, 0.896269, 1]
       },
-      "tecton-dark-action-primary": {
+      "tectra-dark-action-primary": {
         "hex": "#71D6C3",
         "srgb": [0.443137, 0.839216, 0.764706, 1],
         "linear": [0.165132, 0.672443, 0.545724, 1]
       },
-      "tecton-dark-action-primary-hover": {
+      "tectra-dark-action-primary-hover": {
         "hex": "#92E5D4",
         "srgb": [0.572549, 0.898039, 0.831373, 1],
         "linear": [0.287441, 0.783538, 0.658375, 1]
       },
-      "tecton-dark-action-primary-active": {
+      "tectra-dark-action-primary-active": {
         "hex": "#50B5A3",
         "srgb": [0.313725, 0.709804, 0.639216, 1],
         "linear": [0.08022, 0.462077, 0.366253, 1]
       },
-      "tecton-dark-action-primary-fg": {
+      "tectra-dark-action-primary-fg": {
         "hex": "#0F1719",
         "srgb": [0.058824, 0.090196, 0.098039, 1],
         "linear": [0.004777, 0.008568, 0.009721, 1]
       },
-      "tecton-dark-action-secondary": {
+      "tectra-dark-action-secondary": {
         "hex": "#172125",
         "srgb": [0.090196, 0.129412, 0.145098, 1],
         "linear": [0.008568, 0.015209, 0.0185, 1]
       },
-      "tecton-dark-action-secondary-hover": {
+      "tectra-dark-action-secondary-hover": {
         "hex": "#233034",
         "srgb": [0.137255, 0.188235, 0.203922, 1],
         "linear": [0.016807, 0.029557, 0.03434, 1]
       },
-      "tecton-dark-action-secondary-active": {
+      "tectra-dark-action-secondary-active": {
         "hex": "#0F1719",
         "srgb": [0.058824, 0.090196, 0.098039, 1],
         "linear": [0.004777, 0.008568, 0.009721, 1]
       },
-      "tecton-dark-action-secondary-fg": {
+      "tectra-dark-action-secondary-fg": {
         "hex": "#EDF4F3",
         "srgb": [0.929412, 0.956863, 0.952941, 1],
         "linear": [0.846873, 0.904661, 0.896269, 1]
       },
-      "tecton-dark-input-bg": {
+      "tectra-dark-input-bg": {
         "hex": "#172125",
         "srgb": [0.090196, 0.129412, 0.145098, 1],
         "linear": [0.008568, 0.015209, 0.0185, 1]
       },
-      "tecton-dark-input-fg": {
+      "tectra-dark-input-fg": {
         "hex": "#EDF4F3",
         "srgb": [0.929412, 0.956863, 0.952941, 1],
         "linear": [0.846873, 0.904661, 0.896269, 1]
       },
-      "tecton-dark-input-placeholder": {
+      "tectra-dark-input-placeholder": {
         "hex": "#ADC1BE",
         "srgb": [0.678431, 0.756863, 0.745098, 1],
         "linear": [0.417885, 0.533276, 0.514918, 1]
       },
-      "tecton-dark-disabled-bg": {
+      "tectra-dark-disabled-bg": {
         "hex": "#233034",
         "srgb": [0.137255, 0.188235, 0.203922, 1],
         "linear": [0.016807, 0.029557, 0.03434, 1]
       },
-      "tecton-dark-disabled-fg": {
+      "tectra-dark-disabled-fg": {
         "hex": "#ADC1BE",
         "srgb": [0.678431, 0.756863, 0.745098, 1],
         "linear": [0.417885, 0.533276, 0.514918, 1]
       },
-      "tecton-dark-disabled-border": {
+      "tectra-dark-disabled-border": {
         "hex": "#849B98",
         "srgb": [0.517647, 0.607843, 0.596078, 1],
         "linear": [0.23074, 0.327778, 0.313989, 1]
       },
-      "tecton-dark-status-fg": {
+      "tectra-dark-status-fg": {
         "hex": "#EDF4F3",
         "srgb": [0.929412, 0.956863, 0.952941, 1],
         "linear": [0.846873, 0.904661, 0.896269, 1]
       },
-      "tecton-dark-status-bg": {
+      "tectra-dark-status-bg": {
         "hex": "#233034",
         "srgb": [0.137255, 0.188235, 0.203922, 1],
         "linear": [0.016807, 0.029557, 0.03434, 1]
       },
-      "tecton-dark-status-border": {
+      "tectra-dark-status-border": {
         "hex": "#849B98",
         "srgb": [0.517647, 0.607843, 0.596078, 1],
         "linear": [0.23074, 0.327778, 0.313989, 1]
       },
-      "tecton-dark-accent": {
+      "tectra-dark-accent": {
         "hex": "#71D6C3",
         "srgb": [0.443137, 0.839216, 0.764706, 1],
         "linear": [0.165132, 0.672443, 0.545724, 1]
       },
-      "tecton-light-bg": {
+      "tectra-light-bg": {
         "hex": "#F2F6F5",
         "srgb": [0.94902, 0.964706, 0.960784, 1],
         "linear": [0.887923, 0.921582, 0.913099, 1]
       },
-      "tecton-light-raised": {
+      "tectra-light-raised": {
         "hex": "#E0EAE7",
         "srgb": [0.878431, 0.917647, 0.905882, 1],
         "linear": [0.745404, 0.822786, 0.799103, 1]
       },
-      "tecton-light-text": {
+      "tectra-light-text": {
         "hex": "#142925",
         "srgb": [0.078431, 0.160784, 0.145098, 1],
         "linear": [0.006995, 0.022174, 0.0185, 1]
       },
-      "tecton-light-muted": {
+      "tectra-light-muted": {
         "hex": "#4D6761",
         "srgb": [0.301961, 0.403922, 0.380392, 1],
         "linear": [0.074214, 0.135633, 0.119538, 1]
       },
-      "tecton-light-border": {
+      "tectra-light-border": {
         "hex": "#657F78",
         "srgb": [0.396078, 0.498039, 0.470588, 1],
         "linear": [0.130136, 0.212231, 0.187821, 1]
       },
-      "tecton-light-divider": {
+      "tectra-light-divider": {
         "hex": "#C2D1CC",
         "srgb": [0.760784, 0.819608, 0.8, 1],
         "linear": [0.539479, 0.637597, 0.603827, 1]
       },
-      "tecton-light-focus": {
+      "tectra-light-focus": {
         "hex": "#126B5E",
         "srgb": [0.070588, 0.419608, 0.368627, 1],
         "linear": [0.006049, 0.147027, 0.111932, 1]
       },
-      "tecton-light-link": {
+      "tectra-light-link": {
         "hex": "#142925",
         "srgb": [0.078431, 0.160784, 0.145098, 1],
         "linear": [0.006995, 0.022174, 0.0185, 1]
       },
-      "tecton-light-link-hover": {
+      "tectra-light-link-hover": {
         "hex": "#126B5E",
         "srgb": [0.070588, 0.419608, 0.368627, 1],
         "linear": [0.006049, 0.147027, 0.111932, 1]
       },
-      "tecton-light-link-active": {
+      "tectra-light-link-active": {
         "hex": "#142925",
         "srgb": [0.078431, 0.160784, 0.145098, 1],
         "linear": [0.006995, 0.022174, 0.0185, 1]
       },
-      "tecton-light-on-selected": {
+      "tectra-light-on-selected": {
         "hex": "#F2F6F5",
         "srgb": [0.94902, 0.964706, 0.960784, 1],
         "linear": [0.887923, 0.921582, 0.913099, 1]
       },
-      "tecton-light-selected": {
+      "tectra-light-selected": {
         "hex": "#142925",
         "srgb": [0.078431, 0.160784, 0.145098, 1],
         "linear": [0.006995, 0.022174, 0.0185, 1]
       },
-      "tecton-light-action-primary": {
+      "tectra-light-action-primary": {
         "hex": "#126B5E",
         "srgb": [0.070588, 0.419608, 0.368627, 1],
         "linear": [0.006049, 0.147027, 0.111932, 1]
       },
-      "tecton-light-action-primary-hover": {
+      "tectra-light-action-primary-hover": {
         "hex": "#0D5B50",
         "srgb": [0.05098, 0.356863, 0.313725, 1],
         "linear": [0.004025, 0.104616, 0.08022, 1]
       },
-      "tecton-light-action-primary-active": {
+      "tectra-light-action-primary-active": {
         "hex": "#084B41",
         "srgb": [0.031373, 0.294118, 0.254902, 1],
         "linear": [0.002428, 0.07036, 0.052861, 1]
       },
-      "tecton-light-action-secondary-hover": {
+      "tectra-light-action-secondary-hover": {
         "hex": "#E0EAE7",
         "srgb": [0.878431, 0.917647, 0.905882, 1],
         "linear": [0.745404, 0.822786, 0.799103, 1]
       },
-      "tecton-light-action-secondary-active": {
+      "tectra-light-action-secondary-active": {
         "hex": "#F2F6F5",
         "srgb": [0.94902, 0.964706, 0.960784, 1],
         "linear": [0.887923, 0.921582, 0.913099, 1]
       },
-      "tecton-light-action-secondary-fg": {
+      "tectra-light-action-secondary-fg": {
         "hex": "#142925",
         "srgb": [0.078431, 0.160784, 0.145098, 1],
         "linear": [0.006995, 0.022174, 0.0185, 1]
       },
-      "tecton-light-input-fg": {
+      "tectra-light-input-fg": {
         "hex": "#142925",
         "srgb": [0.078431, 0.160784, 0.145098, 1],
         "linear": [0.006995, 0.022174, 0.0185, 1]
       },
-      "tecton-light-input-placeholder": {
+      "tectra-light-input-placeholder": {
         "hex": "#4D6761",
         "srgb": [0.301961, 0.403922, 0.380392, 1],
         "linear": [0.074214, 0.135633, 0.119538, 1]
       },
-      "tecton-light-disabled-bg": {
+      "tectra-light-disabled-bg": {
         "hex": "#E0EAE7",
         "srgb": [0.878431, 0.917647, 0.905882, 1],
         "linear": [0.745404, 0.822786, 0.799103, 1]
       },
-      "tecton-light-disabled-fg": {
+      "tectra-light-disabled-fg": {
         "hex": "#4D6761",
         "srgb": [0.301961, 0.403922, 0.380392, 1],
         "linear": [0.074214, 0.135633, 0.119538, 1]
       },
-      "tecton-light-disabled-border": {
+      "tectra-light-disabled-border": {
         "hex": "#657F78",
         "srgb": [0.396078, 0.498039, 0.470588, 1],
         "linear": [0.130136, 0.212231, 0.187821, 1]
       },
-      "tecton-light-status-fg": {
+      "tectra-light-status-fg": {
         "hex": "#142925",
         "srgb": [0.078431, 0.160784, 0.145098, 1],
         "linear": [0.006995, 0.022174, 0.0185, 1]
       },
-      "tecton-light-status-bg": {
+      "tectra-light-status-bg": {
         "hex": "#E0EAE7",
         "srgb": [0.878431, 0.917647, 0.905882, 1],
         "linear": [0.745404, 0.822786, 0.799103, 1]
       },
-      "tecton-light-status-border": {
+      "tectra-light-status-border": {
         "hex": "#657F78",
         "srgb": [0.396078, 0.498039, 0.470588, 1],
         "linear": [0.130136, 0.212231, 0.187821, 1]
       },
-      "tecton-light-accent": {
+      "tectra-light-accent": {
         "hex": "#126B5E",
         "srgb": [0.070588, 0.419608, 0.368627, 1],
         "linear": [0.006049, 0.147027, 0.111932, 1]

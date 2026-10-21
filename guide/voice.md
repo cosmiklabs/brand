@@ -10,7 +10,7 @@ Write like an independent developer sharing useful work: say what a project does
 
 Interface copy uses short labels; put clarifications behind an info control, in plain American English rather than jargon.
 
-For Tecton, lead with creative benefits and the intended agent-driven workflow. Do not use “paid” or “closed-source” as marketing headlines. Any pricing, access or free-credit allowance remains undecided; avoid promises until those terms are approved.
+For Tectra, lead with creative benefits and the intended agent-driven workflow. Do not use “paid” or “closed-source” as marketing headlines. Any pricing, access or free-credit allowance remains undecided; avoid promises until those terms are approved.
 
 ## Imagery and icons
 

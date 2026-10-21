@@ -1,11 +1,11 @@
-# Tecton theme validation — 17 October 2026
+# Tectra theme validation — 17 October 2026
 
 Base: cosmiklabs/brand main at 24fd4bf49bc57d9af4add52aea60900a390cfb68. Owner approved the theme and publication to the brand repository on 17 October 2026. No product release or deployment is included.
 
-- Generator resolves 37 semantic roles in each mode. All 112 Tecton baseline/extension contrast pairs pass. Lowest Tecton text ratio is 4.986:1 and essential boundary ratio 3.517:1.
+- Generator resolves 37 semantic roles in each mode. All 112 Tectra baseline/extension contrast pairs pass. Lowest Tectra text ratio is 4.986:1 and essential boundary ratio 3.517:1.
 - Full kit build and check pass: 402 contrast pairs across three kits; original baseline and HPLX output files unchanged; manifest and 11 existing asset/font tests passed at initial build (15 total tests after the accessibility additions below).
 - Local HTML static checks cover existing stylesheet/font references, unique IDs, internal targets, and referenced CSS variables. The review board uses no JavaScript or network resources.
-- Browser regression coverage was extended to three-kit selection and nested Tecton themes. Execution is blocked by the environment's Chromium process/socket permissions; those checks have not passed here. No screenshots or rendered visual acceptance are claimed.
+- Browser regression coverage was extended to three-kit selection and nested Tectra themes. Execution is blocked by the environment's Chromium process/socket permissions; those checks have not passed here. No screenshots or rendered visual acceptance are claimed.
 
 Before consumer rollout: render the offline board in current browsers, check 320/390/768/1280 px widths and 200% text size, keyboard and forced-colour behavior, nested dark/light scoping, and real consumer examples. Run BRAND_BROWSER=<browser> node scripts/check-browser.mjs in an environment that supports Chromium. Product-specific accessibility remains separate.
 
@@ -21,7 +21,7 @@ A second, independent source reviewer audited the palette and preview. This revi
 
 ### Measured colour results
 
-All 112 Tecton contrast pairs pass. Ratios below are displayed to three decimals; pass/fail uses unrounded values.
+All 112 Tectra contrast pairs pass. Ratios below are displayed to three decimals; pass/fail uses unrounded values.
 
 | Pair | Dark | Light |
 |---|---:|---:|
@@ -45,9 +45,9 @@ Checks cover text/link states, primary/secondary action states, selection, input
 
 ### Verified and outstanding
 
-Verified: full generation; all 402 kit contrast checks; manifest hashes; 15 regression tests (11 existing plus four Tecton accessibility/source tests); static IDs, links, font references and CSS-variable checks; JavaScript syntax and diff whitespace checks. The colour ratios and source safeguards above were inspected/calculated, not inferred from screenshots.
+Verified: full generation; all 402 kit contrast checks; manifest hashes; 15 regression tests (11 existing plus four Tectra accessibility/source tests); static IDs, links, font references and CSS-variable checks; JavaScript syntax and diff whitespace checks. The colour ratios and source safeguards above were inspected/calculated, not inferred from screenshots.
 
-The browser suite now explicitly navigates to `specimens/tecton.html` after the component tests. It includes 1280/768/390/320 CSS-pixel viewports at 100% and 200% root text size, each with standard and WCAG text-spacing overrides (line height 1.5, paragraph spacing 2em, letter spacing .12em, word spacing .16em), target bounds, focus and forced-colours checks. These new browser checks are **written but not executed successfully** here because Chromium cannot create its process socket. A 320 CSS-pixel viewport models the reflow width at 400% zoom on a 1280-pixel window; it does not establish actual browser-zoom behavior. Actual 200% text, 400% browser zoom, keyboard order/visibility, screen-reader output, forced colours and cross-browser rendering remain manual acceptance checks. The earlier cloud-browser preview was also unreachable; no rendered QA is claimed.
+The browser suite now explicitly navigates to `specimens/tectra.html` after the component tests. It includes 1280/768/390/320 CSS-pixel viewports at 100% and 200% root text size, each with standard and WCAG text-spacing overrides (line height 1.5, paragraph spacing 2em, letter spacing .12em, word spacing .16em), target bounds, focus and forced-colours checks. These new browser checks are **written but not executed successfully** here because Chromium cannot create its process socket. A 320 CSS-pixel viewport models the reflow width at 400% zoom on a 1280-pixel window; it does not establish actual browser-zoom behavior. Actual 200% text, 400% browser zoom, keyboard order/visibility, screen-reader output, forced colours and cross-browser rendering remain manual acceptance checks. The earlier cloud-browser preview was also unreachable; no rendered QA is claimed.
 
 ### Primary references consulted
 

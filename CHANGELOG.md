@@ -1,5 +1,9 @@
 # Changes
 
+## Tectra family 0.2.0 — 21 October 2026
+
+- Rename the Tecton family to **Tectra**, the product's name. Paths, token names, the `data-family` selector, specimens, tests and the generator move from `tecton` to `tectra`; `[data-family="tecton"]` no longer applies. Lockups are regenerated with the outlined Inter label "Tectra". The Latch geometry, palette and every other value are unchanged.
+
 ## HPLX Glimmer — 17 October 2026
 
 - Adopt the approved compact Glimmer as the official HPLX symbol, with five transparent variants and matching Spectral lockups.

@@ -19,7 +19,7 @@ document.querySelectorAll('[data-slug]').forEach(input=>{
 
 const kitPicker = document.getElementById('kit-picker');
 kitPicker.addEventListener('change', () => {
-  const kits = {cosmik: ['Cosmik', 'Approved baseline'], hplx: ['HPLX', 'Approved family'], tecton: ['Tecton', 'Draft family']};
+  const kits = {cosmik: ['Cosmik', 'Approved baseline'], hplx: ['HPLX', 'Approved family'], tectra: ['Tectra', 'Draft family']};
   const id = Object.hasOwn(kits, kitPicker.value) ? kitPicker.value : 'cosmik';
   const [name, status] = kits[id];
   document.querySelectorAll('.theme-section').forEach(section => {

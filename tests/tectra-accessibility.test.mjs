@@ -2,18 +2,18 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 const read=p=>fs.readFileSync(new URL('../'+p,import.meta.url),'utf8');
-const t=JSON.parse(read('tokens/tecton/tecton.json'));
+const t=JSON.parse(read('tokens/tectra/tectra.json'));
 const base=JSON.parse(read('tokens/cosmik/cosmik.json'));
-const html=read('specimens/tecton.html'), css=read('specimens/tecton.css');
+const html=read('specimens/tectra.html'), css=read('specimens/tectra.css');
 const lum=h=>h.slice(1).match(/../g).map(n=>parseInt(n,16)/255).map(n=>n<=.04045?n/12.92:((n+.055)/1.055)**2.4).reduce((s,n,i)=>s+n*[.2126,.7152,.0722][i],0);
 const ratio=(a,b)=>(Math.max(lum(a),lum(b))+.05)/(Math.min(lum(a),lum(b))+.05);
-test('Tecton illustration strokes and labels remain contrasted on both diagram fills',()=>{
+test('Tectra illustration strokes and labels remain contrasted on both diagram fills',()=>{
  for(const m of Object.values(t.semantic)) for(const bg of ['surface','raised']){
   for(const fg of ['border','accent'])assert.ok(ratio(m[fg],m[bg])>=3);
   assert.ok(ratio(m.muted,m[bg])>=4.5);
  }
 });
-test('Tecton preserves parent typography and control/focus dimensions',()=>{
+test('Tectra preserves parent typography and control/focus dimensions',()=>{
  assert.deepEqual(t.native.type,base.native.type);
  assert.equal(t.native.type.body.fontSizePx,17);
  assert.equal(t.native.type.label.fontSizePx,14);

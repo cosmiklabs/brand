@@ -1,5 +1,5 @@
 {
-  "name": "Tecton Latch",
+  "name": "Tectra Latch",
   "status": "Approved angle-only geometry, owner 2026-10-17",
   "viewBox": [
     0,
@@ -25,7 +25,7 @@
     "currentColor": "currentColor"
   },
   "label": {
-    "text": "Tecton",
+    "text": "Tectra",
     "font": "fonts/desktop/Inter-SemiBold.ttf",
     "cap_height": 28,
     "visible_gap": 16

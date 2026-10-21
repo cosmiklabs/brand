@@ -27,6 +27,6 @@ Guide diagrams remain illustrative unless explicitly identified as browser scree
 
 Reference pages checked 4 October 2026. Product-level testing is still required.
 
-## Tecton draft extension (17 October 2026)
+## Tectra draft extension (17 October 2026)
 
-Three-kit and nested Tecton mode tests were added. They are not yet browser-verified: Chromium could not create its process socket in this execution environment. See [Tecton validation](tecton-validation.md). Existing historical results above remain unchanged.
+Three-kit and nested Tectra mode tests were added. They are not yet browser-verified: Chromium could not create its process socket in this execution environment. See [Tectra validation](tectra-validation.md). Existing historical results above remain unchanged.

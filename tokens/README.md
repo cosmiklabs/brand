@@ -73,6 +73,6 @@ A family's files are complete on their own (baseline values included), so a prod
 
 These tokens and the specimens are a design-system reference, not a production UI package and not an accessibility certification: contrast is checked for the defined pairs only (`node scripts/check.mjs`), and browser, keyboard and assistive-technology checks remain pending (`../references/component-validation.md`).
 
-## Tecton family draft
+## Tectra family draft
 
-The mineral-and-teal direction was accepted on 17 October 2026; final kit review remains pending. Tecton inherits Inter headings and all baseline utility, layout and motion rules. No symbol has been selected. See [family source](../tokens/tecton/family.json), [family guide](../assets/tecton/README.md) and [offline review board](../specimens/tecton.html). Do not treat this draft as an approved production kit.
+The mineral-and-teal direction was accepted on 17 October 2026; final kit review remains pending. Tectra inherits Inter headings and all baseline utility, layout and motion rules. No symbol has been selected. See [family source](../tokens/tectra/family.json), [family guide](../assets/tectra/README.md) and [offline review board](../specimens/tectra.html). Do not treat this draft as an approved production kit.

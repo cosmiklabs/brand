@@ -31,15 +31,15 @@ Let the project's title lead. Place "A Cosmik project" beneath the title or in t
 
 Use Cosmik in prose and `cosmiklabs` as the handle. HPLX names the product family and its foundational engine. Each game built on it (such as the reimplementation of *Amnesia: The Dark Descent*), the desktop app and the planned editor has its own name and status. Never imply official affiliation, ownership of a game's intellectual property, or one licence across all code and assets. Keep original creators' credits and licence notices readable and separate from the Cosmik endorsement.
 
-## Tecton family
+## Tectra family
 
-The mineral-and-teal theme was approved on 17 October 2026. Tecton inherits Inter headings and all baseline utility, layout and motion rules. The angle-corrected Latch symbol was approved on 17 October 2026. See [family source](../tokens/tecton/family.json), [family guide](../assets/tecton/README.md) and [offline review board](../specimens/tecton.html). Canonical Latch assets are in `assets/tecton/`; rendered consumer accessibility QA is still required.
+The mineral-and-teal theme was approved on 17 October 2026. Tectra inherits Inter headings and all baseline utility, layout and motion rules. The angle-corrected Latch symbol was approved on 17 October 2026. See [family source](../tokens/tectra/family.json), [family guide](../assets/tectra/README.md) and [offline review board](../specimens/tectra.html). Canonical Latch assets are in `assets/tectra/`; rendered consumer accessibility QA is still required.
 
 Lead public-facing copy with creative benefits and the intended authoring workflow. Keep business-model facts in governance or relevant commercial details, not hero labels. Pricing, access and any free-credit allowance are undecided.
 
-### Tecton presentation
+### Tectra presentation
 
-Describe intended creative outcomes and workflow without exposing implementation architecture or repository organisation. Use one Tecton identity throughout. Cosmik can include open-source and proprietary products; HPLX’s no-payment commitment remains separate. No pricing, launch or availability is announced by this kit.
+Describe intended creative outcomes and workflow without exposing implementation architecture or repository organisation. Use one Tectra identity throughout. Cosmik can include open-source and proprietary products; HPLX’s no-payment commitment remains separate. No pricing, launch or availability is announced by this kit.
 
 ## HPLX identity update
 
