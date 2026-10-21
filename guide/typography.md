@@ -6,7 +6,7 @@
 | **IBM Plex Mono** | Code and short technical metadata (labels, versions, paths) |
 | **The COSMIK wordmark** | Separate artwork: no typeface matches it, and none may stand in for it |
 
-The type roles (`body`, `display`, `display-small`, `section`, `card`, `control`, `label`, `identity-label`) and their sizes, weights and line heights are in the [tokens](../tokens/README.md). A product family may give its heading roles a typeface of its own; reading and interface text stays Inter everywhere ([Product families](families.md)).
+The type roles (`body`, `display`, `display-small`, `section`, `card`, `control`, `label`, `identity-label`) and their sizes, weights and line heights are in the [tokens](../kits/README.md). A product family may give its heading roles a typeface of its own; reading and interface text stays Inter everywhere ([Product families](families.md)).
 
 ## Setting type
 

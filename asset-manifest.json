@@ -1,17 +1,17 @@
 {
   "name": "Cosmik brand kit",
-  "version": "0.3.0",
-  "date": "2026-10-08",
+  "version": "0.4.0",
+  "date": "2026-10-21",
   "system_status": "baseline approved (owner, 2026-10-07); HPLX family approved (owner, 2026-10-15); Tectra family and angle-only Latch approved (owner, 2026-10-17)",
   "emblem_status": "accepted traced symbol",
-  "wordmark_status": "outlined trace of the approved banner (assets/vector/cosmik-lockup-*.svg), accepted (owner, 2026-10-11); the approved raster stays the reference",
+  "wordmark_status": "outlined trace of the approved banner (kits/cosmik/assets/vector/cosmik-lockup-*.svg), accepted (owner, 2026-10-11); the approved raster stays the reference",
   "interim_identity": "Small identity where the lockup would be too large: the emblem followed by the live label “Cosmik” in Inter 500 (type role identity-label, 20 px / 1.3, tracking 0). The label is a typographic treatment, not a wordmark; never set COSMIK in capitals with Inter to imitate the wordmark.",
   "license": "LICENSE.md",
   "known_gaps": [
     {
       "id": "optical-small-icon",
       "status": "open",
-      "summary": "No optically redrawn small-size Cosmik emblem: the 16–64 px renders and icons/cosmik.* are faithful reductions of the master geometry, and the fine cut and isolated point lose definition at favicon sizes. HPLX Ember has an optical redraw for 16–48 px (assets/hplx/ember-small.source.json), used by icons/hplx-ember.*, accepted (owner, 2026-10-11)."
+      "summary": "No optically redrawn small-size Cosmik emblem: the 16–64 px renders and kits/cosmik/icons/cosmik.* are faithful reductions of the master geometry, and the fine cut and isolated point lose definition at favicon sizes. HPLX Ember has an optical redraw for 16–48 px (kits/hplx/assets/ember-small.source.json), used by kits/hplx/icons/hplx-ember.*, accepted (owner, 2026-10-11)."
     },
     {
       "id": "print-proofs",
@@ -21,7 +21,7 @@
     {
       "id": "browser-qa",
       "status": "open",
-      "summary": "Headless Chromium checks cover both kits; full browser zoom, other browser engines and assistive-technology checks remain pending. See references/component-validation.md."
+      "summary": "Headless Chromium checks cover both kits; full browser zoom, other browser engines and assistive-technology checks remain pending. See specimens/validation.md."
     },
     {
       "id": "hplx-optical-small-icon",
@@ -32,27 +32,27 @@
   "entry_points": {
     "tokens": {
       "cosmik": {
-        "css": "tokens/cosmik/cosmik.css",
-        "json": "tokens/cosmik/cosmik.json",
-        "dtcg": "tokens/cosmik/cosmik.tokens.json",
-        "rust": "tokens/cosmik/cosmik_tokens.rs"
+        "css": "kits/cosmik/tokens/cosmik.css",
+        "json": "kits/cosmik/tokens/cosmik.json",
+        "dtcg": "kits/cosmik/tokens/cosmik.tokens.json",
+        "rust": "kits/cosmik/tokens/cosmik_tokens.rs"
       },
       "hplx": {
-        "css": "tokens/hplx/hplx.css",
-        "json": "tokens/hplx/hplx.json",
-        "dtcg": "tokens/hplx/hplx.tokens.json",
-        "rust": "tokens/hplx/hplx_tokens.rs"
+        "css": "kits/hplx/tokens/hplx.css",
+        "json": "kits/hplx/tokens/hplx.json",
+        "dtcg": "kits/hplx/tokens/hplx.tokens.json",
+        "rust": "kits/hplx/tokens/hplx_tokens.rs"
       },
       "tectra": {
-        "css": "tokens/tectra/tectra.css",
-        "json": "tokens/tectra/tectra.json",
-        "dtcg": "tokens/tectra/tectra.tokens.json",
-        "rust": "tokens/tectra/tectra_tokens.rs"
+        "css": "kits/tectra/tokens/tectra.css",
+        "json": "kits/tectra/tokens/tectra.json",
+        "dtcg": "kits/tectra/tokens/tectra.tokens.json",
+        "rust": "kits/tectra/tokens/tectra_tokens.rs"
       }
     },
-    "emblem_master": "assets/vector/cosmik-emblem-master-offwhite.svg",
-    "lockup_master": "assets/vector/cosmik-lockup-offwhite.svg",
-    "lockup_source": "assets/vector/cosmik-lockup.source.json",
+    "emblem_master": "kits/cosmik/assets/vector/cosmik-emblem-master-offwhite.svg",
+    "lockup_master": "kits/cosmik/assets/vector/cosmik-lockup-offwhite.svg",
+    "lockup_source": "kits/cosmik/assets/vector/cosmik-lockup.source.json",
     "web_fonts": [
       "fonts/web/Inter-Regular.woff2",
       "fonts/web/Inter-Medium.woff2",
@@ -67,65 +67,65 @@
       "fonts/desktop/Inter-SemiBold.ttf",
       "fonts/desktop/Spectral-SemiBold.ttf"
     ],
-    "app_icon_windows": "icons/cosmik.ico",
-    "app_icon_macos": "icons/cosmik.icns",
-    "app_icon_png": "icons/cosmik-512.png",
-    "apple_touch_icon": "icons/cosmik-apple-touch-180.png",
+    "app_icon_windows": "kits/cosmik/icons/cosmik.ico",
+    "app_icon_macos": "kits/cosmik/icons/cosmik.icns",
+    "app_icon_png": "kits/cosmik/icons/cosmik-512.png",
+    "apple_touch_icon": "kits/cosmik/icons/cosmik-apple-touch-180.png",
     "families": {
       "hplx": {
-        "guide": "assets/hplx/README.md",
-        "source": "assets/hplx/glimmer.source.json",
-        "black": "assets/hplx/hplx-glimmer-black.svg",
-        "currentColor": "assets/hplx/hplx-glimmer-currentColor.svg",
-        "dark": "assets/hplx/hplx-glimmer-dark.svg",
-        "light": "assets/hplx/hplx-glimmer-light.svg",
-        "lockup-black": "assets/hplx/hplx-glimmer-lockup-black.svg",
-        "lockup-currentColor": "assets/hplx/hplx-glimmer-lockup-currentColor.svg",
-        "lockup-dark": "assets/hplx/hplx-glimmer-lockup-dark.svg",
-        "lockup-light": "assets/hplx/hplx-glimmer-lockup-light.svg",
-        "lockup-white": "assets/hplx/hplx-glimmer-lockup-white.svg",
-        "white": "assets/hplx/hplx-glimmer-white.svg"
+        "guide": "kits/hplx/README.md",
+        "source": "kits/hplx/assets/glimmer.source.json",
+        "black": "kits/hplx/assets/hplx-glimmer-black.svg",
+        "currentColor": "kits/hplx/assets/hplx-glimmer-currentColor.svg",
+        "dark": "kits/hplx/assets/hplx-glimmer-dark.svg",
+        "light": "kits/hplx/assets/hplx-glimmer-light.svg",
+        "lockup-black": "kits/hplx/assets/hplx-glimmer-lockup-black.svg",
+        "lockup-currentColor": "kits/hplx/assets/hplx-glimmer-lockup-currentColor.svg",
+        "lockup-dark": "kits/hplx/assets/hplx-glimmer-lockup-dark.svg",
+        "lockup-light": "kits/hplx/assets/hplx-glimmer-lockup-light.svg",
+        "lockup-white": "kits/hplx/assets/hplx-glimmer-lockup-white.svg",
+        "white": "kits/hplx/assets/hplx-glimmer-white.svg"
       },
       "tectra": {
-        "guide": "assets/tectra/README.md",
-        "preview": "specimens/tectra.html"
+        "guide": "kits/tectra/README.md",
+        "preview": "kits/tectra/specimen.html"
       }
     },
     "tectra_identity": {
-      "tectra-latch-black": "assets/tectra/tectra-latch-black.svg",
-      "tectra-latch-currentColor": "assets/tectra/tectra-latch-currentColor.svg",
-      "tectra-latch-dark": "assets/tectra/tectra-latch-dark.svg",
-      "tectra-latch-light": "assets/tectra/tectra-latch-light.svg",
-      "tectra-latch-white": "assets/tectra/tectra-latch-white.svg",
-      "tectra-lockup-black": "assets/tectra/tectra-lockup-black.svg",
-      "tectra-lockup-currentColor": "assets/tectra/tectra-lockup-currentColor.svg",
-      "tectra-lockup-dark": "assets/tectra/tectra-lockup-dark.svg",
-      "tectra-lockup-light": "assets/tectra/tectra-lockup-light.svg",
-      "tectra-lockup-white": "assets/tectra/tectra-lockup-white.svg",
-      "source": "assets/tectra/latch.source.json"
+      "tectra-latch-black": "kits/tectra/assets/tectra-latch-black.svg",
+      "tectra-latch-currentColor": "kits/tectra/assets/tectra-latch-currentColor.svg",
+      "tectra-latch-dark": "kits/tectra/assets/tectra-latch-dark.svg",
+      "tectra-latch-light": "kits/tectra/assets/tectra-latch-light.svg",
+      "tectra-latch-white": "kits/tectra/assets/tectra-latch-white.svg",
+      "tectra-lockup-black": "kits/tectra/assets/tectra-lockup-black.svg",
+      "tectra-lockup-currentColor": "kits/tectra/assets/tectra-lockup-currentColor.svg",
+      "tectra-lockup-dark": "kits/tectra/assets/tectra-lockup-dark.svg",
+      "tectra-lockup-light": "kits/tectra/assets/tectra-lockup-light.svg",
+      "tectra-lockup-white": "kits/tectra/assets/tectra-lockup-white.svg",
+      "source": "kits/tectra/assets/latch.source.json"
     },
     "historical_hplx_ember": {
-      "guide": "assets/hplx/README.md",
-      "source": "assets/hplx/ember.source.json",
-      "emblem_amber": "assets/hplx/hplx-ember-amber.svg",
-      "emblem_bone": "assets/hplx/hplx-ember-bone.svg",
-      "emblem_ink": "assets/hplx/hplx-ember-ink.svg",
-      "icon_plate": "assets/hplx/hplx-ember-primary.svg",
-      "app_icon_windows": "icons/hplx-ember.ico",
-      "app_icon_macos": "icons/hplx-ember.icns",
-      "app_icon_png": "icons/hplx-ember-512.png",
-      "apple_touch_icon": "icons/hplx-ember-apple-touch-180.png",
-      "lockup_source": "assets/hplx/hplx-lockup.source.json",
-      "lockup_primary": "assets/hplx/hplx-lockup-primary.svg",
-      "lockup_amber": "assets/hplx/hplx-lockup-amber.svg",
-      "lockup_bone": "assets/hplx/hplx-lockup-bone.svg",
-      "lockup_ink": "assets/hplx/hplx-lockup-ink.svg",
-      "icon_small": "assets/hplx/hplx-ember-small.svg"
+      "guide": "kits/hplx/README.md",
+      "source": "kits/hplx/assets/ember.source.json",
+      "emblem_amber": "kits/hplx/assets/hplx-ember-amber.svg",
+      "emblem_bone": "kits/hplx/assets/hplx-ember-bone.svg",
+      "emblem_ink": "kits/hplx/assets/hplx-ember-ink.svg",
+      "icon_plate": "kits/hplx/assets/hplx-ember-primary.svg",
+      "app_icon_windows": "kits/hplx/icons/hplx-ember.ico",
+      "app_icon_macos": "kits/hplx/icons/hplx-ember.icns",
+      "app_icon_png": "kits/hplx/icons/hplx-ember-512.png",
+      "apple_touch_icon": "kits/hplx/icons/hplx-ember-apple-touch-180.png",
+      "lockup_source": "kits/hplx/assets/hplx-lockup.source.json",
+      "lockup_primary": "kits/hplx/assets/hplx-lockup-primary.svg",
+      "lockup_amber": "kits/hplx/assets/hplx-lockup-amber.svg",
+      "lockup_bone": "kits/hplx/assets/hplx-lockup-bone.svg",
+      "lockup_ink": "kits/hplx/assets/hplx-lockup-ink.svg",
+      "icon_small": "kits/hplx/assets/hplx-ember-small.svg"
     }
   },
   "assets": [
     {
-      "path": "assets/approved-raster/cosmik-mark-original.png",
+      "path": "kits/cosmik/assets/approved-raster/cosmik-mark-original.png",
       "role": {
         "kind": "approved-original",
         "variant": "mark"
@@ -140,7 +140,7 @@
       "sha256": "9a0ed44a6cdc8ce45e75623210dbfdc8b7ed9d4776764d3467c2d466194599d3"
     },
     {
-      "path": "assets/approved-raster/cosmik-banner-original.png",
+      "path": "kits/cosmik/assets/approved-raster/cosmik-banner-original.png",
       "role": {
         "kind": "approved-original",
         "variant": "banner"
@@ -155,7 +155,7 @@
       "sha256": "bd895a41d92c56c52eed70811282bce4cafe9f5c4989499d51a20b222456944c"
     },
     {
-      "path": "assets/archive/cosmik-mark-light-generated.png",
+      "path": "kits/cosmik/assets/archive/cosmik-mark-light-generated.png",
       "role": {
         "kind": "archive",
         "variant": "mark-light"
@@ -170,7 +170,7 @@
       "sha256": "0cd8a627df7aed930ea7bee3d52e2c695124d762f19b8787244083758cf1684f"
     },
     {
-      "path": "assets/archive/cosmik-banner-light-generated.png",
+      "path": "kits/cosmik/assets/archive/cosmik-banner-light-generated.png",
       "role": {
         "kind": "archive",
         "variant": "banner-light"
@@ -185,7 +185,7 @@
       "sha256": "fb36139005d6991416cda2df34104dba0a889af24a982f9edc13364452c4c16f"
     },
     {
-      "path": "assets/vector/cosmik-emblem-ink.png",
+      "path": "kits/cosmik/assets/vector/cosmik-emblem-ink.png",
       "role": {
         "kind": "emblem",
         "variant": "ink",
@@ -202,7 +202,7 @@
       ]
     },
     {
-      "path": "assets/vector/cosmik-emblem-ink.svg",
+      "path": "kits/cosmik/assets/vector/cosmik-emblem-ink.svg",
       "role": {
         "kind": "emblem",
         "variant": "ink",
@@ -222,7 +222,7 @@
       "standalone_emblem_only": true
     },
     {
-      "path": "assets/vector/cosmik-emblem-master-offwhite.png",
+      "path": "kits/cosmik/assets/vector/cosmik-emblem-master-offwhite.png",
       "role": {
         "kind": "emblem",
         "variant": "master-offwhite",
@@ -239,7 +239,7 @@
       ]
     },
     {
-      "path": "assets/vector/cosmik-emblem-master-offwhite.svg",
+      "path": "kits/cosmik/assets/vector/cosmik-emblem-master-offwhite.svg",
       "role": {
         "kind": "emblem",
         "variant": "master-offwhite",
@@ -260,7 +260,7 @@
       "standalone_emblem_only": true
     },
     {
-      "path": "assets/vector/cosmik-emblem-primary.png",
+      "path": "kits/cosmik/assets/vector/cosmik-emblem-primary.png",
       "role": {
         "kind": "emblem",
         "variant": "primary",
@@ -277,7 +277,7 @@
       ]
     },
     {
-      "path": "assets/vector/cosmik-emblem-primary.svg",
+      "path": "kits/cosmik/assets/vector/cosmik-emblem-primary.svg",
       "role": {
         "kind": "emblem",
         "variant": "primary",
@@ -297,7 +297,7 @@
       "standalone_emblem_only": true
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-ink-1024.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-ink-1024.png",
       "role": {
         "kind": "emblem",
         "variant": "ink",
@@ -314,7 +314,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-ink-128.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-ink-128.png",
       "role": {
         "kind": "emblem",
         "variant": "ink",
@@ -331,7 +331,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-ink-16.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-ink-16.png",
       "role": {
         "kind": "emblem",
         "variant": "ink",
@@ -348,7 +348,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-ink-24.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-ink-24.png",
       "role": {
         "kind": "emblem",
         "variant": "ink",
@@ -365,7 +365,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-ink-256.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-ink-256.png",
       "role": {
         "kind": "emblem",
         "variant": "ink",
@@ -382,7 +382,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-ink-32.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-ink-32.png",
       "role": {
         "kind": "emblem",
         "variant": "ink",
@@ -399,7 +399,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-ink-48.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-ink-48.png",
       "role": {
         "kind": "emblem",
         "variant": "ink",
@@ -416,7 +416,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-ink-64.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-ink-64.png",
       "role": {
         "kind": "emblem",
         "variant": "ink",
@@ -433,7 +433,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-ink-96.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-ink-96.png",
       "role": {
         "kind": "emblem",
         "variant": "ink",
@@ -450,7 +450,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-master-offwhite-1024.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-master-offwhite-1024.png",
       "role": {
         "kind": "emblem",
         "variant": "master-offwhite",
@@ -467,7 +467,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-master-offwhite-128.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-master-offwhite-128.png",
       "role": {
         "kind": "emblem",
         "variant": "master-offwhite",
@@ -484,7 +484,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-master-offwhite-16.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-master-offwhite-16.png",
       "role": {
         "kind": "emblem",
         "variant": "master-offwhite",
@@ -501,7 +501,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-master-offwhite-24.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-master-offwhite-24.png",
       "role": {
         "kind": "emblem",
         "variant": "master-offwhite",
@@ -518,7 +518,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-master-offwhite-256.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-master-offwhite-256.png",
       "role": {
         "kind": "emblem",
         "variant": "master-offwhite",
@@ -535,7 +535,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-master-offwhite-32.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-master-offwhite-32.png",
       "role": {
         "kind": "emblem",
         "variant": "master-offwhite",
@@ -552,7 +552,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-master-offwhite-48.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-master-offwhite-48.png",
       "role": {
         "kind": "emblem",
         "variant": "master-offwhite",
@@ -569,7 +569,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-master-offwhite-64.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-master-offwhite-64.png",
       "role": {
         "kind": "emblem",
         "variant": "master-offwhite",
@@ -586,7 +586,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-master-offwhite-96.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-master-offwhite-96.png",
       "role": {
         "kind": "emblem",
         "variant": "master-offwhite",
@@ -603,7 +603,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-primary-1024.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-primary-1024.png",
       "role": {
         "kind": "emblem",
         "variant": "primary",
@@ -620,7 +620,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-primary-128.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-primary-128.png",
       "role": {
         "kind": "emblem",
         "variant": "primary",
@@ -637,7 +637,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-primary-16.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-primary-16.png",
       "role": {
         "kind": "emblem",
         "variant": "primary",
@@ -654,7 +654,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-primary-24.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-primary-24.png",
       "role": {
         "kind": "emblem",
         "variant": "primary",
@@ -671,7 +671,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-primary-256.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-primary-256.png",
       "role": {
         "kind": "emblem",
         "variant": "primary",
@@ -688,7 +688,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-primary-32.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-primary-32.png",
       "role": {
         "kind": "emblem",
         "variant": "primary",
@@ -705,7 +705,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-primary-48.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-primary-48.png",
       "role": {
         "kind": "emblem",
         "variant": "primary",
@@ -722,7 +722,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-primary-64.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-primary-64.png",
       "role": {
         "kind": "emblem",
         "variant": "primary",
@@ -739,7 +739,7 @@
       ]
     },
     {
-      "path": "assets/vector/png/cosmik-emblem-primary-96.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-emblem-primary-96.png",
       "role": {
         "kind": "emblem",
         "variant": "primary",
@@ -756,17 +756,17 @@
       ]
     },
     {
-      "path": "assets/vector/cosmik-lockup.source.json",
+      "path": "kits/cosmik/assets/vector/cosmik-lockup.source.json",
       "role": {
         "kind": "lockup",
         "format": "source"
       },
       "status": "traced from the approved banner; accepted (owner, 2026-10-11)",
-      "sha256": "d226c3410e07f5b0b24f4c6c8de91b146fbffd918e0cb3afe3109b3478879606",
+      "sha256": "bf9daa3ad92e9f20bea09f4d1205d8807675e61add9c4eca65e35a32f4767936",
       "generated_by": "scripts/trace-cosmik-lockup.mjs"
     },
     {
-      "path": "assets/vector/cosmik-lockup-offwhite.svg",
+      "path": "kits/cosmik/assets/vector/cosmik-lockup-offwhite.svg",
       "role": {
         "kind": "lockup",
         "variant": "offwhite",
@@ -786,7 +786,7 @@
       "generated_by": "scripts/build-cosmik-lockup.mjs"
     },
     {
-      "path": "assets/vector/cosmik-lockup-ink.svg",
+      "path": "kits/cosmik/assets/vector/cosmik-lockup-ink.svg",
       "role": {
         "kind": "lockup",
         "variant": "ink",
@@ -806,7 +806,7 @@
       "generated_by": "scripts/build-cosmik-lockup.mjs"
     },
     {
-      "path": "assets/vector/cosmik-lockup-primary.svg",
+      "path": "kits/cosmik/assets/vector/cosmik-lockup-primary.svg",
       "role": {
         "kind": "lockup",
         "variant": "primary",
@@ -826,7 +826,7 @@
       "generated_by": "scripts/build-cosmik-lockup.mjs"
     },
     {
-      "path": "assets/vector/cosmik-lockup-offwhite.png",
+      "path": "kits/cosmik/assets/vector/cosmik-lockup-offwhite.png",
       "role": {
         "kind": "lockup",
         "variant": "offwhite",
@@ -843,7 +843,7 @@
       "generated_by": "scripts/build-cosmik-lockup.mjs"
     },
     {
-      "path": "assets/vector/cosmik-lockup-ink.png",
+      "path": "kits/cosmik/assets/vector/cosmik-lockup-ink.png",
       "role": {
         "kind": "lockup",
         "variant": "ink",
@@ -860,7 +860,7 @@
       "generated_by": "scripts/build-cosmik-lockup.mjs"
     },
     {
-      "path": "assets/vector/cosmik-lockup-primary.png",
+      "path": "kits/cosmik/assets/vector/cosmik-lockup-primary.png",
       "role": {
         "kind": "lockup",
         "variant": "primary",
@@ -877,7 +877,7 @@
       "generated_by": "scripts/build-cosmik-lockup.mjs"
     },
     {
-      "path": "assets/vector/png/cosmik-lockup-offwhite-1024x341.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-lockup-offwhite-1024x341.png",
       "role": {
         "kind": "lockup",
         "variant": "offwhite",
@@ -894,7 +894,7 @@
       "generated_by": "scripts/build-cosmik-lockup.mjs"
     },
     {
-      "path": "assets/vector/png/cosmik-lockup-ink-1024x341.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-lockup-ink-1024x341.png",
       "role": {
         "kind": "lockup",
         "variant": "ink",
@@ -911,7 +911,7 @@
       "generated_by": "scripts/build-cosmik-lockup.mjs"
     },
     {
-      "path": "assets/vector/png/cosmik-lockup-primary-1024x341.png",
+      "path": "kits/cosmik/assets/vector/png/cosmik-lockup-primary-1024x341.png",
       "role": {
         "kind": "lockup",
         "variant": "primary",
@@ -928,7 +928,7 @@
       "generated_by": "scripts/build-cosmik-lockup.mjs"
     },
     {
-      "path": "assets/hplx/README.md",
+      "path": "kits/hplx/README.md",
       "role": {
         "kind": "documentation",
         "kit": "hplx"
@@ -938,7 +938,7 @@
       "editable": true
     },
     {
-      "path": "assets/hplx/ember.source.json",
+      "path": "kits/hplx/assets/ember.source.json",
       "role": {
         "kind": "selected-symbol-source",
         "kit": "hplx"
@@ -947,7 +947,7 @@
       "sha256": "a3f037c74454b63f242cc27ed1c8af78d668bf1e1fb0e226eae46fd3cc5cb355"
     },
     {
-      "path": "assets/hplx/hplx-ember-amber.svg",
+      "path": "kits/hplx/assets/hplx-ember-amber.svg",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -970,7 +970,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/hplx-ember-bone.svg",
+      "path": "kits/hplx/assets/hplx-ember-bone.svg",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -993,7 +993,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/hplx-ember-ink.svg",
+      "path": "kits/hplx/assets/hplx-ember-ink.svg",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1016,7 +1016,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/hplx-ember-primary.svg",
+      "path": "kits/hplx/assets/hplx-ember-primary.svg",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1039,7 +1039,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-amber-1024x384.png",
+      "path": "kits/hplx/assets/png/hplx-ember-amber-1024x384.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1054,7 +1054,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-bone-1024x384.png",
+      "path": "kits/hplx/assets/png/hplx-ember-bone-1024x384.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1069,7 +1069,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-ink-1024x384.png",
+      "path": "kits/hplx/assets/png/hplx-ember-ink-1024x384.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1084,7 +1084,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-primary-1024.png",
+      "path": "kits/hplx/assets/png/hplx-ember-primary-1024.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1099,7 +1099,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-primary-128.png",
+      "path": "kits/hplx/assets/png/hplx-ember-primary-128.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1114,7 +1114,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-primary-16.png",
+      "path": "kits/hplx/assets/png/hplx-ember-primary-16.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1129,7 +1129,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-primary-24.png",
+      "path": "kits/hplx/assets/png/hplx-ember-primary-24.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1144,7 +1144,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-primary-256.png",
+      "path": "kits/hplx/assets/png/hplx-ember-primary-256.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1159,7 +1159,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-primary-32.png",
+      "path": "kits/hplx/assets/png/hplx-ember-primary-32.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1174,7 +1174,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-primary-48.png",
+      "path": "kits/hplx/assets/png/hplx-ember-primary-48.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1189,7 +1189,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-primary-512.png",
+      "path": "kits/hplx/assets/png/hplx-ember-primary-512.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1204,7 +1204,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-primary-64.png",
+      "path": "kits/hplx/assets/png/hplx-ember-primary-64.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1219,7 +1219,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-primary-96.png",
+      "path": "kits/hplx/assets/png/hplx-ember-primary-96.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1234,7 +1234,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/ember-small.source.json",
+      "path": "kits/hplx/assets/ember-small.source.json",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1246,7 +1246,7 @@
       "editable": true
     },
     {
-      "path": "assets/hplx/hplx-ember-small.svg",
+      "path": "kits/hplx/assets/hplx-ember-small.svg",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1271,7 +1271,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-small-16.png",
+      "path": "kits/hplx/assets/png/hplx-ember-small-16.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1287,7 +1287,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-small-24.png",
+      "path": "kits/hplx/assets/png/hplx-ember-small-24.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1303,7 +1303,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-small-32.png",
+      "path": "kits/hplx/assets/png/hplx-ember-small-32.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1319,7 +1319,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-ember-small-48.png",
+      "path": "kits/hplx/assets/png/hplx-ember-small-48.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1335,7 +1335,7 @@
       "generated_by": "scripts/build-hplx-assets.mjs"
     },
     {
-      "path": "assets/hplx/hplx-lockup.source.json",
+      "path": "kits/hplx/assets/hplx-lockup.source.json",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1343,11 +1343,11 @@
         "format": "source"
       },
       "status": "Owner-chosen lettering; lockup accepted (owner, 2026-10-11)",
-      "sha256": "5bbf257371a80544cfd755c8cfc4d7bbdd00e0a0ae24f9a9dc5d03136d6d470d",
+      "sha256": "7b56dcea0a0f07d2ba795b9ac076179a59da69781556f622ccb8da0df9ab0e28",
       "editable": true
     },
     {
-      "path": "assets/hplx/hplx-lockup-primary.svg",
+      "path": "kits/hplx/assets/hplx-lockup-primary.svg",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1373,7 +1373,7 @@
       "generated_by": "scripts/build-hplx-lockup.mjs"
     },
     {
-      "path": "assets/hplx/hplx-lockup-amber.svg",
+      "path": "kits/hplx/assets/hplx-lockup-amber.svg",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1399,7 +1399,7 @@
       "generated_by": "scripts/build-hplx-lockup.mjs"
     },
     {
-      "path": "assets/hplx/hplx-lockup-bone.svg",
+      "path": "kits/hplx/assets/hplx-lockup-bone.svg",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1425,7 +1425,7 @@
       "generated_by": "scripts/build-hplx-lockup.mjs"
     },
     {
-      "path": "assets/hplx/hplx-lockup-ink.svg",
+      "path": "kits/hplx/assets/hplx-lockup-ink.svg",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1451,7 +1451,7 @@
       "generated_by": "scripts/build-hplx-lockup.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-lockup-primary-2172x724.png",
+      "path": "kits/hplx/assets/png/hplx-lockup-primary-2172x724.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1469,7 +1469,7 @@
       "generated_by": "scripts/build-hplx-lockup.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-lockup-primary-1024x341.png",
+      "path": "kits/hplx/assets/png/hplx-lockup-primary-1024x341.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1487,7 +1487,7 @@
       "generated_by": "scripts/build-hplx-lockup.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-lockup-amber-2172x724.png",
+      "path": "kits/hplx/assets/png/hplx-lockup-amber-2172x724.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1505,7 +1505,7 @@
       "generated_by": "scripts/build-hplx-lockup.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-lockup-amber-1024x341.png",
+      "path": "kits/hplx/assets/png/hplx-lockup-amber-1024x341.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1523,7 +1523,7 @@
       "generated_by": "scripts/build-hplx-lockup.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-lockup-bone-2172x724.png",
+      "path": "kits/hplx/assets/png/hplx-lockup-bone-2172x724.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1541,7 +1541,7 @@
       "generated_by": "scripts/build-hplx-lockup.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-lockup-bone-1024x341.png",
+      "path": "kits/hplx/assets/png/hplx-lockup-bone-1024x341.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1559,7 +1559,7 @@
       "generated_by": "scripts/build-hplx-lockup.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-lockup-ink-2172x724.png",
+      "path": "kits/hplx/assets/png/hplx-lockup-ink-2172x724.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1577,7 +1577,7 @@
       "generated_by": "scripts/build-hplx-lockup.mjs"
     },
     {
-      "path": "assets/hplx/png/hplx-lockup-ink-1024x341.png",
+      "path": "kits/hplx/assets/png/hplx-lockup-ink-1024x341.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1595,7 +1595,7 @@
       "generated_by": "scripts/build-hplx-lockup.mjs"
     },
     {
-      "path": "icons/hplx-ember-512.png",
+      "path": "kits/hplx/icons/hplx-ember-512.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1610,7 +1610,7 @@
       "generated_by": "scripts/build-icons.mjs"
     },
     {
-      "path": "icons/hplx-ember-apple-touch-180.png",
+      "path": "kits/hplx/icons/hplx-ember-apple-touch-180.png",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1625,7 +1625,7 @@
       "generated_by": "scripts/build-icons.mjs"
     },
     {
-      "path": "icons/hplx-ember.icns",
+      "path": "kits/hplx/icons/hplx-ember.icns",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1636,7 +1636,7 @@
       "generated_by": "scripts/build-icons.mjs"
     },
     {
-      "path": "icons/hplx-ember.ico",
+      "path": "kits/hplx/icons/hplx-ember.ico",
       "role": {
         "kind": "family-identity",
         "kit": "hplx",
@@ -1647,39 +1647,39 @@
       "generated_by": "scripts/build-icons.mjs"
     },
     {
-      "path": "assets/tectra/README.md",
+      "path": "kits/tectra/README.md",
       "role": {
         "kind": "family-reference",
         "family": "tectra"
       },
       "status": "Approved (owner, 2026-10-17)",
       "editable": true,
-      "sha256": "0fceaff93c8b5679347bc9812f9712db312a21e821c3926b35916e6a6caba747"
+      "sha256": "715db8eb94941db192e0af8791d4b990fb49e2039b0b1236d81699e0534102a7"
     },
     {
-      "path": "specimens/tectra.html",
+      "path": "kits/tectra/specimen.html",
       "role": {
         "kind": "family-reference",
         "family": "tectra"
       },
       "status": "Approved (owner, 2026-10-17)",
       "editable": true,
-      "sha256": "1e0bda3c34601e1779de56d48fb6c0f71acfdd02c31a02919d930cdfda62e6ee"
+      "sha256": "345698432770e5100b5579cc8680b51e804ecc738eb2fb360a27145fdb02415f"
     },
     {
-      "path": "specimens/tectra.css",
+      "path": "kits/tectra/specimen.css",
       "role": {
         "kind": "family-reference",
         "family": "tectra"
       },
       "status": "Approved (owner, 2026-10-17)",
       "editable": true,
-      "sha256": "0bb382a1551c1505e246d0cd03b2f38ed265aaefb6483f614391a8fc452eb028"
+      "sha256": "1cad46b581869013d55a3a375b878e7296c1175a65a06ea954f88de23f3d6744"
     }
   ],
   "app_icons": [
     {
-      "path": "icons/cosmik.ico",
+      "path": "kits/cosmik/icons/cosmik.ico",
       "role": {
         "kind": "app-icon",
         "variant": "primary",
@@ -1697,7 +1697,7 @@
       "sha256": "ff71098b9f73f51666501d2ae0c420259d953ccc8df819682d048843fcda26d4"
     },
     {
-      "path": "icons/cosmik.icns",
+      "path": "kits/cosmik/icons/cosmik.icns",
       "role": {
         "kind": "app-icon",
         "variant": "primary",
@@ -1716,7 +1716,7 @@
       "sha256": "44f7cb09a374a7c68d1a52d229af806765fa3ebb99a56b9a71844fb7795a3ae2"
     },
     {
-      "path": "icons/cosmik-512.png",
+      "path": "kits/cosmik/icons/cosmik-512.png",
       "role": {
         "kind": "app-icon",
         "variant": "primary",
@@ -1731,7 +1731,7 @@
       "sha256": "bc2e808cbf5ba5c7af3ebf281314bbaefa39c182bc9f197ee1d92f8d9dbc8ffd"
     },
     {
-      "path": "icons/cosmik-apple-touch-180.png",
+      "path": "kits/cosmik/icons/cosmik-apple-touch-180.png",
       "role": {
         "kind": "apple-touch-icon",
         "variant": "primary",
@@ -1748,28 +1748,28 @@
   ],
   "tokens": [
     {
-      "path": "tokens/cosmik/source.json",
+      "path": "kits/cosmik/tokens/source.json",
       "role": {
         "kind": "tokens",
         "kit": "cosmik",
         "format": "source"
       },
       "status": "baseline source, approved",
-      "sha256": "08d87805825fb27969bd7d59548f8d73645d3612163ccc5cc0ce9a2b20caf193",
+      "sha256": "e1def5892fe886f3333fd3e870b0d61be3f65b2198e553ec6c23f3b439f9d4ee",
       "editable": true
     },
     {
-      "path": "tokens/cosmik/cosmik.css",
+      "path": "kits/cosmik/tokens/cosmik.css",
       "role": {
         "kind": "tokens",
         "kit": "cosmik",
         "format": "css"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "6f81628930223d4870729df6d8990306d47618c0072393baeb35020db4a44573"
+      "sha256": "745e779d89e01ec8504da80530871b4131bf5c84dfd5a6496d38ce317fb27905"
     },
     {
-      "path": "tokens/cosmik/cosmik.json",
+      "path": "kits/cosmik/tokens/cosmik.json",
       "role": {
         "kind": "tokens",
         "kit": "cosmik",
@@ -1777,51 +1777,51 @@
         "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "ef1b61e043aca3396e59c92f1444b1245915c3336926130337d1a165a7cc3c76"
+      "sha256": "f940abd0189b393aa690e60582c941a279535e9b8e8c4e3aa500de0ae78f9414"
     },
     {
-      "path": "tokens/cosmik/cosmik.tokens.json",
+      "path": "kits/cosmik/tokens/cosmik.tokens.json",
       "role": {
         "kind": "tokens",
         "kit": "cosmik",
         "format": "dtcg"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "0aa35d4d8390d4dfe8fe0f1a2bf6f45752742b385ff7f6ac97f6f03df0db7aec"
+      "sha256": "45dbcde765ef2b7767134c33618f2a9d9e511619138f9bd0a29a804d9e4f878e"
     },
     {
-      "path": "tokens/cosmik/cosmik_tokens.rs",
+      "path": "kits/cosmik/tokens/cosmik_tokens.rs",
       "role": {
         "kind": "tokens",
         "kit": "cosmik",
         "format": "rust"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "40f147122c6295f9df5bcd95d9b214117488287773d7ad24df8a7f176ea2ddc5"
+      "sha256": "50af5cf1aaf27aa55847c950a5c4f27c5e23c92b5342136469b3c21b2335ba32"
     },
     {
-      "path": "tokens/hplx/family.json",
+      "path": "kits/hplx/tokens/family.json",
       "role": {
         "kind": "tokens",
         "kit": "hplx",
         "format": "source"
       },
       "status": "HPLX family source, approved (owner, 2026-10-15)",
-      "sha256": "b0ef578ae2cd3056c3271a7c98508b133508f8a978ed9014cfc02c5301c5fe49",
+      "sha256": "6cf57d92379c31dcb9af9f6829074eb9c42af6ccec6b642a8f6aa90d0c4b5580",
       "editable": true
     },
     {
-      "path": "tokens/hplx/hplx.css",
+      "path": "kits/hplx/tokens/hplx.css",
       "role": {
         "kind": "tokens",
         "kit": "hplx",
         "format": "css"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "579e031f79b70a12a1cfa8254d467586addfe8a2e58a05c446812edce307e0e9"
+      "sha256": "04e19c786c2e9f375739e57156c7b36a56eae57ea741cae672debe87f7253055"
     },
     {
-      "path": "tokens/hplx/hplx.json",
+      "path": "kits/hplx/tokens/hplx.json",
       "role": {
         "kind": "tokens",
         "kit": "hplx",
@@ -1829,77 +1829,77 @@
         "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "c3959b1a7c52b0a7915f93da24a176c55295fe76d1be5b7b6d01d0ee6a98bcd6"
+      "sha256": "446ba8db1da19861dc8434d17b84cd84246f0cd53657825cb17078d14097f2b4"
     },
     {
-      "path": "tokens/hplx/hplx.tokens.json",
+      "path": "kits/hplx/tokens/hplx.tokens.json",
       "role": {
         "kind": "tokens",
         "kit": "hplx",
         "format": "dtcg"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "173738377fa769546ff5ce2175816108b449bca483c56963f41dbd8a02332099"
+      "sha256": "016e26daa292d270364ddcca8449b557b2997ae2ba156d0af86b6aad3dccb273"
     },
     {
-      "path": "tokens/hplx/hplx_tokens.rs",
+      "path": "kits/hplx/tokens/hplx_tokens.rs",
       "role": {
         "kind": "tokens",
         "kit": "hplx",
         "format": "rust"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "5e9d1584573c40c5d68b6c838294f944ecb910f14b930699fa6daf1b04319ab2"
+      "sha256": "19e898acb57fbacdc657d0b64ef95c9349558418c5ea744a3d43cc7514982995"
     },
     {
-      "path": "tokens/tectra/family.json",
+      "path": "kits/tectra/tokens/family.json",
       "role": {
         "kind": "tokens",
         "kit": "tectra",
         "format": "source"
       },
-      "sha256": "595b8177b7688ce7e50db134774f7604a586c518f97342a8d4046a1b95e01b3f",
+      "sha256": "73b3ffa1897caf1b74b6f69aff79ba518d1d31463b552330fb64492c36f459ed",
       "editable": true,
       "status": "Approved (owner, 2026-10-17)"
     },
     {
-      "path": "tokens/tectra/tectra.css",
+      "path": "kits/tectra/tokens/tectra.css",
       "role": {
         "kind": "tokens",
         "kit": "tectra",
         "format": "css"
       },
-      "sha256": "1a0b5bba3ebc83e072db48659a42f8afdc172d896c67b3c16b1822971a82f9c9",
+      "sha256": "eaff95e1c539de8cead93a3670a38d6e7d560bcdfebdaef2d3d161f89578c26d",
       "generated_by": "scripts/generate-tokens.mjs"
     },
     {
-      "path": "tokens/tectra/tectra.json",
+      "path": "kits/tectra/tokens/tectra.json",
       "role": {
         "kind": "tokens",
         "kit": "tectra",
         "format": "json"
       },
-      "sha256": "6b5422f1be49b7c54fe770e96c4d647f0f63dc1c7791cf011226939b11b2c244",
+      "sha256": "bff3542c689a0c5a7966952a94f904cdb6f94cef99dd8bba3f6fbf09ed062d8d",
       "generated_by": "scripts/generate-tokens.mjs"
     },
     {
-      "path": "tokens/tectra/tectra.tokens.json",
+      "path": "kits/tectra/tokens/tectra.tokens.json",
       "role": {
         "kind": "tokens",
         "kit": "tectra",
         "format": "dtcg"
       },
-      "sha256": "2060de7dbae0d7ae126fec0a0137aa389d1fcb91e1582ceb6d2f316818bc906d",
+      "sha256": "c51853fa0dcd66ff684d3f45a9fbeffdc17e97c8307da5e9f3d10c538b462ad7",
       "generated_by": "scripts/generate-tokens.mjs"
     },
     {
-      "path": "tokens/tectra/tectra_tokens.rs",
+      "path": "kits/tectra/tokens/tectra_tokens.rs",
       "role": {
         "kind": "tokens",
         "kit": "tectra",
         "format": "rust"
       },
-      "sha256": "3a8369154a99b2f571ae98ef4d0417d81bfb83368e60318d67860fccbf457b0d",
+      "sha256": "c947697c2da9f02e5b02bb499a33b070f0e0b6ac6a71a7ed4292e76b74e31579",
       "generated_by": "scripts/generate-tokens.mjs"
     }
   ],
@@ -2048,7 +2048,7 @@
       "name": "HPLX Glimmer",
       "status": "Official symbol approved (owner, 2026-10-17)",
       "theme_status": "Approved (owner, 2026-10-15), unchanged",
-      "source": "assets/hplx/glimmer.source.json",
+      "source": "kits/hplx/assets/glimmer.source.json",
       "lockup": "Approved horizontal Spectral SemiBold outlined lockup",
       "historical": "Ember and its former lockups/icons are deprecated; retained for existing consumers.",
       "symbol": "Glimmer",
@@ -2065,7 +2065,7 @@
     "status": "approved angle-only Latch",
     "assets": [
       {
-        "path": "assets/tectra/tectra-latch-black.svg",
+        "path": "kits/tectra/assets/tectra-latch-black.svg",
         "sha256": "668d62bba6061fadfeb52cdc930850c1cac4b5c951a2300771ecb3c183be821a",
         "generated_by": "scripts/build-tectra-assets.mjs",
         "viewBox": [
@@ -2082,7 +2082,7 @@
         ]
       },
       {
-        "path": "assets/tectra/tectra-latch-currentColor.svg",
+        "path": "kits/tectra/assets/tectra-latch-currentColor.svg",
         "sha256": "8c67852558bd2a098441e43e9e588b000ba061eb51c7d2c96c09d075a56e11b3",
         "generated_by": "scripts/build-tectra-assets.mjs",
         "viewBox": [
@@ -2099,7 +2099,7 @@
         ]
       },
       {
-        "path": "assets/tectra/tectra-latch-dark.svg",
+        "path": "kits/tectra/assets/tectra-latch-dark.svg",
         "sha256": "7cd0e0eb53e3c92b2f141264401528dacadb7d6ab2698f506cdaf4e711c0cd67",
         "generated_by": "scripts/build-tectra-assets.mjs",
         "viewBox": [
@@ -2116,7 +2116,7 @@
         ]
       },
       {
-        "path": "assets/tectra/tectra-latch-light.svg",
+        "path": "kits/tectra/assets/tectra-latch-light.svg",
         "sha256": "0126bc0d37f29b230ddcbde98c3e02785d7c626c79170709dbd60e7bfeeb3ea8",
         "generated_by": "scripts/build-tectra-assets.mjs",
         "viewBox": [
@@ -2133,7 +2133,7 @@
         ]
       },
       {
-        "path": "assets/tectra/tectra-latch-white.svg",
+        "path": "kits/tectra/assets/tectra-latch-white.svg",
         "sha256": "621a1ac71204c3a9f9fa76d7c164fcf71285b062e31d93dcd4e0a3155cdeb6f9",
         "generated_by": "scripts/build-tectra-assets.mjs",
         "viewBox": [
@@ -2150,7 +2150,7 @@
         ]
       },
       {
-        "path": "assets/tectra/tectra-lockup-black.svg",
+        "path": "kits/tectra/assets/tectra-lockup-black.svg",
         "sha256": "b97fa8e9b0fed8b0c9858fa0bd155d6fc8e537b5515fa2a358b65be1b8d0ad6e",
         "generated_by": "scripts/build-tectra-assets.mjs",
         "viewBox": [
@@ -2167,7 +2167,7 @@
         ]
       },
       {
-        "path": "assets/tectra/tectra-lockup-currentColor.svg",
+        "path": "kits/tectra/assets/tectra-lockup-currentColor.svg",
         "sha256": "5f1f90030dc8e636ef725eb297a424d9520b4e56b638e8a5edeed3c89618f637",
         "generated_by": "scripts/build-tectra-assets.mjs",
         "viewBox": [
@@ -2184,7 +2184,7 @@
         ]
       },
       {
-        "path": "assets/tectra/tectra-lockup-dark.svg",
+        "path": "kits/tectra/assets/tectra-lockup-dark.svg",
         "sha256": "4d970a4469d45b165c451d1438ff5ced2c8236ad2932bac696afa4b6ad5d57c6",
         "generated_by": "scripts/build-tectra-assets.mjs",
         "viewBox": [
@@ -2201,7 +2201,7 @@
         ]
       },
       {
-        "path": "assets/tectra/tectra-lockup-light.svg",
+        "path": "kits/tectra/assets/tectra-lockup-light.svg",
         "sha256": "1344a3d80aed6d39f8c25901ae6cdd8d17ab5f7a873824ca9e402aa5fb9e3876",
         "generated_by": "scripts/build-tectra-assets.mjs",
         "viewBox": [
@@ -2218,7 +2218,7 @@
         ]
       },
       {
-        "path": "assets/tectra/tectra-lockup-white.svg",
+        "path": "kits/tectra/assets/tectra-lockup-white.svg",
         "sha256": "48826160f8f6808ba6c6ff65720953aa3842a1aa0f065c83e1116c2e4a8993dd",
         "generated_by": "scripts/build-tectra-assets.mjs",
         "viewBox": [
@@ -2235,7 +2235,7 @@
         ]
       },
       {
-        "path": "assets/tectra/latch.source.json",
+        "path": "kits/tectra/assets/latch.source.json",
         "sha256": "7fe5d7a8412289b87d1491b2ed76f4b14b74720453fc5b56273d51b4e78a9244",
         "editable": true
       }
@@ -2243,7 +2243,7 @@
   },
   "glimmer_assets": [
     {
-      "path": "assets/hplx/hplx-glimmer-black.svg",
+      "path": "kits/hplx/assets/hplx-glimmer-black.svg",
       "sha256": "512289d25e9ce2512f4ed44bd4ee14b328d0adc75aaf0af52fd028243503ede3",
       "generated_by": "scripts/build-glimmer-assets.mjs",
       "viewBox": [
@@ -2260,7 +2260,7 @@
       ]
     },
     {
-      "path": "assets/hplx/hplx-glimmer-currentColor.svg",
+      "path": "kits/hplx/assets/hplx-glimmer-currentColor.svg",
       "sha256": "87bf9db1ea1300f7e4c0a9bf8cbd624bd945c2d8b205dbaafbe993a98cb7e3b3",
       "generated_by": "scripts/build-glimmer-assets.mjs",
       "viewBox": [
@@ -2277,7 +2277,7 @@
       ]
     },
     {
-      "path": "assets/hplx/hplx-glimmer-dark.svg",
+      "path": "kits/hplx/assets/hplx-glimmer-dark.svg",
       "sha256": "4e62f4c11e5e84ec17d7d0705aba472767596aede653f4211a4dfeca26b680d7",
       "generated_by": "scripts/build-glimmer-assets.mjs",
       "viewBox": [
@@ -2294,7 +2294,7 @@
       ]
     },
     {
-      "path": "assets/hplx/hplx-glimmer-light.svg",
+      "path": "kits/hplx/assets/hplx-glimmer-light.svg",
       "sha256": "7e19dd4f686c248b174831f569b94b71247e673ff5db1dbea7a767b2c6ef45e0",
       "generated_by": "scripts/build-glimmer-assets.mjs",
       "viewBox": [
@@ -2311,7 +2311,7 @@
       ]
     },
     {
-      "path": "assets/hplx/hplx-glimmer-lockup-black.svg",
+      "path": "kits/hplx/assets/hplx-glimmer-lockup-black.svg",
       "sha256": "e9d1a2cfbbfbfd26e6257330eae5638da118231db15da25b6ce89f90a569833f",
       "generated_by": "scripts/build-glimmer-assets.mjs",
       "viewBox": [
@@ -2328,7 +2328,7 @@
       ]
     },
     {
-      "path": "assets/hplx/hplx-glimmer-lockup-currentColor.svg",
+      "path": "kits/hplx/assets/hplx-glimmer-lockup-currentColor.svg",
       "sha256": "447070d695965df9ef4216e5c395c42dbc0a64ea0d844127fd4be1028d72ca9a",
       "generated_by": "scripts/build-glimmer-assets.mjs",
       "viewBox": [
@@ -2345,7 +2345,7 @@
       ]
     },
     {
-      "path": "assets/hplx/hplx-glimmer-lockup-dark.svg",
+      "path": "kits/hplx/assets/hplx-glimmer-lockup-dark.svg",
       "sha256": "0c96db08d97f510e519ab24356b92f0fe9b56ba4a1f9cb7d2704ece34121ef3d",
       "generated_by": "scripts/build-glimmer-assets.mjs",
       "viewBox": [
@@ -2362,7 +2362,7 @@
       ]
     },
     {
-      "path": "assets/hplx/hplx-glimmer-lockup-light.svg",
+      "path": "kits/hplx/assets/hplx-glimmer-lockup-light.svg",
       "sha256": "a333d34d5a8a8c12369ece1646b9c5f7e1b06f9a0dd18d46c69855fa75fd94e7",
       "generated_by": "scripts/build-glimmer-assets.mjs",
       "viewBox": [
@@ -2379,7 +2379,7 @@
       ]
     },
     {
-      "path": "assets/hplx/hplx-glimmer-lockup-white.svg",
+      "path": "kits/hplx/assets/hplx-glimmer-lockup-white.svg",
       "sha256": "80cbad23c6ef6af3d41454a4e420b14d17687ac06619ac1363981e97f08eba52",
       "generated_by": "scripts/build-glimmer-assets.mjs",
       "viewBox": [
@@ -2396,7 +2396,7 @@
       ]
     },
     {
-      "path": "assets/hplx/hplx-glimmer-white.svg",
+      "path": "kits/hplx/assets/hplx-glimmer-white.svg",
       "sha256": "fd20079b4f735a8242438e095da14f4c981f25397c80343c776f9424606473b5",
       "generated_by": "scripts/build-glimmer-assets.mjs",
       "viewBox": [
@@ -2413,12 +2413,12 @@
       ]
     },
     {
-      "path": "assets/hplx/glimmer.source.json",
+      "path": "kits/hplx/assets/glimmer.source.json",
       "sha256": "1857e5d361852d8386aeaf75c457ae58c3ce09f6b3db5de3c406e917612372d8",
       "editable": true
     },
     {
-      "path": "assets/hplx/EMBER-HISTORICAL.md",
+      "path": "kits/hplx/EMBER-HISTORICAL.md",
       "sha256": "d0167d252bc761feb123299940e3c194fd78325c63a662077db8d21e7c71ab27",
       "editable": true
     }

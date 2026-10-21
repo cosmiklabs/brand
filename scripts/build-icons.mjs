@@ -9,9 +9,9 @@ import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const kits = [
-  {name:'cosmik', prefix:'assets/vector/png/cosmik-emblem-primary'},
+  {name:'cosmik', kit:'cosmik', prefix:'kits/cosmik/assets/vector/png/cosmik-emblem-primary'},
   // HPLX's icon sizes up to 48 px use its optical redraw; larger ones the faithful renders.
-  {name:'hplx-ember', prefix:'assets/hplx/png/hplx-ember-primary', small:{prefix:'assets/hplx/png/hplx-ember-small', sizes:[16, 24, 32, 48]}},
+  {name:'hplx-ember', kit:'hplx', prefix:'kits/hplx/assets/png/hplx-ember-primary', small:{prefix:'kits/hplx/assets/png/hplx-ember-small', sizes:[16, 24, 32, 48]}},
 ];
 
 // ---- Minimal PNG codec: 8-bit RGBA or RGB, non-interlaced ----
@@ -97,9 +97,9 @@ function downsample({ width, height, px }, size) {
 }
 
 // ---- Outputs ----
-for (const {name, prefix, small} of kits) {
+for (const {name, kit, prefix, small} of kits) {
 const render = size => fs.readFileSync(path.join(root, `${small?.sizes.includes(size) ? small.prefix : prefix}-${size}.png`));
-const out = (suffix, bytes) => fs.writeFileSync(path.join(root, 'icons', `${name}${suffix}`), bytes);
+const out = (suffix, bytes) => fs.writeFileSync(path.join(root, 'kits', kit, 'icons', `${name}${suffix}`), bytes);
 const master = decodePng(render(1024));
 const png512 = encodePng(downsample(master, 512));
 out('-512.png', png512);
@@ -128,5 +128,5 @@ const icnsHead = Buffer.alloc(8); icnsHead.write('icns', 0, 'latin1');
 icnsHead.writeUInt32BE(8 + elements.reduce((n, e) => n + e.length, 0), 4);
 out('.icns', Buffer.concat([icnsHead, ...elements]));
 
-console.log(`Generated icons/${name}.ico (${icoSizes.join('/')}), ${name}.icns, ${name}-512.png and ${name}-apple-touch-180.png from the plate variant.`);
+console.log(`Generated kits/${kit}/icons/${name}.ico (${icoSizes.join('/')}), ${name}.icns, ${name}-512.png and ${name}-apple-touch-180.png from the plate variant.`);
 }

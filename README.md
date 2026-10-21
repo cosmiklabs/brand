@@ -1,95 +1,91 @@
 # Cosmik brand kit
 
-Brand kit 0.3.0 (8 October 2026), tagged `v0.3.0`. See [CHANGELOG.md](CHANGELOG.md).
+Brand kit 0.4.0 (21 October 2026), tagged `v0.4.0`. See [CHANGELOG.md](CHANGELOG.md).
 
-Start with the [brand guide](guide/README.md).
-This package turns the visual direction into a practical identity and product-reference system. It is published for reference and implementation trials; it is not a claim that every production asset, legal permission, or accessibility check is complete.
+The identity system for Cosmik and its product families: the rules in the
+[guide](guide/README.md), and per-kit tokens, marks and icons generated from one
+source each. Published for reference and implementation; it does not claim every
+production asset, legal permission or accessibility check is complete.
 
-## Start here
+## Kits
 
-1. Read the [brand guide](guide/README.md): the rules and judgement behind the identity, in Markdown. The earlier Word/PDF guide (v0.2) is in `guide/archive/`.
-2. Use `assets/vector/cosmik-emblem-master-offwhite.svg` as the accepted standalone emblem master. `cosmik-emblem-ink.svg` reverses the same geometry; `cosmik-emblem-primary.svg` includes the original black canvas. PNG sizes are in `assets/vector/png/`.
-3. Keep the approved original horizontal banner. Its vector lockup (`assets/vector/cosmik-lockup-*.svg`: the accepted emblem beside the outlined COSMIK wordmark) is the reusable logo. No supporting font is an identified match for the wordmark. Where a product UI needs a small identity instead, use the emblem followed by the live label “Cosmik” in Inter 500 (type role `identity-label`, 20 px / 1.3, tracking 0).
-4. Open `specimens/components.html` locally and use the kit selector to compare the approved baseline and the approved HPLX family in dark/light themes. CSS, script, and fonts are local. It has no submission, storage, analytics, or network behavior.
-5. Copy `templates/cosmik-technical-note-template.docx` for a new document. Install the bundled desktop fonts first, replace bracketed content, and review the PDF export.
+Each kit lives in one folder with its tokens, marks, icons, specimens and evidence.
+A product consumes its family's kit; the organisation's own surfaces consume the
+baseline. Family files already include the baseline's values.
 
-## Status and source of truth
+| Kit | For | Status | Start with |
+| --- | --- | --- | --- |
+| [cosmik](kits/cosmik/README.md) | Cosmik itself: website, profile, documents | Approved 2026-10-07 | `kits/cosmik/tokens/cosmik.css` |
+| [hplx](kits/hplx/README.md) | The HPLX engine, reimplementations, app and editor | Approved 2026-10-15 | `kits/hplx/tokens/hplx.css` |
+| [tectra](kits/tectra/README.md) | Tectra, the agent-driven construction authoring product | Approved 2026-10-17 | `kits/tectra/tokens/tectra.css` |
 
-- Accepted: traced standalone emblem geometry, based on the approved original. Dark/light SVGs share the same path.
-- Approved references: original square and banner PNG compositions, unchanged. Their source names and checksums are in `asset-manifest.json`.
-- **Approved baseline (owner, 2026-10-07):** typography, the semantic dark/light roles, layout and component rules, as generated in `tokens/cosmik/`. The baseline is monochrome: no accent colour, status in words.
-- **Family kits:** product families may have their own style on top of the baseline, under rules the build enforces (`tokens/README.md`). The **HPLX** family (`tokens/hplx/`) was approved by the owner on 2026-10-15.
-- Accepted (owner, 2026-10-11): the vector lockup, traced from the approved banner by `scripts/trace-cosmik-lockup.mjs` (geometry in `assets/vector/cosmik-lockup.source.json`, evidence in `references/lockup-qa.json` and `lockup-trace-overlay.png`). The wordmark overlaps the banner by 99.1% with every edge within 1 px. The emblem is the accepted master, which differs slightly from the banner's own drawing (93.6% overlap; its horn tips and inner flare).
-- Archive: earlier generated light PNGs. They differ geometrically and are not current masters.
-- Incomplete (known gaps, also recorded in `asset-manifest.json`): optically optimized tiny icon, print-process proofs, and remaining browser/accessibility QA.
+[kits/README.md](kits/README.md) explains the token formats, the family contract the
+build enforces, and how to use a kit on the web and in native code.
 
-Do not redraw, stretch, rotate, crop into the flare, add effects, or recreate the COSMIK wordmark with Inter. The live “Cosmik” interface label is a separate, specified typographic treatment.
+## Layout
 
-## Package map
+| Path | Holds |
+| --- | --- |
+| `guide/` | The brand guide: rules and judgement, never values (the v0.2 Word/PDF guide is in `guide/archive/`) |
+| `kits/<kit>/` | One kit: `tokens/` (source plus generated CSS, JSON, DTCG JSON, Rust), `assets/`, `icons/`, specimens and validation |
+| `fonts/` | Supporting typefaces for desktop and web, with their licence notices |
+| `specimens/` | The offline component reference, with a selector across every kit |
+| `templates/` | The editable technical-note template and its proof |
+| `scripts/`, `tests/` | The build, checks and tests (Node.js only, no packages) |
+| `asset-manifest.json` | Entry points, roles, font lists, known gaps and a SHA-256 for every listed file |
 
-- `assets/approved-raster/`: original selected square and banner
-- `assets/vector/`: accepted emblem SVGs, the traced lockup, full renders, and named pixel-size exports
-- `assets/archive/`: prior generated alternatives for reference
-- `tokens/`: one folder per kit. `cosmik/` is the baseline (`source.json` plus generated CSS, JSON, W3C DTCG JSON and Rust constants); `hplx/` is the HPLX family (`family.json` plus the same outputs). `tokens/README.md` explains both and the family contract.
-- `icons/`: app icons generated from the plate variant (`cosmik.ico`, `cosmik.icns`, 512 px PNG, 180 px apple-touch PNG)
-- `fonts/desktop/`, `fonts/web/`, `fonts/licenses/`: actual supporting typefaces and notices
-- `specimens/`: compact offline component reference in both themes
-- `guide/`: the brand guide in Markdown (rules only; values live in `tokens/`), with the v0.2 Word/PDF guide in `guide/archive/`
-- `templates/`: two-page editable technical-note template, proof PDF, and usage notes
-- `scripts/`: `build.mjs` (regenerate everything) and `check.mjs` (contrast, hashes and font-notice regression checks), `check-browser.mjs` (headless Chromium), and the scripts they run
-- `asset-manifest.json`: entry points, roles, web/desktop font lists, known gaps and SHA-256 for every listed file
-- `LICENSE.md`: the licence (MIT for tooling and tokens) and the brand-use policy for the marks
-- `references/`: validation results, remaining tests, and vector source/trace evidence
+## Using a kit
 
-For raster exports, the numeric suffix is the full canvas width and height in physical pixels. Display a 96 px export at 48 CSS px for a 2× source. Export names do not promise an optical redesign at small sizes. SVGs preserve the 1254-square source composition and its clear space.
+Pin an exact release; never track `main`. Releases use semver tags `vX.Y.Z`
+(`version` in `asset-manifest.json` and `kits/cosmik/tokens/source.json`).
 
-## Tokens and verification
+- **Vendor files from a tagged release** (best for websites and design tools): copy
+  the files you use (`entry_points` in the manifest names them) and check them
+  against the manifest's SHA-256 hashes.
+- **Git submodule** at a tag (`git submodule add https://github.com/cosmiklabs/brand vendor/brand`):
+  best when a build reads files from the kit directly.
+- **Git subtree** (`git subtree add --prefix vendor/brand https://github.com/cosmiklabs/brand vX.Y.Z --squash`):
+  files live in the consumer's history, so clones need no submodule step.
 
-Use semantic roles, not individual colour values: both modes of every kit map every surface, foreground, interaction, input, focus and status role. Paper is #F6F5F0 to match the accepted emblem fill.
+Consume only generated outputs and listed assets, and keep the font licence files
+with any font you ship. Web and Rust usage is in [kits/README.md](kits/README.md).
 
-From the repository root, with Node.js 22+ and no third-party packages:
+## Working on the kit
 
-- `node scripts/build.mjs` regenerates every kit's tokens, the app icons and the Plex Mono and Spectral WOFF2 files, then refreshes the generated files' hashes in `asset-manifest.json`;
-- `node scripts/check.mjs` checks every kit's contrast pairs (each kit passes the baseline's; a family adds pairs for its own roles), verifies every hash in the manifest, and tests that font notices cannot be omitted or silently rehashed;
-- `node scripts/check-browser.mjs` checks the specimen in an installed Chromium browser. Set `BRAND_BROWSER` to its executable path; optionally set `BRAND_SCREENSHOTS` to an output folder for review images.
+Requires Node.js 22+ and no third-party packages.
 
-`.gitattributes` keeps text files LF on every platform, so hashes and regenerated output match the committed bytes.
+```sh
+npm run build                # regenerate every kit, icon and web font, refresh manifest hashes
+npm run check                # contrast pairs for every kit, every manifest hash, every test
+npm test                     # the tests alone
+npm run check:browser        # specimens in Chromium; set BRAND_BROWSER to its executable
+npm run check:reproducible   # rebuild and fail if any committed file differs
+```
 
-Completed in the 0.2.0 review: twelve guide pages and two template pages visually reviewed; correct Inter SemiBold verified in both PDFs; original raster byte checks; real SVG path/source checks; reproducible CSS/JSON; contrast-pair checks. Since then: contrast checks for every kit (see CHANGELOG).
+Edit only sources (`source.json`, `family.json`, `*.source.json`); generated files
+are overwritten by the build. `.gitattributes` keeps text LF on every platform so
+hashes match the committed bytes. [CI](.github/workflows/check.yml) runs the
+reproducibility check, `check` and the browser check. Owner decisions and release
+steps are in [governance](guide/governance.md).
 
-Headless Chrome and Edge checks now cover both kits, nested themes, fonts, responsive widths, 200% root text size and the specimen interactions. Full browser zoom, assistive technologies and other browser engines remain to be checked; see `references/component-validation.md`. Guide component figures are drawn specifications, not screenshots. These results do not certify a future product.
+Browser checks cover every kit's specimen in both themes, nested themes, fonts,
+responsive widths, 200% text and the specimen interactions. Full browser zoom,
+assistive technologies and other engines still need manual review
+([specimen validation](specimens/validation.md)); these checks do not certify a
+product built with the kit.
 
 ## Fonts and rights
 
-Inter desktop files come from the official Inter 4.1 release; internal font version is 4.001. IBM Plex Mono Regular has internal version 2.005. Spectral SemiBold is also bundled for the HPLX family headings. All three families are provided under SIL OFL 1.1; preserve the included notices when distributing font files. No typeface match or external rights clearance for the original wordmark is asserted.
+Inter (4.1 release, internal version 4.001), IBM Plex Mono Regular (2.005) and
+Spectral SemiBold (for HPLX headings) are bundled under SIL OFL 1.1; preserve the
+notices in `fonts/licenses/` when distributing font files. Sources:
+[Inter](https://rsms.me/inter/download/),
+[Plex](https://github.com/IBM/plex/tree/master/packages/plex-mono),
+[Spectral](https://github.com/google/fonts/tree/main/ofl/spectral). No typeface
+match or rights clearance for the original wordmark is asserted.
 
-- Inter: https://rsms.me/inter/download/
-- Plex: https://github.com/IBM/plex/tree/master/packages/plex-mono
-- Spectral: https://github.com/google/fonts/tree/main/ofl/spectral
-
-[LICENSE.md](LICENSE.md) sets the terms: tooling and token data under MIT, the emblem, wordmark and name under a trademark-style policy (official Cosmik projects ship them unmodified; forks remove them), and the fonts under their own OFL. Publishing this repository grants no other brand-asset reuse. A software repository's code license does not automatically resolve brand-artwork permissions. Keep upstream creator and license credits separate from Cosmik's endorsement.
-
-## Consuming the kit
-
-Pin an exact version; never track `main`. The kit is versioned with semver (`version` in `asset-manifest.json` and `tokens/cosmik/source.json`); releases use git tags `vX.Y.Z`. The first tagged release is `v0.3.0`.
-
-- **Tagged release archive** (recommended for the website and design tools): download the archive for a tag and vendor the files you use (`entry_points` in `asset-manifest.json` names them). Check them with the listed SHA-256 hashes.
-- **Git submodule** at a tagged commit (`git submodule add https://github.com/cosmiklabs/brand vendor/brand`, then check out the tag): best when a build reads files from the kit directly. Update by moving the submodule to a newer tag.
-- **Git subtree** (`git subtree add --prefix vendor/brand https://github.com/cosmiklabs/brand vX.Y.Z --squash`): the files live in the consumer's history, so clones need no submodule step.
-
-Whichever you use, consume only generated outputs and listed assets, and keep the font licence files with any font you ship. A product in a family consumes that family's kit (`tokens/<family>/`); the organisation's own surfaces consume the baseline (`tokens/cosmik/`).
-
-**Rust consumers** (desktop app, in-game editor; Bevy UI or egui):
-
-- Compile-time constants: include the kit's Rust file (`tokens/hplx/hplx_tokens.rs` for an HPLX product) from a submodule or subtree with `#[path]`, or copy it into the crate at a pinned version. It has no dependencies; convert `srgb` arrays to `bevy::color::Color::srgba` or the hex bytes to `egui::Color32`.
-- Data at runtime or in `build.rs`: parse the kit's JSON (`tokens/hplx/hplx.json`) → `native` with `serde_json` (px, fractions, ms, bezier points, sRGB and linear floats); useful if a theme should be swappable without a rebuild.
-- Fonts: load `fonts/desktop/*.ttf` (Bevy and egui both take TTF bytes, for example with `include_bytes!`). Icons: `icons/cosmik.ico` for the Windows executable resource, `icons/cosmik-512.png` for a window icon, `icons/cosmik.icns` for a macOS bundle.
-- Use the `LIGHT`/`DARK` theme roles in UI code, never primitives directly, as on the web. A family's files already include the baseline's values.
-
-## Publishing
-
-This repository is the home of the Cosmik brand kit (0.3.0). The current Markdown guide and per-kit token folders supersede the original package layout; earlier guide documents remain in `guide/archive/` as historical references. The organization profile remains in the separate `.github` repository.
-
-## Tectra family
-
-The mineral-and-teal theme was approved on 17 October 2026. Tectra inherits Inter headings and all baseline utility, layout and motion rules. The angle-corrected Latch symbol was approved on 17 October 2026. See [family source](tokens/tectra/family.json), [family guide](assets/tectra/README.md) and [offline review board](specimens/tectra.html). Canonical Latch assets are in `assets/tectra/`; rendered consumer accessibility QA is still required.
+[LICENSE.md](LICENSE.md) sets the terms: tooling and token data under MIT; the
+emblem, wordmark and name under a trademark-style policy (official Cosmik projects
+ship them unmodified; forks remove them); fonts under their own licences. A code
+licence does not resolve brand-artwork permissions. The organisation profile lives
+in the separate `.github` repository.

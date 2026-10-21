@@ -1,14 +1,16 @@
 /** Single-source generator (run through `node scripts/build.mjs`).
- * Reads tokens/cosmik/source.json (the baseline) and writes, beside it: cosmik.css, cosmik.json
+ * Reads kits/cosmik/tokens/source.json (the baseline) and writes, beside it: cosmik.css, cosmik.json
  * (with a `native` section), cosmik.tokens.json (W3C DTCG) and cosmik_tokens.rs. Then, for every
- * family kit tokens/<id>/family.json, merges it over the baseline under the family contract
- * (tokens/README.md) and writes <id>.css (scoped to [data-family="<id>"]), <id>.json,
+ * family kit kits/<id>/tokens/family.json, merges it over the baseline under the family contract
+ * (kits/README.md) and writes <id>.css (scoped to [data-family="<id>"]), <id>.json,
  * <id>.tokens.json and <id>_tokens.rs beside it. No third-party packages. */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-const tokensDir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'tokens');
-const baseline = JSON.parse(fs.readFileSync(path.join(tokensDir, 'cosmik', 'source.json'), 'utf8'));
+// Each kit lives in kits/<id>/; its token source and generated outputs are in kits/<id>/tokens/.
+const kitsDir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'kits');
+const tokensOf = (id) => path.join(kitsDir, id, 'tokens');
+const baseline = JSON.parse(fs.readFileSync(path.join(tokensOf('cosmik'), 'source.json'), 'utf8'));
 const ROOT_PX = 16;
 // Two-space JSON with numeric arrays kept on one line.
 const toJson = (value) => JSON.stringify(value, null, 2)
@@ -106,7 +108,7 @@ const nativeType = (t) => {
 const generate = (source, outDir, stem, scope) => {
   const write = (name, text) => fs.writeFileSync(path.join(outDir, name), text);
   const label = `${source.name} ${source.version} — ${/^Approved/.test(source.status) ? 'APPROVED' : 'PROPOSED'}`;
-  const from = scope ? `tokens/${scope}/family.json over tokens/cosmik/source.json` : 'tokens/cosmik/source.json';
+  const from = scope ? `kits/${scope}/tokens/family.json over kits/cosmik/tokens/source.json` : 'kits/cosmik/tokens/source.json';
 
   // ---- Validation and resolution ----
   const modes = {};
@@ -331,11 +333,11 @@ ${Object.entries(source.primitives).map(([k, v]) => `    pub const ${CONST(k)}: 
   return `${stem}: ${canonical.split('|').length} semantic roles × ${Object.keys(modes).length} complete modes`;
 };
 
-const summary = [generate(baseline, path.join(tokensDir, 'cosmik'), 'cosmik', null)];
-const familyIds = fs.readdirSync(tokensDir).filter((d) => fs.existsSync(path.join(tokensDir, d, 'family.json'))).sort();
+const summary = [generate(baseline, tokensOf('cosmik'), 'cosmik', null)];
+const familyIds = fs.readdirSync(kitsDir).filter((d) => fs.existsSync(path.join(tokensOf(d), 'family.json'))).sort();
 for (const id of familyIds) {
-  const family = JSON.parse(fs.readFileSync(path.join(tokensDir, id, 'family.json'), 'utf8'));
-  if (family.id !== id) throw new Error(`tokens/${id}/family.json declares id ${family.id}`);
-  summary.push(generate(familySource(family), path.join(tokensDir, id), id, id));
+  const family = JSON.parse(fs.readFileSync(path.join(tokensOf(id), 'family.json'), 'utf8'));
+  if (family.id !== id) throw new Error(`kits/${id}/tokens/family.json declares id ${family.id}`);
+  summary.push(generate(familySource(family), tokensOf(id), id, id));
 }
 console.log(`Generated css, json, tokens.json and _tokens.rs from one source per kit; ${summary.join('; ')}.`);

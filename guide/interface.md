@@ -27,7 +27,7 @@ Use explicit words: *Error*, *Saved*, *In development*. Pair important status wi
 
 ## Layout
 
-- A 4 px rhythm; the common steps and the gutter are in the [tokens](../tokens/README.md).
+- A 4 px rhythm; the common steps and the gutter are in the [tokens](../kits/README.md).
 - Choose one dominant alignment, and group related controls more tightly than unrelated sections.
 - Use two or three columns only when the content fits; a single column below the `compact` breakpoint (720 px), keeping every piece of content when columns stack.
 - Navigation and actions wrap cleanly, keeping their target sizes.

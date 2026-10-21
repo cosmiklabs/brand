@@ -1,7 +1,7 @@
 /** Builds the HPLX lockup: Ember centred above "HPLX" set in Spectral SemiBold, the letters as
  * outlines from the bundled font (SIL OFL 1.1), spaced by the font's advances and kerning plus the
- * source's tracking. Layout is in assets/hplx/hplx-lockup.source.json; Ember's geometry and colours
- * come from assets/hplx/ember.source.json. Node.js only. */
+ * source's tracking. Layout is in kits/hplx/assets/hplx-lockup.source.json; Ember's geometry and colours
+ * come from kits/hplx/assets/ember.source.json. Node.js only. */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -9,9 +9,9 @@ import { flatten, coverage, paintLayers, encodePng } from './vector-raster.mjs';
 import { readFont, advance, outline } from './font-outlines.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const dir = path.join(root, 'assets/hplx');
+const dir = path.join(root, 'kits/hplx/assets');
 const read = p => fs.readFileSync(path.join(root, p));
-const source = JSON.parse(read('assets/hplx/hplx-lockup.source.json'));
+const source = JSON.parse(read('kits/hplx/assets/hplx-lockup.source.json'));
 const ember = JSON.parse(read(source.symbol.source));
 const font = readFont(read(source.font.path));
 const [W, H] = source.canvas_px;

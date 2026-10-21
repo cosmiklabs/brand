@@ -147,7 +147,7 @@ try {
   // Every combination of distant, nearest and explicit themes, including both orders.
   await evaluate(`{const box=document.createElement('div');box.id='probes';document.body.append(box)}`);
   for (const family of ['hplx', 'tectra']) {
-  const colors = JSON.parse(fs.readFileSync(path.join(root, `tokens/${family}/${family}.json`), 'utf8')).semantic;
+  const colors = JSON.parse(fs.readFileSync(path.join(root, `kits/${family}/tokens/${family}.json`), 'utf8')).semantic;
   const rgb = hex => `rgb(${hex.slice(1).match(/../g).map(x=>parseInt(x,16)).join(', ')})`;
   for (const distant of ['dark','light']) for (const nearest of ['dark','light']) for (const explicit of ['', 'dark', 'light']) {
     await evaluate(`document.querySelector('#probes').innerHTML='<div data-theme="${distant}"><div data-theme="${nearest}"><div data-family="${family}" ${explicit ? `data-theme="${explicit}"` : ''} id="probe" style="background:var(--c-bg)"><div data-theme="light"><div data-theme="dark" id="inner" style="background:var(--c-bg);box-shadow:var(--c-elevation-2-shadow)">Probe</div></div></div></div></div>'`);
@@ -165,7 +165,8 @@ try {
   await cdp('Emulation.setEmulatedMedia', {features:[{name:'prefers-reduced-motion', value:'reduce'}]});
   assert.equal(await evaluate('getComputedStyle(document.querySelector(".loading-mark")).animationName'), 'none');
   assert.equal(await evaluate('getComputedStyle(document.querySelector("button")).transitionDuration'), '0s');
-  const fonts = await evaluate('[...document.fonts].map(f=>({family:f.family,weight:f.weight,status:f.status}))');
+  // Browsers load a face only when text uses it; ask every declared face to load so a broken source fails.
+  const fonts = await evaluate('Promise.all([...document.fonts].map(f=>f.load().then(()=>({family:f.family,weight:f.weight,status:f.status}),()=>({family:f.family,weight:f.weight,status:"error"}))))');
   assert.ok(fonts.every(f => f.status === 'loaded'), JSON.stringify(fonts));
   await cdp('Emulation.setEmulatedMedia', {features:[{name:'forced-colors', value:'active'}]});
   await evaluate('document.querySelector("#light-details").scrollIntoView()'); await shot('tectra-forced-colors');
@@ -174,7 +175,7 @@ try {
   // Tectra board: simulated enlarged text and a 320-CSS-px reflow viewport.
   // Viewport emulation is not a claim of actual browser zoom or assistive-tech testing.
   await cdp('Emulation.setEmulatedMedia', {features:[]});
-  await cdp('Page.navigate', {url:`http://127.0.0.1:${server.address().port}/specimens/tectra.html`});
+  await cdp('Page.navigate', {url:`http://127.0.0.1:${server.address().port}/kits/tectra/specimen.html`});
   for (let i=0;i<100;i++) { if(await evaluate('document.readyState === "complete" && !!document.querySelector(".diagram-legend")')) break; await pause(50); }
   await evaluate('document.fonts.ready.then(()=>true)');
   for (const width of [1280,768,390,320]) for (const scale of [100,200]) {

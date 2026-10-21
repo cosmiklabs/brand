@@ -7,9 +7,9 @@ import {decodePng, parsePath} from '../scripts/vector-raster.mjs';
 import {readFont} from '../scripts/font-outlines.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=p=>fs.readFileSync(path.join(root,p));
-const source=JSON.parse(read('assets/hplx/hplx-lockup.source.json'));
-const ember=JSON.parse(read('assets/hplx/ember.source.json'));
-const svgs=Object.fromEntries(['primary','amber','bone','ink'].map(v=>[v,read(`assets/hplx/hplx-lockup-${v}.svg`).toString()]));
+const source=JSON.parse(read('kits/hplx/assets/hplx-lockup.source.json'));
+const ember=JSON.parse(read('kits/hplx/assets/ember.source.json'));
+const svgs=Object.fromEntries(['primary','amber','bone','ink'].map(v=>[v,read(`kits/hplx/assets/hplx-lockup-${v}.svg`).toString()]));
 const shape=(svg,id)=>svg.match(new RegExp(`<path id="${id}" fill="([^"]+)" d="([^"]+)"`)).slice(1);
 
 test('every HPLX lockup variant shares one Ember and one outlined HPLX, as true vectors',()=>{
@@ -39,7 +39,7 @@ test('the HPLX lockup keeps Ember\'s colours: amber above bone, bone or ink alon
 
 test('HPLX lockup exports are the banner size and 1024 px wide; transparent ones have real alpha',()=>{
   for(const variant of Object.keys(svgs))for(const size of [[2172,724],[1024,341]]){
-    const {width,height,rgba}=decodePng(read(`assets/hplx/png/hplx-lockup-${variant}-${size.join('x')}.png`));
+    const {width,height,rgba}=decodePng(read(`kits/hplx/assets/png/hplx-lockup-${variant}-${size.join('x')}.png`));
     assert.deepEqual([width,height],size);
     const alphas=new Set();for(let i=3;i<rgba.length;i+=4)alphas.add(rgba[i]);
     if(variant==='primary')assert.deepEqual([...alphas],[255]);

@@ -10,7 +10,7 @@
 
 ## What a family may change
 
-A family kit is a file (`tokens/<family>/family.json`) that the build merges over the baseline. The build **refuses** a family that breaks these rules ([tokens/README.md](../tokens/README.md) has the detail):
+A family kit is a file (`kits/<family>/tokens/family.json`) that the build merges over the baseline. The build **refuses** a family that breaks these rules ([kits/README.md](../kits/README.md) has the detail):
 
 - **Must keep** every baseline role and both modes, and pass every baseline contrast pair.
 - **May change** the colour of any role, through its own palette, and the typeface of its heading roles.
@@ -21,7 +21,7 @@ Keep a family's genre imagery inside it: horror imagery belongs to a horror proj
 
 | Family | Kit | Status |
 |---|---|---|
-| HPLX | `tokens/hplx/` | Approved (2026-10-15): warm blacks and bone text, a lantern-amber accent, Spectral headings, status hues |
+| HPLX | `kits/hplx/tokens/` | Approved (2026-10-15): warm blacks and bone text, a lantern-amber accent, Spectral headings, status hues |
 
 ## Endorsement
 
@@ -33,7 +33,7 @@ Use Cosmik in prose and `cosmiklabs` as the handle. HPLX names the product famil
 
 ## Tectra family
 
-The mineral-and-teal theme was approved on 17 October 2026. Tectra inherits Inter headings and all baseline utility, layout and motion rules. The angle-corrected Latch symbol was approved on 17 October 2026. See [family source](../tokens/tectra/family.json), [family guide](../assets/tectra/README.md) and [offline review board](../specimens/tectra.html). Canonical Latch assets are in `assets/tectra/`; rendered consumer accessibility QA is still required.
+The mineral-and-teal theme was approved on 17 October 2026. Tectra inherits Inter headings and all baseline utility, layout and motion rules. The angle-corrected Latch symbol was approved on 17 October 2026. See [family source](../kits/tectra/tokens/family.json), [family guide](../kits/tectra/README.md) and [offline review board](../kits/tectra/specimen.html). Canonical Latch assets are in `kits/tectra/assets/`; rendered consumer accessibility QA is still required.
 
 Lead public-facing copy with creative benefits and the intended authoring workflow. Keep business-model facts in governance or relevant commercial details, not hero labels. Pricing, access and any free-credit allowance are undecided.
 
@@ -43,4 +43,4 @@ Describe intended creative outcomes and workflow without exposing implementation
 
 ## HPLX identity update
 
-Glimmer is the official HPLX symbol from 17 October 2026. Use canonical paths in `entry_points.families.hplx` and the [HPLX guide](../assets/hplx/README.md). Ember paths are retained as deprecated historical assets; do not select them for new work. The HPLX theme is unchanged.
+Glimmer is the official HPLX symbol from 17 October 2026. Use canonical paths in `entry_points.families.hplx` and the [HPLX guide](../kits/hplx/README.md). Ember paths are retained as deprecated historical assets; do not select them for new work. The HPLX theme is unchanged.

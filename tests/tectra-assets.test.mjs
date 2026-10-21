@@ -1,3 +1,3 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
-const dir=new URL('../assets/tectra/',import.meta.url),source=JSON.parse(fs.readFileSync(new URL('latch.source.json',dir)));
+const dir=new URL('../kits/tectra/assets/',import.meta.url),source=JSON.parse(fs.readFileSync(new URL('latch.source.json',dir)));
 test('Latch preserves the exact owner-approved angle-only geometry',()=>{assert.deepEqual(source.paths,['M8 12H36L24 24H20V40L8 52Z','M56 12L44 24V40H40L28 52H56Z']);for(const name of Object.keys(source.variants))for(const kind of ['latch','lockup']){const svg=fs.readFileSync(new URL(`tectra-${kind}-${name}.svg`,dir),'utf8');for(const d of source.paths)assert.ok(svg.includes(`d="${d}"`));assert.ok(svg.includes(`fill="${source.variants[name]}"`));assert.doesNotMatch(svg,/<text|<script|<image/);assert.match(svg,/aria-label="Tectra/);}});

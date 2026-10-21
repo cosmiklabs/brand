@@ -1,6 +1,6 @@
 # Cosmik brand guide
 
-The rules and judgement behind the Cosmik identity. Values (colours, sizes, spacing, type) live only in the [tokens](../tokens/README.md); this guide never restates them, so the two cannot disagree.
+The rules and judgement behind the Cosmik identity. Values (colours, sizes, spacing, type) live only in the [tokens](../kits/README.md); this guide never restates them, so the two cannot disagree.
 
 **Positioning review pending (17 October 2026).** The owner requested removing or reworking the earlier “Reimagine / Extend / Create” motto following the HPLX editor direction and the closed-source Tectra product direction. Do not use that motto in new current-facing material. No replacement motto or organisation-wide descriptor has been approved. Existing published positioning elsewhere must be reconciled before release; retain historical documents as history.
 

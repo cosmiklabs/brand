@@ -1,16 +1,36 @@
 # Changes
 
-## Tectra family 0.2.0 — 21 October 2026
+Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
+their own version in `family.json`.
+
+## 0.4.0 · 21 October 2026
+
+**Breaking layout change.** Each kit now lives in one folder: `kits/<kit>/` holds its
+`tokens/`, `assets/`, `icons/`, specimen and validation. `tokens/<kit>/` becomes
+`kits/<kit>/tokens/`, `assets/vector/` and the other baseline art move under
+`kits/cosmik/`, family art under `kits/<family>/assets/`, and `tokens/README.md`
+becomes `kits/README.md`. File names inside the kits are unchanged except Tectra's
+specimen (`kits/tectra/specimen.html`). Consumers must update their paths.
+
+- Add `package.json` scripts (`build`, `check`, `test`, `check:browser`,
+  `check:reproducible`) and a CI workflow that fails if committed generated files
+  differ from a fresh build. `check` discovers every test instead of a fixed list.
+- The browser check loads every declared font face before asserting it loaded;
+  it previously failed whenever a face was declared but unused on the page.
+- Rewrite the README as an entry point; baseline masters and evidence move to the
+  [baseline kit](kits/cosmik/README.md). Replace the stale "Tectra family draft"
+  notes with the approved family's summary.
+
+### Tectra family 0.2.0 · 21 October 2026
 
 - Rename the Tecton family to **Tectra**, the product's name. Paths, token names, the `data-family` selector, specimens, tests and the generator move from `tecton` to `tectra`; `[data-family="tecton"]` no longer applies. Lockups are regenerated with the outlined Inter label "Tectra". The Latch geometry, palette and every other value are unchanged.
 
-## HPLX Glimmer — 17 October 2026
+### HPLX Glimmer · 17 October 2026
 
 - Adopt the approved compact Glimmer as the official HPLX symbol, with five transparent variants and matching Spectral lockups.
 - Canonical manifest paths select Glimmer. Preserve Ember assets and builders as deprecated historical compatibility files. HPLX theme values and Tecton remain unchanged.
 
-
-## Tecton family 0.1.0 — 17 October 2026
+### Tecton family 0.1.0 · 17 October 2026
 
 - Add the approved original angle-only Latch, five transparent symbol variants and matching outlined Inter lockups. Preserve exact source paths; document clear space and minimum sizes.
 
@@ -22,25 +42,23 @@
 - Add approved mineral/teal family tokens and offline review board, with Inter inherited throughout. Theme values and applications approved by owner.
 - Extend component selection and browser regression coverage to Tecton. No existing family values or parent rules changed. No product release or consumer rollout.
 
-Versions follow semver. Release tags use `vX.Y.Z`; the first is `v0.3.0`.
-
-## Unreleased
+### HPLX family approval · 15 October 2026
 
 - **HPLX family approved (owner, 2026-10-15):** its palette, amber accent, Spectral headings, status hues and elevation, unchanged. Two rules join the guide: desktop products (the HPLX app and editor) follow the system theme until the person picks System, Dark or Light; dense tool panels (the HPLX Editor) use 28 px rows with a 24/32 px density setting, every target still at least 24 px.
-- **HPLX small icon (accepted):** an optical redraw of Ember for 16, 24, 32 and 48 px, where the faithful mark's upper arc vanishes: the same composition, drawn on whole pixels with thicker arcs (their top edges as shallow as the master's) and a larger diamond, from `assets/hplx/ember-small.source.json`. `hplx-ember.ico` and `.icns` use it up to 48 px; the Cosmik icons are unchanged.
-- **HPLX lockup (accepted):** Ember centred above HPLX in Spectral SemiBold, the lettering the owner chose, set as outlines from the bundled font with its own advances and kerning plus tracking. `scripts/build-hplx-lockup.mjs` builds primary (the banner, on the dark plate), amber, bone and ink SVGs at 2172 × 724 with full-size and 1024 px PNGs from `assets/hplx/hplx-lockup.source.json`. `scripts/font-outlines.mjs` reads the font; it adds no dependency.
-- **Vector lockup (accepted):** the horizontal banner as vectors. `scripts/trace-cosmik-lockup.mjs` outlines the COSMIK wordmark from the approved banner (which stays unchanged) and places the accepted emblem master where the banner shows it; `scripts/build-cosmik-lockup.mjs` builds off-white, ink and primary SVGs at the banner's 2172 × 724 composition with full-size and 1024 px PNGs. The wordmark overlaps the banner by 99.1%; the master emblem differs slightly from the banner's own drawing (93.6%). Evidence is in `references/lockup-qa.json` and `lockup-trace-overlay.png`.
+- **HPLX small icon (accepted):** an optical redraw of Ember for 16, 24, 32 and 48 px, where the faithful mark's upper arc vanishes: the same composition, drawn on whole pixels with thicker arcs (their top edges as shallow as the master's) and a larger diamond, from `kits/hplx/assets/ember-small.source.json`. `hplx-ember.ico` and `.icns` use it up to 48 px; the Cosmik icons are unchanged.
+- **HPLX lockup (accepted):** Ember centred above HPLX in Spectral SemiBold, the lettering the owner chose, set as outlines from the bundled font with its own advances and kerning plus tracking. `scripts/build-hplx-lockup.mjs` builds primary (the banner, on the dark plate), amber, bone and ink SVGs at 2172 × 724 with full-size and 1024 px PNGs from `kits/hplx/assets/hplx-lockup.source.json`. `scripts/font-outlines.mjs` reads the font; it adds no dependency.
+- **Vector lockup (accepted):** the horizontal banner as vectors. `scripts/trace-cosmik-lockup.mjs` outlines the COSMIK wordmark from the approved banner (which stays unchanged) and places the accepted emblem master where the banner shows it; `scripts/build-cosmik-lockup.mjs` builds off-white, ink and primary SVGs at the banner's 2172 × 724 composition with full-size and 1024 px PNGs. The wordmark overlaps the banner by 99.1%; the master emblem differs slightly from the banner's own drawing (93.6%). Evidence is in `kits/cosmik/validation/lockup-qa.json` and `lockup-trace-overlay.png`.
 
 ## 0.3.0 · 8 October 2026
 
-- **HPLX Ember symbol:** added the owner's selected original Ember (diamond above two shallow arcs), faithfully reconstructed as clean vector geometry. SVG variants, transparent PNGs and square platform-icon derivatives rebuild from `assets/hplx/ember.source.json`; the manifest exposes HPLX-specific entry points. No wordmark or splash artwork was invented, no consuming product was changed, and all HPLX theme values remain proposed.
+- **HPLX Ember symbol:** added the owner's selected original Ember (diamond above two shallow arcs), faithfully reconstructed as clean vector geometry. SVG variants, transparent PNGs and square platform-icon derivatives rebuild from `kits/hplx/assets/ember.source.json`; the manifest exposes HPLX-specific entry points. No wordmark or splash artwork was invented, no consuming product was changed, and all HPLX theme values remain proposed.
 - **Theme inheritance:** family CSS now follows the nearest explicit theme, including a dark family inside a light ancestor, using `light-dark()` and the inherited colour scheme.
 - **Component reference:** compare the baseline and proposed HPLX family in the same specimen. Headings consume type roles; tabs, story actions, confirmation dialogs, status hues and elevation examples are interactive. Narrow layouts reflow at 200% root text size.
 - **Verification:** headless Chromium checks cover both kits and the new interactions. Font licence notices are hashed immutable inputs; regression checks reject missing or changed notices, including during generated-hash refreshes.
 
 - **Baseline approved (owner, 2026-10-07):** typography, the semantic dark/light roles, layout and component rules. It stays monochrome, as the guide says (§5, §7): the status hues, the shadow role and the elevation levels proposed earlier in this release moved to the HPLX family; the `scrim` role stays.
 - **Family kits:** product families get their own style on top of the baseline. `scripts/generate-tokens.mjs` merges `tokens/<id>/family.json` over the baseline and refuses a family that breaks the contract (every baseline role and mode kept; colours through its own primitives; its own typeface only for heading roles; utility type, spacing, layout, radii, breakpoints and motion fixed). Each family gets the same outputs as the baseline, its CSS scoped to `[data-family="<id>"]`. The validator checks every kit against the baseline's pairs, plus pairs for a family's own roles.
-- **HPLX family (proposed):** `tokens/hplx/`: warm blacks and bone text, a lantern-amber accent, Spectral 600 headings, the status tones `status-{error,warning,success,info}-{fg,bg,border}`, `accent`, `shadow` and elevation levels 1–3. 50 roles per mode; 184 contrast pairs pass.
+- **HPLX family (proposed):** `kits/hplx/tokens/`: warm blacks and bone text, a lantern-amber accent, Spectral 600 headings, the status tones `status-{error,warning,success,info}-{fg,bg,border}`, `accent`, `shadow` and elevation levels 1–3. 50 roles per mode; 184 contrast pairs pass.
 - **Spectral bundled:** Spectral SemiBold (SIL OFL 1.1) for the HPLX family's headings: `fonts/desktop/Spectral-SemiBold.ttf` from Google Fonts' repository, a WOFF2 built by `scripts/build-web-fonts.mjs`, and its notice in `fonts/licenses/`.
 - **Guide in Markdown:** `guide/` replaces the Word/PDF guide with eight pages of rules and judgement (identity, typography, colour, interface, product families, voice, documents, governance). Values live only in the tokens; the handle is `cosmiklabs`; the family-kit rules and the endorsement have their own page. The v0.2 Word/PDF guide moved to `guide/archive/`.
 - **Layout:** every kit is a folder under `tokens/` (`cosmik/`, `hplx/`); every script is in `scripts/`, run through `node scripts/build.mjs` and `node scripts/check.mjs`.
@@ -54,7 +72,7 @@ Versions follow semver. Release tags use `vX.Y.Z`; the first is `v0.3.0`.
 - **App icons:** `scripts/build-icons.mjs` builds `cosmik.ico` (16/24/32/48/64/256), `cosmik.icns`, `cosmik-512.png` and `cosmik-apple-touch-180.png` from the plate (primary) variant renders. Node only.
 - **Web font:** `scripts/build-web-fonts.mjs` wraps IBM Plex Mono Regular as WOFF2 (every table unchanged; Brotli from Node). The specimen prefers it, with the TTF as a fallback.
 - **Manifest:** entry points (tokens per kit), a `web_fonts` list (family, weight, style, format), font family/weight/style on desktop fonts, a `role` for every asset, `visible_bounds` renamed to `visible_bounds_xywh`, `interim_identity` and `known_gaps`, and hashes for every generated file; `scripts/verify-manifest.mjs` checks them.
-- **Docs:** `references/vector-README.txt` names files that exist; the README explains how to pin and consume the kit, including from Rust.
+- **Docs:** `kits/cosmik/validation/vector-README.txt` names files that exist; the README explains how to pin and consume the kit, including from Rust.
 
 ## 0.2.0 · 4 October 2026
 

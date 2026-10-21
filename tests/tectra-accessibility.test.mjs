@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 const read=p=>fs.readFileSync(new URL('../'+p,import.meta.url),'utf8');
-const t=JSON.parse(read('tokens/tectra/tectra.json'));
-const base=JSON.parse(read('tokens/cosmik/cosmik.json'));
-const html=read('specimens/tectra.html'), css=read('specimens/tectra.css');
+const t=JSON.parse(read('kits/tectra/tokens/tectra.json'));
+const base=JSON.parse(read('kits/cosmik/tokens/cosmik.json'));
+const html=read('kits/tectra/specimen.html'), css=read('kits/tectra/specimen.css');
 const lum=h=>h.slice(1).match(/../g).map(n=>parseInt(n,16)/255).map(n=>n<=.04045?n/12.92:((n+.055)/1.055)**2.4).reduce((s,n,i)=>s+n*[.2126,.7152,.0722][i],0);
 const ratio=(a,b)=>(Math.max(lum(a),lum(b))+.05)/(Math.min(lum(a),lum(b))+.05);
 test('Tectra illustration strokes and labels remain contrasted on both diagram fills',()=>{

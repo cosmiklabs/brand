@@ -8,7 +8,7 @@ import zlib from 'node:zlib';
 import {fileURLToPath} from 'node:url';
 import {flatten as flattenContour, coverage, paint, encodePng} from './vector-raster.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const dir = path.join(root, 'assets/hplx');
+const dir = path.join(root, 'kits/hplx/assets');
 const source = JSON.parse(fs.readFileSync(path.join(dir, 'ember.source.json'), 'utf8'));
 const write = (name, content) => fs.writeFileSync(path.join(dir, name), content);
 const commands = source.shapes.map(shape => shape.commands);
@@ -90,7 +90,7 @@ for(const size of [16,24,32,48,64,96,128,256,512,1024]) {
 }
 console.log('Generated HPLX Ember SVGs and PNGs from the selected original geometry.');
 
-// ---- Small sizes: an optical redraw per size (assets/hplx/ember-small.source.json) ----
+// ---- Small sizes: an optical redraw per size (kits/hplx/assets/ember-small.source.json) ----
 const small = JSON.parse(fs.readFileSync(path.join(dir, 'ember-small.source.json'), 'utf8'));
 const round3 = v => Math.round(v * 1000) / 1000;
 /** A shallow, tapered arc between two tips, with the selected lower arc's curve character. */

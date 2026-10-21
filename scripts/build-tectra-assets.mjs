@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import {readFont,advance,outline} from './font-outlines.mjs';
 import {flatten} from './vector-raster.mjs';
-const dir=new URL('../assets/tectra/',import.meta.url);
+const dir=new URL('../kits/tectra/assets/',import.meta.url);
 const source=JSON.parse(fs.readFileSync(new URL('latch.source.json',dir)));
 const font=readFont(fs.readFileSync(new URL('../fonts/desktop/Inter-SemiBold.ttf',import.meta.url)));
 const move=(cs,f)=>cs.map(c=>c.map(([op,...v])=>{const a=[op];for(let i=0;i<v.length;i+=2)a.push(...f(v[i],v[i+1]));return a;}));

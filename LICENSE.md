@@ -9,8 +9,8 @@ This repository mixes three kinds of material with different rights. Each part i
 Covers:
 
 - scripts: everything in `scripts/`;
-- token sources and generated token files in `tokens/` (every kit: the baseline and the families);
-- the specimen code in `specimens/` (HTML, CSS, JavaScript);
+- token sources and generated token files in each kit's `kits/<kit>/tokens/` folder (every kit: the baseline and the families);
+- the specimen code in `specimens/` and each kit's `specimen.html` and `specimen.css` (HTML, CSS, JavaScript);
 - `asset-manifest.json`, `.gitattributes` and the Markdown documentation.
 
 
@@ -42,7 +42,7 @@ A permissive licence on the token values lets any project, including a fork, reu
 
 ## 2. Brand marks: trademark-style policy
 
-Covers the **Cosmik marks**: the emblem (every file in `assets/`, the app icons in `icons/`, and any render of them), the COSMIK wordmark and banner, the name "Cosmik" used as the name of a product, project or organisation, and the brand guide and document template in `guide/` and `templates/`.
+Covers the **Cosmik marks**: the emblem (every file in each kit's `kits/<kit>/assets/` folder, the app icons in each kit's `kits/<kit>/icons/` folder, and any render of them), the COSMIK wordmark and banner, the name "Cosmik" used as the name of a product, project or organisation, and the brand guide and document template in `guide/` and `templates/`.
 
 These files are **not** licensed under section 1 or under the licence of any project that ships them. The owner of Cosmik Labs keeps all rights in them, subject to the permissions below.
 

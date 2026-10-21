@@ -4,7 +4,7 @@
 
 ## Use roles, not colours
 
-Product code reads **semantic roles** (`bg`, `surface`, `raised`, `text`, `muted`, `border`, `focus`, the action, input, disabled and status roles), never raw colours or primitives. Every role exists in both a dark and a light mode. The values, and the full list, are in the [tokens](../tokens/README.md).
+Product code reads **semantic roles** (`bg`, `surface`, `raised`, `text`, `muted`, `border`, `focus`, the action, input, disabled and status roles), never raw colours or primitives. Every role exists in both a dark and a light mode. The values, and the full list, are in the [tokens](../kits/README.md).
 
 - **Switch a whole mode together.** Never change text without its surfaces, or put a dark-only colour on a light surface.
 - **Dark is the default.** A page or section chooses its mode explicitly; it does not follow the operating system's preference silently.

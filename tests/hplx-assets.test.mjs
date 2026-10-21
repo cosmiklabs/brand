@@ -6,7 +6,7 @@ import zlib from 'node:zlib';
 import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=p=>fs.readFileSync(path.join(root,p));
-const source=JSON.parse(read('assets/hplx/ember.source.json'));
+const source=JSON.parse(read('kits/hplx/assets/ember.source.json'));
 const paths=source.shapes.map(shape=>shape.commands.map(c=>c.join(' ')).join(' '));
 const pngSize=b=>{assert.equal(b.subarray(0,8).toString('hex'),'89504e470d0a1a0a');return [b.readUInt32BE(16),b.readUInt32BE(20)];};
 
@@ -14,9 +14,9 @@ test('selected Ember has three true-vector shapes, and the family theme is appro
   assert.equal(source.selection,'Original 01 / EMBER');
   assert.deepEqual(source.shapes.map(s=>s.id),['diamond','upper_arc','lower_arc']);
   assert.equal(source.shapes.flatMap(s=>s.commands).filter(c=>c[0]==='C').length,8);
-  assert.match(JSON.parse(read('tokens/hplx/family.json')).status,/^Approved \(owner, \d{4}-\d{2}-\d{2}\)/);
+  assert.match(JSON.parse(read('kits/hplx/tokens/family.json')).status,/^Approved \(owner, \d{4}-\d{2}-\d{2}\)/);
   for(const variant of ['amber','bone','ink','primary']) {
-    const svg=read(`assets/hplx/hplx-ember-${variant}.svg`).toString();
+    const svg=read(`kits/hplx/assets/hplx-ember-${variant}.svg`).toString();
     assert.deepEqual([...svg.matchAll(/<path d="([^"]+)"/g)].map(m=>m[1]),paths);
     assert.doesNotMatch(svg,/<image|<text\b|<script|href=|data:|<foreignObject/i);
     assert.match(svg,/<title[^>]*>HPLX Ember<\/title>/);
@@ -25,7 +25,7 @@ test('selected Ember has three true-vector shapes, and the family theme is appro
 });
 
 test('transparent Ember export has genuine alpha and exactly three separate shapes',()=>{
-  const b=read('assets/hplx/png/hplx-ember-amber-1024x384.png');
+  const b=read('kits/hplx/assets/png/hplx-ember-amber-1024x384.png');
   const [w,h]=pngSize(b);assert.deepEqual([w,h],[1024,384]);
   assert.equal(b[24],8);assert.equal(b[25],6);
   const idat=[];let at=8;
@@ -45,13 +45,13 @@ test('transparent Ember export has genuine alpha and exactly three separate shap
 });
 
 test('platform containers contain the HPLX plate exports at the documented sizes',()=>{
-  for(const size of [16,24,32,48,64,96,128,256,512,1024])assert.deepEqual(pngSize(read(`assets/hplx/png/hplx-ember-primary-${size}.png`)),[size,size]);
-  assert.deepEqual(pngSize(read('icons/hplx-ember-512.png')),[512,512]);
-  assert.deepEqual(pngSize(read('icons/hplx-ember-apple-touch-180.png')),[180,180]);
-  const ico=read('icons/hplx-ember.ico'),sizes=[16,24,32,48,64,256];
+  for(const size of [16,24,32,48,64,96,128,256,512,1024])assert.deepEqual(pngSize(read(`kits/hplx/assets/png/hplx-ember-primary-${size}.png`)),[size,size]);
+  assert.deepEqual(pngSize(read('kits/hplx/icons/hplx-ember-512.png')),[512,512]);
+  assert.deepEqual(pngSize(read('kits/hplx/icons/hplx-ember-apple-touch-180.png')),[180,180]);
+  const ico=read('kits/hplx/icons/hplx-ember.ico'),sizes=[16,24,32,48,64,256];
   assert.equal(ico.readUInt16LE(2),1);assert.equal(ico.readUInt16LE(4),sizes.length);
-  sizes.forEach((size,i)=>{const e=6+16*i,n=ico.readUInt32LE(e+8),at=ico.readUInt32LE(e+12);assert.equal(ico[e]||256,size);assert.deepEqual(ico.subarray(at,at+n),read(`assets/hplx/png/hplx-ember-${size<=48?'small':'primary'}-${size}.png`));});
-  const icns=read('icons/hplx-ember.icns');assert.equal(icns.toString('ascii',0,4),'icns');assert.equal(icns.readUInt32BE(4),icns.length);
+  sizes.forEach((size,i)=>{const e=6+16*i,n=ico.readUInt32LE(e+8),at=ico.readUInt32LE(e+12);assert.equal(ico[e]||256,size);assert.deepEqual(ico.subarray(at,at+n),read(`kits/hplx/assets/png/hplx-ember-${size<=48?'small':'primary'}-${size}.png`));});
+  const icns=read('kits/hplx/icons/hplx-ember.icns');assert.equal(icns.toString('ascii',0,4),'icns');assert.equal(icns.readUInt32BE(4),icns.length);
   let at=8,count=0;while(at<icns.length){const n=icns.readUInt32BE(at+4);assert.ok(n>8&&at+n<=icns.length);pngSize(icns.subarray(at+8,at+n));at+=n;count++;}assert.equal(at,icns.length);assert.equal(count,11);
 });
 
@@ -60,6 +60,6 @@ test('HPLX identity entry points refer only to real HPLX assets',()=>{
   assert.equal(m.family_identities.hplx.symbol,'Glimmer');
   assert.match(m.family_identities.hplx.wordmark,/^HPLX in Spectral SemiBold/);
   for(const p of Object.values(m.entry_points.families.hplx)){
-    assert.match(p,/^(assets\/hplx\/|icons\/hplx-ember)/);assert.ok(fs.existsSync(path.join(root,p)));
+    assert.match(p,/^kits\/hplx\//);assert.ok(fs.existsSync(path.join(root,p)));
   }
 });

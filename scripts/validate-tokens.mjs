@@ -1,12 +1,12 @@
-/** Contrast check for every kit: the baseline (tokens/cosmik/cosmik.json) and each family
- * (tokens/<id>/<id>.json). Every kit must pass the baseline's pairs; a family's extension roles
+/** Contrast check for every kit: the baseline (kits/cosmik/tokens/cosmik.json) and each family
+ * (kits/<id>/tokens/<id>.json). Every kit must pass the baseline's pairs; a family's extension roles
  * (accent, status tones) add their own. Run through `node scripts/check.mjs`. Node.js only. */
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const kits=[];
-for(const id of fs.readdirSync(path.join(root,'tokens')).sort()){const p=`tokens/${id}/${id}.json`;if(fs.existsSync(path.join(root,p))) kits.push([id,p]);}
+for(const id of fs.readdirSync(path.join(root,'kits')).sort()){const p=`kits/${id}/tokens/${id}.json`;if(fs.existsSync(path.join(root,p))) kits.push([id,p]);}
 // The baseline first.
 kits.sort((a,b)=>(b[0]==='cosmik')-(a[0]==='cosmik'));
 const luminance=hex=>{const rgb=hex.replace('#','').match(/../g).map(x=>parseInt(x,16)/255).map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4);return rgb[0]*.2126+rgb[1]*.7152+rgb[2]*.0722;};

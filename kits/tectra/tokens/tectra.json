@@ -1,0 +1,1231 @@
+{
+  "name": "Cosmik · Tectra",
+  "version": "0.2.0",
+  "status": "Approved — 17 October 2026; angle-only Latch approved",
+  "family": "tectra",
+  "extends": "Cosmik baseline 0.4.0",
+  "extensionRoles": [
+    "accent"
+  ],
+  "fonts": [],
+  "description": "Resolved semantic tokens. Use semantic tokens in components; primitives are reference values, not theme roles. All dimensions assume a 16px browser root. All-caps tracking is for labels only.",
+  "primitives": {
+    "black": "#000000",
+    "paper": "#F6F5F0",
+    "white": "#FFFFFF",
+    "surface-dark": "#121212",
+    "raised-dark": "#1F1F1F",
+    "light-soft": "#E8E7E3",
+    "muted-dark": "#A3A3A3",
+    "muted-light": "#666666",
+    "border-functional": "#767676",
+    "decorative-dark": "#303030",
+    "graphite": "#414141",
+    "ornament-dark": "#252525",
+    "ornament-dark-faint": "#181818",
+    "media-dark": "#111111",
+    "rule-light": "#C6C5C0",
+    "paper-shade": "#EFEEE9",
+    "scrim-dark": "#000000B8",
+    "scrim-light": "#0000007A",
+    "tectra-dark-bg": "#0F1719",
+    "tectra-dark-surface": "#172125",
+    "tectra-dark-raised": "#233034",
+    "tectra-dark-text": "#EDF4F3",
+    "tectra-dark-muted": "#ADC1BE",
+    "tectra-dark-border": "#849B98",
+    "tectra-dark-divider": "#344744",
+    "tectra-dark-focus": "#71D6C3",
+    "tectra-dark-link": "#EDF4F3",
+    "tectra-dark-link-hover": "#71D6C3",
+    "tectra-dark-link-active": "#EDF4F3",
+    "tectra-dark-on-selected": "#0F1719",
+    "tectra-dark-selected": "#EDF4F3",
+    "tectra-dark-action-primary": "#71D6C3",
+    "tectra-dark-action-primary-hover": "#92E5D4",
+    "tectra-dark-action-primary-active": "#50B5A3",
+    "tectra-dark-action-primary-fg": "#0F1719",
+    "tectra-dark-action-secondary": "#172125",
+    "tectra-dark-action-secondary-hover": "#233034",
+    "tectra-dark-action-secondary-active": "#0F1719",
+    "tectra-dark-action-secondary-fg": "#EDF4F3",
+    "tectra-dark-input-bg": "#172125",
+    "tectra-dark-input-fg": "#EDF4F3",
+    "tectra-dark-input-placeholder": "#ADC1BE",
+    "tectra-dark-disabled-bg": "#233034",
+    "tectra-dark-disabled-fg": "#ADC1BE",
+    "tectra-dark-disabled-border": "#849B98",
+    "tectra-dark-status-fg": "#EDF4F3",
+    "tectra-dark-status-bg": "#233034",
+    "tectra-dark-status-border": "#849B98",
+    "tectra-dark-accent": "#71D6C3",
+    "tectra-light-bg": "#F2F6F5",
+    "tectra-light-raised": "#E0EAE7",
+    "tectra-light-text": "#142925",
+    "tectra-light-muted": "#4D6761",
+    "tectra-light-border": "#657F78",
+    "tectra-light-divider": "#C2D1CC",
+    "tectra-light-focus": "#126B5E",
+    "tectra-light-link": "#142925",
+    "tectra-light-link-hover": "#126B5E",
+    "tectra-light-link-active": "#142925",
+    "tectra-light-on-selected": "#F2F6F5",
+    "tectra-light-selected": "#142925",
+    "tectra-light-action-primary": "#126B5E",
+    "tectra-light-action-primary-hover": "#0D5B50",
+    "tectra-light-action-primary-active": "#084B41",
+    "tectra-light-action-secondary-hover": "#E0EAE7",
+    "tectra-light-action-secondary-active": "#F2F6F5",
+    "tectra-light-action-secondary-fg": "#142925",
+    "tectra-light-input-fg": "#142925",
+    "tectra-light-input-placeholder": "#4D6761",
+    "tectra-light-disabled-bg": "#E0EAE7",
+    "tectra-light-disabled-fg": "#4D6761",
+    "tectra-light-disabled-border": "#657F78",
+    "tectra-light-status-fg": "#142925",
+    "tectra-light-status-bg": "#E0EAE7",
+    "tectra-light-status-border": "#657F78",
+    "tectra-light-accent": "#126B5E"
+  },
+  "semantic": {
+    "dark": {
+      "bg": "#0F1719",
+      "surface": "#172125",
+      "raised": "#233034",
+      "text": "#EDF4F3",
+      "muted": "#ADC1BE",
+      "border": "#849B98",
+      "divider": "#344744",
+      "focus": "#71D6C3",
+      "link": "#EDF4F3",
+      "link-hover": "#71D6C3",
+      "link-active": "#EDF4F3",
+      "on-selected": "#0F1719",
+      "selected": "#EDF4F3",
+      "action-primary": "#71D6C3",
+      "action-primary-hover": "#92E5D4",
+      "action-primary-active": "#50B5A3",
+      "action-primary-fg": "#0F1719",
+      "action-secondary": "#172125",
+      "action-secondary-hover": "#233034",
+      "action-secondary-active": "#0F1719",
+      "action-secondary-fg": "#EDF4F3",
+      "input-bg": "#172125",
+      "input-fg": "#EDF4F3",
+      "input-placeholder": "#ADC1BE",
+      "disabled-bg": "#233034",
+      "disabled-fg": "#ADC1BE",
+      "disabled-border": "#849B98",
+      "status-fg": "#EDF4F3",
+      "status-bg": "#233034",
+      "status-border": "#849B98",
+      "divider-strong": "#414141",
+      "ornament": "#252525",
+      "ornament-faint": "#181818",
+      "ornament-text": "#414141",
+      "media-placeholder": "#111111",
+      "scrim": "#000000B8",
+      "accent": "#71D6C3"
+    },
+    "light": {
+      "bg": "#F2F6F5",
+      "surface": "#FFFFFF",
+      "raised": "#E0EAE7",
+      "text": "#142925",
+      "muted": "#4D6761",
+      "border": "#657F78",
+      "divider": "#C2D1CC",
+      "focus": "#126B5E",
+      "link": "#142925",
+      "link-hover": "#126B5E",
+      "link-active": "#142925",
+      "on-selected": "#F2F6F5",
+      "selected": "#142925",
+      "action-primary": "#126B5E",
+      "action-primary-hover": "#0D5B50",
+      "action-primary-active": "#084B41",
+      "action-primary-fg": "#FFFFFF",
+      "action-secondary": "#FFFFFF",
+      "action-secondary-hover": "#E0EAE7",
+      "action-secondary-active": "#F2F6F5",
+      "action-secondary-fg": "#142925",
+      "input-bg": "#FFFFFF",
+      "input-fg": "#142925",
+      "input-placeholder": "#4D6761",
+      "disabled-bg": "#E0EAE7",
+      "disabled-fg": "#4D6761",
+      "disabled-border": "#657F78",
+      "status-fg": "#142925",
+      "status-bg": "#E0EAE7",
+      "status-border": "#657F78",
+      "divider-strong": "#C6C5C0",
+      "ornament": "#E8E7E3",
+      "ornament-faint": "#EFEEE9",
+      "ornament-text": "#C6C5C0",
+      "media-placeholder": "#E8E7E3",
+      "scrim": "#0000007A",
+      "accent": "#126B5E"
+    }
+  },
+  "aliases": {
+    "dark": {
+      "bg": "tectra-dark-bg",
+      "surface": "tectra-dark-surface",
+      "raised": "tectra-dark-raised",
+      "text": "tectra-dark-text",
+      "muted": "tectra-dark-muted",
+      "border": "tectra-dark-border",
+      "divider": "tectra-dark-divider",
+      "focus": "tectra-dark-focus",
+      "link": "tectra-dark-link",
+      "link-hover": "tectra-dark-link-hover",
+      "link-active": "tectra-dark-link-active",
+      "on-selected": "tectra-dark-on-selected",
+      "selected": "tectra-dark-selected",
+      "action-primary": "tectra-dark-action-primary",
+      "action-primary-hover": "tectra-dark-action-primary-hover",
+      "action-primary-active": "tectra-dark-action-primary-active",
+      "action-primary-fg": "tectra-dark-action-primary-fg",
+      "action-secondary": "tectra-dark-action-secondary",
+      "action-secondary-hover": "tectra-dark-action-secondary-hover",
+      "action-secondary-active": "tectra-dark-action-secondary-active",
+      "action-secondary-fg": "tectra-dark-action-secondary-fg",
+      "input-bg": "tectra-dark-input-bg",
+      "input-fg": "tectra-dark-input-fg",
+      "input-placeholder": "tectra-dark-input-placeholder",
+      "disabled-bg": "tectra-dark-disabled-bg",
+      "disabled-fg": "tectra-dark-disabled-fg",
+      "disabled-border": "tectra-dark-disabled-border",
+      "status-fg": "tectra-dark-status-fg",
+      "status-bg": "tectra-dark-status-bg",
+      "status-border": "tectra-dark-status-border",
+      "divider-strong": "graphite",
+      "ornament": "ornament-dark",
+      "ornament-faint": "ornament-dark-faint",
+      "ornament-text": "graphite",
+      "media-placeholder": "media-dark",
+      "scrim": "scrim-dark",
+      "accent": "tectra-dark-accent"
+    },
+    "light": {
+      "bg": "tectra-light-bg",
+      "surface": "white",
+      "raised": "tectra-light-raised",
+      "text": "tectra-light-text",
+      "muted": "tectra-light-muted",
+      "border": "tectra-light-border",
+      "divider": "tectra-light-divider",
+      "focus": "tectra-light-focus",
+      "link": "tectra-light-link",
+      "link-hover": "tectra-light-link-hover",
+      "link-active": "tectra-light-link-active",
+      "on-selected": "tectra-light-on-selected",
+      "selected": "tectra-light-selected",
+      "action-primary": "tectra-light-action-primary",
+      "action-primary-hover": "tectra-light-action-primary-hover",
+      "action-primary-active": "tectra-light-action-primary-active",
+      "action-primary-fg": "white",
+      "action-secondary": "white",
+      "action-secondary-hover": "tectra-light-action-secondary-hover",
+      "action-secondary-active": "tectra-light-action-secondary-active",
+      "action-secondary-fg": "tectra-light-action-secondary-fg",
+      "input-bg": "white",
+      "input-fg": "tectra-light-input-fg",
+      "input-placeholder": "tectra-light-input-placeholder",
+      "disabled-bg": "tectra-light-disabled-bg",
+      "disabled-fg": "tectra-light-disabled-fg",
+      "disabled-border": "tectra-light-disabled-border",
+      "status-fg": "tectra-light-status-fg",
+      "status-bg": "tectra-light-status-bg",
+      "status-border": "tectra-light-status-border",
+      "divider-strong": "rule-light",
+      "ornament": "light-soft",
+      "ornament-faint": "paper-shade",
+      "ornament-text": "rule-light",
+      "media-placeholder": "light-soft",
+      "scrim": "scrim-light",
+      "accent": "tectra-light-accent"
+    }
+  },
+  "space": {
+    "2": "0.5rem",
+    "4": "1rem",
+    "6": "1.5rem",
+    "8": "2rem",
+    "12": "3rem",
+    "16": "4rem",
+    "24": "6rem",
+    "base": "0.25rem"
+  },
+  "layout": {
+    "radius": "0.25rem",
+    "gutter": "1.5rem",
+    "max-content": "70rem",
+    "line": "65ch",
+    "control-min": "2.75rem",
+    "focus-width": "2px",
+    "focus-offset": "2px"
+  },
+  "type": {
+    "body": {
+      "fontFamily": "Inter",
+      "fontWeight": 400,
+      "fontSize": "1.0625rem",
+      "lineHeight": 1.55,
+      "letterSpacing": "0"
+    },
+    "display": {
+      "fontFamily": "Inter",
+      "fontWeight": 600,
+      "fontSize": "3rem",
+      "lineHeight": 1.1,
+      "letterSpacing": "0"
+    },
+    "display-small": {
+      "fontFamily": "Inter",
+      "fontWeight": 600,
+      "fontSize": "2.125rem",
+      "lineHeight": 1.15,
+      "letterSpacing": "0"
+    },
+    "section": {
+      "fontFamily": "Inter",
+      "fontWeight": 600,
+      "fontSize": "1.875rem",
+      "lineHeight": 1.2,
+      "letterSpacing": "0"
+    },
+    "card": {
+      "fontFamily": "Inter",
+      "fontWeight": 600,
+      "fontSize": "1.375rem",
+      "lineHeight": 1.3,
+      "letterSpacing": "0"
+    },
+    "control": {
+      "fontFamily": "Inter",
+      "fontWeight": 500,
+      "fontSize": "0.9375rem",
+      "lineHeight": 1.4,
+      "letterSpacing": "0"
+    },
+    "label": {
+      "fontFamily": "IBM Plex Mono",
+      "fontWeight": 400,
+      "fontSize": "0.875rem",
+      "lineHeight": 1.5,
+      "letterSpacing": "0.06em",
+      "textTransform": "uppercase"
+    },
+    "identity-label": {
+      "fontFamily": "Inter",
+      "fontWeight": 500,
+      "fontSize": "1.25rem",
+      "lineHeight": 1.3,
+      "letterSpacing": "0"
+    }
+  },
+  "motion": {
+    "duration": "140ms",
+    "easing": "ease-out",
+    "reduced-duration": "0ms"
+  },
+  "proposals": [
+    "Theme palette, typography and applications approved by owner on 2026-10-17; product-specific rendered accessibility QA remains required.",
+    "Approved angle-only Latch symbol and outlined Inter label lockups are supplied in kits/tectra/assets/.",
+    "Public examples must distinguish verified capabilities from intended workflow; pricing and availability claims require separate approval."
+  ],
+  "radius": {
+    "sm": "0.125rem",
+    "md": "0.25rem",
+    "full": "9999px"
+  },
+  "breakpoint": {
+    "compact": "720px",
+    "narrow": "380px"
+  },
+  "elevation": {},
+  "native": {
+    "description": "Values for non-browser consumers (desktop, game UI, design tools). Lengths are logical px at a 16 px root; letterSpacing is a fraction of the font size; layout.line is a measure in characters; easing is cubic-bezier control points [x1, y1, x2, y2]; colours give hex, straight-alpha sRGB floats [r, g, b, a] and linear-light floats.",
+    "rootPx": 16,
+    "primitives": {
+      "black": {
+        "hex": "#000000",
+        "srgb": [0, 0, 0, 1],
+        "linear": [0, 0, 0, 1]
+      },
+      "paper": {
+        "hex": "#F6F5F0",
+        "srgb": [0.964706, 0.960784, 0.941176, 1],
+        "linear": [0.921582, 0.913099, 0.871367, 1]
+      },
+      "white": {
+        "hex": "#FFFFFF",
+        "srgb": [1, 1, 1, 1],
+        "linear": [1, 1, 1, 1]
+      },
+      "surface-dark": {
+        "hex": "#121212",
+        "srgb": [0.070588, 0.070588, 0.070588, 1],
+        "linear": [0.006049, 0.006049, 0.006049, 1]
+      },
+      "raised-dark": {
+        "hex": "#1F1F1F",
+        "srgb": [0.121569, 0.121569, 0.121569, 1],
+        "linear": [0.013702, 0.013702, 0.013702, 1]
+      },
+      "light-soft": {
+        "hex": "#E8E7E3",
+        "srgb": [0.909804, 0.905882, 0.890196, 1],
+        "linear": [0.806952, 0.799103, 0.768151, 1]
+      },
+      "muted-dark": {
+        "hex": "#A3A3A3",
+        "srgb": [0.639216, 0.639216, 0.639216, 1],
+        "linear": [0.366253, 0.366253, 0.366253, 1]
+      },
+      "muted-light": {
+        "hex": "#666666",
+        "srgb": [0.4, 0.4, 0.4, 1],
+        "linear": [0.132868, 0.132868, 0.132868, 1]
+      },
+      "border-functional": {
+        "hex": "#767676",
+        "srgb": [0.462745, 0.462745, 0.462745, 1],
+        "linear": [0.181164, 0.181164, 0.181164, 1]
+      },
+      "decorative-dark": {
+        "hex": "#303030",
+        "srgb": [0.188235, 0.188235, 0.188235, 1],
+        "linear": [0.029557, 0.029557, 0.029557, 1]
+      },
+      "graphite": {
+        "hex": "#414141",
+        "srgb": [0.254902, 0.254902, 0.254902, 1],
+        "linear": [0.052861, 0.052861, 0.052861, 1]
+      },
+      "ornament-dark": {
+        "hex": "#252525",
+        "srgb": [0.145098, 0.145098, 0.145098, 1],
+        "linear": [0.0185, 0.0185, 0.0185, 1]
+      },
+      "ornament-dark-faint": {
+        "hex": "#181818",
+        "srgb": [0.094118, 0.094118, 0.094118, 1],
+        "linear": [0.009134, 0.009134, 0.009134, 1]
+      },
+      "media-dark": {
+        "hex": "#111111",
+        "srgb": [0.066667, 0.066667, 0.066667, 1],
+        "linear": [0.005605, 0.005605, 0.005605, 1]
+      },
+      "rule-light": {
+        "hex": "#C6C5C0",
+        "srgb": [0.776471, 0.772549, 0.752941, 1],
+        "linear": [0.564712, 0.55834, 0.527115, 1]
+      },
+      "paper-shade": {
+        "hex": "#EFEEE9",
+        "srgb": [0.937255, 0.933333, 0.913725, 1],
+        "linear": [0.863157, 0.854993, 0.814847, 1]
+      },
+      "scrim-dark": {
+        "hex": "#000000B8",
+        "srgb": [0, 0, 0, 0.721569],
+        "linear": [0, 0, 0, 0.721569]
+      },
+      "scrim-light": {
+        "hex": "#0000007A",
+        "srgb": [0, 0, 0, 0.478431],
+        "linear": [0, 0, 0, 0.478431]
+      },
+      "tectra-dark-bg": {
+        "hex": "#0F1719",
+        "srgb": [0.058824, 0.090196, 0.098039, 1],
+        "linear": [0.004777, 0.008568, 0.009721, 1]
+      },
+      "tectra-dark-surface": {
+        "hex": "#172125",
+        "srgb": [0.090196, 0.129412, 0.145098, 1],
+        "linear": [0.008568, 0.015209, 0.0185, 1]
+      },
+      "tectra-dark-raised": {
+        "hex": "#233034",
+        "srgb": [0.137255, 0.188235, 0.203922, 1],
+        "linear": [0.016807, 0.029557, 0.03434, 1]
+      },
+      "tectra-dark-text": {
+        "hex": "#EDF4F3",
+        "srgb": [0.929412, 0.956863, 0.952941, 1],
+        "linear": [0.846873, 0.904661, 0.896269, 1]
+      },
+      "tectra-dark-muted": {
+        "hex": "#ADC1BE",
+        "srgb": [0.678431, 0.756863, 0.745098, 1],
+        "linear": [0.417885, 0.533276, 0.514918, 1]
+      },
+      "tectra-dark-border": {
+        "hex": "#849B98",
+        "srgb": [0.517647, 0.607843, 0.596078, 1],
+        "linear": [0.23074, 0.327778, 0.313989, 1]
+      },
+      "tectra-dark-divider": {
+        "hex": "#344744",
+        "srgb": [0.203922, 0.278431, 0.266667, 1],
+        "linear": [0.03434, 0.06301, 0.057805, 1]
+      },
+      "tectra-dark-focus": {
+        "hex": "#71D6C3",
+        "srgb": [0.443137, 0.839216, 0.764706, 1],
+        "linear": [0.165132, 0.672443, 0.545724, 1]
+      },
+      "tectra-dark-link": {
+        "hex": "#EDF4F3",
+        "srgb": [0.929412, 0.956863, 0.952941, 1],
+        "linear": [0.846873, 0.904661, 0.896269, 1]
+      },
+      "tectra-dark-link-hover": {
+        "hex": "#71D6C3",
+        "srgb": [0.443137, 0.839216, 0.764706, 1],
+        "linear": [0.165132, 0.672443, 0.545724, 1]
+      },
+      "tectra-dark-link-active": {
+        "hex": "#EDF4F3",
+        "srgb": [0.929412, 0.956863, 0.952941, 1],
+        "linear": [0.846873, 0.904661, 0.896269, 1]
+      },
+      "tectra-dark-on-selected": {
+        "hex": "#0F1719",
+        "srgb": [0.058824, 0.090196, 0.098039, 1],
+        "linear": [0.004777, 0.008568, 0.009721, 1]
+      },
+      "tectra-dark-selected": {
+        "hex": "#EDF4F3",
+        "srgb": [0.929412, 0.956863, 0.952941, 1],
+        "linear": [0.846873, 0.904661, 0.896269, 1]
+      },
+      "tectra-dark-action-primary": {
+        "hex": "#71D6C3",
+        "srgb": [0.443137, 0.839216, 0.764706, 1],
+        "linear": [0.165132, 0.672443, 0.545724, 1]
+      },
+      "tectra-dark-action-primary-hover": {
+        "hex": "#92E5D4",
+        "srgb": [0.572549, 0.898039, 0.831373, 1],
+        "linear": [0.287441, 0.783538, 0.658375, 1]
+      },
+      "tectra-dark-action-primary-active": {
+        "hex": "#50B5A3",
+        "srgb": [0.313725, 0.709804, 0.639216, 1],
+        "linear": [0.08022, 0.462077, 0.366253, 1]
+      },
+      "tectra-dark-action-primary-fg": {
+        "hex": "#0F1719",
+        "srgb": [0.058824, 0.090196, 0.098039, 1],
+        "linear": [0.004777, 0.008568, 0.009721, 1]
+      },
+      "tectra-dark-action-secondary": {
+        "hex": "#172125",
+        "srgb": [0.090196, 0.129412, 0.145098, 1],
+        "linear": [0.008568, 0.015209, 0.0185, 1]
+      },
+      "tectra-dark-action-secondary-hover": {
+        "hex": "#233034",
+        "srgb": [0.137255, 0.188235, 0.203922, 1],
+        "linear": [0.016807, 0.029557, 0.03434, 1]
+      },
+      "tectra-dark-action-secondary-active": {
+        "hex": "#0F1719",
+        "srgb": [0.058824, 0.090196, 0.098039, 1],
+        "linear": [0.004777, 0.008568, 0.009721, 1]
+      },
+      "tectra-dark-action-secondary-fg": {
+        "hex": "#EDF4F3",
+        "srgb": [0.929412, 0.956863, 0.952941, 1],
+        "linear": [0.846873, 0.904661, 0.896269, 1]
+      },
+      "tectra-dark-input-bg": {
+        "hex": "#172125",
+        "srgb": [0.090196, 0.129412, 0.145098, 1],
+        "linear": [0.008568, 0.015209, 0.0185, 1]
+      },
+      "tectra-dark-input-fg": {
+        "hex": "#EDF4F3",
+        "srgb": [0.929412, 0.956863, 0.952941, 1],
+        "linear": [0.846873, 0.904661, 0.896269, 1]
+      },
+      "tectra-dark-input-placeholder": {
+        "hex": "#ADC1BE",
+        "srgb": [0.678431, 0.756863, 0.745098, 1],
+        "linear": [0.417885, 0.533276, 0.514918, 1]
+      },
+      "tectra-dark-disabled-bg": {
+        "hex": "#233034",
+        "srgb": [0.137255, 0.188235, 0.203922, 1],
+        "linear": [0.016807, 0.029557, 0.03434, 1]
+      },
+      "tectra-dark-disabled-fg": {
+        "hex": "#ADC1BE",
+        "srgb": [0.678431, 0.756863, 0.745098, 1],
+        "linear": [0.417885, 0.533276, 0.514918, 1]
+      },
+      "tectra-dark-disabled-border": {
+        "hex": "#849B98",
+        "srgb": [0.517647, 0.607843, 0.596078, 1],
+        "linear": [0.23074, 0.327778, 0.313989, 1]
+      },
+      "tectra-dark-status-fg": {
+        "hex": "#EDF4F3",
+        "srgb": [0.929412, 0.956863, 0.952941, 1],
+        "linear": [0.846873, 0.904661, 0.896269, 1]
+      },
+      "tectra-dark-status-bg": {
+        "hex": "#233034",
+        "srgb": [0.137255, 0.188235, 0.203922, 1],
+        "linear": [0.016807, 0.029557, 0.03434, 1]
+      },
+      "tectra-dark-status-border": {
+        "hex": "#849B98",
+        "srgb": [0.517647, 0.607843, 0.596078, 1],
+        "linear": [0.23074, 0.327778, 0.313989, 1]
+      },
+      "tectra-dark-accent": {
+        "hex": "#71D6C3",
+        "srgb": [0.443137, 0.839216, 0.764706, 1],
+        "linear": [0.165132, 0.672443, 0.545724, 1]
+      },
+      "tectra-light-bg": {
+        "hex": "#F2F6F5",
+        "srgb": [0.94902, 0.964706, 0.960784, 1],
+        "linear": [0.887923, 0.921582, 0.913099, 1]
+      },
+      "tectra-light-raised": {
+        "hex": "#E0EAE7",
+        "srgb": [0.878431, 0.917647, 0.905882, 1],
+        "linear": [0.745404, 0.822786, 0.799103, 1]
+      },
+      "tectra-light-text": {
+        "hex": "#142925",
+        "srgb": [0.078431, 0.160784, 0.145098, 1],
+        "linear": [0.006995, 0.022174, 0.0185, 1]
+      },
+      "tectra-light-muted": {
+        "hex": "#4D6761",
+        "srgb": [0.301961, 0.403922, 0.380392, 1],
+        "linear": [0.074214, 0.135633, 0.119538, 1]
+      },
+      "tectra-light-border": {
+        "hex": "#657F78",
+        "srgb": [0.396078, 0.498039, 0.470588, 1],
+        "linear": [0.130136, 0.212231, 0.187821, 1]
+      },
+      "tectra-light-divider": {
+        "hex": "#C2D1CC",
+        "srgb": [0.760784, 0.819608, 0.8, 1],
+        "linear": [0.539479, 0.637597, 0.603827, 1]
+      },
+      "tectra-light-focus": {
+        "hex": "#126B5E",
+        "srgb": [0.070588, 0.419608, 0.368627, 1],
+        "linear": [0.006049, 0.147027, 0.111932, 1]
+      },
+      "tectra-light-link": {
+        "hex": "#142925",
+        "srgb": [0.078431, 0.160784, 0.145098, 1],
+        "linear": [0.006995, 0.022174, 0.0185, 1]
+      },
+      "tectra-light-link-hover": {
+        "hex": "#126B5E",
+        "srgb": [0.070588, 0.419608, 0.368627, 1],
+        "linear": [0.006049, 0.147027, 0.111932, 1]
+      },
+      "tectra-light-link-active": {
+        "hex": "#142925",
+        "srgb": [0.078431, 0.160784, 0.145098, 1],
+        "linear": [0.006995, 0.022174, 0.0185, 1]
+      },
+      "tectra-light-on-selected": {
+        "hex": "#F2F6F5",
+        "srgb": [0.94902, 0.964706, 0.960784, 1],
+        "linear": [0.887923, 0.921582, 0.913099, 1]
+      },
+      "tectra-light-selected": {
+        "hex": "#142925",
+        "srgb": [0.078431, 0.160784, 0.145098, 1],
+        "linear": [0.006995, 0.022174, 0.0185, 1]
+      },
+      "tectra-light-action-primary": {
+        "hex": "#126B5E",
+        "srgb": [0.070588, 0.419608, 0.368627, 1],
+        "linear": [0.006049, 0.147027, 0.111932, 1]
+      },
+      "tectra-light-action-primary-hover": {
+        "hex": "#0D5B50",
+        "srgb": [0.05098, 0.356863, 0.313725, 1],
+        "linear": [0.004025, 0.104616, 0.08022, 1]
+      },
+      "tectra-light-action-primary-active": {
+        "hex": "#084B41",
+        "srgb": [0.031373, 0.294118, 0.254902, 1],
+        "linear": [0.002428, 0.07036, 0.052861, 1]
+      },
+      "tectra-light-action-secondary-hover": {
+        "hex": "#E0EAE7",
+        "srgb": [0.878431, 0.917647, 0.905882, 1],
+        "linear": [0.745404, 0.822786, 0.799103, 1]
+      },
+      "tectra-light-action-secondary-active": {
+        "hex": "#F2F6F5",
+        "srgb": [0.94902, 0.964706, 0.960784, 1],
+        "linear": [0.887923, 0.921582, 0.913099, 1]
+      },
+      "tectra-light-action-secondary-fg": {
+        "hex": "#142925",
+        "srgb": [0.078431, 0.160784, 0.145098, 1],
+        "linear": [0.006995, 0.022174, 0.0185, 1]
+      },
+      "tectra-light-input-fg": {
+        "hex": "#142925",
+        "srgb": [0.078431, 0.160784, 0.145098, 1],
+        "linear": [0.006995, 0.022174, 0.0185, 1]
+      },
+      "tectra-light-input-placeholder": {
+        "hex": "#4D6761",
+        "srgb": [0.301961, 0.403922, 0.380392, 1],
+        "linear": [0.074214, 0.135633, 0.119538, 1]
+      },
+      "tectra-light-disabled-bg": {
+        "hex": "#E0EAE7",
+        "srgb": [0.878431, 0.917647, 0.905882, 1],
+        "linear": [0.745404, 0.822786, 0.799103, 1]
+      },
+      "tectra-light-disabled-fg": {
+        "hex": "#4D6761",
+        "srgb": [0.301961, 0.403922, 0.380392, 1],
+        "linear": [0.074214, 0.135633, 0.119538, 1]
+      },
+      "tectra-light-disabled-border": {
+        "hex": "#657F78",
+        "srgb": [0.396078, 0.498039, 0.470588, 1],
+        "linear": [0.130136, 0.212231, 0.187821, 1]
+      },
+      "tectra-light-status-fg": {
+        "hex": "#142925",
+        "srgb": [0.078431, 0.160784, 0.145098, 1],
+        "linear": [0.006995, 0.022174, 0.0185, 1]
+      },
+      "tectra-light-status-bg": {
+        "hex": "#E0EAE7",
+        "srgb": [0.878431, 0.917647, 0.905882, 1],
+        "linear": [0.745404, 0.822786, 0.799103, 1]
+      },
+      "tectra-light-status-border": {
+        "hex": "#657F78",
+        "srgb": [0.396078, 0.498039, 0.470588, 1],
+        "linear": [0.130136, 0.212231, 0.187821, 1]
+      },
+      "tectra-light-accent": {
+        "hex": "#126B5E",
+        "srgb": [0.070588, 0.419608, 0.368627, 1],
+        "linear": [0.006049, 0.147027, 0.111932, 1]
+      }
+    },
+    "semantic": {
+      "dark": {
+        "bg": {
+          "hex": "#0F1719",
+          "srgb": [0.058824, 0.090196, 0.098039, 1],
+          "linear": [0.004777, 0.008568, 0.009721, 1]
+        },
+        "surface": {
+          "hex": "#172125",
+          "srgb": [0.090196, 0.129412, 0.145098, 1],
+          "linear": [0.008568, 0.015209, 0.0185, 1]
+        },
+        "raised": {
+          "hex": "#233034",
+          "srgb": [0.137255, 0.188235, 0.203922, 1],
+          "linear": [0.016807, 0.029557, 0.03434, 1]
+        },
+        "text": {
+          "hex": "#EDF4F3",
+          "srgb": [0.929412, 0.956863, 0.952941, 1],
+          "linear": [0.846873, 0.904661, 0.896269, 1]
+        },
+        "muted": {
+          "hex": "#ADC1BE",
+          "srgb": [0.678431, 0.756863, 0.745098, 1],
+          "linear": [0.417885, 0.533276, 0.514918, 1]
+        },
+        "border": {
+          "hex": "#849B98",
+          "srgb": [0.517647, 0.607843, 0.596078, 1],
+          "linear": [0.23074, 0.327778, 0.313989, 1]
+        },
+        "divider": {
+          "hex": "#344744",
+          "srgb": [0.203922, 0.278431, 0.266667, 1],
+          "linear": [0.03434, 0.06301, 0.057805, 1]
+        },
+        "focus": {
+          "hex": "#71D6C3",
+          "srgb": [0.443137, 0.839216, 0.764706, 1],
+          "linear": [0.165132, 0.672443, 0.545724, 1]
+        },
+        "link": {
+          "hex": "#EDF4F3",
+          "srgb": [0.929412, 0.956863, 0.952941, 1],
+          "linear": [0.846873, 0.904661, 0.896269, 1]
+        },
+        "link-hover": {
+          "hex": "#71D6C3",
+          "srgb": [0.443137, 0.839216, 0.764706, 1],
+          "linear": [0.165132, 0.672443, 0.545724, 1]
+        },
+        "link-active": {
+          "hex": "#EDF4F3",
+          "srgb": [0.929412, 0.956863, 0.952941, 1],
+          "linear": [0.846873, 0.904661, 0.896269, 1]
+        },
+        "on-selected": {
+          "hex": "#0F1719",
+          "srgb": [0.058824, 0.090196, 0.098039, 1],
+          "linear": [0.004777, 0.008568, 0.009721, 1]
+        },
+        "selected": {
+          "hex": "#EDF4F3",
+          "srgb": [0.929412, 0.956863, 0.952941, 1],
+          "linear": [0.846873, 0.904661, 0.896269, 1]
+        },
+        "action-primary": {
+          "hex": "#71D6C3",
+          "srgb": [0.443137, 0.839216, 0.764706, 1],
+          "linear": [0.165132, 0.672443, 0.545724, 1]
+        },
+        "action-primary-hover": {
+          "hex": "#92E5D4",
+          "srgb": [0.572549, 0.898039, 0.831373, 1],
+          "linear": [0.287441, 0.783538, 0.658375, 1]
+        },
+        "action-primary-active": {
+          "hex": "#50B5A3",
+          "srgb": [0.313725, 0.709804, 0.639216, 1],
+          "linear": [0.08022, 0.462077, 0.366253, 1]
+        },
+        "action-primary-fg": {
+          "hex": "#0F1719",
+          "srgb": [0.058824, 0.090196, 0.098039, 1],
+          "linear": [0.004777, 0.008568, 0.009721, 1]
+        },
+        "action-secondary": {
+          "hex": "#172125",
+          "srgb": [0.090196, 0.129412, 0.145098, 1],
+          "linear": [0.008568, 0.015209, 0.0185, 1]
+        },
+        "action-secondary-hover": {
+          "hex": "#233034",
+          "srgb": [0.137255, 0.188235, 0.203922, 1],
+          "linear": [0.016807, 0.029557, 0.03434, 1]
+        },
+        "action-secondary-active": {
+          "hex": "#0F1719",
+          "srgb": [0.058824, 0.090196, 0.098039, 1],
+          "linear": [0.004777, 0.008568, 0.009721, 1]
+        },
+        "action-secondary-fg": {
+          "hex": "#EDF4F3",
+          "srgb": [0.929412, 0.956863, 0.952941, 1],
+          "linear": [0.846873, 0.904661, 0.896269, 1]
+        },
+        "input-bg": {
+          "hex": "#172125",
+          "srgb": [0.090196, 0.129412, 0.145098, 1],
+          "linear": [0.008568, 0.015209, 0.0185, 1]
+        },
+        "input-fg": {
+          "hex": "#EDF4F3",
+          "srgb": [0.929412, 0.956863, 0.952941, 1],
+          "linear": [0.846873, 0.904661, 0.896269, 1]
+        },
+        "input-placeholder": {
+          "hex": "#ADC1BE",
+          "srgb": [0.678431, 0.756863, 0.745098, 1],
+          "linear": [0.417885, 0.533276, 0.514918, 1]
+        },
+        "disabled-bg": {
+          "hex": "#233034",
+          "srgb": [0.137255, 0.188235, 0.203922, 1],
+          "linear": [0.016807, 0.029557, 0.03434, 1]
+        },
+        "disabled-fg": {
+          "hex": "#ADC1BE",
+          "srgb": [0.678431, 0.756863, 0.745098, 1],
+          "linear": [0.417885, 0.533276, 0.514918, 1]
+        },
+        "disabled-border": {
+          "hex": "#849B98",
+          "srgb": [0.517647, 0.607843, 0.596078, 1],
+          "linear": [0.23074, 0.327778, 0.313989, 1]
+        },
+        "status-fg": {
+          "hex": "#EDF4F3",
+          "srgb": [0.929412, 0.956863, 0.952941, 1],
+          "linear": [0.846873, 0.904661, 0.896269, 1]
+        },
+        "status-bg": {
+          "hex": "#233034",
+          "srgb": [0.137255, 0.188235, 0.203922, 1],
+          "linear": [0.016807, 0.029557, 0.03434, 1]
+        },
+        "status-border": {
+          "hex": "#849B98",
+          "srgb": [0.517647, 0.607843, 0.596078, 1],
+          "linear": [0.23074, 0.327778, 0.313989, 1]
+        },
+        "divider-strong": {
+          "hex": "#414141",
+          "srgb": [0.254902, 0.254902, 0.254902, 1],
+          "linear": [0.052861, 0.052861, 0.052861, 1]
+        },
+        "ornament": {
+          "hex": "#252525",
+          "srgb": [0.145098, 0.145098, 0.145098, 1],
+          "linear": [0.0185, 0.0185, 0.0185, 1]
+        },
+        "ornament-faint": {
+          "hex": "#181818",
+          "srgb": [0.094118, 0.094118, 0.094118, 1],
+          "linear": [0.009134, 0.009134, 0.009134, 1]
+        },
+        "ornament-text": {
+          "hex": "#414141",
+          "srgb": [0.254902, 0.254902, 0.254902, 1],
+          "linear": [0.052861, 0.052861, 0.052861, 1]
+        },
+        "media-placeholder": {
+          "hex": "#111111",
+          "srgb": [0.066667, 0.066667, 0.066667, 1],
+          "linear": [0.005605, 0.005605, 0.005605, 1]
+        },
+        "scrim": {
+          "hex": "#000000B8",
+          "srgb": [0, 0, 0, 0.721569],
+          "linear": [0, 0, 0, 0.721569]
+        },
+        "accent": {
+          "hex": "#71D6C3",
+          "srgb": [0.443137, 0.839216, 0.764706, 1],
+          "linear": [0.165132, 0.672443, 0.545724, 1]
+        }
+      },
+      "light": {
+        "bg": {
+          "hex": "#F2F6F5",
+          "srgb": [0.94902, 0.964706, 0.960784, 1],
+          "linear": [0.887923, 0.921582, 0.913099, 1]
+        },
+        "surface": {
+          "hex": "#FFFFFF",
+          "srgb": [1, 1, 1, 1],
+          "linear": [1, 1, 1, 1]
+        },
+        "raised": {
+          "hex": "#E0EAE7",
+          "srgb": [0.878431, 0.917647, 0.905882, 1],
+          "linear": [0.745404, 0.822786, 0.799103, 1]
+        },
+        "text": {
+          "hex": "#142925",
+          "srgb": [0.078431, 0.160784, 0.145098, 1],
+          "linear": [0.006995, 0.022174, 0.0185, 1]
+        },
+        "muted": {
+          "hex": "#4D6761",
+          "srgb": [0.301961, 0.403922, 0.380392, 1],
+          "linear": [0.074214, 0.135633, 0.119538, 1]
+        },
+        "border": {
+          "hex": "#657F78",
+          "srgb": [0.396078, 0.498039, 0.470588, 1],
+          "linear": [0.130136, 0.212231, 0.187821, 1]
+        },
+        "divider": {
+          "hex": "#C2D1CC",
+          "srgb": [0.760784, 0.819608, 0.8, 1],
+          "linear": [0.539479, 0.637597, 0.603827, 1]
+        },
+        "focus": {
+          "hex": "#126B5E",
+          "srgb": [0.070588, 0.419608, 0.368627, 1],
+          "linear": [0.006049, 0.147027, 0.111932, 1]
+        },
+        "link": {
+          "hex": "#142925",
+          "srgb": [0.078431, 0.160784, 0.145098, 1],
+          "linear": [0.006995, 0.022174, 0.0185, 1]
+        },
+        "link-hover": {
+          "hex": "#126B5E",
+          "srgb": [0.070588, 0.419608, 0.368627, 1],
+          "linear": [0.006049, 0.147027, 0.111932, 1]
+        },
+        "link-active": {
+          "hex": "#142925",
+          "srgb": [0.078431, 0.160784, 0.145098, 1],
+          "linear": [0.006995, 0.022174, 0.0185, 1]
+        },
+        "on-selected": {
+          "hex": "#F2F6F5",
+          "srgb": [0.94902, 0.964706, 0.960784, 1],
+          "linear": [0.887923, 0.921582, 0.913099, 1]
+        },
+        "selected": {
+          "hex": "#142925",
+          "srgb": [0.078431, 0.160784, 0.145098, 1],
+          "linear": [0.006995, 0.022174, 0.0185, 1]
+        },
+        "action-primary": {
+          "hex": "#126B5E",
+          "srgb": [0.070588, 0.419608, 0.368627, 1],
+          "linear": [0.006049, 0.147027, 0.111932, 1]
+        },
+        "action-primary-hover": {
+          "hex": "#0D5B50",
+          "srgb": [0.05098, 0.356863, 0.313725, 1],
+          "linear": [0.004025, 0.104616, 0.08022, 1]
+        },
+        "action-primary-active": {
+          "hex": "#084B41",
+          "srgb": [0.031373, 0.294118, 0.254902, 1],
+          "linear": [0.002428, 0.07036, 0.052861, 1]
+        },
+        "action-primary-fg": {
+          "hex": "#FFFFFF",
+          "srgb": [1, 1, 1, 1],
+          "linear": [1, 1, 1, 1]
+        },
+        "action-secondary": {
+          "hex": "#FFFFFF",
+          "srgb": [1, 1, 1, 1],
+          "linear": [1, 1, 1, 1]
+        },
+        "action-secondary-hover": {
+          "hex": "#E0EAE7",
+          "srgb": [0.878431, 0.917647, 0.905882, 1],
+          "linear": [0.745404, 0.822786, 0.799103, 1]
+        },
+        "action-secondary-active": {
+          "hex": "#F2F6F5",
+          "srgb": [0.94902, 0.964706, 0.960784, 1],
+          "linear": [0.887923, 0.921582, 0.913099, 1]
+        },
+        "action-secondary-fg": {
+          "hex": "#142925",
+          "srgb": [0.078431, 0.160784, 0.145098, 1],
+          "linear": [0.006995, 0.022174, 0.0185, 1]
+        },
+        "input-bg": {
+          "hex": "#FFFFFF",
+          "srgb": [1, 1, 1, 1],
+          "linear": [1, 1, 1, 1]
+        },
+        "input-fg": {
+          "hex": "#142925",
+          "srgb": [0.078431, 0.160784, 0.145098, 1],
+          "linear": [0.006995, 0.022174, 0.0185, 1]
+        },
+        "input-placeholder": {
+          "hex": "#4D6761",
+          "srgb": [0.301961, 0.403922, 0.380392, 1],
+          "linear": [0.074214, 0.135633, 0.119538, 1]
+        },
+        "disabled-bg": {
+          "hex": "#E0EAE7",
+          "srgb": [0.878431, 0.917647, 0.905882, 1],
+          "linear": [0.745404, 0.822786, 0.799103, 1]
+        },
+        "disabled-fg": {
+          "hex": "#4D6761",
+          "srgb": [0.301961, 0.403922, 0.380392, 1],
+          "linear": [0.074214, 0.135633, 0.119538, 1]
+        },
+        "disabled-border": {
+          "hex": "#657F78",
+          "srgb": [0.396078, 0.498039, 0.470588, 1],
+          "linear": [0.130136, 0.212231, 0.187821, 1]
+        },
+        "status-fg": {
+          "hex": "#142925",
+          "srgb": [0.078431, 0.160784, 0.145098, 1],
+          "linear": [0.006995, 0.022174, 0.0185, 1]
+        },
+        "status-bg": {
+          "hex": "#E0EAE7",
+          "srgb": [0.878431, 0.917647, 0.905882, 1],
+          "linear": [0.745404, 0.822786, 0.799103, 1]
+        },
+        "status-border": {
+          "hex": "#657F78",
+          "srgb": [0.396078, 0.498039, 0.470588, 1],
+          "linear": [0.130136, 0.212231, 0.187821, 1]
+        },
+        "divider-strong": {
+          "hex": "#C6C5C0",
+          "srgb": [0.776471, 0.772549, 0.752941, 1],
+          "linear": [0.564712, 0.55834, 0.527115, 1]
+        },
+        "ornament": {
+          "hex": "#E8E7E3",
+          "srgb": [0.909804, 0.905882, 0.890196, 1],
+          "linear": [0.806952, 0.799103, 0.768151, 1]
+        },
+        "ornament-faint": {
+          "hex": "#EFEEE9",
+          "srgb": [0.937255, 0.933333, 0.913725, 1],
+          "linear": [0.863157, 0.854993, 0.814847, 1]
+        },
+        "ornament-text": {
+          "hex": "#C6C5C0",
+          "srgb": [0.776471, 0.772549, 0.752941, 1],
+          "linear": [0.564712, 0.55834, 0.527115, 1]
+        },
+        "media-placeholder": {
+          "hex": "#E8E7E3",
+          "srgb": [0.909804, 0.905882, 0.890196, 1],
+          "linear": [0.806952, 0.799103, 0.768151, 1]
+        },
+        "scrim": {
+          "hex": "#0000007A",
+          "srgb": [0, 0, 0, 0.478431],
+          "linear": [0, 0, 0, 0.478431]
+        },
+        "accent": {
+          "hex": "#126B5E",
+          "srgb": [0.070588, 0.419608, 0.368627, 1],
+          "linear": [0.006049, 0.147027, 0.111932, 1]
+        }
+      }
+    },
+    "elevation": {
+      "dark": {},
+      "light": {}
+    },
+    "space": {
+      "2": 8,
+      "4": 16,
+      "6": 24,
+      "8": 32,
+      "12": 48,
+      "16": 64,
+      "24": 96,
+      "base": 4
+    },
+    "radius": {
+      "sm": 2,
+      "md": 4,
+      "full": 9999
+    },
+    "breakpoint": {
+      "compact": 720,
+      "narrow": 380
+    },
+    "layout": {
+      "radius": 4,
+      "gutter": 24,
+      "max-content": 1120,
+      "line": {
+        "chars": 65
+      },
+      "control-min": 44,
+      "focus-width": 2,
+      "focus-offset": 2
+    },
+    "type": {
+      "body": {
+        "fontFamily": "Inter",
+        "fontWeight": 400,
+        "fontSizePx": 17,
+        "lineHeight": 1.55,
+        "lineHeightPx": 26.35,
+        "letterSpacing": 0,
+        "letterSpacingPx": 0,
+        "textTransform": "none"
+      },
+      "display": {
+        "fontFamily": "Inter",
+        "fontWeight": 600,
+        "fontSizePx": 48,
+        "lineHeight": 1.1,
+        "lineHeightPx": 52.8,
+        "letterSpacing": 0,
+        "letterSpacingPx": 0,
+        "textTransform": "none"
+      },
+      "display-small": {
+        "fontFamily": "Inter",
+        "fontWeight": 600,
+        "fontSizePx": 34,
+        "lineHeight": 1.15,
+        "lineHeightPx": 39.1,
+        "letterSpacing": 0,
+        "letterSpacingPx": 0,
+        "textTransform": "none"
+      },
+      "section": {
+        "fontFamily": "Inter",
+        "fontWeight": 600,
+        "fontSizePx": 30,
+        "lineHeight": 1.2,
+        "lineHeightPx": 36,
+        "letterSpacing": 0,
+        "letterSpacingPx": 0,
+        "textTransform": "none"
+      },
+      "card": {
+        "fontFamily": "Inter",
+        "fontWeight": 600,
+        "fontSizePx": 22,
+        "lineHeight": 1.3,
+        "lineHeightPx": 28.6,
+        "letterSpacing": 0,
+        "letterSpacingPx": 0,
+        "textTransform": "none"
+      },
+      "control": {
+        "fontFamily": "Inter",
+        "fontWeight": 500,
+        "fontSizePx": 15,
+        "lineHeight": 1.4,
+        "lineHeightPx": 21,
+        "letterSpacing": 0,
+        "letterSpacingPx": 0,
+        "textTransform": "none"
+      },
+      "label": {
+        "fontFamily": "IBM Plex Mono",
+        "fontWeight": 400,
+        "fontSizePx": 14,
+        "lineHeight": 1.5,
+        "lineHeightPx": 21,
+        "letterSpacing": 0.06,
+        "letterSpacingPx": 0.84,
+        "textTransform": "uppercase"
+      },
+      "identity-label": {
+        "fontFamily": "Inter",
+        "fontWeight": 500,
+        "fontSizePx": 20,
+        "lineHeight": 1.3,
+        "lineHeightPx": 26,
+        "letterSpacing": 0,
+        "letterSpacingPx": 0,
+        "textTransform": "none"
+      }
+    },
+    "motion": {
+      "durationMs": 140,
+      "reducedDurationMs": 0,
+      "easing": [0, 0, 0.58, 1]
+    }
+  }
+}

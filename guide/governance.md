@@ -4,14 +4,14 @@
 
 - A new product reuses the system: the baseline, or its product family's kit.
 - Changes to the emblem, the core type or the baseline palette need the owner's explicit review.
-- A new product family, or a change to a family's values, is proposed in `tokens/<family>/family.json` and stays *proposed* until the owner approves it.
+- A new product family, or a change to a family's values, is proposed in `kits/<family>/tokens/family.json` and stays *proposed* until the owner approves it.
 - The terms for reusing the marks are in [LICENSE.md](../LICENSE.md).
 
 ## Before a release
 
 1. Run `node scripts/build.mjs` and `node scripts/check.mjs`; both must pass, with every manifest hash verified.
 2. Re-test real product screens and print output; the kit's checks don't cover them.
-3. Record the changes in [CHANGELOG.md](../CHANGELOG.md), set the version (semver) in `asset-manifest.json` and `tokens/cosmik/source.json`, and tag the release `vX.Y.Z`.
+3. Record the changes in [CHANGELOG.md](../CHANGELOG.md), set the version (semver) in `asset-manifest.json` and `kits/cosmik/tokens/source.json`, and tag the release `vX.Y.Z`.
 4. Retire superseded copies of assets; keep the approved originals unchanged.
 
 ## Still open

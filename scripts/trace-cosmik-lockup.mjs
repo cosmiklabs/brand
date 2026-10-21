@@ -1,8 +1,8 @@
-/** Traces the horizontal lockup from the approved banner (assets/approved-raster/cosmik-banner-original.png),
+/** Traces the horizontal lockup from the approved banner (kits/cosmik/assets/approved-raster/cosmik-banner-original.png),
  * which stays unchanged. The COSMIK letters are outlined from the banner's own silhouette; the emblem is
  * the accepted vector master, scaled and placed where the banner shows it, so one emblem shape serves
- * every asset. Writes assets/vector/cosmik-lockup.source.json (what scripts/build-cosmik-lockup.mjs
- * builds from) and the evidence in references/ (lockup-qa.json, lockup-trace-overlay.png).
+ * every asset. Writes kits/cosmik/assets/vector/cosmik-lockup.source.json (what scripts/build-cosmik-lockup.mjs
+ * builds from) and the evidence in kits/cosmik/validation/ (lockup-qa.json, lockup-trace-overlay.png).
  * A one-time derivation, kept to reproduce or audit it: node scripts/trace-cosmik-lockup.mjs. Node.js only. */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -11,9 +11,9 @@ import { fileURLToPath } from 'node:url';
 import { parsePath, transformCommands, flatten, coverage, decodePng, encodePng } from './vector-raster.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const SOURCE = 'assets/approved-raster/cosmik-banner-original.png';
-const MASTER = 'assets/vector/cosmik-emblem-master-offwhite.svg';
-// The emblem trace's silhouette threshold (references/vector-qa.json): mean RGB above it is the mark.
+const SOURCE = 'kits/cosmik/assets/approved-raster/cosmik-banner-original.png';
+const MASTER = 'kits/cosmik/assets/vector/cosmik-emblem-master-offwhite.svg';
+// The emblem trace's silhouette threshold (kits/cosmik/validation/vector-qa.json): mean RGB above it is the mark.
 const THRESHOLD = 123;
 // Largest distance, in source pixels, a fitted curve or line may leave the smoothed outline.
 const TOLERANCE = 0.5;
@@ -211,7 +211,7 @@ const masterSvg = fs.readFileSync(path.join(root, MASTER), 'utf8');
 const masterPath = masterSvg.match(/<path id="emblem"[^>]* d="([^"]+)"/)[1];
 const master = parsePath(masterPath);
 const emblemBox = { x0: 0, y0: 0, x1: emblemRight, y1: H - 1 };
-const masterBox = [137, 222, 1074, 1001]; // references/vector-qa.json visible_pixel_bounds_xyxy
+const masterBox = [137, 222, 1074, 1001]; // kits/cosmik/validation/vector-qa.json visible_pixel_bounds_xyxy
 const emblemShapes = shapes.filter(s => s.x1 <= emblemRight);
 const banner = [Math.min(...emblemShapes.map(s => s.x0)), Math.min(...emblemShapes.map(s => s.y0)), Math.max(...emblemShapes.map(s => s.x1)), Math.max(...emblemShapes.map(s => s.y1))];
 const crop = [banner[0] - 8, banner[1] - 8, banner[2] - banner[0] + 17, banner[3] - banner[1] + 17];
@@ -287,7 +287,7 @@ const source = {
   emblem: { master: MASTER, transform, visible_bounds_xywh: [ex0, ey0, ex1 - ex0, ey1 - ey0].map(round) },
   wordmark: { glyphs, visible_bounds_xywh: [wx0, wy0, wx1 - wx0, wy1 - wy0].map(round) },
 };
-fs.writeFileSync(path.join(root, 'assets/vector/cosmik-lockup.source.json'), JSON.stringify(source, null, 2) + '\n');
-fs.writeFileSync(path.join(root, 'references/lockup-qa.json'), JSON.stringify(qa, null, 2) + '\n');
-fs.writeFileSync(path.join(root, 'references/lockup-trace-overlay.png'), encodePng(W, H, overlay));
+fs.writeFileSync(path.join(root, 'kits/cosmik/assets/vector/cosmik-lockup.source.json'), JSON.stringify(source, null, 2) + '\n');
+fs.writeFileSync(path.join(root, 'kits/cosmik/validation/lockup-qa.json'), JSON.stringify(qa, null, 2) + '\n');
+fs.writeFileSync(path.join(root, 'kits/cosmik/validation/lockup-trace-overlay.png'), encodePng(W, H, overlay));
 console.log(JSON.stringify({ wordmark: qa.wordmark, emblem: qa.emblem, transform, segments: glyphs.map(g => `${g.id}:${(g.d.match(/[LC]/g) || []).length}`).join(' ') }, null, 1));

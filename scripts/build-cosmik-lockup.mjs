@@ -1,4 +1,4 @@
-/** Builds the Cosmik horizontal lockup from assets/vector/cosmik-lockup.source.json (traced by
+/** Builds the Cosmik horizontal lockup from kits/cosmik/assets/vector/cosmik-lockup.source.json (traced by
  * scripts/trace-cosmik-lockup.mjs) and the accepted emblem master. Node.js only.
  * Every variant keeps the approved banner's composition and shares one geometry: the master's emblem
  * path under the traced placement, and the traced COSMIK wordmark. PNGs are the full banner size and
@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { parsePath, transformCommands, flatten, coverage, paint, encodePng } from './vector-raster.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const dir = path.join(root, 'assets/vector');
+const dir = path.join(root, 'kits/cosmik/assets/vector');
 const source = JSON.parse(fs.readFileSync(path.join(dir, 'cosmik-lockup.source.json'), 'utf8'));
 const master = fs.readFileSync(path.join(root, source.emblem.master), 'utf8').match(/<path id="emblem"[^>]* d="([^"]+)"/)[1];
 const wordmark = source.wordmark.glyphs.map(g => g.d).join(' ');
