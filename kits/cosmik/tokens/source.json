@@ -1,6 +1,6 @@
 {
   "name": "Cosmik",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "status": "Approved baseline (owner, 2026-10-07)",
   "proposals": [],
   "primitives": {
@@ -127,6 +127,7 @@
     "max-content": "70rem",
     "line": "65ch",
     "control-min": "2.75rem",
+    "control-dense": "2rem",
     "focus-width": "2px",
     "focus-offset": "2px"
   },
@@ -171,6 +172,20 @@
       "fontWeight": 500,
       "fontSize": "0.9375rem",
       "lineHeight": 1.4,
+      "letterSpacing": "0"
+    },
+    "ui": {
+      "fontFamily": "Inter",
+      "fontWeight": 500,
+      "fontSize": "0.875rem",
+      "lineHeight": 1.43,
+      "letterSpacing": "0"
+    },
+    "ui-small": {
+      "fontFamily": "Inter",
+      "fontWeight": 500,
+      "fontSize": "0.75rem",
+      "lineHeight": 1.33,
       "letterSpacing": "0"
     },
     "label": {

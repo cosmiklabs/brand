@@ -17,8 +17,8 @@ const toJson = (value) => JSON.stringify(value, null, 2)
   .replace(/\[\s+(-?[\d.e+-]+(?:,\s+-?[\d.e+-]+)*)\s+\]/g, (_, inner) => `[${inner.split(/,\s+/).join(', ')}]`) + '\n';
 
 // ---- The family contract: what a family may change, add and never touch ----
-// Heading roles a family may set its own typeface for; utility type (body, control, label,
-// identity-label) stays the baseline's in every family.
+// Heading roles a family may set its own typeface for; utility type (body, control, ui,
+// ui-small, label, identity-label) stays the baseline's in every family.
 const FAMILY_TYPE_ROLES = ['display', 'display-small', 'section', 'card'];
 const FAMILY_TYPE_KEYS = ['fontFamily', 'fontWeight'];
 const familySource = (family) => {

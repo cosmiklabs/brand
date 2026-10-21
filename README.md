@@ -1,6 +1,6 @@
 # Cosmik brand kit
 
-Brand kit 0.4.0 (21 October 2026), tagged `v0.4.0`. See [CHANGELOG.md](CHANGELOG.md).
+Brand kit 0.5.0 (21 October 2026), tagged `v0.5.0`. See [CHANGELOG.md](CHANGELOG.md).
 
 The identity system for Cosmik and its product families: the rules in the
 [guide](guide/README.md), and per-kit tokens, marks and icons generated from one

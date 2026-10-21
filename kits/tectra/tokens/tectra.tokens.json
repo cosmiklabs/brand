@@ -1210,6 +1210,13 @@
         "unit": "rem"
       }
     },
+    "control-dense": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "rem"
+      }
+    },
     "focus-width": {
       "$type": "dimension",
       "$value": {
@@ -1351,6 +1358,50 @@
           "unit": "px"
         },
         "lineHeight": 1.4
+      },
+      "$extensions": {
+        "com.cosmiklabs": {
+          "letterSpacingEm": 0,
+          "textTransform": "none"
+        }
+      }
+    },
+    "ui": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": {
+          "value": 0.875,
+          "unit": "rem"
+        },
+        "fontWeight": 500,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        },
+        "lineHeight": 1.43
+      },
+      "$extensions": {
+        "com.cosmiklabs": {
+          "letterSpacingEm": 0,
+          "textTransform": "none"
+        }
+      }
+    },
+    "ui-small": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": {
+          "value": 0.75,
+          "unit": "rem"
+        },
+        "fontWeight": 500,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        },
+        "lineHeight": 1.33
       },
       "$extensions": {
         "com.cosmiklabs": {

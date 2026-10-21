@@ -13,8 +13,8 @@ Every Cosmik surface uses one **kit**: the **baseline** (`cosmik/`) that the org
 The identity is black and warm off-white with no accent colour, and status is carried by words and structure, not hue (guide §5, §7). The baseline defines:
 
 - **Semantic roles** in a dark and a light mode, every role in both: surfaces (`bg`, `surface`, `raised`), text (`text`, `muted`), boundaries (`border` for essential control edges, `divider` and `divider-strong` decorative), focus, links, selection, primary and secondary actions, inputs, disabled and neutral status (`status-fg`/`-bg`/`-border`), decorative greys (`ornament`, `ornament-faint`, `ornament-text`, `media-placeholder`) and `scrim` (a translucent backdrop behind a modal).
-- **Type roles:** Inter for reading and interface (`body`, `display`, `display-small`, `section`, `card`, `control`), IBM Plex Mono for short technical labels (`label`), and the live `identity-label` (Inter 500, 20 px).
-- **Rhythm:** a 4 px spacing base (8, 16, 24, 32, 48, 64, 96), 4 px radii (`radius-sm` 2 px, `radius-md` 4 px, `radius-full`), layout values (44 px control minimum, 2 px focus outline with 2 px offset, a 65-character reading measure), breakpoints (720 px compact, 380 px narrow) and motion (140 ms ease-out; 0 ms under reduced motion).
+- **Type roles:** Inter for reading and interface (`body`, `display`, `display-small`, `section`, `card`, `control`, and the dense application roles `ui` 14 px and `ui-small` 12 px), IBM Plex Mono for short technical labels (`label`), and the live `identity-label` (Inter 500, 20 px).
+- **Rhythm:** a 4 px spacing base (8, 16, 24, 32, 48, 64, 96), 4 px radii (`radius-sm` 2 px, `radius-md` 4 px, `radius-full`), layout values (44 px control minimum, 32 px `control-dense` for pointer-only application controls, 2 px focus outline with 2 px offset, a 65-character reading measure), breakpoints (720 px compact, 380 px narrow) and motion (140 ms ease-out; 0 ms under reduced motion).
 
 ### Use on the web
 
@@ -29,7 +29,7 @@ A family gives a product family its own mood while staying recognisably Cosmik (
 | **must** | define both of the baseline's modes; keep every baseline role (any it does not override comes from the baseline); pass every baseline contrast pair (4.5:1 text, 3:1 essential boundaries and focus) |
 | **may change** | the colour of any baseline role, through primitives of its own (names that do not collide with the baseline's); the typeface and weight of the heading roles `display`, `display-small`, `section` and `card` |
 | **may add** | roles of its own under `extensions`, named in every mode (for example `accent` and the status tones); elevation levels; heading fonts it needs, listed with their licence |
-| **never changes** | utility type (`body`, `control`, `label`, `identity-label`), spacing, layout, radii, breakpoints and motion; and, outside the tokens, the emblem, the name and the endorsement ("A Cosmik project") |
+| **never changes** | utility type (`body`, `control`, `ui`, `ui-small`, `label`, `identity-label`), spacing, layout, radii, breakpoints and motion; and, outside the tokens, the emblem, the name and the endorsement ("A Cosmik project") |
 
 ### Use a family on the web
 

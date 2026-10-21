@@ -3,6 +3,15 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`.
 
+## 0.5.0 · 21 October 2026
+
+- Add dense application roles to the baseline, so every kit has them: type roles
+  `ui` (Inter 500, 14 px) and `ui-small` (Inter 500, 12 px), and layout
+  `control-dense` (32 px). The [interface guide](guide/interface.md) says where
+  they apply: navigation, menus, toolbars and lists for a pointer, while touch
+  keeps 44 px targets and forms keep `control`. Families inherit them as utility
+  type. Nothing existing changes.
+
 ## 0.4.0 · 21 October 2026
 
 **Breaking layout change.** Each kit now lives in one folder: `kits/<kit>/` holds its

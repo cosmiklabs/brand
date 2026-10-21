@@ -1,6 +1,6 @@
 {
   "name": "Cosmik brand kit",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "date": "2026-10-21",
   "system_status": "baseline approved (owner, 2026-10-07); HPLX family approved (owner, 2026-10-15); Tectra family and angle-only Latch approved (owner, 2026-10-17)",
   "emblem_status": "accepted traced symbol",
@@ -1755,7 +1755,7 @@
         "format": "source"
       },
       "status": "baseline source, approved",
-      "sha256": "e1def5892fe886f3333fd3e870b0d61be3f65b2198e553ec6c23f3b439f9d4ee",
+      "sha256": "af1c93d285aa026908264d313aa6d95f41803031b99b865106c1c24d842ee2c0",
       "editable": true
     },
     {
@@ -1766,7 +1766,7 @@
         "format": "css"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "745e779d89e01ec8504da80530871b4131bf5c84dfd5a6496d38ce317fb27905"
+      "sha256": "2ebfc1e2ac62caa70fc2f2e30064bbfb05a8187177cbd5f9d32ec932657fd6f3"
     },
     {
       "path": "kits/cosmik/tokens/cosmik.json",
@@ -1777,7 +1777,7 @@
         "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "f940abd0189b393aa690e60582c941a279535e9b8e8c4e3aa500de0ae78f9414"
+      "sha256": "825dea626392adc250977659c1d316900900dc35ffda004f2e80fc8ddf026610"
     },
     {
       "path": "kits/cosmik/tokens/cosmik.tokens.json",
@@ -1787,7 +1787,7 @@
         "format": "dtcg"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "45dbcde765ef2b7767134c33618f2a9d9e511619138f9bd0a29a804d9e4f878e"
+      "sha256": "1aacd5f1b1c0b4fd14a333d5c506f14d9aed273b0736b6ac3fda2d775f0b5bd5"
     },
     {
       "path": "kits/cosmik/tokens/cosmik_tokens.rs",
@@ -1797,7 +1797,7 @@
         "format": "rust"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "50af5cf1aaf27aa55847c950a5c4f27c5e23c92b5342136469b3c21b2335ba32"
+      "sha256": "224b2b1f2f532037edc2ede72b162e4411b9b0768ce6c777ebe2eb4df218c4d0"
     },
     {
       "path": "kits/hplx/tokens/family.json",
@@ -1829,7 +1829,7 @@
         "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "446ba8db1da19861dc8434d17b84cd84246f0cd53657825cb17078d14097f2b4"
+      "sha256": "8d15a4de757e2d71c7e9648e6adea5162bbd97aab451b15c10aa89b12878a1e0"
     },
     {
       "path": "kits/hplx/tokens/hplx.tokens.json",
@@ -1839,7 +1839,7 @@
         "format": "dtcg"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "016e26daa292d270364ddcca8449b557b2997ae2ba156d0af86b6aad3dccb273"
+      "sha256": "6e3f08ff8a3da5585fdc6c907949cb3a38ed33407f2dce7f8b34d420f34e6c13"
     },
     {
       "path": "kits/hplx/tokens/hplx_tokens.rs",
@@ -1849,7 +1849,7 @@
         "format": "rust"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "19e898acb57fbacdc657d0b64ef95c9349558418c5ea744a3d43cc7514982995"
+      "sha256": "b5a558cb30ec5b3d9defc2d49c4b2d43e6e9bbfbc1895150fbf6ae99b19c929b"
     },
     {
       "path": "kits/tectra/tokens/family.json",
@@ -1879,7 +1879,7 @@
         "kit": "tectra",
         "format": "json"
       },
-      "sha256": "bff3542c689a0c5a7966952a94f904cdb6f94cef99dd8bba3f6fbf09ed062d8d",
+      "sha256": "f9db3187d97a6ae4fc5609a206d82b3a89ffa7a959fd9322e305f06b892d9439",
       "generated_by": "scripts/generate-tokens.mjs"
     },
     {
@@ -1889,7 +1889,7 @@
         "kit": "tectra",
         "format": "dtcg"
       },
-      "sha256": "c51853fa0dcd66ff684d3f45a9fbeffdc17e97c8307da5e9f3d10c538b462ad7",
+      "sha256": "4148cda7febcb79070284668f4e305be2845a1a206007979784b266957311fbc",
       "generated_by": "scripts/generate-tokens.mjs"
     },
     {
@@ -1899,7 +1899,7 @@
         "kit": "tectra",
         "format": "rust"
       },
-      "sha256": "c947697c2da9f02e5b02bb499a33b070f0e0b6ac6a71a7ed4292e76b74e31579",
+      "sha256": "e7f1bc972e68988a7942cf6e65c3657dc7c7b83b20a06c99f8c84e6aa44d5bf8",
       "generated_by": "scripts/generate-tokens.mjs"
     }
   ],

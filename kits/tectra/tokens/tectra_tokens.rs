@@ -261,6 +261,7 @@ pub mod layout {
     /// Reading measure in characters.
     pub const LINE_CHARS: u32 = 65;
     pub const CONTROL_MIN: f32 = 44.0;
+    pub const CONTROL_DENSE: f32 = 32.0;
     pub const FOCUS_WIDTH: f32 = 2.0;
     pub const FOCUS_OFFSET: f32 = 2.0;
 }
@@ -273,6 +274,8 @@ pub mod typography {
     pub const SECTION: TypeRole = TypeRole { font_family: "Inter", font_weight: 600, font_size: 30.0, line_height: 1.2, letter_spacing: 0.0, uppercase: false };
     pub const CARD: TypeRole = TypeRole { font_family: "Inter", font_weight: 600, font_size: 22.0, line_height: 1.3, letter_spacing: 0.0, uppercase: false };
     pub const CONTROL: TypeRole = TypeRole { font_family: "Inter", font_weight: 500, font_size: 15.0, line_height: 1.4, letter_spacing: 0.0, uppercase: false };
+    pub const UI: TypeRole = TypeRole { font_family: "Inter", font_weight: 500, font_size: 14.0, line_height: 1.43, letter_spacing: 0.0, uppercase: false };
+    pub const UI_SMALL: TypeRole = TypeRole { font_family: "Inter", font_weight: 500, font_size: 12.0, line_height: 1.33, letter_spacing: 0.0, uppercase: false };
     pub const LABEL: TypeRole = TypeRole { font_family: "IBM Plex Mono", font_weight: 400, font_size: 14.0, line_height: 1.5, letter_spacing: 0.06, uppercase: true };
     pub const IDENTITY_LABEL: TypeRole = TypeRole { font_family: "Inter", font_weight: 500, font_size: 20.0, line_height: 1.3, letter_spacing: 0.0, uppercase: false };
 }

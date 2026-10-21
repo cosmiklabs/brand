@@ -263,6 +263,7 @@
     "max-content": "70rem",
     "line": "65ch",
     "control-min": "2.75rem",
+    "control-dense": "2rem",
     "focus-width": "2px",
     "focus-offset": "2px"
   },
@@ -307,6 +308,20 @@
       "fontWeight": 500,
       "fontSize": "0.9375rem",
       "lineHeight": 1.4,
+      "letterSpacing": "0"
+    },
+    "ui": {
+      "fontFamily": "Inter",
+      "fontWeight": 500,
+      "fontSize": "0.875rem",
+      "lineHeight": 1.43,
+      "letterSpacing": "0"
+    },
+    "ui-small": {
+      "fontFamily": "Inter",
+      "fontWeight": 500,
+      "fontSize": "0.75rem",
+      "lineHeight": 1.33,
       "letterSpacing": "0"
     },
     "label": {
@@ -1137,6 +1152,7 @@
         "chars": 65
       },
       "control-min": 44,
+      "control-dense": 32,
       "focus-width": 2,
       "focus-offset": 2
     },
@@ -1197,6 +1213,26 @@
         "fontSizePx": 15,
         "lineHeight": 1.4,
         "lineHeightPx": 21,
+        "letterSpacing": 0,
+        "letterSpacingPx": 0,
+        "textTransform": "none"
+      },
+      "ui": {
+        "fontFamily": "Inter",
+        "fontWeight": 500,
+        "fontSizePx": 14,
+        "lineHeight": 1.43,
+        "lineHeightPx": 20.02,
+        "letterSpacing": 0,
+        "letterSpacingPx": 0,
+        "textTransform": "none"
+      },
+      "ui-small": {
+        "fontFamily": "Inter",
+        "fontWeight": 500,
+        "fontSizePx": 12,
+        "lineHeight": 1.33,
+        "lineHeightPx": 15.96,
         "letterSpacing": 0,
         "letterSpacingPx": 0,
         "textTransform": "none"
