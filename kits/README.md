@@ -1,81 +1,162 @@
-# Cosmik kits
+# Consuming a kit
 
-Every Cosmik surface uses one **kit**: the **baseline** (`cosmik/`) that the organisation itself uses (website, GitHub profile, documents) or a **family kit** (`hplx/`, `tectra/`) for a product family with a style of its own. Each kit's tokens are generated from one source file in its `tokens/` folder by `npm run build` and checked by `npm run check`; never hand-edit the generated files.
+Use the Cosmik baseline for organisation surfaces and a family kit for its product.
+Read the relevant [Cosmik](cosmik/README.md), [HPLX](hplx/README.md) or
+[Tectra](tectra/README.md) identity guide before selecting artwork. Pin a release
+and resolve deliverables through `asset-manifest.json` from that same release.
+The formats below are platform adapters for the same visual contract; none
+requires a particular framework, page composition or application workflow.
 
-| Kit | Source | Status | Outputs |
-|---|---|---|---|
-| `cosmik/` (baseline) | `source.json` | Approved (owner, 2026-10-07) | `cosmik.css`, `cosmik.json`, `cosmik.tokens.json`, `cosmik_tokens.rs` |
-| `hplx/` (HPLX family: the engine, its game reimplementations, desktop app and editor) | `family.json` | Approved (owner, 2026-10-15) | `hplx.css`, `hplx.json`, `hplx.tokens.json`, `hplx_tokens.rs` |
-| `tectra/` (Tectra: agent-driven construction authoring) | `family.json` | Approved (owner, 2026-10-17) | `tectra.css`, `tectra.json`, `tectra.tokens.json`, `tectra_tokens.rs` |
+## Source and output contract
 
-## The baseline
+| Kit | Token source | Generated output stem |
+| --- | --- | --- |
+| Cosmik baseline | `cosmik/tokens/source.json` | `cosmik/tokens/cosmik` |
+| HPLX family | `hplx/tokens/family.json` | `hplx/tokens/hplx` |
+| Tectra family | `tectra/tokens/family.json` | `tectra/tokens/tectra` |
 
-The identity is black and warm off-white with no accent colour, and status is carried by words and structure, not hue (guide §5, §7). The baseline defines:
+Each stem provides `.css`, `.json`, `.tokens.json` and `_tokens.rs`. Edit the source
+and run `npm run build`; never edit an output. Generated JSON and Rust resolve the
+family over the baseline and are complete on their own. Family CSS is scoped and
+requires the baseline CSS for shared values. Family revision metadata is separate
+from the repository release version; consume all files from one pinned release.
 
-- **Semantic roles** in a dark and a light mode, every role in both: surfaces (`bg`, `surface`, `raised`), text (`text`, `muted`), boundaries (`border` for essential control edges, `divider` and `divider-strong` decorative), focus, links, selection, primary and secondary actions, inputs, disabled and neutral status (`status-fg`/`-bg`/`-border`), decorative greys (`ornament`, `ornament-faint`, `ornament-text`, `media-placeholder`) and `scrim` (a translucent backdrop behind a modal).
-- **Type roles:** Inter for reading and interface (`body`, `display`, `display-small`, `section`, `card`, `control`, and the dense application roles `ui` 14 px and `ui-small` 12 px), IBM Plex Mono for short technical labels (`label`), and the live `identity-label` (Inter 500, 20 px).
-- **Rhythm:** a 4 px spacing base (8, 16, 24, 32, 48, 64, 96), 4 px radii (`radius-sm` 2 px, `radius-md` 4 px, `radius-full`), layout values (44 px control minimum, 32 px `control-dense` for pointer-only application controls, 2 px focus outline with 2 px offset, a 65-character reading measure), breakpoints (720 px compact, 380 px narrow) and motion (140 ms ease-out; 0 ms under reduced motion).
+Values are authoritative in the sources, not in hand-copied lists of hex codes or
+pixel sizes. Use semantic roles for surfaces, text, boundaries, selection, actions,
+inputs and status. Primitives document the palette; they are not component roles.
+`border` is an essential boundary; `divider` is decorative. Use type, spacing,
+layout, radius and motion tokens alongside colour roles.
 
-### Use on the web
+## Browser integration
 
-Load `cosmik/cosmik.css` before your component CSS. Set `data-theme="dark"` or `data-theme="light"` on the root or a section to choose a mode; a root without one follows the operating system's light or dark preference. Use role variables (`--c-bg`, `--c-surface`, `--c-text`, `--c-muted`, `--c-action-primary-fg`, …), never primitives, and switch a whole theme together rather than overriding one value. `--c-divider` is decorative; use `--c-border` for an essential boundary. Breakpoint variables are reference values: custom properties cannot be used inside `@media`.
-
-## Family kits
-
-A family gives a product family its own mood while staying recognisably Cosmik (guide §10: "A project can have its own visual mood while keeping the endorsement and utility type consistent"). `scripts/generate-tokens.mjs` merges `kits/<id>/tokens/family.json` over the baseline and **refuses a family that breaks the contract**; `scripts/validate-tokens.mjs` checks every kit against the same contrast pairs.
-
-| A family… | |
-|---|---|
-| **must** | define both of the baseline's modes; keep every baseline role (any it does not override comes from the baseline); pass every baseline contrast pair (4.5:1 text, 3:1 essential boundaries and focus) |
-| **may change** | the colour of any baseline role, through primitives of its own (names that do not collide with the baseline's); the typeface and weight of the heading roles `display`, `display-small`, `section` and `card` |
-| **may add** | roles of its own under `extensions`, named in every mode (for example `accent` and the status tones); elevation levels; heading fonts it needs, listed with their licence |
-| **never changes** | utility type (`body`, `control`, `ui`, `ui-small`, `label`, `identity-label`), spacing, layout, radii, breakpoints and motion; and, outside the tokens, the emblem, the name and the endorsement ("A Cosmik project") |
-
-### Use a family on the web
-
-Load the family's CSS after the baseline's, and mark the region it styles:
+The CSS supplies tokens, not resets, font loading or component styles. Define the
+bundled font faces with the provided weights, apply type roles in component CSS
+and preserve the corresponding font notices. Load baseline before family:
 
 ```html
 <link rel="stylesheet" href="kits/cosmik/tokens/cosmik.css">
-<link rel="stylesheet" href="kits/hplx/tokens/hplx.css">
-…
-<main data-family="hplx"> <!-- this product's content; the site's header and footer stay baseline -->
-  <section data-theme="light">…</section>
-</main>
+<link rel="stylesheet" href="kits/tectra/tokens/tectra.css">
+<section data-family="tectra" data-theme="dark" data-motion="system">
+  <button class="primary" type="button">Apply changes</button>
+</section>
 ```
 
-Inside `[data-family="hplx"]` the same role variables take the family's values: following the page's mode, light where the family element or a section inside it carries `data-theme="light"` (or where the family element sits inside a light section). Components read the roles, including the typography variables, and load the fonts the kit lists. Family colors use `light-dark()` (current browsers) with the nearest explicit `data-theme` color scheme, including a dark family inside a light ancestor.
+```css
+.primary {
+  background: var(--c-action-primary);
+  color: var(--c-action-primary-fg);
+  border: 1px solid var(--c-action-primary);
+  border-radius: var(--c-radius-md);
+  min-height: var(--c-layout-control-min);
+  font-family: var(--c-type-control-font-family), sans-serif;
+  font-size: var(--c-type-control-font-size);
+  font-weight: var(--c-type-control-font-weight);
+  line-height: var(--c-type-control-line-height);
+  padding: var(--c-space-2) var(--c-space-4);
+  transition: background-color var(--c-motion-duration) var(--c-motion-easing);
+}
+.primary:hover { background: var(--c-action-primary-hover); }
+.primary:active { background: var(--c-action-primary-active); }
+.primary:focus-visible {
+  outline: var(--c-layout-focus-width) solid var(--c-focus);
+  outline-offset: var(--c-layout-focus-offset);
+}
+```
 
-### The HPLX family (approved)
+This illustrates role binding, not a complete button implementation. Handle disabled,
+pending and other states according to the [interface guide](../guide/interface.md).
+The [component reference](../specimens/components.html) provides interactive examples.
 
-The HPLX app art board's look: warm blacks and bone text, a lantern-amber accent for primary actions, focus and highlights, Spectral 600 for headings, and what HPLX's tools need that the monochrome baseline leaves out: `accent`, status tones `status-{error,warning,success,info}-{fg,bg,border}` (muted red, amber, green and blue; status still also says it in words) and `shadow` with elevation levels 1–3 for menus and dialogs. Spectral SemiBold (SIL OFL 1.1, The Spectral Project Authors) is bundled: `fonts/desktop/Spectral-SemiBold.ttf`, `fonts/web/Spectral-SemiBold.woff2`, notice in `fonts/licenses/Spectral-OFL.txt`.
+### Themes, scopes and motion
 
-### The Tectra family (approved)
+A page without an explicit `data-theme` follows the operating system. Set `dark`
+or `light` on the root or a section to choose a mode. A nested explicit theme wins;
+change the complete mode rather than overriding text independently of its surface.
+Family colours use `light-dark()` and the nearest colour scheme. Verify support in
+your browser targets; this kit does not include a legacy-browser polyfill.
 
-Cool mineral surfaces with restrained teal for focus, primary actions and selected emphasis, and the angle-only Latch symbol with outlined Inter lockups (approved 17 October 2026). Inter serves headings and text; IBM Plex Mono serves short technical labels. It adds `accent` and no status hues: status stays in words. The [Tectra kit](tectra/README.md) has the identity, presentation and imagery rules; [specimen.html](tectra/specimen.html) is its offline review board. Rendered accessibility QA in each consuming product remains required.
+`data-family` scopes family styling. A scope can cover the root or a smaller
+region; choose the boundary for the content's identity, not a prescribed page layout. A portal mounted
+outside a family or theme subtree must receive the same effective context, or its
+popover will use different colours and typography from its trigger.
 
-## Native consumers
+`--c-motion-duration` is the effective duration. `data-motion="system"`, `"reduce"`
+or `"full"` selects the policy for a scope; omitted scopes inherit. Use the policy
+and lifecycle contract in [motion](../guide/motion.md), rather than hard-coding an
+animation duration or independently overriding the operating-system query.
 
-Each kit's `<kit>.json` → `native` and `<kit>_tokens.rs` give values that need no browser:
+Breakpoint properties document the shared layout thresholds; CSS custom properties
+cannot be substituted directly into `@media` conditions. Keep any literal query
+in sync with the source and verify the actual layout at enlarged text size.
 
-- lengths (space, radius, gutter, control height, breakpoints, type sizes, elevation offsets) as logical px at a 16 px root;
-- `layout.line` as `{ "chars": 65 }`, a reading measure in characters;
-- letter spacing as a fraction of the font size (`0.06` for labels), plus the px value at the role's size;
-- easing as cubic-bezier control points `[x1, y1, x2, y2]` (`ease-out` is `[0, 0, 0.58, 1]`), and durations in ms;
-- every colour as `hex`, straight-alpha sRGB floats `srgb: [r, g, b, a]` and linear-light floats `linear: [r, g, b, a]`. In Bevy, `Color::srgba(r, g, b, a)` takes the `srgb` array; in egui, `Color32::from_rgba_unmultiplied` takes the hex bytes.
+## Family contract
 
-A family's files are complete on their own (baseline values included), so a product includes one kit only. `<kit>_tokens.rs` defines `Color`, `TypeRole`, `Elevation` and `Theme` structs, a `primitive` module, `DARK` and `LIGHT` themes with every role, and `space`, `radius`, `breakpoint`, `layout`, `typography` and `motion` modules. It has no dependencies; include it with `#[path = "…/kits/hplx/tokens/hplx_tokens.rs"] mod hplx_tokens;` (add `#[allow(dead_code)]` on the `mod`) or copy it into a crate. A runtime-swappable theme can instead parse `<kit>.json` → `native` with `serde_json`, for example in `build.rs`.
+The generator merges a family's `family.json` over the baseline. It rejects
+unsupported overrides and missing or inconsistent modes; contrast checks validate
+the defined semantic pairs in every generated kit.
 
-Desktop fonts are `fonts/desktop/*.ttf` (Bevy and egui both take TTF bytes, for example with `include_bytes!`). App icons are in each kit's `icons/` folder: `.ico` for a Windows executable resource, the 512 px PNG for a window icon, `.icns` for a macOS bundle. Use the `DARK` and `LIGHT` theme roles in UI code, never primitives, as on the web.
+| A family | Contract |
+| --- | --- |
+| Must retain | Every baseline role and both modes; the baseline contrast requirements |
+| May override | Semantic colours using its own primitive names; heading font family and weight for `display`, `display-small`, `section` and `card` |
+| May add | Roles under `extensions`, identical in every mode; elevation levels; required licensed heading fonts |
+| Must not change | Utility type, spacing, layout, radii, breakpoints or motion |
 
-## DTCG files
+HPLX uses Spectral headings, a warm accent, status tones and elevation. Tectra uses
+Inter headings and restrained teal; its status remains neutral and explicit in
+words. A family does not replace Cosmik's parent identity or change the endorsement.
+See [families](../guide/families.md) for visual and naming boundaries.
 
-`<kit>.tokens.json` follows the W3C Design Tokens Format Module 2025.10: `$type`/`$value`, colours as `{ colorSpace, components, alpha, hex }`, dimensions as `{ value, unit }`, durations in ms, easing as `cubicBezier`, typography and shadow composites.
+## Native integration
 
-- `primitive.color.*` holds raw values; `color.*` holds the semantic roles as `{primitive.color.…}` aliases; elevation shadows alias `{color.shadow}`.
-- **Modes:** DTCG 2025.10 has no theme mechanism. Each `color.*` `$value` is the default **dark** alias, and `$extensions["com.cosmiklabs.modes"]` lists the alias for every mode (`dark`, `light`). A tool that does not read the extension sees the dark theme.
-- Letter spacing is given in px at the role's size (DTCG dimensions allow only px and rem); the em fraction is in `$extensions["com.cosmiklabs"].letterSpacingEm`. `layout.line` is a `number` (characters).
+`<kit>.json` includes a `native` section, and `<kit>_tokens.rs` provides standalone
+constants without dependencies. Include one resolved kit. Do not merge its values
+over a separately loaded baseline a second time.
 
-## Scope
+| Value | Native representation |
+| --- | --- |
+| Length | Logical pixels at a 16 px root; scale for the consumer's text and display settings |
+| Reading measure | `layout.line` as `{ "chars": 65 }` |
+| Letter spacing | Fraction of font size, plus pixels at the role's reference size |
+| Easing | Cubic-bezier control points |
+| Duration | Milliseconds; apply the user's effective motion preference |
+| Colour | Hex, straight-alpha sRGB floats and linear-light floats |
 
-These tokens and the specimens are a design-system reference, not a production UI package and not an accessibility certification: contrast is checked for the defined pairs only (`node scripts/check.mjs`), and browser, keyboard and assistive-technology checks remain pending (`../references/component-validation.md`).
+The Rust output includes typed colours, themes, typography and elevation, plus
+modules for shared layout and motion. Use the `DARK` and `LIGHT` theme roles in UI
+code. Choose the colour representation your renderer expects; do not treat linear
+values as sRGB or multiply alpha twice.
+
+Load desktop fonts from `fonts/desktop/` and distribute their notices. Use the
+manifest's canonical artwork entry points. Cosmik has platform icons; current
+Glimmer and Latch do not yet have a platform icon pack. Historical Ember icons are
+not current HPLX identity. Do not infer a current deliverable from a directory name.
+
+## DTCG integration
+
+`<kit>.tokens.json` uses the Design Tokens Format Module 2025.10 shape: `$type` and
+`$value`, colour-space colour values, dimension and duration objects, cubic-bezier
+easing, typography composites and shadow composites.
+
+- `primitive.color.*` holds palette values. `color.*` uses aliases, and elevation
+  references the semantic shadow colour.
+- The default colour value is **dark**. Light and dark aliases also appear in
+  `$extensions["com.cosmiklabs.modes"]`. An importer must understand that extension
+  to switch modes; do not assume it will select the system's theme automatically.
+- Letter spacing is in pixels at the role's reference size; the original em fraction
+  is in `$extensions["com.cosmiklabs"].letterSpacingEm`. Reading measure is a number
+  of characters.
+
+Validate an import against the resolved JSON and a real screen. Token-format
+compatibility alone does not prove a design tool preserved all the intended roles.
+
+## Validation and upgrades
+
+The kit checks defined contrast pairs, sources, generated assets and reference
+behavior. [Validation](../specimens/validation.md) states the executed scope and
+remaining manual checks. Products still need their own keyboard, responsive,
+assistive-technology and browser review.
+
+Follow [governance](../guide/governance.md#upgrading-a-consumer) when upgrading a
+pinned kit. Keep framework-specific components in the consumer; bring shared
+behavior changes back to the guide and reference rather than editing vendored files.

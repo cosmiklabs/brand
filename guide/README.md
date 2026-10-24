@@ -1,20 +1,38 @@
 # Cosmik brand guide
 
-The rules and judgement behind the Cosmik identity. Values (colours, sizes, spacing, type) live only in the [tokens](../kits/README.md); this guide never restates them, so the two cannot disagree.
-
-**Positioning review pending (17 October 2026).** The owner requested removing or reworking the earlier “Reimagine / Extend / Create” motto following the HPLX editor direction and the closed-source Tectra product direction. Do not use that motto in new current-facing material. No replacement motto or organisation-wide descriptor has been approved. Existing published positioning elsewhere must be reconciled before release; retain historical documents as history.
+The principles behind the Cosmik identity and interfaces. Token values live in
+[kit sources](../kits/README.md); the guide explains how to apply them. The
+[interactive reference](../specimens/components.html) demonstrates behavior, while
+validation records distinguish tested results from remaining work. Guidance is
+implementation-agnostic: it defines visual and interaction contracts, not a
+website shell or a specific application flow. Platform-specific examples explain
+how to adapt the contracts, not which framework to choose.
 
 | Page | What it covers |
-|---|---|
-| [Identity](identity.md) | The emblem, the wordmark, names, clear space, sizes |
-| [Typography](typography.md) | Which typeface does what, and how to set it |
-| [Colour and themes](colour.md) | The monochrome baseline, semantic roles, dark and light |
-| [Interface](interface.md) | Actions, focus, forms, status, layout, accessibility |
-| [Product families](families.md) | One umbrella for distinct projects: endorsement and family kits |
-| [Voice, imagery and motion](voice.md) | How Cosmik writes, what it shows, how it moves |
-| [Documents](documents.md) | The technical-note template |
-| [Governance](governance.md) | Who decides, how to propose a change, release checks |
+| --- | --- |
+| [Identity](identity.md) | Approved marks, names, clear space and reproduction |
+| [Typography](typography.md) | Type roles, hierarchy and readable content |
+| [Colour and themes](colour.md) | Semantic roles, mode inheritance and contrast |
+| [Interface](interface.md) | Composition, density, controls, overlays and responsive behavior |
+| [Motion](motion.md) | Transitions, dismissal, interruption and motion preferences |
+| [Quality review](quality.md) | Rendered review, interaction coverage and honest validation evidence |
+| [Product families](families.md) | Baseline versus family identity and the shared contract |
+| [Voice and imagery](voice.md) | Useful copy, examples, imagery and icon use |
+| [Documents](documents.md) | Editable documents and export review |
+| [Governance](governance.md) | Decisions, contribution, releases and consumer upgrades |
 
-**Status words.** *Approved* means existing artwork, published language, or a decision the owner has made. *Proposed* means a specification awaiting review. *Archive* means a reference that must not be used as a production master. The baseline (identity, type, themes, interface rules) was approved on 7 October 2026, and the HPLX family kit on 15 October 2026.
+**Status words.** *Approved* identifies an owner decision or accepted master.
+*Proposed* awaits a decision. *Deprecated* remains for existing consumers but must
+not be selected for new work. *Archive* is historical reference, never a production
+master. Approval of an identity is separate from a product release or accessibility
+verification. Family guides identify the approved identities; the manifest records
+asset status and entry points.
 
-The earlier Word and PDF guide (v0.2, twelve pages) is kept in [archive/](archive/) for reference. It predates the approved baseline and the family kits; where it disagrees with these pages, these pages win.
+**Positioning remains under review.** The former “Reimagine / Extend / Create”
+motto must not appear in new current-facing material. No replacement motto or
+organisation-wide descriptor has been approved. [Voice](voice.md) is the home for
+current wording constraints; a visual refresh does not settle them.
+
+The earlier Word and PDF guide in [archive/](archive/) predates the approved
+baseline and family kits. Keep it as history. Current source guidance takes
+precedence where it differs.

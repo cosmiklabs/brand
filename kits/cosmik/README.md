@@ -47,6 +47,14 @@ composition and its clear space.
 
 ## Known gaps
 
-No optically redrawn small icon, no print-process proofs, and remaining browser and
-accessibility QA; `known_gaps` in [asset-manifest.json](../../asset-manifest.json)
-is the current list.
+The current asset and verification gaps are recorded under `known_gaps` in
+[asset-manifest.json](../../asset-manifest.json). Browser evidence and remaining
+manual checks are in [specimen validation](../../specimens/validation.md); do not
+interpret an approved identity as a product accessibility certification.
+
+## Interface use
+
+Use the [consumer guide](../README.md) for tokens and fonts, and the shared
+[interface](../../guide/interface.md) and [motion](../../guide/motion.md) rules for
+behavior. The baseline expresses hierarchy through type, spacing and structure;
+it does not need an invented accent colour or decorative animation to feel polished.

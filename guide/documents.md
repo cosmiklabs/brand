@@ -11,4 +11,4 @@ Start from the editable technical-note template in [templates/](../templates/REA
 | Figures and links | A caption and meaningful alt text; descriptive, visible links |
 | Footer | The version or document status and the page number; no invented legal footer |
 
-Replace bracketed fields and remove instruction text. Keep the title and first paragraph specific to the document's purpose. Review every exported PDF page after substantive changes: missing fonts can change the Word layout.
+Replace bracketed fields and remove instruction text. Keep the title and first paragraph specific to the document's purpose. Review every exported PDF page after substantive changes: missing fonts can change the Word layout. Check reading order and heading navigation as well as appearance; a visually correct PDF may still have an unusable structure. The template README distinguishes its historical validation from the review required for each new document.

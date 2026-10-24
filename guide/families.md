@@ -1,46 +1,61 @@
 # Product families
 
-**Cosmik is the parent identity.** Each project has its own name, purpose, status and upstream obligations, and a project can have its own visual mood while the endorsement and the interface type stay consistent.
+Cosmik is the parent identity. A product has its own name, purpose and obligations,
+while shared utility typography and interaction behavior make the family of
+products feel related.
 
-## Who uses what
+## Choose the right scope
 
-- **The organisation itself** (the website, the GitHub profile, Cosmik documents) uses the **baseline**: monochrome, Inter and Plex Mono.
-- **A product family** (one product or a group of related products, such as HPLX: the engine, its game reimplementations, the desktop app and the planned editor) may use a **family kit**: the baseline with a style of its own on top.
-- **A product page on the Cosmik website** may apply its family to its own content, while the site's header, navigation and footer stay baseline, so it reads as a product hosted by Cosmik.
+| Surface | Kit |
+| --- | --- |
+| Organisation website, profile or document | Cosmik baseline |
+| HPLX engine, reimplementations, app or editor | HPLX family |
+| Tectra product, documentation or related presentation | Tectra family |
+| Product content within an organisation surface | Family identity within the baseline organisation scope |
 
-## What a family may change
+Use one family identity across a product's interfaces, adapters and documentation;
+repository boundaries are not a reason to create more logos. Keep the user's
+content and artistic choices independent of the surrounding interface palette.
 
-A family kit is a file (`kits/<family>/tokens/family.json`) that the build merges over the baseline. The build **refuses** a family that breaks these rules ([kits/README.md](../kits/README.md) has the detail):
+These are identity scopes, not page-layout requirements. The kit does not require
+an organisation header, navigation shell or footer in a product interface.
 
-- **Must keep** every baseline role and both modes, and pass every baseline contrast pair.
-- **May change** the colour of any role, through its own palette, and the typeface of its heading roles.
-- **May add** roles of its own (an accent, status hues, elevation for menus and dialogs) and the fonts its headings need, with their licences.
-- **Never changes** the interface type (reading text, controls, labels), spacing, layout, radii, breakpoints and motion, and never the emblem, the name or the endorsement.
+## Approved families
 
-Keep a family's genre imagery inside it: horror imagery belongs to a horror project, not to Cosmik.
+| Family | Direction | Current identity |
+| --- | --- | --- |
+| [HPLX](../kits/hplx/README.md) | Warm blacks, bone text, amber emphasis and Spectral headings; theme approved 15 October 2026 | Glimmer, approved 17 October 2026; Ember is historical |
+| [Tectra](../kits/tectra/README.md) | Cool mineral surfaces, restrained teal and Inter headings; approved 17 October 2026 | Angle-corrected Latch, approved 17 October 2026 |
 
-| Family | Kit | Status |
-|---|---|---|
-| HPLX | `kits/hplx/tokens/` | Approved (2026-10-15): warm blacks and bone text, a lantern-amber accent, Spectral headings, status hues |
+A family's source overlays the baseline under the
+[enforced token contract](../kits/README.md#family-contract). It may vary semantic
+colours and heading family/weight, and add consistently defined roles, fonts or
+elevation. It keeps utility type, layout, spacing, radii, breakpoints and motion.
+Every resolved family retains both themes and the baseline contrast requirements.
+
+Family-specific mark usage, imagery and product wording belong in the family guide.
+A family mood does not change Cosmik's name, mark or organisation-wide claims.
 
 ## Endorsement
 
-Let the project's title lead. Place "A Cosmik project" beneath the title or in the footer, in the `body` type role at a smaller size (14 px on the web, 9.5 pt in a document), at least 16 px or 4 mm from the title block. Never combine the marks into a new logo.
+Let the product title lead. Place “A Cosmik project” beneath the title or in an
+appropriate footer using subdued reading or utility type, with clear separation
+from the title block. Keep at least 16 px on screen or 4 mm in documents. Never
+combine product and parent marks into a new logo. An endorsement need not repeat
+inside every small control or dialog.
 
-## Names and claims
+Keep genre imagery within its product. Preserve original creators' credits and
+licence notices separately from the Cosmik endorsement. HPLX does not imply
+official affiliation with a game's original owner or one licence across all code
+and assets.
 
-Use Cosmik in prose and `cosmiklabs` as the handle. HPLX names the product family and its foundational engine. Each game built on it (such as the reimplementation of *Amnesia: The Dark Descent*), the desktop app and the planned editor has its own name and status. Never imply official affiliation, ownership of a game's intellectual property, or one licence across all code and assets. Keep original creators' credits and licence notices readable and separate from the Cosmik endorsement.
+## Claims and new families
 
-## Tectra family
+Use Cosmik in prose and `cosmiklabs` as the handle. Keep current capability claims
+separate from plans; a family approval is not a product launch. Organisation wording
+constraints are in [voice](voice.md), and commercial constraints are in the relevant
+family guide.
 
-The mineral-and-teal theme was approved on 17 October 2026. Tectra inherits Inter headings and all baseline utility, layout and motion rules. The angle-corrected Latch symbol was approved on 17 October 2026. See [family source](../kits/tectra/tokens/family.json), [family guide](../kits/tectra/README.md) and [offline review board](../kits/tectra/specimen.html). Canonical Latch assets are in `kits/tectra/assets/`; rendered consumer accessibility QA is still required.
-
-Lead public-facing copy with creative benefits and the intended authoring workflow. Keep business-model facts in governance or relevant commercial details, not hero labels. Pricing, access and any free-credit allowance are undecided.
-
-### Tectra presentation
-
-Describe intended creative outcomes and workflow without exposing implementation architecture or repository organisation. Use one Tectra identity throughout. Cosmik can include open-source and proprietary products; HPLX’s no-payment commitment remains separate. No pricing, launch or availability is announced by this kit.
-
-## HPLX identity update
-
-Glimmer is the official HPLX symbol from 17 October 2026. Use canonical paths in `entry_points.families.hplx` and the [HPLX guide](../kits/hplx/README.md). Ember paths are retained as deprecated historical assets; do not select them for new work. The HPLX theme is unchanged.
+Propose a new family with a demonstrated product need, its token source and real
+screen examples in both themes. Do not label it approved until the owner has
+accepted it. Follow [governance](governance.md) for decisions and release handling.

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "status": "Approved (owner, 2026-10-15)",
   "family": "hplx",
-  "extends": "Cosmik baseline 0.4.0",
+  "extends": "Cosmik baseline 0.7.0",
   "extensionRoles": [
     "accent",
     "shadow",

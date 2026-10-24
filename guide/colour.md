@@ -12,7 +12,19 @@ Product code reads **semantic roles** (`bg`, `surface`, `raised`, `text`, `muted
 
 ## Contrast
 
-Required text meets at least 4.5:1 against its background; essential control boundaries, focus indicators and selected states meet at least 3:1. `node scripts/check.mjs` checks every defined pair in every kit. Decorative separators are exempt only when they carry no information. These checks are evidence for the kit, not certification of a product built with it.
+Required text meets at least 4.5:1 against its background; essential control boundaries, focus indicators and selected states meet at least 3:1. `npm run check` checks every defined pair in every kit. Decorative separators are exempt only when they carry no information. These checks are evidence for the kit, not certification of a product built with it.
+
+## Compositing and overlays
+
+Keep essential text and controls on surfaces with a known contrast relationship.
+An attractive translucent panel over a screenshot or 3D viewport is not guaranteed
+to retain that relationship as the content changes. Use a sufficiently solid
+semantic surface and a functional boundary; do not count a decorative shadow as
+the boundary. Check actual backgrounds in both themes.
+
+Portalled overlays must receive the same theme and family context as their trigger.
+Use the [consumer integration contract](../kits/README.md#themes-scopes-and-motion)
+and the [interface layering rules](interface.md#menus-popovers-and-dialogs).
 
 ## Print
 

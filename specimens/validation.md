@@ -1,32 +1,93 @@
-# Component validation
+# Reference validation
 
-Run `node scripts/check.mjs` for current contrast and source-integrity results from `tokens/cosmik/source.json` and `tokens/hplx/family.json`. These checks cover defined combinations and do not establish browser or accessibility conformance.
+This is the current evidence record for the shared component reference and Tectra
+review board. Kit checks establish their tested properties; they do not certify a
+consuming product or replace its interaction journeys.
 
-The baseline was approved on 7 October 2026; the HPLX family remains proposed.
+## 0.7.0 review — 23 October 2026
 
-## Browser checks
+Reviewed the changes on `codex/brand-system-overhaul`, based on release `v0.6.0`,
+then repeated the build, repository and browser checks with 0.7.0 release metadata.
+Tests ran on macOS with Node.js 24.22.0 and headless Chrome for Testing
+156.0.8078.4. The recorded commands were:
 
-On 7 October 2026, `node scripts/check-browser.mjs` passed in headless Chrome and Edge on Windows. Set `BRAND_BROWSER` to an installed Chromium executable and optionally `BRAND_SCREENSHOTS` to a review-image folder. The script uses Node.js 22+ without dependencies.
+```sh
+npm run build
+npm run check
+BRAND_BROWSER="/path/to/chromium" BRAND_SCREENSHOTS=.local/review npm run check:browser
+```
 
-Coverage includes both kits in dark/light themes at 1280, 768, 390 and 320 CSS pixels, with 100% and 200% root text size; nested theme precedence; local font loading and heading/control faces; tab keyboard navigation; all three confirmations, safe initial focus, inert background and focus restoration; slug validation; checkbox keyboard activation; and reduced-motion behavior. Selected Chrome desktop, narrow-layout and dialog captures were visually reviewed. Forced-colors captures are provided for inspection, without claiming accessibility conformance.
+The browser executable is supplied by the reviewer; there is no downloaded test
+browser or package dependency in the kit. Review captures are local and ignored.
+The browser harness also verifies direct `file:` opening, so the distributed
+reference does not require a server.
 
-Still required before adopting these examples in a product:
+### Automated checks
 
-- Full browser zoom at 200% and 400%, with clipping, reflow and visible-focus review. Root text resizing is a separate check.
-- A complete keyboard pass through the skip link, navigation and all control states, including disabled controls and responsive dialogs.
-- Screen-reader verification of names, field errors, tabs, modal context and live announcements, including real asynchronous loading in the consuming product.
-- Visual and functional checks in other browser engines, intended assistive technologies and system high-contrast settings.
+- Generation and manifest verification pass, including immutable originals,
+  fonts and notices, complete distribution inventories, portable paths and image
+  metadata. Approved artwork and font bytes remain unchanged. The Tectra lockup's
+  manifest dimensions were corrected to agree with its existing SVG.
+- All 426 defined contrast pairs pass: 114 baseline, 192 HPLX and 120 Tectra.
+  The weakest tested text pair is 4.64:1; the weakest essential boundary is
+  3.517:1. These are the defined pairs, not a claim about arbitrary backgrounds.
+- All 58 regression tests pass, covering generated exports, malformed token inputs,
+  no partial output on validation failure, manifest corruption, protected hash refreshes,
+  staged/untracked reproducibility failures and malformed SVG/PNG input.
+- The component reference passes all three kits in dark and light themes at
+  1280, 768, 390 and 320 CSS px, with 100% and 200% root text size. Nested family
+  and theme precedence and every bundled font face are checked.
+- Keyboard checks cover tabs, menu arrows/Home/End/typeahead/Escape, all three
+  confirmation actions, safe initial focus, modal background blocking, visible
+  return targets, field errors and checkbox activation.
+- Motion checks exercise actual surface transitions: retained exit content,
+  immediate inert state, rapid reopening, coordinated dialog/scrim completion,
+  infinite child animation exclusion, preference changes during exit and
+  synchronous zero-duration cleanup. System, explicit and nested motion scopes
+  are checked against computed behavior. Disclosure focus, tooltip dismissal and
+  finite completion feedback are exercised.
+- A 320 × 480 CSS-pixel touch-emulated viewport at 200% root text checks menu and
+  dialog bounds and action reachability. Long confirmations initially focus their
+  heading so opening does not skip the question; Tab reaches the safe action.
+- The Tectra board passes the same four widths and two text sizes, each with and
+  without user text-spacing overrides. Target dimensions, skip-link focus and
+  forced-colour rendering are checked.
 
-Guide diagrams remain illustrative unless explicitly identified as browser screenshots. These checks do not certify a future product.
+### Rendered inspection
 
-## Reference basis
+Inspected captured desktop components, menus and confirmations across the three
+families and both themes, the Tectra motion examples, narrow enlarged-text menus
+and dialog actions, and forced-colour Tectra examples. Reviewed hierarchy, surface
+boundaries, typography, wrapping and visible focus. This review led to bounded
+menus, more usable short-screen dialog padding and actions, and initial focus on
+long confirmation context. Exit/interruption behavior was checked in the running
+browser in addition to screenshots. The release verification also inspected fresh
+captures of Tectra desktop components, a light-theme menu, motion examples, short
+enlarged-text menus and dialog actions, Cosmik light components, an HPLX dark
+confirmation and the forced-colour Tectra board; no new visual issue was found.
 
-- [W3C: Contrast (Minimum), SC 1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
-- [W3C: Non-text Contrast, SC 1.4.11](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html)
-- [W3C: Target Size (Minimum), SC 2.5.8](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html)
+### Still manual or product-specific
 
-Reference pages checked 4 October 2026. Product-level testing is still required.
+- Actual 200%/400% browser zoom. Root text resizing and a 320 CSS-pixel viewport
+  test different things; they are not substitutes for browser zoom.
+- Other browser engines, operating systems, actual touch devices, screen readers
+  and native system high-contrast settings. CI includes Node 22/24 on Linux and
+  Node 24 on Windows, but those remote jobs were not executed in this local review.
+- Real application portals, navigation, network work, loading failures and focus
+  fallbacks when route changes remove the entire owning surface. The specimen
+  intentionally changes no product data.
+- Print-process proofs, document rendering in installed office software and the
+  remaining optical/platform asset gaps recorded in the manifest.
 
-## Tectra draft extension (17 October 2026)
+## Earlier evidence
 
-Three-kit and nested Tectra mode tests were added. They are not yet browser-verified: Chromium could not create its process socket in this execution environment. See [Tectra validation](../kits/tectra/validation.md). Existing historical results above remain unchanged.
+The 7 October baseline/HPLX component run was recorded in Chrome and Edge on
+Windows. The 17 October Tectra source review added browser coverage but could not
+execute it in that environment. The current run above supersedes that browser
+blocker and the old two-kit coverage statement. See the
+[historical Tectra review](../kits/tectra/validation.md) for its original source and
+contrast findings. Approval status belongs in the manifest and family guides.
+
+The quality acceptance process is in [guide/quality.md](../guide/quality.md), and
+behavior requirements are in [interface](../guide/interface.md) and
+[motion](../guide/motion.md).

@@ -1,7 +1,9 @@
-# HPLX family kit
+# HPLX tokens
 
-The family values in `family.json` remain **proposed, pending owner review**. Generate and consume them according to [the token contract](../../README.md); selecting an identity asset does not approve the palette, heading type, status hues or elevation.
+The HPLX theme was approved on 15 October 2026. `family.json` is its source;
+`hplx.css`, `hplx.json`, `hplx.tokens.json` and `hplx_tokens.rs` are generated.
+Follow the shared [consumer and family contract](../../README.md).
 
-The selected family symbol is **Ember**, the original diamond above two shallow arcs. See [the HPLX asset kit](../README.md) for the transparent SVGs, PNGs, derived platform icons and usage limits. Exact entry points and checksums are in `../../asset-manifest.json` under `entry_points.families.hplx`.
-
-The symbol is independent of the token data. It does not replace the Cosmik parent emblem, change global navigation, or supply a splash composition. The HPLX lockup (Ember above the name) is in [the asset kit](../README.md).
+The current approved symbol is **Glimmer**. Use the [HPLX identity guide](../README.md)
+and canonical entry points in the root [manifest](../../../asset-manifest.json).
+Ember artwork and icons are historical; do not select them for a new integration.
