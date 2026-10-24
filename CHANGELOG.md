@@ -3,6 +3,14 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`; from 0.8.0 they live in their own repositories.
 
+## 0.9.1 · 24 October 2026
+
+- **Tests.** The both-layers CLI test now accepts the platform's path separator;
+  `vendor.mjs` prints nested layer paths in native form, so the test failed on
+  Windows in 0.9.0's CI. No tool, contract, token or asset change; of the
+  distributed files only `package.json` (the version) differs from 0.9.0. Vendor
+  0.9.1 rather than 0.9.0.
+
 ## 0.9.0 · 24 October 2026
 
 One distribution contract for every Cosmik brand repository, so a product can sync

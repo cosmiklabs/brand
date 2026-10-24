@@ -1,6 +1,6 @@
 {
   "name": "Cosmik brand kit",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "date": "2026-10-24",
   "system_status": "baseline approved (owner, 2026-10-07). Product families are maintained in their own repositories (cosmiklabs/brand-hplx, cosmiklabs/brand-tectra) and build on a pinned release of this kit.",
   "emblem_status": "accepted traced symbol",
@@ -1149,7 +1149,7 @@
       },
       {
         "path": "package.json",
-        "sha256": "b3d08379a6a162c0a591471df958926058712ba2fb8806cd146d99764d98503a"
+        "sha256": "9c96b869f437fbf47b09415f0d534c15e44d2c7209938674d0de9ee8073d72cf"
       },
       {
         "path": "kits/cosmik/tokens/source.json",

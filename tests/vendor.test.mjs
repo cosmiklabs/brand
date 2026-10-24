@@ -188,7 +188,8 @@ test('a product brand release carries the brand lock forward: one verify checks 
   const cli = spawnSync(process.execPath, [nestedTool, 'verify', p.into, '--release', p.repo], {encoding: 'utf8'});
   assert.equal(cli.status, 0, cli.stderr);
   assert.match(cli.stdout, /matches example\/brand-example v1\.2\.3 .*proven against the release tag/);
-  assert.match(cli.stdout, new RegExp(`vendor/brand matches cosmiklabs/brand v${version.replaceAll('.', '\\.')}`));
+  // Paths print in the platform's own form.
+  assert.match(cli.stdout, new RegExp(`vendor[\\\\/]brand matches cosmiklabs/brand v${version.replaceAll('.', '\\.')}`));
 });
 
 test('nested tampering is named in both layers, and an edited outer lock cannot hide it', t => {
