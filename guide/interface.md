@@ -67,6 +67,9 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
 - **Buttons** come in two emphases. Primary is the main next action in a local
   task; secondary is everything else. Use the standard `control-min` target, and
   `control-dense` only for dense mouse or trackpad controls, never on touch.
+  A large button, a taller target with wider padding, gives a page's one
+  prominent call to action more presence; it is still a primary or secondary
+  button, and the product decides where it appears.
   Hover and pressed change only colour, so nothing nearby moves.
 - **Disabled** controls use the disabled roles in every interaction state. Prefer
   the native `disabled` attribute; use `aria-disabled="true"` when the control must
@@ -81,11 +84,17 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
 - **Selects** keep the native `<select>` for its semantics and keyboard support.
   Remove only its platform arrow and draw a stroked chevron in the field's text
   colour, inset by a token space, that never intercepts a click.
+- **Dense fields** (a select or text field) use `control-dense` and the `ui` type
+  on a mouse or trackpad, for compact toolbars and footers. On touch they return
+  to `control-min` and the body type, so focusing one never zooms the page.
 - **Chips** are compact toggles or filters with `aria-pressed` (or the selected
   semantics of their container). Selection shows a drawn check as well as the
   selected roles, and hover never erases it.
-- **Status labels** are neutral and non-interactive. The words carry the meaning;
-  add a symbol for important status. A family's status hues supplement the words.
+- **Status labels** are neutral and non-interactive, and must not look like a
+  control: the `label` type role, a pill shape that no control uses, the status
+  roles, and no hover, pressed or focus state or pointer cursor. Never make one a
+  link or button. The words carry the meaning; add a symbol for important status.
+  A family's status hues supplement the words.
 - **Focus** uses one ring everywhere: the `focus` role at `focus-width`, offset by
   `focus-offset`. Custom focusable controls use the same ring.
 - **Transitions** use the effective motion duration and easing, so a reduced

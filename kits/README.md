@@ -148,12 +148,14 @@ behavior each state must have is defined once, in the
 | --- | --- | --- |
 | `c-button c-button--primary` | `<button>` (or `<a>` that navigates) | Hover, pressed, focus, disabled, `aria-disabled`, `aria-busy` |
 | `c-button c-button--secondary` | `<button>` | As primary |
-| `c-button--dense` | Added to a button | `control-dense` height on fine pointers; `control-min` on touch |
+| `c-button--dense` | Added to a button | `control-dense` height and the `ui` type on fine pointers; `control-min` on touch |
+| `c-button--large` | Added to a button | A taller target (`control-min` + 3 × `space-base`) and wider padding for a prominent call to action |
 | `c-link` | `<a>` in text | Underlined; hover, pressed, focus |
 | `c-input` | `<input>`, `<textarea>` | Placeholder, hover, focus, `aria-invalid`, disabled |
 | `c-select` | `<span class="c-select"><select>…</select></span>` | Drawn chevron; hover, focus, `aria-invalid`, disabled |
+| `c-input--dense`, `c-select--dense` | Added to the input, or to the select's wrapper | `control-dense` and the `ui` type on fine pointers; `control-min` and the `body` type on touch, so focus never zooms |
 | `c-chip` | `<button aria-pressed>` | Dense target, hover, pressed, selected check, focus, disabled |
-| `c-status` | `<span>` | Neutral, non-interactive status label |
+| `c-status` | `<span>` | Neutral status label: `label` type, pill shape, no interaction states or pointer cursor |
 | `c-focus-ring` | Any other custom focusable control | The shared focus-visible ring |
 
 ```html
@@ -165,7 +167,16 @@ behavior each state must have is defined once, in the
   <button type="button" class="c-chip" aria-pressed="false">Closed</button>
 </div>
 <span class="c-status"><span aria-hidden="true">◷</span> Saved</span>
+
+<a class="c-button c-button--primary c-button--large" href="#start">Get started</a>
+<span class="c-select c-select--dense"><select aria-label="Rows">…</select></span>
 ```
+
+Sizes are mechanisms, not defaults: `--dense` suits mouse-driven application
+toolbars and compact footers, `--large` a page's one prominent call to action;
+the product chooses where each appears. A status label must never look like a
+control, so it takes the `label` type role and the full radius, which no control
+uses, and has no hover, pressed or focus state; do not make it a link or button.
 
 Fields fill their container; size the container. The select wrapper draws a
 stroked chevron with borders, inset by `--c-space-4`, that ignores pointer input;

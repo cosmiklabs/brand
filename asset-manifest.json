@@ -1,6 +1,6 @@
 {
   "name": "Cosmik brand kit",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "date": "2026-10-24",
   "system_status": "baseline approved (owner, 2026-10-07). Product families are maintained in their own repositories (cosmiklabs/brand-hplx, cosmiklabs/brand-tectra) and build on a pinned release of this kit.",
   "emblem_status": "accepted traced symbol",
@@ -985,7 +985,7 @@
   "components": [
     {
       "path": "kits/cosmik/components/controls.css",
-      "sha256": "30946c47d8d5fe83889d885ba256e2f554e155e81560943eec67880e4024be6d",
+      "sha256": "a89832f14b08a38cac7693fcdb8ecf6a5212fa7b667532cc0e11e157ccc89c13",
       "editable": true,
       "role": {
         "kind": "component-css",
@@ -1121,12 +1121,12 @@
     },
     {
       "path": "specimens/components.html",
-      "sha256": "3fb3aab1f2968de6bd0556f21c64f808d54da470ed03177ac0212d632062ecb5",
+      "sha256": "9c638a7a64d49d1a8db46c0604a78ce64e6fdb8eb8e8b0f11c33e6cea44f0502",
       "editable": true
     },
     {
       "path": "specimens/components.css",
-      "sha256": "c3f57938f5a4b3783d3c742e5b1afc24e0e9027f62c839e5cd77ce3a526dbbd4",
+      "sha256": "7467871105687062bee71dc44b9dfe79d7881b099b1ad3c4d73363f1088473bf",
       "editable": true
     },
     {
@@ -1149,7 +1149,7 @@
       },
       {
         "path": "package.json",
-        "sha256": "9c96b869f437fbf47b09415f0d534c15e44d2c7209938674d0de9ee8073d72cf"
+        "sha256": "b64855bf68d852e10865181e571f3cee7f68aad43fb059074a8d1dcf75d133ef"
       },
       {
         "path": "kits/cosmik/tokens/source.json",
@@ -1173,7 +1173,7 @@
       },
       {
         "path": "kits/cosmik/components/controls.css",
-        "sha256": "30946c47d8d5fe83889d885ba256e2f554e155e81560943eec67880e4024be6d"
+        "sha256": "a89832f14b08a38cac7693fcdb8ecf6a5212fa7b667532cc0e11e157ccc89c13"
       },
       {
         "path": "scripts/generate-tokens.mjs",
@@ -1269,7 +1269,7 @@
       },
       {
         "path": "guide/interface.md",
-        "sha256": "e4a94eff40209f742ef254f27fbd3058859ecd98d98f7a5b5d1da80f241c9ab7"
+        "sha256": "4f5dfc6cca3bb7e3892d967c89f0a09d705d183c8a082b7fd2d87af489109aeb"
       },
       {
         "path": "guide/motion.md",

@@ -5,6 +5,31 @@ controls layer. Kit checks establish their tested properties; they do not certif
 a consuming product or replace its interaction journeys. Product families keep
 their own validation records in their repositories.
 
+## 0.10.0 review — 24 October 2026
+
+Controls refinements: the status label, dense fields and the large button. Run on
+macOS with Node.js 24.22.0 and headless Google Chrome 155.0.8059.86:
+
+- `npm run build`, then `node scripts/build.mjs --check` from the release commit:
+  no token, mark or font output changed; manifest verification passes for 75
+  hashed files and 20 entry points.
+- `npm run check`: all baseline contrast pairs pass (weakest text 4.64:1, weakest
+  boundary 3.629:1; `status-fg` on `status-bg` and `status-border` are among them)
+  and all 79 tests pass.
+- `npm run check:browser` passes, with new assertions in both themes: the status
+  label (in a card and beside buttons) uses the `label` family and uppercase, is a
+  pill while the button, chip and field are not, has the default cursor, is not
+  focusable, has no transition and keeps its status roles under forced hover and
+  pressed; dense fields are 32 px with the `ui` size on a fine pointer and at least
+  44 px with the `body` size under touch emulation at 200% text; the large button
+  is at least `control-min` + 3 × `space-base` and taller than the standard one.
+- Rendered inspection: the dark and light actions panels at 1280 px, both field
+  panels, the 320 px / 200% text layout and the forced-colour panel. The status
+  label reads as uppercase monospace metadata in a pill, clearly unlike the
+  rectangular buttons beside it; the dense select's chevron sits inside its
+  clearance; the large button stands out without changing the label size. No
+  visual issue was found after spacing the specimen's dense-field row.
+
 ## 0.9.0 review — 24 October 2026
 
 A tooling release: no token, mark, font, controls or specimen bytes changed, so the

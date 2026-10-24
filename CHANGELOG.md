@@ -3,6 +3,44 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`; from 0.8.0 they live in their own repositories.
 
+## 0.10.0 · 24 October 2026
+
+Three refinements to the shared controls, found by using them on real pages. Not
+breaking: existing markup keeps working; `c-status` changes appearance.
+
+- **`c-status` reads as a label, not a button.** It now uses the `label` type role
+  (IBM Plex Mono, its tracking and its uppercase transform), the full radius, which
+  no control uses, the neutral status roles and `cursor: default`. It has no hover,
+  pressed, focus or transition. In forced colours it takes the text colours
+  (`CanvasText` on `Canvas`) instead of `ButtonText`.
+- **`c-select--dense` and `c-input--dense`.** Put `c-select--dense` on the select
+  wrapper or `c-input--dense` on an input: `control-dense` and the `ui` type role on
+  fine pointers, with the chevron and its clearance scaled to match; on coarse
+  pointers they return to `control-min` and the `body` type, so focusing one never
+  zooms a mobile page.
+- **`c-button--large`.** A taller target (`control-min` + 3 × `space-base`, 56 px at
+  the baseline) and wider padding (`space-4` / `space-8`) for a page's prominent
+  call to action. The type scale has no larger control step, so the label keeps the
+  `control` role. A mechanism only; no product default.
+- **Docs.** [Shared controls](kits/README.md#shared-controls) and the
+  [interface guide](guide/interface.md#shared-controls) describe the new sizes and
+  the status label's rules. The component reference shows large, standard and
+  dense buttons beside a status label, and dense fields, in both themes.
+- **Browser checks** assert the status label's label type, pill shape against the
+  button, chip and field radii, default cursor, no focusability, no transition and
+  unchanged roles under forced hover and pressed; dense fields at 32 px with the
+  `ui` size on a fine pointer and at least 44 px with the `body` size under touch
+  emulation; and the large button's target.
+
+No token value, mark or font changed; the baseline token version stays 0.7.0.
+
+### Migration
+
+- Re-sync. Pages that styled `c-status` locally (font, radius, padding) can drop
+  those overrides. A status label inside a link or button should move out of it.
+- Use `c-select c-select--dense` for compact selects (footers, toolbars) and
+  `c-button--large` where a product wants a ceremonious call to action.
+
 ## 0.9.1 · 24 October 2026
 
 - **Tests.** The both-layers CLI test now accepts the platform's path separator;

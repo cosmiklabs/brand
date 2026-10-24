@@ -68,6 +68,15 @@
   line-height: var(--c-type-ui-line-height);
   letter-spacing: var(--c-type-ui-letter-spacing);
 }
+/* Large: a taller target and wider padding for a page's prominent call to action.
+   The control type stays (the type scale has no larger control step), so presence
+   comes from size and space. A mechanism only; choosing where it appears is the
+   product's decision. */
+.c-button--large {
+  min-height: calc(var(--c-layout-control-min) + var(--c-space-base) * 3);
+  padding: var(--c-space-4) var(--c-space-8);
+  gap: calc(var(--c-space-2) * 1.5);
+}
 /* Disabled wins over hover and pressed. aria-disabled keeps a control focusable
    so its prerequisite can be explained; the consumer must still block activation. */
 .c-button:is(:disabled, [aria-disabled="true"]),
@@ -173,6 +182,24 @@
 }
 .c-select:has(> select:disabled)::after { border-color: var(--c-disabled-fg); }
 
+/* ---- Dense fields -------------------------------------------------------- */
+/* Dense fields for mouse and trackpad: control-dense target and the ui type role,
+   like c-button--dense. On touch they return to control-min and the body role,
+   so focusing one never zooms a mobile page. Put c-select--dense on the wrapper. */
+.c-input--dense,
+.c-select--dense > select {
+  min-height: var(--c-layout-control-dense);
+  padding: var(--c-space-base) calc(var(--c-space-2) * 1.5);
+  font-family: var(--c-type-ui-font-family), sans-serif;
+  font-size: var(--c-type-ui-font-size);
+  font-weight: var(--c-type-ui-font-weight);
+  line-height: var(--c-type-ui-line-height);
+  letter-spacing: var(--c-type-ui-letter-spacing);
+}
+.c-select--dense { font-size: var(--c-type-ui-font-size); }
+.c-select--dense > select { padding-inline-end: calc(var(--c-space-2) * 4); }
+.c-select--dense::after { inset-inline-end: calc(var(--c-space-2) * 1.5); }
+
 /* ---- Chips --------------------------------------------------------------- */
 /* A compact toggle or filter: <button class="c-chip" aria-pressed="false">.
    Selection shows a stroked check as well as the selected colours. */
@@ -226,23 +253,27 @@
 }
 
 /* ---- Neutral status label ------------------------------------------------ */
-/* Not interactive. The words carry the meaning; add a symbol for important status. */
+/* A label, not a control: the label type role (technical metadata), a pill shape
+   no control uses, the neutral status roles and no hover, pressed, focus or cursor
+   affordance. The words carry the meaning; add a symbol for important status. */
 .c-status {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   gap: var(--c-space-2);
   width: fit-content;
-  padding: var(--c-space-base) var(--c-space-2);
+  padding: var(--c-space-base) calc(var(--c-space-2) * 1.5);
   border: 1px solid var(--c-status-border);
-  border-radius: var(--c-radius-md);
+  border-radius: var(--c-radius-full);
   background: var(--c-status-bg);
   color: var(--c-status-fg);
-  font-family: var(--c-type-ui-font-family), sans-serif;
-  font-size: var(--c-type-ui-font-size);
-  font-weight: var(--c-type-ui-font-weight);
-  line-height: var(--c-type-ui-line-height);
-  letter-spacing: var(--c-type-ui-letter-spacing);
+  font-family: var(--c-type-label-font-family), monospace;
+  font-size: var(--c-type-label-font-size);
+  font-weight: var(--c-type-label-font-weight);
+  line-height: var(--c-type-label-line-height);
+  letter-spacing: var(--c-type-label-letter-spacing);
+  text-transform: var(--c-type-label-text-transform);
+  cursor: default;
 }
 
 /* Touch keeps the standard target even for dense controls. */
@@ -252,6 +283,17 @@
     min-height: var(--c-layout-control-min);
     min-width: var(--c-layout-control-min);
   }
+  .c-input--dense,
+  .c-select--dense > select {
+    min-height: var(--c-layout-control-min);
+    padding-block: var(--c-space-2);
+    font-family: var(--c-type-body-font-family), sans-serif;
+    font-size: var(--c-type-body-font-size);
+    font-weight: var(--c-type-body-font-weight);
+    line-height: var(--c-type-body-line-height);
+    letter-spacing: var(--c-type-body-letter-spacing);
+  }
+  .c-select--dense { font-size: var(--c-type-body-font-size); }
 }
 
 /* Forced colours: system colours replace the palette. Boundaries, the chevron,
@@ -259,8 +301,9 @@
    and outlines, never background colour alone. */
 @media (forced-colors: active) {
   .c-button,
-  .c-chip,
-  .c-status { border-color: ButtonText; }
+  .c-chip { border-color: ButtonText; }
+  /* A status label is text, not a button: it takes the text colours. */
+  .c-status { border-color: CanvasText; color: CanvasText; background: Canvas; }
   .c-input,
   .c-select > select { border-color: FieldText; }
   .c-input[aria-invalid="true"],

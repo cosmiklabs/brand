@@ -34,6 +34,12 @@
     <div class="state"><span class="specimen-label">Loading · shown</span><button type="button" class="c-button c-button--primary" disabled aria-busy="true"><span class="loading-mark" aria-hidden="true"></span>Working</button></div>
    </div>
    <div class="action-row"><button type="button" class="c-button c-button--secondary" data-demo="Secondary">View details</button><a class="c-link" href="#usage">Read usage guidance</a></div>
+   <div class="size-row" id="dark-sizes">
+    <div class="state"><span class="specimen-label">Large · prominent call</span><button type="button" class="c-button c-button--primary c-button--large" data-demo="Large">Apply changes</button></div>
+    <div class="state"><span class="specimen-label">Standard</span><button type="button" class="c-button c-button--secondary" data-demo="Standard">View details</button></div>
+    <div class="state"><span class="specimen-label">Dense · fine pointer</span><button type="button" class="c-button c-button--secondary c-button--dense" data-demo="Dense">Filter</button></div>
+    <div class="state"><span class="specimen-label">Status · not a control</span><span class="c-status"><span aria-hidden="true">◷</span><span>In review</span></span></div>
+   </div>
    <p class="demo-result" id="dark-result" role="status" aria-live="polite">Interactive preview only. Nothing is sent or saved.</p>
   </div>
   <div class="component-grid" id="dark-details">
@@ -42,6 +48,7 @@
     <div class="field"><label for="dark-name">Name</label><input id="dark-name" class="c-input" type="text" value="Sample item" aria-describedby="dark-name-help" autocomplete="off"><p class="helper" id="dark-name-help">A persistent label with supporting text.</p></div>
     <div class="field"><label for="dark-slug">Identifier · error example</label><input id="dark-slug" class="c-input" type="text" value="sample?" aria-invalid="true" aria-describedby="dark-slug-help dark-slug-error" data-slug="dark" autocomplete="off" spellcheck="false"><p class="helper" id="dark-slug-help">Use letters, numbers, and hyphens.</p><p class="error" id="dark-slug-error"><span class="error-symbol" aria-hidden="true">[!]</span> Error: remove the question mark.</p></div>
     <div class="field"><label for="dark-order">Order</label><span class="c-select"><select id="dark-order" aria-describedby="dark-order-help"><option>Newest first</option><option>Oldest first</option><option>Name</option></select></span><p class="helper" id="dark-order-help">A native select with a drawn chevron.</p></div>
+    <div class="dense-fields"><div class="field"><label for="dark-rows">Rows · dense</label><span class="c-select c-select--dense"><select id="dark-rows"><option>25 rows</option><option>50 rows</option><option>100 rows</option></select></span></div><div class="field"><label for="dark-find">Find · dense</label><input id="dark-find" class="c-input c-input--dense" type="search" placeholder="Example: sample" autocomplete="off"></div><p class="helper">Dense fields use the ui type on a mouse or trackpad and the standard target and body size on touch.</p></div>
     <div class="field"><label for="dark-unavailable">Unavailable · disabled</label><input id="dark-unavailable" class="c-input" type="text" value="Set by the parent scope" disabled></div>
     <div class="chip-field"><p class="chip-label" id="dark-chips-label">Example filters</p><div class="chip-row" role="group" aria-labelledby="dark-chips-label"><button type="button" class="c-chip" aria-pressed="true" id="dark-chip-first">First option</button><button type="button" class="c-chip" aria-pressed="false">Second option</button><button type="button" class="c-chip" aria-pressed="false" disabled>Unavailable</button></div></div>
     <label class="check-label" for="dark-include"><input id="dark-include" type="checkbox" checked><span>Example selection</span></label>
@@ -99,6 +106,12 @@
     <div class="state"><span class="specimen-label">Loading · shown</span><button type="button" class="c-button c-button--primary" disabled aria-busy="true"><span class="loading-mark" aria-hidden="true"></span>Working</button></div>
    </div>
    <div class="action-row"><button type="button" class="c-button c-button--secondary" data-demo="Secondary">View details</button><a class="c-link" href="#usage">Read usage guidance</a></div>
+   <div class="size-row" id="light-sizes">
+    <div class="state"><span class="specimen-label">Large · prominent call</span><button type="button" class="c-button c-button--primary c-button--large" data-demo="Large">Apply changes</button></div>
+    <div class="state"><span class="specimen-label">Standard</span><button type="button" class="c-button c-button--secondary" data-demo="Standard">View details</button></div>
+    <div class="state"><span class="specimen-label">Dense · fine pointer</span><button type="button" class="c-button c-button--secondary c-button--dense" data-demo="Dense">Filter</button></div>
+    <div class="state"><span class="specimen-label">Status · not a control</span><span class="c-status"><span aria-hidden="true">◷</span><span>In review</span></span></div>
+   </div>
    <p class="demo-result" id="light-result" role="status" aria-live="polite">Interactive preview only. Nothing is sent or saved.</p>
   </div>
   <div class="component-grid" id="light-details">
@@ -107,6 +120,7 @@
     <div class="field"><label for="light-name">Name</label><input id="light-name" class="c-input" type="text" value="Sample item" aria-describedby="light-name-help" autocomplete="off"><p class="helper" id="light-name-help">A persistent label with supporting text.</p></div>
     <div class="field"><label for="light-slug">Identifier · error example</label><input id="light-slug" class="c-input" type="text" value="sample?" aria-invalid="true" aria-describedby="light-slug-help light-slug-error" data-slug="light" autocomplete="off" spellcheck="false"><p class="helper" id="light-slug-help">Use letters, numbers, and hyphens.</p><p class="error" id="light-slug-error"><span class="error-symbol" aria-hidden="true">[!]</span> Error: remove the question mark.</p></div>
     <div class="field"><label for="light-order">Order</label><span class="c-select"><select id="light-order" aria-describedby="light-order-help"><option>Newest first</option><option>Oldest first</option><option>Name</option></select></span><p class="helper" id="light-order-help">A native select with a drawn chevron.</p></div>
+    <div class="dense-fields"><div class="field"><label for="light-rows">Rows · dense</label><span class="c-select c-select--dense"><select id="light-rows"><option>25 rows</option><option>50 rows</option><option>100 rows</option></select></span></div><div class="field"><label for="light-find">Find · dense</label><input id="light-find" class="c-input c-input--dense" type="search" placeholder="Example: sample" autocomplete="off"></div><p class="helper">Dense fields use the ui type on a mouse or trackpad and the standard target and body size on touch.</p></div>
     <div class="field"><label for="light-unavailable">Unavailable · disabled</label><input id="light-unavailable" class="c-input" type="text" value="Set by the parent scope" disabled></div>
     <div class="chip-field"><p class="chip-label" id="light-chips-label">Example filters</p><div class="chip-row" role="group" aria-labelledby="light-chips-label"><button type="button" class="c-chip" aria-pressed="true" id="light-chip-first">First option</button><button type="button" class="c-chip" aria-pressed="false">Second option</button><button type="button" class="c-chip" aria-pressed="false" disabled>Unavailable</button></div></div>
     <label class="check-label" for="light-include"><input id="light-include" type="checkbox" checked><span>Example selection</span></label>

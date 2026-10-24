@@ -255,9 +255,35 @@ try {
       assert.equal(await evaluate(`document.querySelector(${JSON.stringify(second)}).getAttribute('aria-pressed')`), 'false');
       await expectRole(`#${mode}-details .c-status`, 'background-color', mode, 'status-bg');
       await expectRole(`#${mode}-details .c-status`, 'border-top-color', mode, 'status-border');
+      // A status label is not a control: label type, a pill no control uses, no pointer
+      // cursor, no hover/pressed change, no transition and not focusable.
+      for (const status of [`#${mode}-details .c-status`, `#${mode}-sizes .c-status`]) {
+        const look = await evaluate(`(() => {const s=document.querySelector(${JSON.stringify(status)}), b=document.querySelector('#${mode}-sizes .c-button'), c=document.querySelector('#${mode}-chip-first'), i=document.querySelector('#${mode}-name');
+          const st=getComputedStyle(s), label=getComputedStyle(document.documentElement);
+          return {cursor:st.cursor, tab:s.tabIndex, family:st.fontFamily.includes(label.getPropertyValue('--c-type-label-font-family').trim().replace(/"/g,'')), transform:st.textTransform,
+            pill:parseFloat(st.borderTopLeftRadius) >= s.getBoundingClientRect().height / 2,
+            controls:[b,c,i].every(e=>parseFloat(getComputedStyle(e).borderTopLeftRadius) < e.getBoundingClientRect().height / 2 && getComputedStyle(e).fontFamily !== st.fontFamily),
+            transition:st.transitionDuration.split(',').every(v=>parseFloat(v)===0)}})()`);
+        assert.deepEqual(look, {cursor:'default', tab:-1, family:true, transform:'uppercase', pill:true, controls:true, transition:true}, `${status} reads as a label`);
+        for (const states of [['hover'], ['hover', 'active']]) {
+          await expectRole(status, 'background-color', mode, 'status-bg', states);
+          await expectRole(status, 'border-top-color', mode, 'status-border', states);
+          await expectRole(status, 'color', mode, 'status-fg', states);
+        }
+      }
       // Targets: standard controls meet control-min; dense controls control-dense on a fine pointer.
-      assert.equal(await evaluate(`[...document.querySelectorAll('#${mode} .c-button:not(.c-button--dense), #${mode} .c-input, #${mode} .c-select select')].filter(e=>e.getClientRects().length).every(e=>e.getBoundingClientRect().height>=44)`), true);
-      assert.equal(await evaluate(`[...document.querySelectorAll('#${mode} .c-chip, #${mode} .c-button--dense')].filter(e=>e.getClientRects().length).every(e=>e.getBoundingClientRect().height>=32)`), true);
+      assert.equal(await evaluate(`[...document.querySelectorAll('#${mode} .c-button:not(.c-button--dense), #${mode} .c-input:not(.c-input--dense), #${mode} .c-select:not(.c-select--dense) select')].filter(e=>e.getClientRects().length).every(e=>e.getBoundingClientRect().height>=44)`), true);
+      assert.equal(await evaluate(`[...document.querySelectorAll('#${mode} .c-chip, #${mode} .c-button--dense, #${mode} .c-input--dense, #${mode} .c-select--dense select')].filter(e=>e.getClientRects().length).every(e=>e.getBoundingClientRect().height>=32)`), true);
+      // Dense fields on a fine pointer: the control-dense target and the ui type role.
+      const denseFields = await evaluate(`[...document.querySelectorAll('#${mode} .c-input--dense, #${mode} .c-select--dense select')].map(e=>{const s=getComputedStyle(e), r=getComputedStyle(document.documentElement);return {height:Math.round(e.getBoundingClientRect().height), size:s.fontSize, ui:parseFloat(r.getPropertyValue('--c-type-ui-font-size'))*16+'px'}})`);
+      assert.equal(denseFields.length, 2);
+      for (const field of denseFields) assert.deepEqual({height:field.height, size:field.size}, {height:32, size:field.ui}, `${mode} dense field on a fine pointer`);
+      assert.ok(parseFloat(await css(`#${mode}-rows`, 'padding-right')) >= 28, 'dense select text clears the chevron');
+      // Large: a taller target than the standard button, from layout and space tokens.
+      const large = await evaluate(`(() => {const l=document.querySelector('#${mode}-sizes .c-button--large'), b=document.querySelector('#${mode}-actions .state:nth-child(1) .c-button'), r=getComputedStyle(document.documentElement);
+        return {large:l.getBoundingClientRect().height, standard:b.getBoundingClientRect().height, expected:(parseFloat(r.getPropertyValue('--c-layout-control-min'))+parseFloat(r.getPropertyValue('--c-space-base'))*3)*16, font:getComputedStyle(l).fontSize===getComputedStyle(b).fontSize}})()`);
+      assert.ok(large.large >= large.expected - 0.5 && large.large > large.standard && large.font, `${mode} large button target ${JSON.stringify(large)}`);
+      await expectRole(`#${mode}-sizes .c-button--large`, 'background-color', mode, 'action-primary-hover', ['hover']);
       await evaluate(`document.querySelector('#${mode}-details').scrollIntoView()`);
       await evaluate(`document.querySelector('#${mode}-name').focus()`);
       await shot(`cosmik-${mode}-controls`);
@@ -407,6 +433,8 @@ try {
   assert.equal(await fits('#dark-action-menu'),true,'menu fits short viewport');
   assert.equal(await evaluate(`[...document.querySelectorAll('#dark-action-menu button')].every(e=>e.getBoundingClientRect().height>=44)`),true);
   assert.equal(await evaluate(`[...document.querySelectorAll('#dark .c-chip, #dark .c-button--dense')].every(e=>e.getBoundingClientRect().height>=44&&e.getBoundingClientRect().width>=44)`),true,'dense controls keep the standard target for touch');
+  // Dense fields return to the standard target and the body size on touch, so focus never zooms.
+  assert.deepEqual(await evaluate(`[...document.querySelectorAll('#dark .c-input--dense, #dark .c-select--dense select')].map(e=>e.getBoundingClientRect().height>=44&&getComputedStyle(e).fontSize===parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--c-type-body-font-size'))*parseFloat(getComputedStyle(document.documentElement).fontSize)+'px')`),[true,true],'dense fields keep the standard target and body size for touch');
   await shot('cosmik-menu-320-short-text200');
   await evaluate(`document.querySelector('#dark [data-confirm="delete"]').click()`);
   await until(`getComputedStyle(document.querySelector('#dark dialog')).opacity === '1'`);
