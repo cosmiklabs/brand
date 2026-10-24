@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { distributionSet } from './vendor.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sha256 = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
@@ -15,6 +16,8 @@ export function verifyManifest(directory, { updateGenerated = false } = {}) {
   const file = path.join(directory, 'asset-manifest.json');
   const manifest = JSON.parse(fs.readFileSync(file, 'utf8'));
   const problems = [], entries = [], updates = [];
+  // `distribution` is checked below: it lists files that other sections also describe.
+  const { distribution, ...described } = manifest;
   const walk = node => {
     if (Array.isArray(node)) node.forEach(walk);
     else if (node && typeof node === 'object') {
@@ -23,8 +26,9 @@ export function verifyManifest(directory, { updateGenerated = false } = {}) {
       Object.values(node).forEach(walk);
     }
   };
-  walk(manifest);
+  walk(described);
   const listed = new Set();
+  const byPath = new Map(entries.map(entry => [entry.path, entry]));
   const notices = new Set((manifest.font_licenses ?? []).map(e => e.path));
   if (manifest.license) notices.add(manifest.license);
   const realRoot = fs.realpathSync(directory);
@@ -97,6 +101,28 @@ export function verifyManifest(directory, { updateGenerated = false } = {}) {
   const kits = path.join(directory, 'kits');
   if (fs.existsSync(kits)) for (const kit of fs.readdirSync(kits, { withFileTypes: true })) {
     if (kit.isDirectory()) for (const part of ['assets', 'components', 'icons', 'tokens']) inventory(`kits/${kit.name}/${part}`);
+  }
+  // The distribution: every file a consumer vendors, with the hash of its bytes. A build refreshes
+  // these like generated outputs, but never for an immutable input, which must already match.
+  let pkg;
+  if (distribution !== undefined) {
+    try { pkg = JSON.parse(fs.readFileSync(path.join(directory, 'package.json'), 'utf8')); }
+    catch (error) { problems.push(`cannot read package.json: ${error.message}`); }
+  }
+  if (pkg) {
+    // The contract's shape and package fields; each hash is compared with the bytes below instead.
+    try { distributionSet({ distribution: { ...distribution, files: (distribution?.files ?? []).map(e => ({ ...e, sha256: '0'.repeat(64) })) } }, pkg); }
+    catch (error) { problems.push(error.message); }
+  }
+  for (const entry of Array.isArray(distribution?.files) ? distribution.files : []) {
+    const p = entry?.path;
+    const bytes = read(p);
+    if (!bytes) continue;
+    const actual = sha256(bytes);
+    const other = byPath.get(p);
+    const protectedInput = notices.has(p) || /\.(ttf|otf)$/.test(p) || other?.source_bytes_unchanged || other?.role?.kind === 'approved-original';
+    if (updateGenerated && !protectedInput) updates.push([entry, actual]);
+    else if (actual !== entry.sha256) problems.push(`distribution hash mismatch: ${p}`);
   }
   // Do not partially bless generated output when another input is damaged.
   if (updateGenerated && !problems.length) {

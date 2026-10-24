@@ -13,7 +13,7 @@ The terms for reusing artwork are in [LICENSE.md](../LICENSE.md).
 | Family token overrides | `tokens/family.json` in the family's `brand-<product>` repository |
 | Family contract | `familySource` in `scripts/generate-tokens.mjs`, described in [families](families.md) |
 | Shared controls | `kits/cosmik/components/controls.css`; rules in [interface](interface.md#shared-controls) |
-| Vendorable release files | `vendor` in `asset-manifest.json` |
+| Distributed release files | `distribution` in `asset-manifest.json` |
 | Mark geometry | The accepted source identified by each kit's README and the manifest |
 | Roles, canonical paths, asset status and hashes | `asset-manifest.json` |
 | Use and interaction rules | `guide/`, and each family's guide in its repository |
@@ -58,8 +58,9 @@ authorized. Prepare a release in this order:
    every family's `extends` names it, so a release without token changes leaves
    families' `extends` valid. Family revisions live in their own repositories.
    Update release labels in documentation without calling an uncreated tag
-   published. Keep the manifest's `vendor` list complete; the tests check that
-   vendored scripts carry their imports, fonts their notices and the full guide.
+   published. Keep the manifest's `distribution` list complete; the build refreshes
+   its hashes, and the tests check that distributed scripts carry their imports,
+   fonts their notices and the full guide.
 3. Run `npm run build`, then `npm run check` and `npm run check:browser`. Inspect
    generated diffs, hashes and rendered proofs. A build may refresh generated and
    editable assets; it must never bless a changed approved original automatically.
@@ -75,7 +76,9 @@ authorized. Prepare a release in this order:
 Pin the new tag and review the changelog before replacing vendored files. Verify
 manifest hashes, include required fonts and notices, and update all related
 outputs together. A family repository re-runs `vendor.mjs sync` from the new tag,
-then `family.mjs build` and `check`, and reviews the regenerated outputs. Keep application-specific components and CSS outside the vendored
+then `family.mjs build` and `check`, reviews the regenerated outputs and publishes
+its own release; products then sync that product brand release, which carries the
+new foundation with it. Keep application-specific components and CSS outside the vendored
 kit; do not fix a kit defect by silently editing the copied source of truth.
 
 Re-run affected product flows in both themes, at narrow widths and with reduced

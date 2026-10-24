@@ -12,7 +12,7 @@ this one: [`cosmiklabs/brand-hplx`](https://github.com/cosmiklabs/brand-hplx) an
 [`cosmiklabs/brand-tectra`](https://github.com/cosmiklabs/brand-tectra). See
 [product families](guide/families.md).
 
-**Version: 0.8.0** (`v0.8.0`, prepared 24 October 2026; untagged until released).
+**Version: 0.9.0** (`v0.9.0`, prepared 24 October 2026; untagged until released).
 Consume an immutable release tag; working-tree changes are unreleased until tagged.
 See [CHANGELOG.md](CHANGELOG.md).
 
@@ -57,9 +57,11 @@ Pin an exact `vX.Y.Z` tag. Never depend on `main` for production assets.
 
 - **Vendor files:** copy the generated outputs and assets you use, along with
   required fonts and their licence notices. Verify their SHA-256 values against
-  `asset-manifest.json` from the same tag. Product families use
-  `scripts/vendor.mjs`, which copies the reviewable `vendor` set and writes a
-  lock that `vendor.mjs verify` checks.
+  `asset-manifest.json` from the same tag. Or use `scripts/vendor.mjs`, which
+  copies the release's `distribution` set and writes a lock that
+  `vendor.mjs verify` checks. Products take their family's product brand
+  repository the same way; it carries this foundation with its own lock. See
+  [vendoring a release](kits/README.md#vendoring-a-release).
 - **Git submodule:** pin its checkout to the exact tag or commit, not a moving
   branch. Keep the checked-in submodule pointer with the consumer change.
 - **Git subtree:** import a tagged release when files need to live directly in the

@@ -5,6 +5,22 @@ controls layer. Kit checks establish their tested properties; they do not certif
 a consuming product or replace its interaction journeys. Product families keep
 their own validation records in their repositories.
 
+## 0.9.0 review — 24 October 2026
+
+A tooling release: no token, mark, font, controls or specimen bytes changed, so the
+0.8.0 rendered inspection below still describes the reference. Run on macOS with
+Node.js 24.22.0 and headless Google Chrome 155.0.8059.86:
+
+- `npm run build`, then `node scripts/build.mjs --check` from the release commit:
+  baseline outputs are unchanged; manifest verification passes for 75 hashed files,
+  20 entry points and the 36-file distribution.
+- `npm run check`: all 114 baseline contrast pairs pass (weakest text 4.64:1,
+  weakest boundary 3.629:1) and all 79 tests pass, including syncing a fictional
+  product brand that vendors this release, both-layer verification, nested
+  tampering, a lockfileVersion 1 lock and `--release` on both manifest shapes.
+- `npm run check:browser`: every component, controls, motion and direct `file:`
+  check passes as in 0.8.0. Screenshots were not re-inspected.
+
 ## 0.8.0 review — 24 October 2026
 
 Prepared on branch `foundation-only` from `main` (6bf3c86), on macOS with

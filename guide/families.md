@@ -44,9 +44,9 @@ code of its own. It vendors them from a tagged release and runs them unchanged, 
 "builds on Cosmik" is something a check can prove rather than a claim:
 
 1. **Provenance.** `node scripts/vendor.mjs sync --from <brand checkout> --into vendor/brand`
-   copies the release's reviewable file set (listed under `vendor` in
+   copies the release's distribution (listed with hashes under `distribution` in
    [asset-manifest.json](../asset-manifest.json)) and writes `vendor/brand/brand.lock.json`
-   with the repository, tag, commit and SHA-256 of every file. The checkout must be
+   with the package, repository, tag, commit and SHA-256 of every file. The checkout must be
    clean and exactly at a `vX.Y.Z` tag. `node vendor/brand/scripts/vendor.mjs verify vendor/brand`
    fails if any vendored file is missing, extra or changed. Adding
    `--release <brand checkout>` also proves the lock against the tag itself, so an
@@ -61,6 +61,30 @@ code of its own. It vendors them from a tagged release and runs them unchanged, 
 Run both checks in the family's CI. Generated headers name the brand release that
 produced them, so an upgrade shows up as a reviewed diff in the family repository.
 The [consumer guide](../kits/README.md#building-a-family) has the commands in full.
+
+## Publishing a product brand
+
+Products consume their family from its `brand-<product>` repository, never from
+this one, with the same `vendor.mjs` (see the
+[consumer guide](../kits/README.md#vendoring-a-release)). A product brand is therefore
+a release in its own right and must follow the distribution contract:
+
+- **`package.json`** has `name` (`@cosmiklabs/brand-<product>`; the part after the
+  scope names the consumer's lock, `brand-<product>.lock.json`), `version` equal to
+  the family's `version` in `tokens/family.json`, and `repository`
+  (`{"type": "git", "url": "git+https://github.com/cosmiklabs/brand-<product>.git"}`).
+- **Releases** are annotated `v<version>` tags on a clean, committed tree.
+- **`asset-manifest.json`** has a `brand` section naming the vendored foundation
+  (`repository`, `tag`, `commit`, `directory` and `lock`), and a `distribution`
+  section whose `files` list, each `{ "path", "sha256" }`, every file a consumer
+  needs: the family's generated tokens, marks, icons, fonts and their licence
+  notices, `LICENSE.md`, the guide, **and every file under `vendor/brand/`,
+  including `vendor/brand/brand.lock.json`**. The foundation travels unchanged with
+  its lock, so a consumer's `verify` checks both layers. No top-level file may end
+  in `.lock.json`; that name is the consumer's lock.
+- **The build derives `brand` and the distribution** from the lock and the files,
+  and the check fails when the manifest, the lock and the bytes disagree. CI runs
+  `vendor.mjs verify vendor/brand --release <brand checkout at the locked tag>`.
 
 ## What the contract allows
 
@@ -86,7 +110,8 @@ name, mark or organisation-wide claims.
 1. Show a product need and real screens in both themes; a family is not approved
    until the owner accepts it. Follow [governance](governance.md).
 2. Create `brand-<product>`, vendor a release of this kit into `vendor/brand/` and
-   commit the lock.
+   commit the lock. Set up `package.json` and the manifest as in
+   [publishing a product brand](#publishing-a-product-brand).
 3. Write `tokens/family.json` with `id`, `name`, `version`, `status`,
    `extends` (`"Cosmik baseline <baseline version>"`, as the vendored
    `kits/cosmik/tokens/source.json` states), `description` and `semantic` with

@@ -118,3 +118,23 @@ test('symlinked assets cannot read outside the release directory', { skip: proce
   f.manifest.assets.push({ path: 'escape', sha256: hash('outside') });
   hasProblem(f.check(), /file escapes repository: escape/);
 });
+
+test('the distribution hashes its bytes; a build refreshes them except for immutable inputs', t => {
+  const f = fixture(t);
+  f.write('package.json', JSON.stringify({ name: '@example/kit', version: '1.0.0', repository: 'example/kit' }));
+  f.write('guide/use.md', 'How to use it');
+  f.manifest.distribution = { files: [
+    { path: 'guide/use.md', sha256: hash('How to use it') },
+    { path: 'fonts/desktop/Test.ttf', sha256: hash('upstream font') },
+  ] };
+  assert.deepEqual(f.check().problems, []);
+  f.write('guide/use.md', 'Edited guidance');
+  hasProblem(f.check(), /distribution hash mismatch: guide\/use.md/);
+  assert.deepEqual(f.check(true).problems, []);
+  const saved = JSON.parse(fs.readFileSync(path.join(f.directory, 'asset-manifest.json')));
+  assert.equal(saved.distribution.files[0].sha256, hash('Edited guidance'));
+  f.manifest.distribution.files[1].sha256 = '0'.repeat(64);
+  hasProblem(f.check(true), /distribution hash mismatch: fonts\/desktop\/Test.ttf/);
+  f.manifest.distribution.files.push({ path: 'guide/use.md', sha256: hash('Edited guidance') });
+  hasProblem(f.check(), /lists guide\/use.md twice/);
+});

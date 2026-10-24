@@ -1,8 +1,12 @@
 {
   "name": "@cosmiklabs/brand",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "private": true,
   "description": "Cosmik brand kit: baseline and family kits, tokens, marks, fonts and the guide.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cosmiklabs/brand.git"
+  },
   "type": "module",
   "engines": {
     "node": ">=22"

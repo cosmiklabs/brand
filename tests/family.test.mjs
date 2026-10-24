@@ -130,7 +130,7 @@ test('check explains a missing family source and the CLI rejects bad usage', t =
 test('a vendored copy resolves the baseline beside itself, not the caller\'s', t => {
   const f = familyRepo(t);
   const vendor = path.join(f.dir, 'vendor/brand');
-  for (const file of manifest.vendor.files) {
+  for (const {path: file} of manifest.distribution.files) {
     fs.mkdirSync(path.dirname(path.join(vendor, file)), {recursive: true});
     fs.copyFileSync(path.join(root, file), path.join(vendor, file));
   }

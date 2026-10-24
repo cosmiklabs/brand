@@ -3,6 +3,67 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`; from 0.8.0 they live in their own repositories.
 
+## 0.9.0 · 24 October 2026
+
+One distribution contract for every Cosmik brand repository, so a product can sync
+its product brand, with the foundation that brand was built on, using one tool and
+verify both layers in one check. Breaking for readers of the manifest's `vendor`
+section and of `vendor.mjs`'s exports (see migration below).
+
+- **Distribution contract.** The manifest's `vendor` section is now `distribution`:
+  what this repository publishes for consumers to vendor. Each entry is
+  `{ "path", "sha256" }`; the build refreshes the hashes and the check fails when
+  they differ from the bytes, without ever refreshing an upstream font, licence
+  notice or approved original. `package.json` gains `repository`, which names the
+  release in locks. Any repository with `name`, `version` and `repository` in
+  `package.json`, `distribution.files` in `asset-manifest.json` and HEAD exactly
+  at `v<version>` on a clean tree can be synced.
+- **`scripts/vendor.mjs` works for any such repository.** `sync --from <checkout>
+  --into <dir>` checks every file against its distribution hash before copying,
+  installs the set only after it verifies, refuses to replace a directory holding a
+  different repository's release, and writes `<short name>.lock.json` (the package
+  name without its scope: `brand.lock.json` here, `brand-tectra.lock.json` for
+  `@cosmiklabs/brand-tectra`). Locks are `lockfileVersion` 2 and add `package`.
+- **Nested layers.** When a synced set contains a lock (a product brand's
+  `vendor/brand/brand.lock.json`), `verify` also checks that layer's files against
+  it and names a change in both layers; `--release` proves the outer lock against
+  its tag. `verify` and `sync` print every layer. `lockfileVersion` 1 locks from
+  0.8.0 still verify, with `--release` against a 0.8.0-shaped release too.
+- **Docs.** [Vendoring a release](kits/README.md#vendoring-a-release) explains how a
+  product consumes its product brand and how organisation surfaces consume this
+  repository; [publishing a product brand](guide/families.md#publishing-a-product-brand)
+  states what a `brand-<product>` repository must publish.
+- **Tests** sync a fictional product brand that vendors this release, check both
+  layers, nested tampering (including an edited outer lock and an edited nested
+  lock caught by `--release`), refusal of a release whose nested layer is broken, a
+  v1 lock, the `--release` proof on both manifest shapes, and the manifest's
+  distribution hashes.
+
+The family contract in `scripts/generate-tokens.mjs`, every baseline token value and
+the baseline token version (0.7.0) are unchanged; families' `extends` stays
+`"Cosmik baseline 0.7.0"`, and family outputs change only in their provenance header.
+
+### Migration
+
+- **Product brand repositories:** re-sync with
+  `node <brand>/scripts/vendor.mjs sync --from <brand> --into vendor/brand`, rename
+  the manifest section that described the vendored foundation (it was also called
+  `vendor`) to the `brand` reference plus a `distribution` that lists your own
+  deliverables and every file under `vendor/brand/`, including its lock; add
+  `repository` to `package.json`. See
+  [publishing a product brand](guide/families.md#publishing-a-product-brand).
+- **Products** (the Tectra app, `website-tectra`, HPLX): sync your product brand
+  instead of copying files by hand:
+  `node <brand-tectra>/vendor/brand/scripts/vendor.mjs sync --from <brand-tectra> --into vendor/brand-tectra`,
+  then `verify vendor/brand-tectra` in CI. Load
+  `vendor/brand-tectra/vendor/brand/kits/cosmik/tokens/cosmik.css`, then
+  `vendor/brand-tectra/tokens/tectra.css`, then the optional
+  `vendor/brand-tectra/vendor/brand/kits/cosmik/components/controls.css`.
+- **Code reading `manifest.vendor`** reads `manifest.distribution.files[].path`.
+  `vendor.mjs` no longer exports `vendorSet` or `LOCK`; use `distributionSet`,
+  `lockFileName` and `findLock`. `verify()` also returns `lockFile` and `layers`.
+- Existing 0.8.0 locks keep verifying; re-sync to write a version 2 lock.
+
 ## 0.8.0 · 24 October 2026
 
 This repository now holds only the shared Cosmik foundation. Product families move

@@ -30,6 +30,64 @@ inputs and status. Primitives document the palette; they are not component roles
 `border` is an essential boundary; `divider` is decorative. Use type, spacing,
 layout, radius and motion tokens alongside colour roles.
 
+## Vendoring a release
+
+Every Cosmik brand repository publishes a **distribution**: `distribution.files` in
+its `asset-manifest.json` lists each file a consumer copies with its SHA-256. One
+tool, `scripts/vendor.mjs` from this repository, copies any such release and
+verifies it later. A product brand carries it at `vendor/brand/scripts/vendor.mjs`.
+Run it from the release you sync, so the checks are that release's own. From this
+repository:
+
+```sh
+node <brand>/scripts/vendor.mjs sync --from <brand> --into vendor/brand
+node vendor/brand/scripts/vendor.mjs verify vendor/brand
+node vendor/brand/scripts/vendor.mjs verify vendor/brand --release <brand>
+```
+
+`sync` refuses a checkout that has local changes or whose HEAD is not exactly the
+`v<version>` tag, checks every byte against the manifest before copying, and
+writes `<short name>.lock.json` beside the files: the package name without its
+scope, so `brand.lock.json` for `@cosmiklabs/brand` and `brand-tectra.lock.json`
+for `@cosmiklabs/brand-tectra`. `verify` fails on any missing, extra or changed
+file; `--release` also proves the lock against the tag's own bytes, so an edited
+lock cannot bless altered files.
+
+**A product consumes its product brand, not this repository.** The Tectra app and
+`website-tectra` sync `cosmiklabs/brand-tectra`; an HPLX product syncs
+`cosmiklabs/brand-hplx`. A product brand's distribution includes the foundation it
+vendored, unchanged, with its lock, so one sync brings both layers at the versions
+the family was built and checked against:
+
+```sh
+node <brand-tectra>/vendor/brand/scripts/vendor.mjs sync --from <brand-tectra> --into vendor/brand-tectra
+node vendor/brand-tectra/vendor/brand/scripts/vendor.mjs verify vendor/brand-tectra
+```
+
+```text
+vendor/brand-tectra/
+  brand-tectra.lock.json        the product brand release: tag, commit, every file
+  tokens/tectra.css  assets/  README.md  LICENSE.md
+  vendor/brand/
+    brand.lock.json             the foundation release the family was built on
+    kits/cosmik/tokens/cosmik.css  kits/cosmik/components/controls.css  fonts/  guide/
+```
+
+`verify` checks the outer lock and then every lock it finds inside the synced set,
+so a change to `vendor/brand-tectra/vendor/brand/kits/cosmik/tokens/cosmik.css` is
+named against both releases. `--release <brand-tectra checkout>` proves the outer
+lock; the nested lock is part of those bytes, and the product brand's CI proves it
+against this repository's tag. Never sync this repository separately beside a
+product brand: the family's tokens were checked against its own vendored baseline.
+
+**Organisation surfaces consume this repository directly.** The Cosmik website and
+other baseline-only consumers sync `cosmiklabs/brand` into `vendor/brand/`. A
+surface that also shows a product family takes that family's product brand and
+uses its `vendor/brand/` layer instead of a second copy of the baseline.
+
+Locks written by brand 0.8.0 (`lockfileVersion` 1) still verify. Re-sync to get
+`lockfileVersion` 2, which also records the package name.
+
 ## Browser integration
 
 The token CSS supplies custom properties, not resets, font loading or component
@@ -47,7 +105,12 @@ then any family CSS, then the optional [controls layer](#shared-controls):
 ```
 
 Paths depend on how you consume a release; `vendor/brand/` is the layout
-`scripts/vendor.mjs` produces. Without a family, omit its stylesheet and scope.
+`scripts/vendor.mjs` produces from this repository. From a product brand synced
+into `vendor/brand-<product>/`, the three stylesheets are
+`vendor/brand-<product>/vendor/brand/kits/cosmik/tokens/cosmik.css`,
+`vendor/brand-<product>/tokens/<id>.css` and
+`vendor/brand-<product>/vendor/brand/kits/cosmik/components/controls.css`.
+Without a family, omit its stylesheet and scope.
 
 ### Themes, scopes and motion
 
@@ -128,13 +191,14 @@ node vendor/brand/scripts/family.mjs build .   # writes tokens/<id>.css, .json, 
 node vendor/brand/scripts/family.mjs check .   # in CI: contract, extends, drift and contrast
 ```
 
-`brand.lock.json` records what was vendored:
+`vendor/brand/brand.lock.json` records what was vendored:
 
 ```json
 {
-  "lockfileVersion": 1,
+  "lockfileVersion": 2,
+  "package": "@cosmiklabs/brand",
   "repository": "cosmiklabs/brand",
-  "tag": "v0.8.0",
+  "tag": "v0.9.0",
   "commit": "<40-character commit>",
   "files": {
     "kits/cosmik/tokens/source.json": "<sha256>",
@@ -142,6 +206,11 @@ node vendor/brand/scripts/family.mjs check .   # in CI: contract, extends, drift
   }
 }
 ```
+
+A family repository is itself a release that products sync, so it follows the
+[distribution contract](../guide/families.md#publishing-a-product-brand): its
+`asset-manifest.json` lists every file a consumer needs under `distribution`,
+including every file under `vendor/brand/` and its lock.
 
 Never edit vendored files; `verify` fails on any change, addition or removal.
 Keep the family's guide, marks, fonts and their notices beside `tokens/`, outside

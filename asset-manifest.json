@@ -1,6 +1,6 @@
 {
   "name": "Cosmik brand kit",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "date": "2026-10-24",
   "system_status": "baseline approved (owner, 2026-10-07). Product families are maintained in their own repositories (cosmiklabs/brand-hplx, cosmiklabs/brand-tectra) and build on a pinned release of this kit.",
   "emblem_status": "accepted traced symbol",
@@ -1140,46 +1140,153 @@
       "editable": true
     }
   ],
-  "vendor": {
-    "repository": "cosmiklabs/brand",
-    "description": "Files a product brand repository copies from a tagged release with `node scripts/vendor.mjs sync --from <brand checkout> --into vendor/brand`. The lock (vendor/brand/brand.lock.json) records the tag, commit and SHA-256 of each file; `vendor.mjs verify` fails on any missing, extra or changed file. Product repositories run the vendored family.mjs, never their own copy of the contract, generator or contrast pairs.",
+  "distribution": {
+    "description": "Files a consumer vendors from a tagged release with `node scripts/vendor.mjs sync --from <brand checkout> --into vendor/brand`, each with its SHA-256. The lock (vendor/brand/brand.lock.json) records the package, repository, tag, commit and SHA-256 of each file; `vendor.mjs verify` fails on any missing, extra or changed file. Product brand repositories run the vendored family.mjs, never their own copy of the contract, generator or contrast pairs, and publish their own distribution, including this one under vendor/brand/.",
     "files": [
-      "LICENSE.md",
-      "package.json",
-      "kits/cosmik/tokens/source.json",
-      "kits/cosmik/tokens/cosmik.css",
-      "kits/cosmik/tokens/cosmik.json",
-      "kits/cosmik/tokens/cosmik.tokens.json",
-      "kits/cosmik/tokens/cosmik_tokens.rs",
-      "kits/cosmik/components/controls.css",
-      "scripts/generate-tokens.mjs",
-      "scripts/family.mjs",
-      "scripts/validate-tokens.mjs",
-      "scripts/vendor.mjs",
-      "scripts/font-outlines.mjs",
-      "scripts/vector-raster.mjs",
-      "fonts/web/Inter-Regular.woff2",
-      "fonts/web/Inter-Medium.woff2",
-      "fonts/web/Inter-SemiBold.woff2",
-      "fonts/web/IBMPlexMono-Regular.woff2",
-      "fonts/web/IBMPlexMono-Regular.ttf",
-      "fonts/desktop/Inter-Regular.ttf",
-      "fonts/desktop/Inter-Medium.ttf",
-      "fonts/desktop/Inter-SemiBold.ttf",
-      "fonts/desktop/IBMPlexMono-Regular.ttf",
-      "fonts/licenses/Inter-OFL.txt",
-      "fonts/licenses/IBM-Plex-OFL.txt",
-      "guide/README.md",
-      "guide/colour.md",
-      "guide/documents.md",
-      "guide/families.md",
-      "guide/governance.md",
-      "guide/identity.md",
-      "guide/interface.md",
-      "guide/motion.md",
-      "guide/quality.md",
-      "guide/typography.md",
-      "guide/voice.md"
+      {
+        "path": "LICENSE.md",
+        "sha256": "12ec3364762237764fac36cfc13ee736b398e67242ec7cf04ad65a08e09bd47c"
+      },
+      {
+        "path": "package.json",
+        "sha256": "b3d08379a6a162c0a591471df958926058712ba2fb8806cd146d99764d98503a"
+      },
+      {
+        "path": "kits/cosmik/tokens/source.json",
+        "sha256": "d714b23fd14cf179e300392274bf911a69acd1c062a480414bb189b7016a59ce"
+      },
+      {
+        "path": "kits/cosmik/tokens/cosmik.css",
+        "sha256": "4eac5f6a397d2f95e30258fe9dca24df9837d8372fcf26df75eba289ab2b1abd"
+      },
+      {
+        "path": "kits/cosmik/tokens/cosmik.json",
+        "sha256": "c19a4d47bdcaaba69895414640f5238e16895658a319596a3be1ba3a8da2df3a"
+      },
+      {
+        "path": "kits/cosmik/tokens/cosmik.tokens.json",
+        "sha256": "3ee871f92f024251866e18bebf98ebba4db658b1d82733bd11599672b23dbcff"
+      },
+      {
+        "path": "kits/cosmik/tokens/cosmik_tokens.rs",
+        "sha256": "01832e0e30194b290220c34c081d0ebc601f0003101eecb5d8a984a09a2f7982"
+      },
+      {
+        "path": "kits/cosmik/components/controls.css",
+        "sha256": "30946c47d8d5fe83889d885ba256e2f554e155e81560943eec67880e4024be6d"
+      },
+      {
+        "path": "scripts/generate-tokens.mjs",
+        "sha256": "8eaf19dc2d4345a8594ca865ec1e0d60e046fa11b307bb4d5f6db8951618c72d"
+      },
+      {
+        "path": "scripts/family.mjs",
+        "sha256": "bb15daf8094e62d915eeb0dfcd27bb7dbf16eb777d58023fddf50f7b499ee705"
+      },
+      {
+        "path": "scripts/validate-tokens.mjs",
+        "sha256": "d5cf6286c6fb2243aaf292bd8aca22dc22193dad3a8badaecf18a517d9b486be"
+      },
+      {
+        "path": "scripts/vendor.mjs",
+        "sha256": "cade5361fb7636816d3faa460fe9eb7a9e2613bc9087d244be4225f0dd4b01f1"
+      },
+      {
+        "path": "scripts/font-outlines.mjs",
+        "sha256": "ffc2040028804ec13cb8d9037886e1495be62a732a2ceaa0d557ff042913ab9f"
+      },
+      {
+        "path": "scripts/vector-raster.mjs",
+        "sha256": "b20fc5fa33f210bb5b10c656b9f9653641c84c569d6ff903f0d983ef2d5a608c"
+      },
+      {
+        "path": "fonts/web/Inter-Regular.woff2",
+        "sha256": "e06f6b1bc553aaea4e4668023ed0ab0a147129c3107f511bc7d03d361b0ae085"
+      },
+      {
+        "path": "fonts/web/Inter-Medium.woff2",
+        "sha256": "0ff3e94614e1493eb556314fd247ae6c4a85a7783b4cc86be539940cf83f2a48"
+      },
+      {
+        "path": "fonts/web/Inter-SemiBold.woff2",
+        "sha256": "5cb7103e4e605989afebc03d989c79201e54b21b5183db33981f70db9178a301"
+      },
+      {
+        "path": "fonts/web/IBMPlexMono-Regular.woff2",
+        "sha256": "7eb6057e1f34f8e2d90466e25d18b21c23a9c4b1837e6c668490cc007e8aa809"
+      },
+      {
+        "path": "fonts/web/IBMPlexMono-Regular.ttf",
+        "sha256": "7c6fbddca4b700be918f5f6183d9bd4464fa427fe435f0b480d77fe2bb8c5a43"
+      },
+      {
+        "path": "fonts/desktop/Inter-Regular.ttf",
+        "sha256": "40d692fce188e4471e2b3cba937be967878f631ad3ebbbdcd587687c7ebe0c82"
+      },
+      {
+        "path": "fonts/desktop/Inter-Medium.ttf",
+        "sha256": "97ad806f526e41546d46365bb3a393145f75b7b1568913db74549ad8b8dba872"
+      },
+      {
+        "path": "fonts/desktop/Inter-SemiBold.ttf",
+        "sha256": "78a843fade9d4612a5567302fb595b56976eb5fcebf4fea5a5912d638bafcde3"
+      },
+      {
+        "path": "fonts/desktop/IBMPlexMono-Regular.ttf",
+        "sha256": "7c6fbddca4b700be918f5f6183d9bd4464fa427fe435f0b480d77fe2bb8c5a43"
+      },
+      {
+        "path": "fonts/licenses/Inter-OFL.txt",
+        "sha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a"
+      },
+      {
+        "path": "fonts/licenses/IBM-Plex-OFL.txt",
+        "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+      },
+      {
+        "path": "guide/README.md",
+        "sha256": "d70cfa36b05ef677ad36ea36d7c9a5112995fdecd070697a64c45ba5f0bf014d"
+      },
+      {
+        "path": "guide/colour.md",
+        "sha256": "5a39725b944e9d878ae34d088766619da943401281d008c41938cc35117d84fd"
+      },
+      {
+        "path": "guide/documents.md",
+        "sha256": "59dec563aec125801b3671090ef221f7f1a6e62d2686175fddf0c3767bc6da58"
+      },
+      {
+        "path": "guide/families.md",
+        "sha256": "08244140b30c44f3c66fbde600f8ebc8cea09c72034d595046e85274ef737ef2"
+      },
+      {
+        "path": "guide/governance.md",
+        "sha256": "a8cd23dd692c69b40bab9583481893c8bb90107af4f25b4ea72198d3308e7ee3"
+      },
+      {
+        "path": "guide/identity.md",
+        "sha256": "7d360224a1bc3e9e76333ec82314065626205d6bb9762f8cc15d9f49ffee78a9"
+      },
+      {
+        "path": "guide/interface.md",
+        "sha256": "e4a94eff40209f742ef254f27fbd3058859ecd98d98f7a5b5d1da80f241c9ab7"
+      },
+      {
+        "path": "guide/motion.md",
+        "sha256": "03cd72658c0a19fbe10dbb6160baaab63131d66fa92df6de476ae2390b6a5481"
+      },
+      {
+        "path": "guide/quality.md",
+        "sha256": "2adcfd41608459347fa13aeac353089c7f04a99b8c6896c5875c038ad334f8db"
+      },
+      {
+        "path": "guide/typography.md",
+        "sha256": "067eb036d5169a3caa5a852a0aa18cd590215a810816aadd9d605c836d2eb7aa"
+      },
+      {
+        "path": "guide/voice.md",
+        "sha256": "b625d99a571bd119deaa2a2ee8bdfb1db1008c5b76020a60c492b804cfd429b6"
+      }
     ]
   }
 }
