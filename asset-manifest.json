@@ -21,7 +21,7 @@
     {
       "id": "browser-qa",
       "status": "open",
-      "summary": "Headless Chromium checks cover both kits; full browser zoom, other browser engines and assistive-technology checks remain pending. See specimens/validation.md."
+      "summary": "Chromium checks cover all three kits. Full browser zoom, other browser engines and assistive-technology checks remain pending. See specimens/validation.md."
     },
     {
       "id": "hplx-optical-small-icon",
@@ -934,7 +934,7 @@
         "kit": "hplx"
       },
       "status": "Selected Ember symbol; faithful derived delivery",
-      "sha256": "cd53b3037a87e9dabd469a41631d8f3ad13288b7bd2d6ed7059f21d8d6a121fe",
+      "sha256": "5efbe258dc332a2bf0d5f5a463f288cc451fe131d9c7fbd4355c35ff10885389",
       "editable": true
     },
     {
@@ -1654,7 +1654,7 @@
       },
       "status": "Approved (owner, 2026-10-17)",
       "editable": true,
-      "sha256": "07396706bc139af0431b0d76d929fc3bb78e976d11eddfdf94197289db2422e6"
+      "sha256": "15b66f52c0b0b2cc3d1b324029c6c3acfaa4a52d4dac69555b2c884a1605134c"
     },
     {
       "path": "kits/tectra/specimen.html",
@@ -1766,7 +1766,7 @@
         "format": "css"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "c28edecafc9850f782a3a028402e441f8fabb49b821174601e6cb5c28ee639eb"
+      "sha256": "d31ba6079b4d4ab39674ea6140d8516234c0a748efefa11512c8c51ad3e611b5"
     },
     {
       "path": "kits/cosmik/tokens/cosmik.json",
@@ -1807,7 +1807,7 @@
         "format": "source"
       },
       "status": "HPLX family source, approved (owner, 2026-10-15)",
-      "sha256": "6cf57d92379c31dcb9af9f6829074eb9c42af6ccec6b642a8f6aa90d0c4b5580",
+      "sha256": "b6958a31cff06773ea76bd0111af35673903ac921f163076c92fa5ca5149e02a",
       "editable": true
     },
     {
@@ -1829,7 +1829,7 @@
         "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "8d15a4de757e2d71c7e9648e6adea5162bbd97aab451b15c10aa89b12878a1e0"
+      "sha256": "ea7ef9c472a24dbd075f0d12202e9ef45c8b53258d4e66447e96181d4c810c12"
     },
     {
       "path": "kits/hplx/tokens/hplx.tokens.json",
@@ -1839,7 +1839,7 @@
         "format": "dtcg"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "1723c809c65700fc72c715f18ba00e72bfcd606974c478083aecc572bf53a5ea"
+      "sha256": "622980fad1bb508a50064b0e389bad2d16cfdd67087cd7cc316f977ffcc918f0"
     },
     {
       "path": "kits/hplx/tokens/hplx_tokens.rs",
@@ -1858,7 +1858,7 @@
         "kit": "tectra",
         "format": "source"
       },
-      "sha256": "73b3ffa1897caf1b74b6f69aff79ba518d1d31463b552330fb64492c36f459ed",
+      "sha256": "7c4448e0d4ba518892f4200c6136e23dfe3b25ea5661267fcaf7e2c2f5f3b46a",
       "editable": true,
       "status": "Approved (owner, 2026-10-17)"
     },
@@ -1879,7 +1879,7 @@
         "kit": "tectra",
         "format": "json"
       },
-      "sha256": "f9db3187d97a6ae4fc5609a206d82b3a89ffa7a959fd9322e305f06b892d9439",
+      "sha256": "2ef6a041d3ad6f05556260279776478c0887620deaae621edd4fc33fa3e01e03",
       "generated_by": "scripts/generate-tokens.mjs"
     },
     {
@@ -1889,7 +1889,7 @@
         "kit": "tectra",
         "format": "dtcg"
       },
-      "sha256": "a9759d41721ec3daeeb677ad9f3655ee46cae8e1a6a0e54a19777f6067d36684",
+      "sha256": "fa1a40a949766b935af722fefd05620925bf015ff91689bf60b486deaae7d392",
       "generated_by": "scripts/generate-tokens.mjs"
     },
     {
@@ -2025,8 +2025,7 @@
       "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/spectral/Spectral-SemiBold.ttf",
       "license": "SIL Open Font License 1.1",
       "license_file": "fonts/licenses/Spectral-OFL.txt",
-      "sha256": "5f86915a744832ecf6e4a17ab04bea091b9fa992ef5164ff65ae34c1da2fe94b",
-      "editable": true
+      "sha256": "5f86915a744832ecf6e4a17ab04bea091b9fa992ef5164ff65ae34c1da2fe94b"
     }
   ],
   "font_licenses": [
@@ -2156,13 +2155,13 @@
         "viewBox": [
           0,
           0,
-          204,
+          195,
           64
         ],
         "visible_bounds_xywh": [
           8,
           12,
-          187.613,
+          178.03,
           40
         ]
       },
@@ -2173,13 +2172,13 @@
         "viewBox": [
           0,
           0,
-          204,
+          195,
           64
         ],
         "visible_bounds_xywh": [
           8,
           12,
-          187.613,
+          178.03,
           40
         ]
       },
@@ -2190,13 +2189,13 @@
         "viewBox": [
           0,
           0,
-          204,
+          195,
           64
         ],
         "visible_bounds_xywh": [
           8,
           12,
-          187.613,
+          178.03,
           40
         ]
       },
@@ -2207,13 +2206,13 @@
         "viewBox": [
           0,
           0,
-          204,
+          195,
           64
         ],
         "visible_bounds_xywh": [
           8,
           12,
-          187.613,
+          178.03,
           40
         ]
       },
@@ -2224,13 +2223,13 @@
         "viewBox": [
           0,
           0,
-          204,
+          195,
           64
         ],
         "visible_bounds_xywh": [
           8,
           12,
-          187.613,
+          178.03,
           40
         ]
       },
@@ -2420,6 +2419,42 @@
     {
       "path": "kits/hplx/EMBER-HISTORICAL.md",
       "sha256": "d0167d252bc761feb123299940e3c194fd78325c63a662077db8d21e7c71ab27",
+      "editable": true
+    }
+  ],
+  "repository_license": {
+    "path": "LICENSE.md",
+    "sha256": "ec9b189927895091b30bd216885773c1326a282c1caeae9b919f78d25648aef9"
+  },
+  "reference_files": [
+    {
+      "path": "guide/motion.md",
+      "sha256": "03cd72658c0a19fbe10dbb6160baaab63131d66fa92df6de476ae2390b6a5481",
+      "editable": true
+    },
+    {
+      "path": "guide/quality.md",
+      "sha256": "2adcfd41608459347fa13aeac353089c7f04a99b8c6896c5875c038ad334f8db",
+      "editable": true
+    },
+    {
+      "path": "specimens/components.html",
+      "sha256": "6a28cf17887300f521967bb82ab09d7127caabf0c528f45d320091df3ade6c6e",
+      "editable": true
+    },
+    {
+      "path": "specimens/components.css",
+      "sha256": "3c0e204622b557795885eef809a985186cf4e65b0ce860ec5a40109feb98d771",
+      "editable": true
+    },
+    {
+      "path": "specimens/components.js",
+      "sha256": "35edf1526aaa154cb6f286f83bee7f0ebdec5fe383bbb3937ecd83b133fbaf77",
+      "editable": true
+    },
+    {
+      "path": "specimens/motion.js",
+      "sha256": "020e6d0e63480ee92159266658d230217871096f77fd31c6a96b9eb6fef18f61",
       "editable": true
     }
   ]

@@ -1,6 +1,10 @@
 # Cosmik technical note template
 
-A reusable, editable two-page Word document for a project brief, technical decision, or implementation note. The PDF is a reviewed layout reference of the same placeholder content.
+An editable Word starting point for a project brief, technical decision or implementation note. The supplied PDF is a historical layout reference of the same placeholder content, not a promise that replacement content will remain two pages.
+
+- [Editable DOCX](cosmik-technical-note-template.docx)
+- [Reference PDF](cosmik-technical-note-template.pdf)
+- [Document guidance](../guide/documents.md)
 
 ## Use
 
@@ -35,6 +39,14 @@ The page is US Letter portrait with 0.78-inch margins and a 6.94-inch content wi
 
 The 16 mm square emblem is the supplied approved raster, embedded without cropping, recoloring, redrawing, or changing its original canvas. Preserve its proportions and black plate. The adjacent editable “Cosmik” text uses Inter Medium as a document label; it is not a replacement for the approved wordmark. The template was produced for the 0.2.0 kit. The baseline typography and document rules are now approved (owner, 2026-10-07); the current [document guide](../guide/documents.md) governs their use.
 
-## Verification
+## Existing validation and consumer review
 
-The reference PDF was produced with the bundled LibreOfficeDev 26.8.0.0.alpha0 renderer and the official Inter and IBM Plex Mono desktop font files. Both rendered pages were visually reviewed. Checks confirmed two Letter pages, embedded Inter Regular/Medium/SemiBold and IBM Plex Mono in the PDF, correct page numbers, an intact original raster, a native table header, image alt text, and an unskipped heading hierarchy. The document accessibility audit reported no findings; this is not a full accessibility certification. Microsoft Word and Google Docs were not independently rendered.
+The original reference PDF was produced with LibreOfficeDev 26.8.0.0.alpha0 renderer and the official Inter and IBM Plex Mono desktop font files. Both rendered pages were visually reviewed. Checks confirmed two Letter pages, embedded Inter Regular/Medium/SemiBold and IBM Plex Mono in the PDF, correct page numbers, an intact original raster, a native table header, image alt text, and an unskipped heading hierarchy. The document accessibility audit reported no findings; this is not a full accessibility certification. Microsoft Word and Google Docs were not independently rendered.
+
+After replacing content, review every rendered page in the editor and export path you actually use. Check title wrapping, tables across page breaks, code overflow, figure captions, repeated table headers, page fields and link destinations. Check document navigation and reading order separately from its appearance. Do not redistribute an old PDF beside an updated DOCX as if they were the same revision.
+
+Changes to the template require a new rendered proof and validation record. The historical validation above applies to the supplied reference files; it does not establish the layout or accessibility of a document made from them.
+
+## Reuse
+
+Written instructions are MIT-licensed. Embedded marks and artwork remain subject to the separate [brand-use policy](../LICENSE.md); permission to reuse the guidance does not grant permission to present an unrelated document as an official Cosmik publication. Fonts retain their own licences.

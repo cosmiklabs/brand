@@ -10,11 +10,7 @@ Use `tectra-latch-dark.svg` / `tectra-lockup-dark.svg` on dark surfaces and the 
 
 Recommended minimum CSS width: symbol 24 px; horizontal lockup 160 px. At 24 px, the narrowest 4-unit feature is 1.5 px; validate rendering on the actual display before using it smaller. No separate optical favicon redraw or platform icon package is approved. Preserve the viewBox, aspect ratio, silhouette and contrast. For linked identities use an accessible name such as “Tectra”; hide a decorative symbol from assistive technology when adjacent text already names the product.
 
-Cosmik navigation, headers and footers keep the baseline. Tectra content uses `data-family="tectra"` in either mode. The kit applies to the family, including its documentation, bindings, adapters and showcase presentation; these are not separate logo systems.
-
-## Organisation wording under review
-
-Do not carry the former “Reimagine / Extend / Create” motto into this family. The owner requested reworking or removing it; no replacement is approved. The Tectra review board contains no organisation motto. Its construction-specific line is a family reference, not a new Cosmik-wide promise.
+When Tectra content is presented inside a Cosmik organisation surface, the enclosing organisation identity stays baseline. Tectra interfaces use their family kit; browser consumers apply `data-family="tectra"` in either mode. This is identity scoping, not a required header, footer or navigation layout. The kit applies to the family, including its documentation, bindings, adapters and showcase presentation; these are not separate logo systems.
 
 ## Marketing emphasis
 
@@ -26,7 +22,7 @@ Business-model labels are not the headline, hero badge or primary reason to use 
 
 Use one Tectra family identity across the product, documentation and interfaces. Leave the user's artistic choices intact. Public copy explains useful outcomes and intended workflow without exposing implementation architecture or repository organisation. Distinguish verified capabilities from plans and avoid implying launch or availability.
 
-Cosmik can include open-source and proprietary products. Do not describe every Cosmik product as open-source or free forever. HPLX's existing no-payment commitment remains specific to HPLX.
+Follow the shared [voice and organisation wording guidance](../../guide/voice.md). A Tectra-specific line is not a new Cosmik-wide motto or promise.
 
 ## Colour and type
 
@@ -42,13 +38,13 @@ Keep a creator's chosen materials, lighting and aesthetic intact. The teal inter
 
 ## Motion and accessibility
 
-Use the inherited interface duration and easing, and zero duration under reduced motion. Construction relationships may be illustrated when explaining an edit; do not imply a static snapshot is live editing. Recurring identity stays static. Use words and structural cues in addition to colour, visible keyboard focus, and explicit labels.
+Follow the shared [interface](../../guide/interface.md), [motion](../../guide/motion.md) and [quality review](../../guide/quality.md) guidance. Use inherited tokens and the effective motion preference; Tectra does not have a separate animation system. Construction relationships may be illustrated when explaining an edit, but a static snapshot must not be presented as live editing. Recurring identity stays static. Keep creator content, viewport movement and interface transitions distinct so preferences apply meaningfully.
 
 ## Deliverables and pending assets
 
 - [Offline review board](specimen.html): two-mode visual direction and illustrative applications.
 - [Component reference](../../specimens/components.html): choose Tectra to inspect inherited controls.
-- Generated CSS, JSON, DTCG and Rust under `tokens/tectra/`.
+- Generated CSS, JSON, DTCG and Rust under [tokens/](tokens/); use the [consumer guide](../README.md) for integration.
 - [Validation record](validation.md).
 
 The symbol and supplied horizontal lockup are approved for integration. Platform icons, banners, identity animation and an optical small-size redraw remain separate future deliverables. Generate canonical variants with `node scripts/build-tectra-assets.mjs`; Inter's existing font notice continues to apply.

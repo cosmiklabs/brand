@@ -4,14 +4,17 @@
 
 This repository mixes three kinds of material with different rights. Each part is covered separately; a licence for one part says nothing about the others.
 
-## 1. Tooling and token data: MIT
+## 1. Tooling, token data and written guidance: MIT
 
 Covers:
 
 - scripts: everything in `scripts/`;
 - token sources and generated token files in each kit's `kits/<kit>/tokens/` folder (every kit: the baseline and the families);
 - the specimen code in `specimens/` and each kit's `specimen.html` and `specimen.css` (HTML, CSS, JavaScript);
-- `asset-manifest.json`, `.gitattributes` and the Markdown documentation.
+- repository configuration, tests and `asset-manifest.json`;
+- all written guidance, including the Markdown documentation in `guide/`, kit guides and template instructions.
+
+The MIT grant covers the written instructions, not the artwork or marks embedded in or referenced by them. Those remain subject to section 2, and fonts remain subject to section 3.
 
 
 ```
@@ -42,9 +45,9 @@ A permissive licence on the token values lets any project, including a fork, reu
 
 ## 2. Brand marks: trademark-style policy
 
-Covers the **Cosmik marks**: the emblem (every file in each kit's `kits/<kit>/assets/` folder, the app icons in each kit's `kits/<kit>/icons/` folder, and any render of them), the COSMIK wordmark and banner, the name "Cosmik" used as the name of a product, project or organisation, and the brand guide and document template in `guide/` and `templates/`.
+Covers the **Cosmik marks**: the emblem (every file in each kit's `kits/<kit>/assets/` folder, the app icons in each kit's `kits/<kit>/icons/` folder, and any render of them), the COSMIK wordmark and banner, the name "Cosmik" used as the name of a product, project or organisation, and the brand artwork embedded in guide and template files. The written instructions in these files are covered by section 1.
 
-These files are **not** licensed under section 1 or under the licence of any project that ships them. The owner of Cosmik Labs keeps all rights in them, subject to the permissions below.
+These marks and artwork are **not** licensed under section 1 or under the licence of any project that ships them. The owner of Cosmik Labs keeps all rights in them, subject to the permissions below.
 
 **Who may ship the marks.**
 

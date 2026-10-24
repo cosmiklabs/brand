@@ -3,6 +3,31 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`.
 
+## Unreleased
+
+- Add a shared motion contract covering entrances, exits, interruptions, focus,
+  reduced motion and pending/completed states, with offline interactive examples
+  for menus, dialogs, tooltips and disclosures.
+- CSS now exposes normal, system-resolved and effective motion durations. The
+  existing effective duration still follows the OS by default; `data-motion`
+  accepts `system`, `reduce` and `full` for explicit scope overrides. Consumers
+  should use the effective token and apply the same scope to portalled content.
+  Source durations and native exports are unchanged.
+- Overhaul interface composition, responsive density, state/copy guidance,
+  consumer onboarding, quality review and release governance. Correct stale
+  family approvals, asset paths and icon-pack assumptions.
+- Strengthen token input validation, immutable asset protection, manifest
+  inventory checks, PNG/SVG validation and reproducibility checks. Correct
+  Tectra lockup metadata to match the existing artwork. Add Node 22/24 and Windows
+  CI coverage without introducing dependencies.
+- Expand browser regressions to test actual exit transitions, cancellation,
+  nested motion policy, short touch layouts and direct file opening. Fix the
+  macOS test browser's keychain-related startup stall.
+- Clarify the licence with owner approval: written guidance is MIT; marks and
+  artwork keep their separate restrictions, and fonts keep their OFL licences.
+
+No palette, font family, approved artwork or release tag changes.
+
 ## 0.6.0 · 21 October 2026
 
 - **Behaviour change:** a root without `data-theme` now follows the operating

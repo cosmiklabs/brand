@@ -5,19 +5,26 @@ import zlib from 'node:zlib';
 
 /** SVG path data (M, L, C, Z; commas or spaces) as contours of [op, ...numbers] commands. */
 export function parsePath(d) {
-  const tokens = d.match(/[MLCZ]|-?\d*\.?\d+(?:e-?\d+)?/gi);
+  // Keep unknown tokens so an unsupported command cannot silently become numbers
+  // for the preceding command. Relative commands are deliberately not supported.
+  const tokens = d.match(/[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?|[A-Za-z]|[^\s,]/g) ?? [];
   const contours = []; let op, i = 0;
   while (i < tokens.length) {
-    if (/[MLCZ]/i.test(tokens[i])) op = tokens[i++].toUpperCase();
+    if (/^[A-Za-z]$/.test(tokens[i])) op = tokens[i++];
     const count = { M: 2, L: 2, C: 6, Z: 0 }[op];
-    if (count === undefined) throw Error(`Unsupported path command ${op}`);
-    const values = tokens.slice(i, i + count).map(Number); i += count;
+    if (count === undefined) throw Error(`Unsupported path command ${op ?? tokens[i]}`);
+    const values = tokens.slice(i, i + count).map(Number);
+    if (values.length !== count || values.some(value => !Number.isFinite(value))) throw Error(`Incomplete or invalid ${op} path command`);
+    i += count;
     if (op === 'M') contours.push([['M', ...values]]);
-    else contours.at(-1).push([op, ...values]);
-    // Coordinates after an M continue as lines.
+    else {
+      if (!contours.length) throw Error('A path must start with M');
+      contours.at(-1).push([op, ...values]);
+    }
     if (op === 'M') op = 'L';
     if (count === 0) op = undefined;
   }
+  if (!contours.length) throw Error('A path must contain a contour');
   return contours;
 }
 
@@ -107,6 +114,7 @@ const SIGNATURE = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 
 /** An 8-bit RGBA PNG. */
 export function encodePng(width, height, pixels) {
+  if (!Number.isInteger(width) || !Number.isInteger(height) || width <= 0 || height <= 0 || pixels.length !== width * height * 4) throw Error('PNG dimensions must match RGBA pixels');
   const rows = Buffer.alloc(height * (width * 4 + 1));
   for (let y = 0; y < height; y++) pixels.copy(rows, y * (width * 4 + 1) + 1, y * width * 4, (y + 1) * width * 4);
   const header = Buffer.alloc(13); header.writeUInt32BE(width); header.writeUInt32BE(height, 4); header[8] = 8; header[9] = 6;
@@ -116,17 +124,34 @@ export function encodePng(width, height, pixels) {
 /** An 8-bit RGB or RGBA, non-interlaced PNG as { width, height, rgba }. */
 export function decodePng(buf) {
   if (!buf.subarray(0, 8).equals(SIGNATURE)) throw Error('Not a PNG');
-  let at = 8, ihdr; const idat = [];
+  let at = 8, ihdr, ended = false; const idat = [];
   while (at < buf.length) {
+    if (buf.length - at < 12) throw Error('Truncated PNG chunk');
     const n = buf.readUInt32BE(at), type = buf.toString('latin1', at + 4, at + 8);
-    if (type === 'IHDR') ihdr = buf.subarray(at + 8, at + 8 + n); else if (type === 'IDAT') idat.push(buf.subarray(at + 8, at + 8 + n));
+    if (n > buf.length - at - 12) throw Error(`Truncated PNG ${type} chunk`);
+    if (buf.readUInt32BE(at + 8 + n) !== crc32(buf.subarray(at + 4, at + 8 + n))) throw Error(`Invalid PNG ${type} checksum`);
+    if (!ihdr && type !== 'IHDR') throw Error('PNG must begin with IHDR');
+    if (type === 'IHDR') {
+      if (ihdr || n !== 13) throw Error('Invalid PNG IHDR');
+      ihdr = buf.subarray(at + 8, at + 8 + n);
+    } else if (type === 'IDAT') idat.push(buf.subarray(at + 8, at + 8 + n));
+    else if (type === 'IEND') {
+      if (n !== 0 || at + 12 !== buf.length) throw Error('Invalid PNG end');
+      ended = true;
+    } else if (/^[A-Z]/.test(type) && type !== 'PLTE') throw Error(`Unsupported PNG ${type} chunk`);
     at += n + 12;
   }
+  if (!ihdr || !idat.length || !ended) throw Error('Incomplete PNG');
   const width = ihdr.readUInt32BE(0), height = ihdr.readUInt32BE(4), type = ihdr[9];
-  if (ihdr[8] !== 8 || (type !== 2 && type !== 6) || ihdr[12] !== 0) throw Error('Unsupported PNG');
-  const bpp = type === 6 ? 4 : 3, stride = width * bpp, raw = zlib.inflateSync(Buffer.concat(idat)), px = Buffer.alloc(height * stride);
+  if (!width || !height || ihdr[8] !== 8 || (type !== 2 && type !== 6) || ihdr[10] !== 0 || ihdr[11] !== 0 || ihdr[12] !== 0) throw Error('Unsupported PNG');
+  const bpp = type === 6 ? 4 : 3, stride = width * bpp;
+  const expectedLength = height * (stride + 1);
+  const raw = zlib.inflateSync(Buffer.concat(idat), { maxOutputLength: expectedLength });
+  if (raw.length !== expectedLength) throw Error('PNG scanline data does not match dimensions');
+  const px = Buffer.alloc(height * stride);
   for (let y = 0; y < height; y++) {
     const filter = raw[y * (stride + 1)], line = y * (stride + 1) + 1;
+    if (filter > 4) throw Error(`Invalid PNG filter ${filter}`);
     for (let x = 0; x < stride; x++) {
       const a = x >= bpp ? px[y * stride + x - bpp] : 0, up = y ? px[(y - 1) * stride + x] : 0, c = x >= bpp && y ? px[(y - 1) * stride + x - bpp] : 0;
       const p = a + up - c, pa = Math.abs(p - a), pb = Math.abs(p - up), pc = Math.abs(p - c);

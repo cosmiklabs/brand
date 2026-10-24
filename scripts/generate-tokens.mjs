@@ -12,6 +12,20 @@ const kitsDir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'k
 const tokensOf = (id) => path.join(kitsDir, id, 'tokens');
 const baseline = JSON.parse(fs.readFileSync(path.join(tokensOf('cosmik'), 'source.json'), 'utf8'));
 const ROOT_PX = 16;
+// Validate and render every kit before replacing any generated file. A bad family
+// must not leave a mixture of old family output and a newly generated baseline.
+const outputs = [];
+const object = (value, label) => {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error(`${label}: expected an object`);
+  return value;
+};
+const tokenName = (name, label) => {
+  if (!/^(?:[a-z][a-z0-9-]*|[0-9]+)$/.test(name)) throw new Error(`${label}: invalid token name ${name}`);
+};
+const finite = (value, label, minimum = 0) => {
+  if (typeof value !== 'number' || !Number.isFinite(value) || value < minimum) throw new Error(`${label}: expected a finite number >= ${minimum}`);
+  return value;
+};
 // Two-space JSON with numeric arrays kept on one line.
 const toJson = (value) => JSON.stringify(value, null, 2)
   .replace(/\[\s+(-?[\d.e+-]+(?:,\s+-?[\d.e+-]+)*)\s+\]/g, (_, inner) => `[${inner.split(/,\s+/).join(', ')}]`) + '\n';
@@ -23,7 +37,14 @@ const FAMILY_TYPE_ROLES = ['display', 'display-small', 'section', 'card'];
 const FAMILY_TYPE_KEYS = ['fontFamily', 'fontWeight'];
 const familySource = (family) => {
   const fail = (msg) => { throw new Error(`Family ${family.id}: ${msg}`); };
+  object(family, 'Family source');
+  const allowed = new Set(['id', 'name', 'version', 'status', 'extends', 'description', 'fonts', 'proposals', 'primitives', 'semantic', 'extensions', 'type', 'elevation']);
+  for (const key of Object.keys(family)) if (!allowed.has(key)) fail(`unsupported property ${key}`);
   if (!/^[a-z][a-z0-9-]*$/.test(family.id ?? '')) fail('`id` must be lower-case letters, digits and hyphens');
+  const expectedBaseline = `${baseline.name} baseline ${baseline.version}`;
+  if (family.extends !== expectedBaseline) fail(`extends must be ${JSON.stringify(expectedBaseline)}; generated values resolve the current baseline`);
+  object(family.semantic, `Family ${family.id}.semantic`);
+  for (const part of ['primitives', 'extensions', 'type', 'elevation']) if (family[part] !== undefined) object(family[part], `Family ${family.id}.${part}`);
   const primitives = { ...baseline.primitives };
   for (const [name, hex] of Object.entries(family.primitives ?? {})) {
     if (name in baseline.primitives) fail(`primitive ${name} exists in the baseline; give the family's its own name`);
@@ -37,8 +58,8 @@ const familySource = (family) => {
   const extensionKeys = Object.keys(family.extensions?.dark ?? {}).sort().join('|');
   const semantic = {};
   for (const mode of Object.keys(baseline.semantic)) {
-    const overrides = family.semantic?.[mode] ?? {};
-    const extensions = family.extensions?.[mode] ?? {};
+    const overrides = object(family.semantic[mode], `Family ${family.id}.semantic.${mode}`);
+    const extensions = family.extensions ? object(family.extensions[mode], `Family ${family.id}.extensions.${mode}`) : {};
     for (const role of Object.keys(overrides)) if (!(role in baseline.semantic[mode])) fail(`${mode}: ${role} is not a baseline role; add it under extensions`);
     for (const role of Object.keys(extensions)) if (role in baseline.semantic[mode]) fail(`${mode}: extension ${role} would replace a baseline role; override it under semantic`);
     if (Object.keys(extensions).sort().join('|') !== extensionKeys) fail(`extensions must name the same roles in every mode`);
@@ -47,6 +68,7 @@ const familySource = (family) => {
   const type = structuredClone(baseline.type);
   for (const [role, values] of Object.entries(family.type ?? {})) {
     if (!FAMILY_TYPE_ROLES.includes(role)) fail(`type ${role} is utility type; it stays the baseline's (heading roles: ${FAMILY_TYPE_ROLES.join(', ')})`);
+    object(values, `Family ${family.id}.type.${role}`);
     for (const key of Object.keys(values)) if (!FAMILY_TYPE_KEYS.includes(key)) fail(`type ${role}.${key}: a family sets only ${FAMILY_TYPE_KEYS.join(' and ')}`);
     Object.assign(type[role], values);
   }
@@ -64,8 +86,8 @@ const familySource = (family) => {
 // ---- Unit conversion for non-browser consumers ----
 const round = (n, d = 6) => Number(n.toFixed(d)) + 0;
 const parseLength = (value) => {
-  const m = /^(-?[\d.]+)(rem|px|ch|em)?$/.exec(String(value));
-  if (!m) throw new Error(`Unparseable length ${value}`);
+  const m = /^(-?(?:\d+(?:\.\d+)?|\.\d+))(rem|px|ch|em)?$/.exec(String(value));
+  if (!m || !Number.isFinite(Number(m[1])) || (!m[2] && Number(m[1]) !== 0)) throw new Error(`Unparseable length ${value}: use a finite dimension (or unitless zero)`);
   return { value: Number(m[1]), unit: m[2] ?? 'px' };
 };
 const toPx = (value) => {
@@ -74,13 +96,21 @@ const toPx = (value) => {
   if (unit === 'px') return n;
   throw new Error(`Cannot convert ${value} to px`);
 };
-const parseMs = (value) => { const m = /^([\d.]+)ms$/.exec(value); if (!m) throw new Error(`Unparseable duration ${value}`); return Number(m[1]); };
+const parseMs = (value) => {
+  const m = /^(\d+)ms$/.exec(value);
+  if (!m || !Number.isSafeInteger(Number(m[1])) || Number(m[1]) > 0xFFFFFFFF) throw new Error(`Unparseable duration ${value}: expected whole milliseconds in u32 range`);
+  return Number(m[1]);
+};
 const EASINGS = { linear: [0, 0, 1, 1], ease: [0.25, 0.1, 0.25, 1], 'ease-in': [0.42, 0, 1, 1], 'ease-out': [0, 0, 0.58, 1], 'ease-in-out': [0.42, 0, 0.58, 1] };
 const toBezier = (value) => {
   if (EASINGS[value]) return EASINGS[value];
   const m = /^cubic-bezier\(([^)]+)\)$/.exec(value);
   if (!m) throw new Error(`Unsupported easing ${value}`);
-  return m[1].split(',').map(Number);
+  const points = m[1].split(',').map(s => s.trim());
+  if (points.length !== 4 || points.some(s => !/^-?(?:\d+(?:\.\d+)?|\.\d+)$/.test(s))) throw new Error(`Invalid easing ${value}: expected four finite control points`);
+  const numbers = points.map(Number);
+  if (numbers.some(n => !Number.isFinite(n)) || [numbers[0], numbers[2]].some(n => n < 0 || n > 1)) throw new Error(`Invalid easing ${value}: x coordinates must be in 0..1`);
+  return numbers;
 };
 const toLinear = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
 const color = (hex) => {
@@ -103,14 +133,71 @@ const nativeType = (t) => {
     textTransform: t.textTransform ?? 'none' };
 };
 
+// Fail at the source boundary, before conversion can turn invalid numbers into
+// JSON nulls or produce Rust constants that cannot compile.
+const validateSource = (source, stem) => {
+  for (const key of ['name', 'version', 'status']) {
+    if (typeof source[key] !== 'string' || !source[key].trim() || /[\r\n]/.test(source[key])) throw new Error(`${stem}.${key}: expected a non-empty single line`);
+  }
+  for (const group of ['primitives', 'semantic', 'space', 'layout', 'type', 'motion', 'radius', 'breakpoint', 'elevation']) object(source[group], `${stem}.${group}`);
+  if (Object.keys(source.semantic).sort().join('|') !== 'dark|light') throw new Error(`${stem}.semantic: expected exactly dark and light modes`);
+  for (const [mode, roles] of Object.entries(source.semantic)) {
+    object(roles, `${stem}.semantic.${mode}`);
+    if (!Object.keys(roles).length) throw new Error(`${stem}.semantic.${mode}: no roles`);
+    for (const [name, alias] of Object.entries(roles)) {
+      tokenName(name, `${stem}.semantic.${mode}`);
+      // These become public Rust fields. Keep names portable to all outputs.
+      if (/^(?:as|break|const|continue|crate|else|enum|extern|false|fn|for|if|impl|in|let|loop|match|mod|move|mut|pub|ref|return|self|static|struct|super|trait|true|type|unsafe|use|where|while|async|await|dyn)$/.test(name)) throw new Error(`${stem}: reserved semantic role ${name}`);
+      if (typeof alias !== 'string' || !Object.hasOwn(source.primitives, alias)) throw new Error(`${stem}: unknown primitive ${alias}`);
+    }
+  }
+  for (const group of ['primitives', 'space', 'layout', 'type', 'radius', 'breakpoint', 'elevation']) {
+    const names = new Set();
+    for (const name of Object.keys(source[group])) {
+      tokenName(name, `${stem}.${group}`);
+      const constant = name.replaceAll('-', '_').toUpperCase().replace(/^(?=\d)/, 'N');
+      if (names.has(constant)) throw new Error(`${stem}.${group}: colliding token name ${name}`);
+      names.add(constant);
+    }
+  }
+  for (const group of ['space', 'radius', 'breakpoint']) {
+    for (const [name, value] of Object.entries(source[group])) finite(toPx(value), `${stem}.${group}.${name}`);
+  }
+  for (const [name, value] of Object.entries(source.layout)) {
+    const dimension = parseLength(value);
+    if (dimension.unit === 'ch') {
+      if (name !== 'line' || !Number.isInteger(dimension.value) || dimension.value > 0xFFFFFFFF) throw new Error(`${stem}.layout.${name}: only the whole-character line measure uses ch`);
+      finite(dimension.value, `${stem}.layout.${name}`, 1);
+    } else finite(toPx(value), `${stem}.layout.${name}`);
+  }
+  for (const [role, type] of Object.entries(source.type)) {
+    object(type, `${stem}.type.${role}`);
+    for (const key of Object.keys(type)) if (!['fontFamily', 'fontWeight', 'fontSize', 'lineHeight', 'letterSpacing', 'textTransform'].includes(key)) throw new Error(`${stem}.type.${role}: unsupported property ${key}`);
+    if (typeof type.fontFamily !== 'string' || !type.fontFamily.trim() || /[\\\r\n\x00-\x1f]/.test(type.fontFamily)) throw new Error(`${stem}.type.${role}: invalid font family`);
+    if (!Number.isInteger(type.fontWeight) || type.fontWeight < 1 || type.fontWeight > 1000) throw new Error(`${stem}.type.${role}: font weight must be an integer in 1..1000`);
+    finite(toPx(type.fontSize), `${stem}.type.${role}.fontSize`, Number.EPSILON);
+    finite(type.lineHeight, `${stem}.type.${role}.lineHeight`, Number.EPSILON);
+    letterSpacingFraction(type.letterSpacing);
+    if (type.textTransform !== undefined && !['none', 'uppercase'].includes(type.textTransform)) throw new Error(`${stem}.type.${role}: unsupported text transform ${type.textTransform}`);
+  }
+  for (const key of Object.keys(source.motion)) if (!['duration', 'reduced-duration', 'easing'].includes(key)) throw new Error(`${stem}.motion: unsupported property ${key}`);
+  parseMs(source.motion.duration); parseMs(source.motion['reduced-duration']); toBezier(source.motion.easing);
+  for (const [level, elevation] of Object.entries(source.elevation)) {
+    object(elevation, `${stem}.elevation.${level}`);
+    for (const key of Object.keys(elevation)) if (!['surface', 'color', 'offsetX', 'offsetY', 'blur', 'spread'].includes(key)) throw new Error(`${stem}.elevation.${level}: unsupported property ${key}`);
+    for (const key of ['offsetX', 'offsetY', 'blur', 'spread']) finite(toPx(elevation[key]), `${stem}.elevation.${level}.${key}`, key === 'blur' ? 0 : -Infinity);
+  }
+};
+
 /** Writes one kit's outputs. `stem` names the files; `scope` is null for the baseline (`:root`)
  * or a family id (CSS scoped to `[data-family="<id>"]`). */
 const generate = (source, outDir, stem, scope) => {
-  const write = (name, text) => fs.writeFileSync(path.join(outDir, name), text);
+  const write = (name, text) => outputs.push([path.join(outDir, name), text]);
   const label = `${source.name} ${source.version} — ${/^Approved/.test(source.status) ? 'APPROVED' : 'PROPOSED'}`;
   const from = scope ? `kits/${scope}/tokens/family.json over kits/cosmik/tokens/source.json` : 'kits/cosmik/tokens/source.json';
 
   // ---- Validation and resolution ----
+  validateSource(source, stem);
   const modes = {};
   const canonical = Object.keys(source.semantic.dark).sort().join('|');
   for (const [mode, aliases] of Object.entries(source.semantic)) {
@@ -183,9 +270,14 @@ const generate = (source, outDir, stem, scope) => {
     css = `/* ${label}. Generated by scripts/generate-tokens.mjs from ${from}. */\n`;
     css += ':root {\n';
     for (const [key, val] of Object.entries(source.primitives)) css += `  --c-primitive-${key}: ${val};\n`;
-    for (const group of ['space', 'layout', 'motion']) {
+    for (const group of ['space', 'layout']) {
       for (const [key, val] of Object.entries(source[group])) css += `  --c-${group}-${key}: ${val};\n`;
     }
+    css += `  --c-motion-normal-duration: ${source.motion.duration};\n`;
+    css += `  --c-motion-reduced-duration: ${source.motion['reduced-duration']};\n`;
+    css += `  --c-motion-easing: ${source.motion.easing};\n`;
+    css += '  --c-motion-system-duration: var(--c-motion-normal-duration);\n';
+    css += '  --c-motion-duration: var(--c-motion-system-duration);\n';
     css += typeVars(Object.keys(source.type));
     for (const [key, val] of Object.entries(source.radius)) css += `  --c-radius-${key}: ${val};\n`;
     css += '  /* Breakpoints are reference values: custom properties cannot be used inside @media. */\n';
@@ -197,7 +289,12 @@ const generate = (source, outDir, stem, scope) => {
     // A page that names no theme follows the operating system. Family files
     // resolve light-dark() against the color-scheme this sets, so they follow too.
     css += `\n@media (prefers-color-scheme: light) {${themeBlock('light', source.semantic.light, ':root:not([data-theme])').replace(/\n/g, '\n  ').replace(/\n  $/, '\n')}}\n`;
-    css += '\n@media (prefers-reduced-motion: reduce) {\n  :root { --c-motion-duration: var(--c-motion-reduced-duration); }\n}\n';
+    css += '\n/* Preserve the normal duration so an explicit preference can override the OS. */\n';
+    css += '@media (prefers-reduced-motion: reduce) {\n  :root { --c-motion-system-duration: var(--c-motion-reduced-duration); }\n}\n';
+    css += '\n/* The nearest explicit scope wins; system restores the OS preference inside an override. */\n';
+    css += '[data-motion="system"] { --c-motion-duration: var(--c-motion-system-duration); }\n';
+    css += '[data-motion="reduce"] { --c-motion-duration: var(--c-motion-reduced-duration); }\n';
+    css += '[data-motion="full"] { --c-motion-duration: var(--c-motion-normal-duration); }\n';
   } else {
     // Inherit the nearest explicit color-scheme from the baseline. Ancestor selectors
     // cannot implement nearest-theme inheritance: a distant light ancestor would win
@@ -329,7 +426,7 @@ ${Object.entries(source.primitives).map(([k, v]) => `    pub const ${CONST(k)}: 
   rs += `\npub mod layout {\n${Object.entries(native.layout).map(([k, v]) => (typeof v === 'object'
     ? `    /// Reading measure in characters.\n    pub const ${CONST(k)}_CHARS: u32 = ${v.chars};`
     : `    pub const ${CONST(k)}: f32 = ${f32(v)};`)).join('\n')}\n}\n`;
-  rs += `\npub mod typography {\n    use super::TypeRole;\n${Object.entries(native.type).map(([k, t]) => `    pub const ${CONST(k)}: TypeRole = TypeRole { font_family: "${t.fontFamily}", font_weight: ${t.fontWeight}, font_size: ${f32(t.fontSizePx)}, line_height: ${f32(t.lineHeight)}, letter_spacing: ${f32(t.letterSpacing)}, uppercase: ${t.textTransform === 'uppercase'} };`).join('\n')}\n}\n`;
+  rs += `\npub mod typography {\n    use super::TypeRole;\n${Object.entries(native.type).map(([k, t]) => `    pub const ${CONST(k)}: TypeRole = TypeRole { font_family: ${JSON.stringify(t.fontFamily)}, font_weight: ${t.fontWeight}, font_size: ${f32(t.fontSizePx)}, line_height: ${f32(t.lineHeight)}, letter_spacing: ${f32(t.letterSpacing)}, uppercase: ${t.textTransform === 'uppercase'} };`).join('\n')}\n}\n`;
   rs += `\npub mod motion {\n    pub const DURATION_MS: u32 = ${native.motion.durationMs};\n    pub const REDUCED_DURATION_MS: u32 = ${native.motion.reducedDurationMs};\n    /// Cubic-bezier control points [x1, y1, x2, y2].\n    pub const EASING: [f32; 4] = ${arr(native.motion.easing)};\n}\n`;
   write(`${stem}_tokens.rs`, rs);
 
@@ -343,4 +440,5 @@ for (const id of familyIds) {
   if (family.id !== id) throw new Error(`kits/${id}/tokens/family.json declares id ${family.id}`);
   summary.push(generate(familySource(family), tokensOf(id), id, id));
 }
+for (const [file, text] of outputs) fs.writeFileSync(file, text);
 console.log(`Generated css, json, tokens.json and _tokens.rs from one source per kit; ${summary.join('; ')}.`);

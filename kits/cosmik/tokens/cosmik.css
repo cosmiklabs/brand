@@ -34,9 +34,11 @@
   --c-layout-control-dense: 2rem;
   --c-layout-focus-width: 2px;
   --c-layout-focus-offset: 2px;
-  --c-motion-duration: 140ms;
-  --c-motion-easing: ease-out;
+  --c-motion-normal-duration: 140ms;
   --c-motion-reduced-duration: 0ms;
+  --c-motion-easing: ease-out;
+  --c-motion-system-duration: var(--c-motion-normal-duration);
+  --c-motion-duration: var(--c-motion-system-duration);
   --c-type-body-font-family: "Inter";
   --c-type-body-font-weight: 400;
   --c-type-body-font-size: 1.0625rem;
@@ -218,6 +220,12 @@
   }
 }
 
+/* Preserve the normal duration so an explicit preference can override the OS. */
 @media (prefers-reduced-motion: reduce) {
-  :root { --c-motion-duration: var(--c-motion-reduced-duration); }
+  :root { --c-motion-system-duration: var(--c-motion-reduced-duration); }
 }
+
+/* The nearest explicit scope wins; system restores the OS preference inside an override. */
+[data-motion="system"] { --c-motion-duration: var(--c-motion-system-duration); }
+[data-motion="reduce"] { --c-motion-duration: var(--c-motion-reduced-duration); }
+[data-motion="full"] { --c-motion-duration: var(--c-motion-normal-duration); }

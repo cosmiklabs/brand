@@ -1,4 +1,11 @@
-# Tectra theme validation — 17 October 2026
+# Tectra theme validation
+
+The current all-kit browser and integrity results are recorded in
+[reference validation](../../specimens/validation.md). The 23 October 2026 run
+supersedes the historical browser-execution blocker below. Approval and supplied
+assets are described in the [family guide](README.md).
+
+## Historical source review — 17 October 2026
 
 Base: cosmiklabs/brand main at 24fd4bf49bc57d9af4add52aea60900a390cfb68. Owner approved the theme and publication to the brand repository on 17 October 2026. No product release or deployment is included.
 

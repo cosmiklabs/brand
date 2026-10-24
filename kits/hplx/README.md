@@ -4,8 +4,8 @@ Glimmer is the official HPLX symbol, selected and approved on 17 October 2026. A
 
 ## Canonical assets
 
-- `hplx-glimmer-dark.svg`: amber #E0A53A on dark surfaces.
-- `hplx-glimmer-light.svg`: umber #875709 on light surfaces.
+- `hplx-glimmer-dark.svg`: the approved amber variant on dark surfaces.
+- `hplx-glimmer-light.svg`: the approved umber variant on light surfaces.
 - `hplx-glimmer-black.svg`, `hplx-glimmer-white.svg`: monochrome variants.
 - `hplx-glimmer-currentColor.svg`: inherits colour when inlined. External img elements do not inherit page text colour.
 - `hplx-glimmer-lockup-{dark,light,black,white,currentColor}.svg`: the approved horizontal pairing with HPLX outlined in Spectral SemiBold. Preserve the Spectral font notice in `fonts/licenses/Spectral-OFL.txt`.
@@ -16,10 +16,25 @@ If a linked logo alone identifies the destination, use an accessible name such a
 
 ## Theme and generation
 
-The approved HPLX palette and Spectral headings are unchanged. Global navigation remains Cosmik; family content uses HPLX. Run `node scripts/build.mjs` to regenerate the canonical SVGs through `scripts/build-glimmer-assets.mjs`; `node scripts/check.mjs` tests the exact approved geometry, manifest and contrast roles.
+The approved HPLX palette and Spectral headings are unchanged. When HPLX content appears inside a Cosmik organisation surface, the enclosing organisation identity remains baseline; HPLX product interfaces use the family kit. This does not prescribe a navigation layout. Run `node scripts/build.mjs` to regenerate the canonical SVGs through `scripts/build-glimmer-assets.mjs`; `node scripts/check.mjs` tests the exact approved geometry, manifest and contrast roles.
 
 ## Migration and limits
 
 Ember, its previous lockups and platform icons are deprecated historical assets, retained byte-for-byte so existing consumers do not break. Canonical manifest entry points now select Glimmer. See [historical Ember notes](EMBER-HISTORICAL.md) only for maintenance of old integrations. Existing Ember builders and tests remain to preserve those historical files. No platform icon package, optical redraw, splash, print proof or cross-browser conformance claim is included in this change.
 
 Brand artwork remains covered by the [brand-use policy](../../LICENSE.md#2-brand-marks-trademark-style-policy). Approval does not imply trademark registration or third-party rights clearance.
+
+## Interface use
+
+Use the [consumer guide](../README.md) for theme, font and scope integration.
+HPLX heading roles may use Spectral; navigation, forms and utility text stay Inter.
+Status tones supplement explicit words. Follow shared [interface](../../guide/interface.md),
+[motion](../../guide/motion.md) and [quality review](../../guide/quality.md) guidance
+rather than inventing a separate animation or overlay system for the family.
+
+### Approved editor density exception
+
+The HPLX Editor's tool-panel density was approved separately: 28 px rows and
+13 px text by default, with 24 or 32 px density options and no target below
+24 × 24 px. This is specific to that application, not a shared control minimum
+or a prescribed layout for other consumers.
