@@ -36,12 +36,14 @@ The earlier published description, “Cosmik is an independent open-source gamin
 workshop, building games, mods, tools, and modern reimplementations of classic game
 technology”, is historical wording under review, not a new-copy template. Cosmik
 accommodates open-source and proprietary work; do not describe every product as
-open-source or free forever. HPLX's own commitments remain specific to HPLX.
+open-source or free forever. A product's own commitments remain specific to that
+product and are stated in its family guide.
 
-A visual-system change does not announce a launch, price or availability. Tectra's
-presentation and unresolved commercial terms are in its
-[family guide](../kits/tectra/README.md). Describe capabilities from verified product
-evidence and identify intended workflow as intended.
+A visual-system change does not announce a launch, price or availability. Each
+product's presentation and any unresolved commercial terms are in its family guide,
+in its `brand-<product>` repository (for example `cosmiklabs/brand-hplx` and
+`cosmiklabs/brand-tectra`). Describe capabilities from verified product evidence
+and identify intended workflow as intended.
 
 ## Imagery and icons
 

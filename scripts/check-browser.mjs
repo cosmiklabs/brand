@@ -9,8 +9,13 @@ import path from 'node:path';
 import http from 'node:http';
 import {spawn} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
+import {renderFamily} from './family.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+// A fictional, test-only family proves family scopes and the controls layer compose. It is rendered
+// in memory by the family API and served at a virtual path; nothing is written into the kit.
+const fixtureFamily = renderFamily(path.join(root, 'tests/fixtures/example'));
+const fixtureCss = fixtureFamily.files.find(([name]) => name === 'example.css')[1];
 if (!process.env.BRAND_BROWSER) throw Error('Set BRAND_BROWSER to an installed Chromium browser executable.');
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'cosmik-browser-'));
 const screenshots = process.env.BRAND_SCREENSHOTS;
@@ -20,6 +25,7 @@ const server = http.createServer((req, res) => {
   try { pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname); }
   catch { res.writeHead(400); res.end(); return; }
   if (pathname === '/favicon.ico') { res.writeHead(204); res.end(); return; }
+  if (pathname === '/__fixture__/example.css') { res.setHeader('Content-Type', 'text/css'); res.end(fixtureCss); return; }
   const file = path.resolve(root, '.' + pathname);
   if (!file.startsWith(root + path.sep) || !fs.existsSync(file) || !fs.statSync(file).isFile() || !fs.realpathSync(file).startsWith(fs.realpathSync(root) + path.sep)) {
     res.writeHead(404); res.end(); return;
@@ -106,17 +112,17 @@ try {
   assert.equal(navigation.errorText, undefined, `Component navigation failed: ${navigation.errorText}`);
   let ready = false;
   for (let i = 0; i < 100; i++) {
-    if (await evaluate('document.readyState === "complete" && !!document.querySelector("#kit-picker")')) { ready = true; break; }
+    if (await evaluate('document.readyState === "complete" && !!document.querySelector("#motion-picker")')) { ready = true; break; }
     await pause(50);
   }
   assert.ok(ready, 'Component specimen did not finish loading');
   assert.equal(await evaluate('new Set([...document.querySelectorAll("[id]")].map(e=>e.id)).size === document.querySelectorAll("[id]").length'), true, 'unique IDs');
   assert.equal(await evaluate(`[...document.querySelectorAll('[aria-controls],[aria-labelledby],[aria-describedby]')].every(e=>['aria-controls','aria-labelledby','aria-describedby'].every(a=>!e.hasAttribute(a)||e.getAttribute(a).split(' ').every(id=>document.getElementById(id))))`), true, 'ARIA references resolve');
-  for (const kit of ['cosmik', 'hplx', 'tectra']) {
-    await evaluate(`{const p=document.querySelector('#kit-picker');p.value='${kit}';p.dispatchEvent(new Event('change'));}`);
+  {
+    const kit = 'cosmik';
     await evaluate('document.fonts.ready.then(()=>true)');
     const heading = await evaluate(`getComputedStyle(document.querySelector('#dark-title')).fontFamily`);
-    assert.ok(heading.includes(kit === 'hplx' ? 'Spectral' : 'Inter'), heading);
+    assert.ok(heading.includes('Inter'), heading);
     assert.ok((await evaluate(`getComputedStyle(document.querySelector('#dark button')).fontFamily`)).includes('Inter'));
     for (const scale of [100, 200]) for (const width of [1280, 768, 390, 320]) {
       await size(width);
@@ -168,7 +174,7 @@ try {
         await key('Tab', 'Tab', 9, 8);
         if (await evaluate('document.activeElement === document.body')) await key('Tab', 'Tab', 9, 8);
         assert.equal(await evaluate('document.activeElement.hasAttribute("data-accept")'), true);
-        await evaluate(`document.querySelector('#kit-picker').focus()`);
+        await evaluate(`document.querySelector('#motion-picker').focus()`);
         assert.equal(await evaluate(`!!document.activeElement.closest('dialog')`), true, 'background stays inert');
         if (action === 'delete') await shot(`${kit}-${mode}-delete-dialog`);
         await key('Escape', 'Escape', 27);
@@ -181,31 +187,120 @@ try {
       await evaluate(`document.querySelector('#${mode}-selection-tab').click()`);
     }
   }
+  // Shared controls layer: forced states resolve to their semantic roles in both themes.
+  // Zero-duration motion makes each computed colour final rather than mid-transition.
+  {
+    await evaluate(`{const p=document.querySelector('#motion-picker');p.value='reduce';p.dispatchEvent(new Event('change'));}`);
+    await cdp('DOM.enable'); await cdp('CSS.enable');
+    const {root: doc} = await cdp('DOM.getDocument', {depth: 0});
+    const force = async (selector, states = []) => {
+      const {nodeId} = await cdp('DOM.querySelector', {nodeId: doc.nodeId, selector});
+      assert.ok(nodeId, `missing ${selector}`);
+      await cdp('CSS.forcePseudoState', {nodeId, forcedPseudoClasses: states});
+    };
+    const css = (selector, property, pseudo = '') => evaluate(`getComputedStyle(document.querySelector(${JSON.stringify(selector)})${pseudo ? `, '${pseudo}'` : ''}).getPropertyValue(${JSON.stringify(property)})`);
+    const token = (mode, role) => evaluate(`(() => {const p=document.createElement('span');p.style.color='var(--c-${role})';document.querySelector('#${mode}').append(p);const c=getComputedStyle(p).color;p.remove();return c})()`);
+    const expectRole = async (selector, property, mode, role, states = [], label = `${selector} ${states.join('+') || 'default'} ${property}`) => {
+      await force(selector, states);
+      assert.equal(await css(selector, property), await token(mode, role), label);
+      await force(selector);
+    };
+    for (const mode of ['dark', 'light']) {
+      const primary = `#${mode}-actions .state:nth-child(1) .c-button`, disabled = `#${mode}-actions .state:nth-child(5) .c-button`;
+      const secondary = `#${mode}-actions .action-row .c-button`, link = `#${mode}-actions .c-link`;
+      await expectRole(primary, 'background-color', mode, 'action-primary');
+      await expectRole(primary, 'color', mode, 'action-primary-fg');
+      await expectRole(primary, 'background-color', mode, 'action-primary-hover', ['hover']);
+      await expectRole(primary, 'background-color', mode, 'action-primary-active', ['hover', 'active']);
+      await expectRole(disabled, 'background-color', mode, 'disabled-bg', ['hover', 'active']);
+      await expectRole(disabled, 'color', mode, 'disabled-fg', ['hover']);
+      await expectRole(secondary, 'background-color', mode, 'action-secondary');
+      await expectRole(secondary, 'border-top-color', mode, 'border');
+      await expectRole(secondary, 'background-color', mode, 'action-secondary-hover', ['hover']);
+      await expectRole(secondary, 'background-color', mode, 'action-secondary-active', ['hover', 'active']);
+      await force(secondary, ['focus', 'focus-visible']);
+      assert.deepEqual([await css(secondary, 'outline-style'), await css(secondary, 'outline-width'), await css(secondary, 'outline-offset'), await css(secondary, 'outline-color')], ['solid', '2px', '2px', await token(mode, 'focus')], `${mode} focus ring`);
+      await force(secondary);
+      await expectRole(link, 'color', mode, 'link');
+      await expectRole(link, 'color', mode, 'link-hover', ['hover']);
+      await expectRole(link, 'color', mode, 'link-active', ['hover', 'active']);
+      await force(link, ['hover']); assert.equal(await css(link, 'text-decoration-thickness'), '2px'); await force(link);
+      await expectRole(`#${mode}-name`, 'background-color', mode, 'input-bg');
+      await expectRole(`#${mode}-name`, 'color', mode, 'input-fg');
+      await expectRole(`#${mode}-name`, 'border-top-color', mode, 'border');
+      await expectRole(`#${mode}-name`, 'border-top-color', mode, 'text', ['hover']);
+      await expectRole(`#${mode}-unavailable`, 'background-color', mode, 'disabled-bg', ['hover']);
+      assert.match(await css(`#${mode}-slug`, 'box-shadow'), /inset/, 'invalid fields draw a heavier boundary inside');
+      // Select: native control, stroked chevron inset by a token space, never intercepting clicks.
+      const order = `#${mode}-order`;
+      assert.equal(await css(order, 'appearance'), 'none');
+      await expectRole(order, 'background-color', mode, 'input-bg');
+      const chevron = await evaluate(`(() => {const w=document.querySelector('${order}').parentElement; w.scrollIntoView({block:'center'}); const a=getComputedStyle(w,'::after'), r=w.getBoundingClientRect();
+        return {content:a.content, events:a.pointerEvents, style:a.borderRightStyle, bottom:a.borderBottomStyle, color:a.borderRightColor, right:a.right, left:a.borderLeftStyle,
+          hit:document.elementFromPoint(r.right - parseFloat(a.right) - parseFloat(a.width) / 2, r.top + r.height / 2)?.id}})()`);
+      assert.deepEqual(chevron, {content: '""', events: 'none', style: 'solid', bottom: 'solid', color: await token(mode, 'input-fg'), right: '16px', left: 'none', hit: `${mode}-order`}, `${mode} select chevron`);
+      assert.ok(parseFloat(await css(order, 'padding-right')) >= 40, 'select text clears the chevron');
+      // Chips: selection uses the selected roles plus a drawn check; hover never erases it.
+      const chip = `#${mode}-chip-first`, second = `#${mode} .chip-row .c-chip:nth-child(2)`;
+      await expectRole(chip, 'background-color', mode, 'selected', ['hover']);
+      await expectRole(chip, 'color', mode, 'on-selected');
+      assert.equal(await css(chip, 'border-right-style', '::before'), 'solid');
+      await expectRole(second, 'background-color', mode, 'action-secondary');
+      assert.equal(await css(second, 'content', '::before'), 'none');
+      await evaluate(`document.querySelector(${JSON.stringify(second)}).focus()`);
+      await key(' ', 'Space', 32);
+      assert.equal(await evaluate(`document.querySelector(${JSON.stringify(second)}).getAttribute('aria-pressed')`), 'true');
+      await expectRole(second, 'background-color', mode, 'selected');
+      await key(' ', 'Space', 32);
+      assert.equal(await evaluate(`document.querySelector(${JSON.stringify(second)}).getAttribute('aria-pressed')`), 'false');
+      await expectRole(`#${mode}-details .c-status`, 'background-color', mode, 'status-bg');
+      await expectRole(`#${mode}-details .c-status`, 'border-top-color', mode, 'status-border');
+      // Targets: standard controls meet control-min; dense controls control-dense on a fine pointer.
+      assert.equal(await evaluate(`[...document.querySelectorAll('#${mode} .c-button:not(.c-button--dense), #${mode} .c-input, #${mode} .c-select select')].filter(e=>e.getClientRects().length).every(e=>e.getBoundingClientRect().height>=44)`), true);
+      assert.equal(await evaluate(`[...document.querySelectorAll('#${mode} .c-chip, #${mode} .c-button--dense')].filter(e=>e.getClientRects().length).every(e=>e.getBoundingClientRect().height>=32)`), true);
+      await evaluate(`document.querySelector('#${mode}-details').scrollIntoView()`);
+      await evaluate(`document.querySelector('#${mode}-name').focus()`);
+      await shot(`cosmik-${mode}-controls`);
+    }
+    // Transitions use the effective motion duration and easing tokens.
+    const transition = () => evaluate(`(() => {const s=getComputedStyle(document.querySelector('#dark-actions .c-button'));return [s.transitionDuration.split(',').map(v=>parseFloat(v)), s.transitionTimingFunction]})()`);
+    assert.ok((await transition())[0].every(v => v === 0));
+    await evaluate(`{const p=document.querySelector('#motion-picker');p.value='full';p.dispatchEvent(new Event('change'));}`);
+    const [durations, easing] = await transition();
+    assert.ok(durations.every(v => Math.abs(v - parseFloat(JSON.parse(fs.readFileSync(path.join(root, 'kits/cosmik/tokens/cosmik.json'), 'utf8')).motion.duration) / 1000) < 1e-9), JSON.stringify(durations));
+    assert.match(easing, /ease-out/);
+    await evaluate(`{const p=document.querySelector('#motion-picker');p.value='system';p.dispatchEvent(new Event('change'));}`);
+    await cdp('CSS.disable'); await cdp('DOM.disable');
+  }
   // Every combination of distant, nearest and explicit themes, including both orders.
   await evaluate(`{const box=document.createElement('div');box.id='probes';document.body.append(box)}`);
-  for (const family of ['hplx', 'tectra']) {
-  const colors = JSON.parse(fs.readFileSync(path.join(root, `kits/${family}/tokens/${family}.json`), 'utf8')).semantic;
+  await evaluate(`new Promise((resolve, reject) => {const l=document.createElement('link');l.rel='stylesheet';l.href='/__fixture__/example.css';l.id='fixture-family';l.onload=resolve;l.onerror=reject;document.querySelector('link[href$="controls.css"]').before(l)})`);
+  {
+  const family = 'example';
+  const colors = fixtureFamily.semantic;
   const rgb = hex => `rgb(${hex.slice(1).match(/../g).map(x=>parseInt(x,16)).join(', ')})`;
   for (const distant of ['dark','light']) for (const nearest of ['dark','light']) for (const explicit of ['', 'dark', 'light']) {
-    await evaluate(`document.querySelector('#probes').innerHTML='<div data-theme="${distant}"><div data-theme="${nearest}"><div data-family="${family}" ${explicit ? `data-theme="${explicit}"` : ''} id="probe" style="background:var(--c-bg)"><div data-theme="light"><div data-theme="dark" id="inner" style="background:var(--c-bg);box-shadow:var(--c-elevation-2-shadow)">Probe</div></div></div></div></div>'`);
+    await evaluate(`document.querySelector('#probes').innerHTML='<div data-theme="${distant}"><div data-theme="${nearest}"><div data-family="${family}" ${explicit ? `data-theme="${explicit}"` : ''} id="probe" style="background:var(--c-bg)"><button type="button" class="c-button c-button--primary" id="family-button">Apply</button><div data-theme="light"><div data-theme="dark" id="inner" style="background:var(--c-bg);box-shadow:var(--c-elevation-2-shadow)">Probe</div></div></div></div></div>'`);
     assert.equal(await evaluate('getComputedStyle(document.querySelector("#probe")).backgroundColor'), rgb(colors[explicit || nearest].bg));
     assert.equal(await evaluate('getComputedStyle(document.querySelector("#inner")).backgroundColor'), rgb(colors.dark.bg));
-    if (family === 'hplx') assert.notEqual(await evaluate('getComputedStyle(document.querySelector("#inner")).boxShadow'), 'none');
+    assert.notEqual(await evaluate('getComputedStyle(document.querySelector("#inner")).boxShadow'), 'none');
+    // The shared controls pick up the family's roles inside its scope.
+    assert.equal(await evaluate('getComputedStyle(document.querySelector("#family-button")).backgroundColor'), rgb(colors[explicit || nearest]['action-primary']));
   }
   }
   await evaluate('document.querySelector("#probes").remove()');
   // A root that names no theme follows the operating system, and families with it.
   {
     const was = await evaluate('document.documentElement.getAttribute("data-theme")');
-    await evaluate(`document.documentElement.removeAttribute('data-theme');{const p=document.createElement('div');p.id='system-probe';p.dataset.family='tectra';p.style.background='var(--c-bg)';document.body.append(p)}`);
-    const tectra = JSON.parse(fs.readFileSync(path.join(root, 'kits/tectra/tokens/tectra.json'), 'utf8')).semantic;
+    await evaluate(`document.documentElement.removeAttribute('data-theme');{const p=document.createElement('div');p.id='system-probe';p.dataset.family='example';p.style.background='var(--c-bg)';document.body.append(p)}`);
+    const example = fixtureFamily.semantic;
     const hex = h => `rgb(${h.slice(1).match(/../g).map(x=>parseInt(x,16)).join(', ')})`;
     for (const scheme of ['light', 'dark']) {
       await cdp('Emulation.setEmulatedMedia', {features:[{name:'prefers-color-scheme', value:scheme}]});
-      assert.equal(await evaluate('getComputedStyle(document.querySelector("#system-probe")).backgroundColor'), hex(tectra[scheme].bg));
+      assert.equal(await evaluate('getComputedStyle(document.querySelector("#system-probe")).backgroundColor'), hex(example[scheme].bg));
     }
     await cdp('Emulation.setEmulatedMedia', {features:[]});
-    await evaluate(`document.querySelector('#system-probe').remove();${was === null ? '' : `document.documentElement.setAttribute('data-theme', ${JSON.stringify(was)})`}`);
+    await evaluate(`document.querySelector('#system-probe').remove();document.querySelector('#fixture-family').remove();${was === null ? '' : `document.documentElement.setAttribute('data-theme', ${JSON.stringify(was)})`}`);
   }
   await evaluate(`{const input=document.querySelector('#dark-slug');input.value='valid-slug';input.dispatchEvent(new Event('input'));}`);
   assert.equal(await evaluate('document.querySelector("#dark-slug").getAttribute("aria-invalid")'), 'false');
@@ -302,7 +397,7 @@ try {
   assert.match(await evaluate(`document.querySelector('#completion-result').textContent`),/Example ready/);
   assert.ok(await evaluate(`document.querySelector('#completion-result').getAnimations().length > 0`));
   await until(`document.querySelector('#completion-result').getAnimations().length === 0`);
-  await shot('tectra-motion-desktop');
+  await shot('cosmik-motion-desktop');
   // Large text, a short viewport, touch targets and an overflowing menu/dialog.
   await cdp('Emulation.setTouchEmulationEnabled',{enabled:true,maxTouchPoints:5});
   await cdp('Emulation.setDeviceMetricsOverride',{width:320,height:480,deviceScaleFactor:1,mobile:false});
@@ -311,15 +406,16 @@ try {
   const fits = selector => evaluate(`(() => {const r=document.querySelector('${selector}').getBoundingClientRect();return r.left>=0&&r.top>=0&&r.right<=innerWidth+1&&r.bottom<=innerHeight+1})()`);
   assert.equal(await fits('#dark-action-menu'),true,'menu fits short viewport');
   assert.equal(await evaluate(`[...document.querySelectorAll('#dark-action-menu button')].every(e=>e.getBoundingClientRect().height>=44)`),true);
-  await shot('tectra-menu-320-short-text200');
+  assert.equal(await evaluate(`[...document.querySelectorAll('#dark .c-chip, #dark .c-button--dense')].every(e=>e.getBoundingClientRect().height>=44&&e.getBoundingClientRect().width>=44)`),true,'dense controls keep the standard target for touch');
+  await shot('cosmik-menu-320-short-text200');
   await evaluate(`document.querySelector('#dark [data-confirm="delete"]').click()`);
   await until(`getComputedStyle(document.querySelector('#dark dialog')).opacity === '1'`);
   assert.equal(await fits('#dark dialog'),true,'dialog fits short viewport');
   assert.equal(await evaluate('document.activeElement.id'),'dark-dialog-title','long confirmation opens at its context');
-  await shot('tectra-dialog-320-short-text200');
+  await shot('cosmik-dialog-320-short-text200');
   await key('Tab','Tab',9);
   assert.equal(await evaluate('document.activeElement.hasAttribute("data-cancel")'),true);
-  await shot('tectra-dialog-actions-320-short-text200');
+  await shot('cosmik-dialog-actions-320-short-text200');
   await key('Escape','Escape',27);
   await until(`!document.querySelector('#dark dialog').open`);
   await cdp('Emulation.setTouchEmulationEnabled',{enabled:false});
@@ -332,30 +428,16 @@ try {
   assert.ok(fonts.every(f => f.status === 'loaded'), JSON.stringify(fonts));
   await cdp('Emulation.setEmulatedMedia', {features:[{name:'forced-colors', value:'active'}]});
   assert.notEqual(await evaluate(`getComputedStyle(document.querySelector('#light-selection-tab')).borderBottomWidth`),await evaluate(`getComputedStyle(document.querySelector('#light-actions-tab')).borderBottomWidth`),'forced colors retain the selected tab indicator');
-  await evaluate('document.querySelector("#light-details").scrollIntoView()'); await shot('tectra-forced-colors');
+  // Forced colours keep the drawn chevron, the chip's selection check and the focus ring.
+  assert.equal(await evaluate(`getComputedStyle(document.querySelector('#light-order').parentElement,'::after').borderRightStyle`),'solid');
+  assert.notEqual(await evaluate(`getComputedStyle(document.querySelector('#light-order').parentElement,'::after').borderRightColor`),'rgba(0, 0, 0, 0)');
+  assert.equal(await evaluate(`getComputedStyle(document.querySelector('#light-chip-first'),'::before').borderRightStyle`),'solid');
+  await evaluate('document.querySelector("#light-name").focus()');
+  assert.equal(await evaluate(`getComputedStyle(document.querySelector('#light-name')).outlineStyle`),'solid','forced colours retain the focus ring');
+  await evaluate('document.querySelector("#light-details").scrollIntoView()'); await shot('cosmik-forced-colors');
   assert.deepEqual(errors, []);
-  console.log('Component checks passed: three kits, responsive themes, nested preferences, fonts, keyboard menus/dialogs, focus, real exit/interruption transitions, disclosure, tooltip, completion and short touch layouts.');
-  // Tectra board: simulated enlarged text and a 320-CSS-px reflow viewport.
-  // Viewport emulation is not a claim of actual browser zoom or assistive-tech testing.
+  console.log('Component checks passed: baseline and a test-only family scope, responsive themes, nested preferences, fonts, shared controls states, keyboard menus/dialogs, focus, real exit/interruption transitions, disclosure, tooltip, completion and short touch layouts.');
   await cdp('Emulation.setEmulatedMedia', {features:[]});
-  await cdp('Page.navigate', {url:`http://127.0.0.1:${server.address().port}/kits/tectra/specimen.html`});
-  for (let i=0;i<100;i++) { if(await evaluate('document.readyState === "complete" && !!document.querySelector(".diagram-legend")')) break; await pause(50); }
-  await evaluate('document.fonts.ready.then(()=>true)');
-  for (const width of [1280,768,390,320]) for (const scale of [100,200]) {
-    await size(width); await evaluate(`document.documentElement.style.fontSize='${scale}%'`);
-    for (const spacing of [false,true]) {
-      await evaluate(`{document.querySelector('#text-spacing-test')?.remove();if(${spacing}){const s=document.createElement('style');s.id='text-spacing-test';s.textContent='*{line-height:1.5!important;letter-spacing:.12em!important;word-spacing:.16em!important}p{margin-bottom:2em!important}';document.head.append(s)}}`);
-      assert.equal(await evaluate('document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1'),true,`Tectra board overflow: ${width}px, ${scale}%, spacing ${spacing}`);
-      assert.equal(await evaluate('[...document.querySelectorAll(".control")].every(e=>{const r=e.getBoundingClientRect();return r.width>=44&&r.height>=44})'),true);
-    }
-  }
-  await evaluate('document.querySelector("#text-spacing-test").remove();document.documentElement.style.fontSize="100%"');
-  await size(1280); await evaluate('document.querySelector(".skip-link").focus()');
-  assert.equal(await evaluate('document.activeElement.classList.contains("skip-link")'),true);
-  await cdp('Emulation.setEmulatedMedia', {features:[{name:'forced-colors',value:'active'}]});
-  await shot('tectra-board-forced-colors');
-  assert.deepEqual(errors, []);
-  console.log('Tectra board checks passed: 16 viewport/text cases, each with default and user text spacing. Actual browser zoom and assistive technology still require manual review.');
   // The download remains genuinely offline: file URLs must support interactions.
   await cdp('Emulation.setEmulatedMedia',{features:[]});
   await cdp('Page.navigate',{url:new URL('../specimens/components.html',import.meta.url).href});

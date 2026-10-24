@@ -1,25 +1,28 @@
-# Consuming a kit
+# Consuming the kit
 
-Use the Cosmik baseline for organisation surfaces and a family kit for its product.
-Read the relevant [Cosmik](cosmik/README.md), [HPLX](hplx/README.md) or
-[Tectra](tectra/README.md) identity guide before selecting artwork. Pin a release
-and resolve deliverables through `asset-manifest.json` from that same release.
-The formats below are platform adapters for the same visual contract; none
-requires a particular framework, page composition or application workflow.
+Use the Cosmik baseline for organisation surfaces and a product's family for that
+product. This repository holds the baseline, the [Cosmik identity](cosmik/README.md),
+the shared controls and the tools that build families. Product families live in
+their own repositories, such as `cosmiklabs/brand-hplx` and `cosmiklabs/brand-tectra`;
+read that family's guide before selecting its artwork. Pin a release and resolve
+deliverables through `asset-manifest.json` from that same release. The formats
+below are platform adapters for the same visual contract; none requires a
+particular framework, page composition or application workflow.
 
 ## Source and output contract
 
 | Kit | Token source | Generated output stem |
 | --- | --- | --- |
 | Cosmik baseline | `cosmik/tokens/source.json` | `cosmik/tokens/cosmik` |
-| HPLX family | `hplx/tokens/family.json` | `hplx/tokens/hplx` |
-| Tectra family | `tectra/tokens/family.json` | `tectra/tokens/tectra` |
+| A product family | `tokens/family.json` in its `brand-<product>` repository | `tokens/<id>` in that repository |
 
 Each stem provides `.css`, `.json`, `.tokens.json` and `_tokens.rs`. Edit the source
-and run `npm run build`; never edit an output. Generated JSON and Rust resolve the
-family over the baseline and are complete on their own. Family CSS is scoped and
-requires the baseline CSS for shared values. Family revision metadata is separate
-from the repository release version; consume all files from one pinned release.
+and run `npm run build` here, or `family.mjs build` in a family repository; never
+edit an output. Generated JSON and Rust resolve the family over the baseline and
+are complete on their own. Family CSS is scoped and requires the baseline CSS for
+shared values. The baseline's token version (in `source.json`) and a family's
+revision are separate from this repository's release version; a family's
+`extends` names the baseline token version it resolves against.
 
 Values are authoritative in the sources, not in hand-copied lists of hex codes or
 pixel sizes. Use semantic roles for surfaces, text, boundaries, selection, actions,
@@ -29,43 +32,22 @@ layout, radius and motion tokens alongside colour roles.
 
 ## Browser integration
 
-The CSS supplies tokens, not resets, font loading or component styles. Define the
-bundled font faces with the provided weights, apply type roles in component CSS
-and preserve the corresponding font notices. Load baseline before family:
+The token CSS supplies custom properties, not resets, font loading or component
+styles. Define the bundled font faces with the provided weights, apply type roles in
+component CSS and preserve the corresponding font notices. Load the baseline first,
+then any family CSS, then the optional [controls layer](#shared-controls):
 
 ```html
-<link rel="stylesheet" href="kits/cosmik/tokens/cosmik.css">
-<link rel="stylesheet" href="kits/tectra/tokens/tectra.css">
-<section data-family="tectra" data-theme="dark" data-motion="system">
-  <button class="primary" type="button">Apply changes</button>
+<link rel="stylesheet" href="vendor/brand/kits/cosmik/tokens/cosmik.css">
+<link rel="stylesheet" href="tokens/example.css"> <!-- a family's own output, if any -->
+<link rel="stylesheet" href="vendor/brand/kits/cosmik/components/controls.css">
+<section data-family="example" data-theme="dark" data-motion="system">
+  <button class="c-button c-button--primary" type="button">Apply changes</button>
 </section>
 ```
 
-```css
-.primary {
-  background: var(--c-action-primary);
-  color: var(--c-action-primary-fg);
-  border: 1px solid var(--c-action-primary);
-  border-radius: var(--c-radius-md);
-  min-height: var(--c-layout-control-min);
-  font-family: var(--c-type-control-font-family), sans-serif;
-  font-size: var(--c-type-control-font-size);
-  font-weight: var(--c-type-control-font-weight);
-  line-height: var(--c-type-control-line-height);
-  padding: var(--c-space-2) var(--c-space-4);
-  transition: background-color var(--c-motion-duration) var(--c-motion-easing);
-}
-.primary:hover { background: var(--c-action-primary-hover); }
-.primary:active { background: var(--c-action-primary-active); }
-.primary:focus-visible {
-  outline: var(--c-layout-focus-width) solid var(--c-focus);
-  outline-offset: var(--c-layout-focus-offset);
-}
-```
-
-This illustrates role binding, not a complete button implementation. Handle disabled,
-pending and other states according to the [interface guide](../guide/interface.md).
-The [component reference](../specimens/components.html) provides interactive examples.
+Paths depend on how you consume a release; `vendor/brand/` is the layout
+`scripts/vendor.mjs` produces. Without a family, omit its stylesheet and scope.
 
 ### Themes, scopes and motion
 
@@ -89,23 +71,82 @@ Breakpoint properties document the shared layout thresholds; CSS custom properti
 cannot be substituted directly into `@media` conditions. Keep any literal query
 in sync with the source and verify the actual layout at enlarged text size.
 
-## Family contract
+## Shared controls
 
-The generator merges a family's `family.json` over the baseline. It rejects
-unsupported overrides and missing or inconsistent modes; contrast checks validate
-the defined semantic pairs in every generated kit.
+`components/controls.css` (in `kits/cosmik/`) styles common controls using only
+semantic tokens, so the same classes follow the baseline, any family scope, both
+themes and the motion policy. It is framework-neutral CSS: use the classes on
+native elements, or copy the role bindings into your platform's components. The
+behavior each state must have is defined once, in the
+[interface guide](../guide/interface.md#shared-controls); the
+[component reference](../specimens/components.html) uses these classes throughout.
 
-| A family | Contract |
-| --- | --- |
-| Must retain | Every baseline role and both modes; the baseline contrast requirements |
-| May override | Semantic colours using its own primitive names; heading font family and weight for `display`, `display-small`, `section` and `card` |
-| May add | Roles under `extensions`, identical in every mode; elevation levels; required licensed heading fonts |
-| Must not change | Utility type, spacing, layout, radii, breakpoints or motion |
+| Class | Element | States handled |
+| --- | --- | --- |
+| `c-button c-button--primary` | `<button>` (or `<a>` that navigates) | Hover, pressed, focus, disabled, `aria-disabled`, `aria-busy` |
+| `c-button c-button--secondary` | `<button>` | As primary |
+| `c-button--dense` | Added to a button | `control-dense` height on fine pointers; `control-min` on touch |
+| `c-link` | `<a>` in text | Underlined; hover, pressed, focus |
+| `c-input` | `<input>`, `<textarea>` | Placeholder, hover, focus, `aria-invalid`, disabled |
+| `c-select` | `<span class="c-select"><select>…</select></span>` | Drawn chevron; hover, focus, `aria-invalid`, disabled |
+| `c-chip` | `<button aria-pressed>` | Dense target, hover, pressed, selected check, focus, disabled |
+| `c-status` | `<span>` | Neutral, non-interactive status label |
+| `c-focus-ring` | Any other custom focusable control | The shared focus-visible ring |
 
-HPLX uses Spectral headings, a warm accent, status tones and elevation. Tectra uses
-Inter headings and restrained teal; its status remains neutral and explicit in
-words. A family does not replace Cosmik's parent identity or change the endorsement.
-See [families](../guide/families.md) for visual and naming boundaries.
+```html
+<label for="order">Order</label>
+<span class="c-select"><select id="order"><option>Newest first</option></select></span>
+
+<div role="group" aria-label="Filters">
+  <button type="button" class="c-chip" aria-pressed="true">Open</button>
+  <button type="button" class="c-chip" aria-pressed="false">Closed</button>
+</div>
+<span class="c-status"><span aria-hidden="true">◷</span> Saved</span>
+```
+
+Fields fill their container; size the container. The select wrapper draws a
+stroked chevron with borders, inset by `--c-space-4`, that ignores pointer input;
+the native `<select>` keeps its semantics and keyboard behavior. Forced-colour
+modes keep borders, the chevron, the selection check and the focus ring in system
+colours. Transitions use `--c-motion-duration` and `--c-motion-easing`, so a
+reduced-motion scope removes them. The layer contains no resets, layout, font
+loading or product defaults such as a theme; your own CSS loads after it.
+Field labels, error text and pending announcements remain the consumer's markup.
+
+## Building a family
+
+The [family guide](../guide/families.md) explains the model and what the contract
+allows. In a `brand-<product>` repository, with a release vendored at `vendor/brand/`:
+
+```sh
+# Pin a release: the brand checkout must be clean and exactly at a vX.Y.Z tag.
+node <brand>/scripts/vendor.mjs sync --from <brand> --into vendor/brand
+node vendor/brand/scripts/vendor.mjs verify vendor/brand          # in CI
+node vendor/brand/scripts/vendor.mjs verify vendor/brand --release <brand>  # proves the lock against the tag
+
+node vendor/brand/scripts/family.mjs build .   # writes tokens/<id>.css, .json, .tokens.json, _tokens.rs
+node vendor/brand/scripts/family.mjs check .   # in CI: contract, extends, drift and contrast
+```
+
+`brand.lock.json` records what was vendored:
+
+```json
+{
+  "lockfileVersion": 1,
+  "repository": "cosmiklabs/brand",
+  "tag": "v0.8.0",
+  "commit": "<40-character commit>",
+  "files": {
+    "kits/cosmik/tokens/source.json": "<sha256>",
+    "scripts/family.mjs": "<sha256>"
+  }
+}
+```
+
+Never edit vendored files; `verify` fails on any change, addition or removal.
+Keep the family's guide, marks, fonts and their notices beside `tokens/`, outside
+`vendor/brand/`. The vendored `scripts/font-outlines.mjs` and
+`scripts/vector-raster.mjs` are available to a family's own mark builders.
 
 ## Native integration
 
@@ -128,9 +169,9 @@ code. Choose the colour representation your renderer expects; do not treat linea
 values as sRGB or multiply alpha twice.
 
 Load desktop fonts from `fonts/desktop/` and distribute their notices. Use the
-manifest's canonical artwork entry points. Cosmik has platform icons; current
-Glimmer and Latch do not yet have a platform icon pack. Historical Ember icons are
-not current HPLX identity. Do not infer a current deliverable from a directory name.
+manifest's canonical artwork entry points; Cosmik has platform icons in
+`cosmik/icons/`. A family's artwork and icon status are recorded in its own
+repository. Do not infer a current deliverable from a directory name.
 
 ## DTCG integration
 
@@ -158,5 +199,7 @@ remaining manual checks. Products still need their own keyboard, responsive,
 assistive-technology and browser review.
 
 Follow [governance](../guide/governance.md#upgrading-a-consumer) when upgrading a
-pinned kit. Keep framework-specific components in the consumer; bring shared
+pinned kit, and the [0.8.0 migration notes](../CHANGELOG.md#080--24-october-2026)
+when moving from a release that still contained the HPLX and Tectra kits.
+Keep framework-specific components in the consumer; bring shared
 behavior changes back to the guide and reference rather than editing vendored files.

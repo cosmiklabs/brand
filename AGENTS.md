@@ -1,13 +1,17 @@
 # Working on the brand kit
 
-- Read the root README, relevant family guide and `guide/governance.md`. Inspect
+- Read the root README, `guide/families.md` and `guide/governance.md`. Inspect
   the working tree and preserve unrelated work. Keep the requested scope clear.
 - Preserve approved marks, palettes and fonts unless the owner explicitly approves
   changing them. Do not turn an interface improvement into a new identity or a
   product, pricing or availability promise.
-- Edit authoritative sources. Token sources are `kits/cosmik/tokens/source.json`
-  and `kits/<family>/tokens/family.json`; mark sources are named by each family
-  guide and the manifest. Never hand-edit generated exports or historical masters.
+- This repository is the shared Cosmik foundation only. Product families live in
+  their own `brand-<product>` repositories; do not add product kits, marks or
+  product-only fonts here. Test families go under `tests/fixtures/` with fictional ids.
+- Edit authoritative sources. The baseline token source is `kits/cosmik/tokens/source.json`;
+  mark sources are named by the kit README and the manifest. Keep the family
+  contract in `scripts/generate-tokens.mjs` exactly as the owner set it. Never
+  hand-edit generated exports or historical masters.
 - Keep shared component references implementation-agnostic: demonstrate neutral
   components and states, not a proposed website or a specific product workflow.
   Platform adapters illustrate the contract without prescribing a framework.

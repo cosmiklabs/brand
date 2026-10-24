@@ -1,20 +1,19 @@
-/** Single-source generator (run through `node scripts/build.mjs`).
- * Reads kits/cosmik/tokens/source.json (the baseline) and writes, beside it: cosmik.css, cosmik.json
- * (with a `native` section), cosmik.tokens.json (W3C DTCG) and cosmik_tokens.rs. Then, for every
- * family kit kits/<id>/tokens/family.json, merges it over the baseline under the family contract
- * (kits/README.md) and writes <id>.css (scoped to [data-family="<id>"]), <id>.json,
- * <id>.tokens.json and <id>_tokens.rs beside it. No third-party packages. */
+/** Token generator: the baseline CLI and the shared rendering used by the family API.
+ * `node scripts/generate-tokens.mjs` reads kits/cosmik/tokens/source.json (the baseline) and writes,
+ * beside it: cosmik.css, cosmik.json (with a `native` section), cosmik.tokens.json (W3C DTCG) and
+ * cosmik_tokens.rs. Family kits live in their own `brand-<product>` repositories; scripts/family.mjs
+ * merges a family's tokens/family.json over this baseline under the family contract
+ * (`familySource`, below) and renders it with `renderKit`. No third-party packages. */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-// Each kit lives in kits/<id>/; its token source and generated outputs are in kits/<id>/tokens/.
-const kitsDir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'kits');
-const tokensOf = (id) => path.join(kitsDir, id, 'tokens');
-const baseline = JSON.parse(fs.readFileSync(path.join(tokensOf('cosmik'), 'source.json'), 'utf8'));
+// This checkout's root. Resolved from the script, so a vendored copy (vendor/brand/scripts/) uses
+// the baseline vendored beside it rather than anything in the consuming repository.
+export const brandRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+export const BASELINE_SOURCE = 'kits/cosmik/tokens/source.json';
+export const BASELINE_STEM = 'cosmik';
+export const loadBaseline = (root = brandRoot) => JSON.parse(fs.readFileSync(path.join(root, BASELINE_SOURCE), 'utf8'));
 const ROOT_PX = 16;
-// Validate and render every kit before replacing any generated file. A bad family
-// must not leave a mixture of old family output and a newly generated baseline.
-const outputs = [];
 const object = (value, label) => {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error(`${label}: expected an object`);
   return value;
@@ -35,7 +34,9 @@ const toJson = (value) => JSON.stringify(value, null, 2)
 // ui-small, label, identity-label) stays the baseline's in every family.
 const FAMILY_TYPE_ROLES = ['display', 'display-small', 'section', 'card'];
 const FAMILY_TYPE_KEYS = ['fontFamily', 'fontWeight'];
-const familySource = (family) => {
+export const FAMILY_FIXED = ['space', 'layout', 'motion', 'radius', 'breakpoint'];
+/** Resolves a family source over `baseline`, or throws naming the first contract violation. */
+export const familySource = (family, baseline) => {
   const fail = (msg) => { throw new Error(`Family ${family.id}: ${msg}`); };
   object(family, 'Family source');
   const allowed = new Set(['id', 'name', 'version', 'status', 'extends', 'description', 'fonts', 'proposals', 'primitives', 'semantic', 'extensions', 'type', 'elevation']);
@@ -72,7 +73,7 @@ const familySource = (family) => {
     for (const key of Object.keys(values)) if (!FAMILY_TYPE_KEYS.includes(key)) fail(`type ${role}.${key}: a family sets only ${FAMILY_TYPE_KEYS.join(' and ')}`);
     Object.assign(type[role], values);
   }
-  for (const key of ['space', 'layout', 'motion', 'radius', 'breakpoint']) if (key in family) fail(`${key} is fixed by the baseline`);
+  for (const key of FAMILY_FIXED) if (key in family) fail(`${key} is fixed by the baseline`);
   return {
     name: `${baseline.name} · ${family.name}`, version: family.version, status: family.status, family: family.id,
     extends: family.extends, description: family.description, fonts: family.fonts ?? [], proposals: family.proposals ?? [],
@@ -135,7 +136,7 @@ const nativeType = (t) => {
 
 // Fail at the source boundary, before conversion can turn invalid numbers into
 // JSON nulls or produce Rust constants that cannot compile.
-const validateSource = (source, stem) => {
+export const validateSource = (source, stem) => {
   for (const key of ['name', 'version', 'status']) {
     if (typeof source[key] !== 'string' || !source[key].trim() || /[\r\n]/.test(source[key])) throw new Error(`${stem}.${key}: expected a non-empty single line`);
   }
@@ -189,12 +190,15 @@ const validateSource = (source, stem) => {
   }
 };
 
-/** Writes one kit's outputs. `stem` names the files; `scope` is null for the baseline (`:root`)
- * or a family id (CSS scoped to `[data-family="<id>"]`). */
-const generate = (source, outDir, stem, scope) => {
-  const write = (name, text) => outputs.push([path.join(outDir, name), text]);
+/** Renders one kit without touching the file system, returning `{ files: [[name, text]], summary }`.
+ * `stem` names the files; `scope` is null for the baseline (`:root`) or a family id (CSS scoped to
+ * `[data-family="<id>"]`). `baseline` is the raw baseline source the family resolves over;
+ * `provenance` completes the generated headers ("Generated by … from …"). */
+export const renderKit = (source, { stem, scope = null, baseline, provenance }) => {
+  const files = [];
+  const write = (name, text) => files.push([name, text]);
   const label = `${source.name} ${source.version} — ${/^Approved/.test(source.status) ? 'APPROVED' : 'PROPOSED'}`;
-  const from = scope ? `kits/${scope}/tokens/family.json over kits/cosmik/tokens/source.json` : 'kits/cosmik/tokens/source.json';
+  if (/[\r\n]|\*\//.test(provenance)) throw new Error('provenance must be a single line without a comment terminator');
 
   // ---- Validation and resolution ----
   validateSource(source, stem);
@@ -267,7 +271,7 @@ const generate = (source, outDir, stem, scope) => {
   };
   let css;
   if (!scope) {
-    css = `/* ${label}. Generated by scripts/generate-tokens.mjs from ${from}. */\n`;
+    css = `/* ${label}. ${provenance}. */\n`;
     css += ':root {\n';
     for (const [key, val] of Object.entries(source.primitives)) css += `  --c-primitive-${key}: ${val};\n`;
     for (const group of ['space', 'layout']) {
@@ -300,7 +304,7 @@ const generate = (source, outDir, stem, scope) => {
     // cannot implement nearest-theme inheritance: a distant light ancestor would win
     // over an explicit dark scope. light-dark() resolves at the consuming element.
     const f = `[data-family="${scope}"]`;
-    css = `/* ${label}. Generated by scripts/generate-tokens.mjs from ${from}. Load after cosmik.css. */\n`;
+    css = `/* ${label}. ${provenance}. Load after ${BASELINE_STEM}.css. */\n`;
     css += `${f} {\n`;
     for (const [key, val] of Object.entries(source.primitives)) if (!(key in baseline.primitives)) css += `  --c-primitive-${key}: ${val};\n`;
     css += typeVars(source.overriddenType);
@@ -329,7 +333,7 @@ const generate = (source, outDir, stem, scope) => {
   const tok = (type, value, extra = {}) => ({ $type: type, $value: value, ...extra });
   const MODES_EXT = 'com.cosmiklabs.modes';
   const dtcg = {
-    $description: `${label}. Generated by scripts/generate-tokens.mjs from ${from}; do not edit. Colour roles in "color" resolve to the dark theme; each carries $extensions["${MODES_EXT}"] with its alias in every theme (dark, light). Tools without mode support see the dark theme.`,
+    $description: `${label}. ${provenance}; do not edit. Colour roles in "color" resolve to the dark theme; each carries $extensions["${MODES_EXT}"] with its alias in every theme (dark, light). Tools without mode support see the dark theme.`,
     $extensions: { 'com.cosmiklabs': { name: source.name, version: source.version, status: source.status, ...(scope ? { family: scope, extends: source.extends } : {}), defaultMode: 'dark', modes: Object.keys(modes), proposals: source.proposals } },
     primitive: { color: Object.fromEntries(Object.entries(source.primitives).map(([k, v]) => [k, tok('color', dtcgColor(v))])) },
     color: Object.fromEntries(Object.keys(source.semantic.dark).map((role) => [role, tok('color', `{primitive.color.${source.semantic.dark[role]}}`, {
@@ -367,7 +371,7 @@ const generate = (source, outDir, stem, scope) => {
   const field = (s) => ident(s).toLowerCase();
   const rsColor = (hex) => { const c = color(hex); return `Color { hex: "${hex}", srgb: ${arr(c.srgb)}, linear: ${arr(c.linear)} }`; };
   const roles = Object.keys(source.semantic.dark);
-  let rs = `// ${label}. Generated by scripts/generate-tokens.mjs from ${from}; do not edit.
+  let rs = `// ${label}. ${provenance}; do not edit.
 // Dependency-free: include with \`#[path = "…/${stem}_tokens.rs"] mod ${stem}_tokens;\` or copy into a crate.
 // Colours: hex, straight-alpha sRGB floats and linear-light floats, each [r, g, b, a] in 0..=1.
 // Lengths: logical pixels at a 16 px root. Letter spacing: fraction of the font size.
@@ -430,15 +434,20 @@ ${Object.entries(source.primitives).map(([k, v]) => `    pub const ${CONST(k)}: 
   rs += `\npub mod motion {\n    pub const DURATION_MS: u32 = ${native.motion.durationMs};\n    pub const REDUCED_DURATION_MS: u32 = ${native.motion.reducedDurationMs};\n    /// Cubic-bezier control points [x1, y1, x2, y2].\n    pub const EASING: [f32; 4] = ${arr(native.motion.easing)};\n}\n`;
   write(`${stem}_tokens.rs`, rs);
 
-  return `${stem}: ${canonical.split('|').length} semantic roles × ${Object.keys(modes).length} complete modes`;
+  return { files, summary: `${stem}: ${canonical.split('|').length} semantic roles × ${Object.keys(modes).length} complete modes` };
 };
 
-const summary = [generate(baseline, tokensOf('cosmik'), 'cosmik', null)];
-const familyIds = fs.readdirSync(kitsDir).filter((d) => fs.existsSync(path.join(tokensOf(d), 'family.json'))).sort();
-for (const id of familyIds) {
-  const family = JSON.parse(fs.readFileSync(path.join(tokensOf(id), 'family.json'), 'utf8'));
-  if (family.id !== id) throw new Error(`kits/${id}/tokens/family.json declares id ${family.id}`);
-  summary.push(generate(familySource(family), tokensOf(id), id, id));
+/** The baseline's own outputs, with the header provenance they have always carried. */
+export const renderBaseline = (baseline) => renderKit(baseline, {
+  stem: BASELINE_STEM, scope: null, baseline,
+  provenance: `Generated by scripts/generate-tokens.mjs from ${BASELINE_SOURCE}`,
+});
+
+if (process.argv[1] && fs.realpathSync(process.argv[1]) === fs.realpathSync(fileURLToPath(import.meta.url))) {
+  if (process.argv.length > 2) throw new Error('Usage: generate-tokens.mjs (families: scripts/family.mjs build <familyRoot>)');
+  // Validate and render everything before replacing any generated file.
+  const { files, summary } = renderBaseline(loadBaseline());
+  const outDir = path.join(brandRoot, path.dirname(BASELINE_SOURCE));
+  for (const [name, text] of files) fs.writeFileSync(path.join(outDir, name), text);
+  console.log(`Generated css, json, tokens.json and _tokens.rs from ${BASELINE_SOURCE}; ${summary}.`);
 }
-for (const [file, text] of outputs) fs.writeFileSync(file, text);
-console.log(`Generated css, json, tokens.json and _tokens.rs from one source per kit; ${summary.join('; ')}.`);

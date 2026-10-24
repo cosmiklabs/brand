@@ -1,6 +1,6 @@
 /** Web-font builder (run through `node scripts/build.mjs`).
- * Wraps each TTF in FONTS as WOFF 2.0 (W3C REC): IBM Plex Mono Regular for the baseline and Spectral
- * SemiBold for the HPLX family's headings.
+ * Wraps each TTF in FONTS as WOFF 2.0 (W3C REC): IBM Plex Mono Regular for the baseline. (Inter's
+ * WOFF2 files are supplied upstream.)
  * Every table is stored unchanged with the null transform (glyf/loca version 3), compressed with
  * Node's built-in Brotli; no glyph, metric or name data is altered. The script decodes its own output
  * and checks that every table round-trips byte for byte. Node.js only; no third-party packages. */
@@ -11,7 +11,6 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const FONTS = [
   ['fonts/web/IBMPlexMono-Regular.ttf', 'fonts/web/IBMPlexMono-Regular.woff2'],
-  ['fonts/desktop/Spectral-SemiBold.ttf', 'fonts/web/Spectral-SemiBold.woff2'],
 ];
 
 // WOFF2 known-table index (W3C WOFF2 §5.1, table 1).

@@ -16,7 +16,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const args = process.argv.slice(2);
   if (args.some(arg => arg !== '--check')) throw new Error('Usage: build.mjs [--check]');
   const run = (script, ...args) => execFileSync(process.execPath, [path.join(here, script), ...args], { stdio: 'inherit', cwd: root });
-  for (const script of ['generate-tokens.mjs', 'build-glimmer-assets.mjs', 'build-tectra-assets.mjs', 'build-hplx-assets.mjs', 'build-hplx-lockup.mjs', 'build-cosmik-lockup.mjs', 'build-icons.mjs', 'build-web-fonts.mjs']) run(script);
+  for (const script of ['generate-tokens.mjs', 'build-cosmik-lockup.mjs', 'build-icons.mjs', 'build-web-fonts.mjs']) run(script);
   run('verify-manifest.mjs', '--update-generated');
   if (args.includes('--check')) assertCleanTree(root);
 }

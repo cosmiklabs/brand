@@ -2,9 +2,9 @@
 <html lang="en" data-theme="dark">
 <head>
  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
- <meta name="color-scheme" content="dark light"><meta name="description" content="Offline component, motion and semantic token reference for all Cosmik kits.">
+ <meta name="color-scheme" content="dark light"><meta name="description" content="Offline component, motion and semantic token reference for the Cosmik baseline and its shared controls.">
  <title>Cosmik — interface reference</title>
- <link rel="stylesheet" href="../kits/cosmik/tokens/cosmik.css"><link rel="stylesheet" href="../kits/hplx/tokens/hplx.css"><link rel="stylesheet" href="../kits/tectra/tokens/tectra.css"><link rel="stylesheet" href="components.css">
+ <link rel="stylesheet" href="../kits/cosmik/tokens/cosmik.css"><link rel="stylesheet" href="../kits/cosmik/components/controls.css"><link rel="stylesheet" href="components.css">
 </head>
 <body>
  <a class="skip-link" href="#main">Skip to component reference</a>
@@ -15,8 +15,7 @@
    <p>Isolated examples of visual roles, control states and interaction behavior. This is a reference sheet, not a website or application design. The same rules can be adapted to web, desktop and other interfaces.</p>
    <nav class="reference-index" aria-label="Reference sections"><a href="#dark">Dark theme</a><a href="#light">Light theme</a><a href="#motion">Motion</a><a href="#usage">Usage notes</a></nav>
    <div class="preview-controls">
-    <div class="field"><label for="kit-picker">Token family</label><select id="kit-picker"><option value="cosmik">Cosmik baseline</option><option value="hplx">HPLX</option><option value="tectra">Tectra</option></select><p class="helper" id="kit-status" role="status">Showing the approved Cosmik baseline.</p></div>
-    <div class="field"><label for="motion-picker">Motion preference</label><select id="motion-picker"><option value="system">Follow system</option><option value="reduce">Reduce motion</option><option value="full">Full motion</option></select><p class="helper">Applies to this reference only.</p></div>
+    <div class="field"><label for="motion-picker">Motion preference</label><span class="c-select"><select id="motion-picker"><option value="system">Follow system</option><option value="reduce">Reduce motion</option><option value="full">Full motion</option></select></span><p class="helper">Applies to this reference only.</p></div>
    </div>
    <noscript><p>Token switching and interactive examples need JavaScript.</p></noscript>
   </section>
@@ -27,28 +26,31 @@
   <div class="demo-panel action-panel" id="dark-actions">
    <div class="panel-heading"><h3>Actions</h3><p class="mono muted">44 px minimum control height</p></div>
    <div class="state-grid">
-    <div class="state"><span class="specimen-label">Default</span><button type="button" class="button-primary" data-demo="Default">Apply changes</button></div>
-    <div class="state"><span class="specimen-label">Hover · shown</span><button type="button" class="button-primary force-hover" data-demo="Hover">Apply changes</button></div>
-    <div class="state"><span class="specimen-label">Active · shown</span><button type="button" class="button-primary force-active" data-demo="Active">Apply changes</button></div>
-    <div class="state"><span class="specimen-label">Focus · shown</span><button type="button" class="button-primary force-focus" data-demo="Focus">Apply changes</button></div>
-    <div class="state"><span class="specimen-label">Disabled</span><button type="button" class="button-primary" disabled>Unavailable</button></div>
-    <div class="state"><span class="specimen-label">Loading · shown</span><button type="button" class="button-primary" disabled aria-busy="true"><span class="loading-mark" aria-hidden="true"></span>Working</button></div>
+    <div class="state"><span class="specimen-label">Default</span><button type="button" class="c-button c-button--primary" data-demo="Default">Apply changes</button></div>
+    <div class="state"><span class="specimen-label">Hover · shown</span><button type="button" class="c-button c-button--primary force-hover" data-demo="Hover">Apply changes</button></div>
+    <div class="state"><span class="specimen-label">Active · shown</span><button type="button" class="c-button c-button--primary force-active" data-demo="Active">Apply changes</button></div>
+    <div class="state"><span class="specimen-label">Focus · shown</span><button type="button" class="c-button c-button--primary force-focus" data-demo="Focus">Apply changes</button></div>
+    <div class="state"><span class="specimen-label">Disabled</span><button type="button" class="c-button c-button--primary" disabled>Unavailable</button></div>
+    <div class="state"><span class="specimen-label">Loading · shown</span><button type="button" class="c-button c-button--primary" disabled aria-busy="true"><span class="loading-mark" aria-hidden="true"></span>Working</button></div>
    </div>
-   <div class="action-row"><button type="button" class="button-secondary" data-demo="Secondary">View details</button><a href="#usage">Read usage guidance</a></div>
+   <div class="action-row"><button type="button" class="c-button c-button--secondary" data-demo="Secondary">View details</button><a class="c-link" href="#usage">Read usage guidance</a></div>
    <p class="demo-result" id="dark-result" role="status" aria-live="polite">Interactive preview only. Nothing is sent or saved.</p>
   </div>
   <div class="component-grid" id="dark-details">
    <section class="demo-panel field-panel" aria-labelledby="dark-fields-title">
     <h3 id="dark-fields-title">Fields &amp; selection</h3>
-    <div class="field"><label for="dark-name">Name</label><input id="dark-name" type="text" value="Sample item" aria-describedby="dark-name-help" autocomplete="off"><p class="helper" id="dark-name-help">A persistent label with supporting text.</p></div>
-    <div class="field"><label for="dark-slug">Identifier · error example</label><input id="dark-slug" type="text" value="sample?" aria-invalid="true" aria-describedby="dark-slug-help dark-slug-error" data-slug="dark" autocomplete="off" spellcheck="false"><p class="helper" id="dark-slug-help">Use letters, numbers, and hyphens.</p><p class="error" id="dark-slug-error"><span class="error-symbol" aria-hidden="true">[!]</span> Error: remove the question mark.</p></div>
+    <div class="field"><label for="dark-name">Name</label><input id="dark-name" class="c-input" type="text" value="Sample item" aria-describedby="dark-name-help" autocomplete="off"><p class="helper" id="dark-name-help">A persistent label with supporting text.</p></div>
+    <div class="field"><label for="dark-slug">Identifier · error example</label><input id="dark-slug" class="c-input" type="text" value="sample?" aria-invalid="true" aria-describedby="dark-slug-help dark-slug-error" data-slug="dark" autocomplete="off" spellcheck="false"><p class="helper" id="dark-slug-help">Use letters, numbers, and hyphens.</p><p class="error" id="dark-slug-error"><span class="error-symbol" aria-hidden="true">[!]</span> Error: remove the question mark.</p></div>
+    <div class="field"><label for="dark-order">Order</label><span class="c-select"><select id="dark-order" aria-describedby="dark-order-help"><option>Newest first</option><option>Oldest first</option><option>Name</option></select></span><p class="helper" id="dark-order-help">A native select with a drawn chevron.</p></div>
+    <div class="field"><label for="dark-unavailable">Unavailable · disabled</label><input id="dark-unavailable" class="c-input" type="text" value="Set by the parent scope" disabled></div>
+    <div class="chip-field"><p class="chip-label" id="dark-chips-label">Example filters</p><div class="chip-row" role="group" aria-labelledby="dark-chips-label"><button type="button" class="c-chip" aria-pressed="true" id="dark-chip-first">First option</button><button type="button" class="c-chip" aria-pressed="false">Second option</button><button type="button" class="c-chip" aria-pressed="false" disabled>Unavailable</button></div></div>
     <label class="check-label" for="dark-include"><input id="dark-include" type="checkbox" checked><span>Example selection</span></label>
    </section>
    <article class="sample-card" aria-labelledby="dark-sample-title">
     <p class="eyebrow">Content hierarchy</p>
     <h3 id="dark-sample-title">Sample title</h3>
     <p>Supporting text uses the body role and a readable measure.</p>
-    <div class="sample-status"><span aria-hidden="true">◷</span><span>Status label</span></div>
+    <span class="c-status"><span aria-hidden="true">◷</span><span>Status label</span></span>
     <div class="sample-detail"><p class="mono">Secondary information</p><p class="muted">Muted text, a divider and a status label demonstrate hierarchy without defining a product or workflow.</p></div>
    </article>
   </div>
@@ -62,9 +64,9 @@
    <div role="tabpanel" id="dark-selection-panel" aria-labelledby="dark-selection-tab" tabindex="0"><p>The selected tab has a persistent indicator. Use arrow keys to move between tabs.</p></div>
    <div role="tabpanel" id="dark-actions-panel" aria-labelledby="dark-actions-tab" tabindex="0" hidden>
     <p>An action menu demonstrates anchoring, dismissal and confirmation behavior.</p>
-    <div class="menu-example"><button type="button" class="button-secondary dense" id="dark-menu-trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dark-action-menu">Actions <span aria-hidden="true">⌄</span></button><div id="dark-action-menu" class="action-menu motion-surface" role="menu" aria-labelledby="dark-menu-trigger" hidden>
-     <button type="button" class="button-secondary" role="menuitem" tabindex="-1" data-confirm="duplicate">Duplicate</button>
-     <button type="button" class="button-secondary" role="menuitem" tabindex="-1" data-confirm="copy">Copy contents</button>
+    <div class="menu-example"><button type="button" class="c-button c-button--secondary c-button--dense" id="dark-menu-trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dark-action-menu">Actions <span aria-hidden="true">⌄</span></button><div id="dark-action-menu" class="action-menu motion-surface" role="menu" aria-labelledby="dark-menu-trigger" hidden>
+     <button type="button" role="menuitem" tabindex="-1" data-confirm="duplicate">Duplicate</button>
+     <button type="button" role="menuitem" tabindex="-1" data-confirm="copy">Copy contents</button>
      <button type="button" class="button-danger" role="menuitem" tabindex="-1" data-confirm="delete">Delete item</button>
     </div></div>
    </div>
@@ -77,7 +79,7 @@
    </div>
    <dialog class="motion-surface" aria-labelledby="dark-dialog-title" aria-describedby="dark-dialog-description">
     <h3 id="dark-dialog-title" tabindex="-1"></h3><p id="dark-dialog-description"></p>
-    <div class="dialog-actions"><button type="button" class="button-secondary" data-cancel autofocus>Cancel</button><button type="button" class="button-primary" data-accept>Confirm</button></div>
+    <div class="dialog-actions"><button type="button" class="c-button c-button--secondary" data-cancel autofocus>Cancel</button><button type="button" class="c-button c-button--primary" data-accept>Confirm</button></div>
    </dialog>
   </section>
  </div>
@@ -89,28 +91,31 @@
   <div class="demo-panel action-panel" id="light-actions">
    <div class="panel-heading"><h3>Actions</h3><p class="mono muted">44 px minimum control height</p></div>
    <div class="state-grid">
-    <div class="state"><span class="specimen-label">Default</span><button type="button" class="button-primary" data-demo="Default">Apply changes</button></div>
-    <div class="state"><span class="specimen-label">Hover · shown</span><button type="button" class="button-primary force-hover" data-demo="Hover">Apply changes</button></div>
-    <div class="state"><span class="specimen-label">Active · shown</span><button type="button" class="button-primary force-active" data-demo="Active">Apply changes</button></div>
-    <div class="state"><span class="specimen-label">Focus · shown</span><button type="button" class="button-primary force-focus" data-demo="Focus">Apply changes</button></div>
-    <div class="state"><span class="specimen-label">Disabled</span><button type="button" class="button-primary" disabled>Unavailable</button></div>
-    <div class="state"><span class="specimen-label">Loading · shown</span><button type="button" class="button-primary" disabled aria-busy="true"><span class="loading-mark" aria-hidden="true"></span>Working</button></div>
+    <div class="state"><span class="specimen-label">Default</span><button type="button" class="c-button c-button--primary" data-demo="Default">Apply changes</button></div>
+    <div class="state"><span class="specimen-label">Hover · shown</span><button type="button" class="c-button c-button--primary force-hover" data-demo="Hover">Apply changes</button></div>
+    <div class="state"><span class="specimen-label">Active · shown</span><button type="button" class="c-button c-button--primary force-active" data-demo="Active">Apply changes</button></div>
+    <div class="state"><span class="specimen-label">Focus · shown</span><button type="button" class="c-button c-button--primary force-focus" data-demo="Focus">Apply changes</button></div>
+    <div class="state"><span class="specimen-label">Disabled</span><button type="button" class="c-button c-button--primary" disabled>Unavailable</button></div>
+    <div class="state"><span class="specimen-label">Loading · shown</span><button type="button" class="c-button c-button--primary" disabled aria-busy="true"><span class="loading-mark" aria-hidden="true"></span>Working</button></div>
    </div>
-   <div class="action-row"><button type="button" class="button-secondary" data-demo="Secondary">View details</button><a href="#usage">Read usage guidance</a></div>
+   <div class="action-row"><button type="button" class="c-button c-button--secondary" data-demo="Secondary">View details</button><a class="c-link" href="#usage">Read usage guidance</a></div>
    <p class="demo-result" id="light-result" role="status" aria-live="polite">Interactive preview only. Nothing is sent or saved.</p>
   </div>
   <div class="component-grid" id="light-details">
    <section class="demo-panel field-panel" aria-labelledby="light-fields-title">
     <h3 id="light-fields-title">Fields &amp; selection</h3>
-    <div class="field"><label for="light-name">Name</label><input id="light-name" type="text" value="Sample item" aria-describedby="light-name-help" autocomplete="off"><p class="helper" id="light-name-help">A persistent label with supporting text.</p></div>
-    <div class="field"><label for="light-slug">Identifier · error example</label><input id="light-slug" type="text" value="sample?" aria-invalid="true" aria-describedby="light-slug-help light-slug-error" data-slug="light" autocomplete="off" spellcheck="false"><p class="helper" id="light-slug-help">Use letters, numbers, and hyphens.</p><p class="error" id="light-slug-error"><span class="error-symbol" aria-hidden="true">[!]</span> Error: remove the question mark.</p></div>
+    <div class="field"><label for="light-name">Name</label><input id="light-name" class="c-input" type="text" value="Sample item" aria-describedby="light-name-help" autocomplete="off"><p class="helper" id="light-name-help">A persistent label with supporting text.</p></div>
+    <div class="field"><label for="light-slug">Identifier · error example</label><input id="light-slug" class="c-input" type="text" value="sample?" aria-invalid="true" aria-describedby="light-slug-help light-slug-error" data-slug="light" autocomplete="off" spellcheck="false"><p class="helper" id="light-slug-help">Use letters, numbers, and hyphens.</p><p class="error" id="light-slug-error"><span class="error-symbol" aria-hidden="true">[!]</span> Error: remove the question mark.</p></div>
+    <div class="field"><label for="light-order">Order</label><span class="c-select"><select id="light-order" aria-describedby="light-order-help"><option>Newest first</option><option>Oldest first</option><option>Name</option></select></span><p class="helper" id="light-order-help">A native select with a drawn chevron.</p></div>
+    <div class="field"><label for="light-unavailable">Unavailable · disabled</label><input id="light-unavailable" class="c-input" type="text" value="Set by the parent scope" disabled></div>
+    <div class="chip-field"><p class="chip-label" id="light-chips-label">Example filters</p><div class="chip-row" role="group" aria-labelledby="light-chips-label"><button type="button" class="c-chip" aria-pressed="true" id="light-chip-first">First option</button><button type="button" class="c-chip" aria-pressed="false">Second option</button><button type="button" class="c-chip" aria-pressed="false" disabled>Unavailable</button></div></div>
     <label class="check-label" for="light-include"><input id="light-include" type="checkbox" checked><span>Example selection</span></label>
    </section>
    <article class="sample-card" aria-labelledby="light-sample-title">
     <p class="eyebrow">Content hierarchy</p>
     <h3 id="light-sample-title">Sample title</h3>
     <p>Supporting text uses the body role and a readable measure.</p>
-    <div class="sample-status"><span aria-hidden="true">◷</span><span>Status label</span></div>
+    <span class="c-status"><span aria-hidden="true">◷</span><span>Status label</span></span>
     <div class="sample-detail"><p class="mono">Secondary information</p><p class="muted">Muted text, a divider and a status label demonstrate hierarchy without defining a product or workflow.</p></div>
    </article>
   </div>
@@ -124,9 +129,9 @@
    <div role="tabpanel" id="light-selection-panel" aria-labelledby="light-selection-tab" tabindex="0"><p>The selected tab has a persistent indicator. Use arrow keys to move between tabs.</p></div>
    <div role="tabpanel" id="light-actions-panel" aria-labelledby="light-actions-tab" tabindex="0" hidden>
     <p>An action menu demonstrates anchoring, dismissal and confirmation behavior.</p>
-    <div class="menu-example"><button type="button" class="button-secondary dense" id="light-menu-trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="light-action-menu">Actions <span aria-hidden="true">⌄</span></button><div id="light-action-menu" class="action-menu motion-surface" role="menu" aria-labelledby="light-menu-trigger" hidden>
-     <button type="button" class="button-secondary" role="menuitem" tabindex="-1" data-confirm="duplicate">Duplicate</button>
-     <button type="button" class="button-secondary" role="menuitem" tabindex="-1" data-confirm="copy">Copy contents</button>
+    <div class="menu-example"><button type="button" class="c-button c-button--secondary c-button--dense" id="light-menu-trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="light-action-menu">Actions <span aria-hidden="true">⌄</span></button><div id="light-action-menu" class="action-menu motion-surface" role="menu" aria-labelledby="light-menu-trigger" hidden>
+     <button type="button" role="menuitem" tabindex="-1" data-confirm="duplicate">Duplicate</button>
+     <button type="button" role="menuitem" tabindex="-1" data-confirm="copy">Copy contents</button>
      <button type="button" class="button-danger" role="menuitem" tabindex="-1" data-confirm="delete">Delete item</button>
     </div></div>
    </div>
@@ -139,7 +144,7 @@
    </div>
    <dialog class="motion-surface" aria-labelledby="light-dialog-title" aria-describedby="light-dialog-description">
     <h3 id="light-dialog-title" tabindex="-1"></h3><p id="light-dialog-description"></p>
-    <div class="dialog-actions"><button type="button" class="button-secondary" data-cancel autofocus>Cancel</button><button type="button" class="button-primary" data-accept>Confirm</button></div>
+    <div class="dialog-actions"><button type="button" class="c-button c-button--secondary" data-cancel autofocus>Cancel</button><button type="button" class="c-button c-button--primary" data-accept>Confirm</button></div>
    </dialog>
   </section>
  </div>
@@ -150,14 +155,14 @@
     <p class="motion-intro">Open, close and interrupt these examples. Content remains intact during exit. The preference above follows the system unless you choose otherwise.</p>
     <div class="motion-grid">
      <section class="demo-panel"><h3>Disclosure</h3><p class="helper">Expand in place without hiding the keyboard focus.</p>
-      <button class="button-secondary" id="disclosure-trigger" aria-expanded="false" aria-controls="disclosure-body">Show details <span aria-hidden="true">⌄</span></button>
+      <button type="button" class="c-button c-button--secondary" id="disclosure-trigger" aria-expanded="false" aria-controls="disclosure-body">Show details <span aria-hidden="true">⌄</span></button>
       <div id="disclosure-body" class="disclosure-body" hidden><div><div class="disclosure-content"><p>Supplemental content stays in the document flow. Closing preserves this content until the animation finishes.</p><a href="#usage">Read implementation guidance</a></div></div></div>
      </section>
      <section class="demo-panel"><h3>Tooltip</h3><p class="helper">Focus appears immediately. Pointer hover waits briefly; Escape dismisses.</p>
-      <div class="tooltip-example"><button id="tip-trigger" class="button-secondary" aria-describedby="sample-tooltip">Control help</button><div id="sample-tooltip" class="tooltip motion-surface" role="tooltip" hidden>Supplemental explanation. Essential instructions also remain visible beside the control.</div></div>
+      <div class="tooltip-example"><button type="button" id="tip-trigger" class="c-button c-button--secondary" aria-describedby="sample-tooltip">Control help</button><div id="sample-tooltip" class="tooltip motion-surface" role="tooltip" hidden>Supplemental explanation. Essential instructions also remain visible beside the control.</div></div>
      </section>
      <section class="demo-panel"><h3>Completion</h3><p class="helper">A brief confirmation accompanies useful status text. It never repeats to demand attention.</p>
-      <button id="completion-trigger" class="button-secondary">Show completion</button><p id="completion-result" role="status" class="completion-result">Activate to inspect completion feedback.</p>
+      <button type="button" id="completion-trigger" class="c-button c-button--secondary">Show completion</button><p id="completion-result" role="status" class="completion-result">Activate to inspect completion feedback.</p>
      </section>
     </div>
     <p class="reference-note">The action menus above demonstrate anchored entrance, exit and modal focus. Open and close quickly to test interruption. <a href="../guide/motion.md">Read the motion specification</a>.</p>
@@ -169,18 +174,19 @@
     <div><h3>Visible &amp; named</h3><p>Pair status with words and a simple symbol. Keep links underlined. Disabled controls use the native disabled attribute and a clear label; never rely on reduced opacity alone.</p></div>
     <div><h3>Room to operate</h3><p>Standalone controls use a 44 × 44 px house target, beyond WCAG 2.2 AA’s 24 × 24 px minimum and its exceptions. Inline text links remain within the reading flow.</p></div>
    </div>
-   <pre class="code-sample" aria-label="Semantic token usage example">&lt;section data-theme="light"&gt;
-  &lt;button class="button-primary" type="button"&gt;Apply changes&lt;/button&gt;
+   <pre class="code-sample" aria-label="Semantic token usage example">&lt;link rel="stylesheet" href="kits/cosmik/tokens/cosmik.css"&gt;
+&lt;link rel="stylesheet" href="kits/cosmik/components/controls.css"&gt;
+
+&lt;section data-theme="light"&gt;
+  &lt;button class="c-button c-button--primary" type="button"&gt;Apply changes&lt;/button&gt;
+  &lt;span class="c-select"&gt;&lt;select aria-label="Order"&gt;…&lt;/select&gt;&lt;/span&gt;
 &lt;/section&gt;
 
-.button-primary {
-  background: var(--c-action-primary);
-  color: var(--c-action-primary-fg);
-}
-/* Load baseline CSS first, then optional family CSS and your styles.
-   Set data-family="hplx" or "tectra" on the family scope. */</pre>
+/* Load the baseline, then any family CSS from its brand-&lt;product&gt;
+   repository, then controls.css and your own styles. Set
+   data-family="&lt;id&gt;" on the family scope. */</pre>
    <p class="reference-note">Focus and timing use the kit tokens. Reduced motion removes spatial transitions and the loading pulse. In a real product, announce the start and completion of a pending action and restore its previous focus.</p>
-   <p class="reference-note">Typography and colors come from the selected kit. Inter stays on controls and reading text; HPLX uses Spectral headings; Tectra inherits Inter. See the <a href="validation.md">validation scope and remaining checks</a>.</p>
+   <p class="reference-note">Buttons, links, selects, text fields, chips and the status label use the shared <a href="../kits/cosmik/components/controls.css">controls layer</a>; tabs, menus, dialogs and layout are specimen-only. Product families load their own token CSS from their <code>brand-&lt;product&gt;</code> repository and keep these controls. See the <a href="validation.md">validation scope and remaining checks</a>.</p>
   </section>
  </main>
  <footer class="footer wrap">Behavior reference only. Application layout, technology and workflows belong to the consuming product.</footer>

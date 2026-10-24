@@ -1,0 +1,69 @@
+{
+  "id": "example",
+  "name": "Example",
+  "extends": "Cosmik baseline 0.7.0",
+  "version": "0.0.0",
+  "status": "Test fixture; not a product identity",
+  "description": "A fictional family used only by the brand kit's tests to exercise the family contract: its own primitives, overridden baseline roles, extension roles, a heading override and elevation.",
+  "proposals": [],
+  "fonts": [],
+  "primitives": {
+    "example-dark-action": "#8AB4F8",
+    "example-dark-action-hover": "#AECBFA",
+    "example-dark-action-active": "#669DF6",
+    "example-dark-shadow": "#00000066",
+    "example-light-action": "#1A5FB4",
+    "example-light-action-hover": "#174F96",
+    "example-light-action-active": "#123F78",
+    "example-light-shadow": "#0000002E"
+  },
+  "semantic": {
+    "dark": {
+      "focus": "example-dark-action",
+      "link-hover": "example-dark-action-hover",
+      "action-primary": "example-dark-action",
+      "action-primary-hover": "example-dark-action-hover",
+      "action-primary-active": "example-dark-action-active"
+    },
+    "light": {
+      "focus": "example-light-action",
+      "link-hover": "example-light-action",
+      "action-primary": "example-light-action",
+      "action-primary-hover": "example-light-action-hover",
+      "action-primary-active": "example-light-action-active"
+    }
+  },
+  "extensions": {
+    "dark": {
+      "accent": "example-dark-action",
+      "shadow": "example-dark-shadow"
+    },
+    "light": {
+      "accent": "example-light-action",
+      "shadow": "example-light-shadow"
+    }
+  },
+  "type": {
+    "section": {
+      "fontWeight": 500
+    }
+  },
+  "elevation": {
+    "1": {
+      "surface": "raised",
+      "offsetX": "0px",
+      "offsetY": "1px",
+      "blur": "2px",
+      "spread": "0px",
+      "color": "shadow"
+    },
+    "2": {
+      "surface": "raised",
+      "offsetX": "0px",
+      "offsetY": "4px",
+      "blur": "12px",
+      "spread": "0px",
+      "color": "shadow"
+    }
+  }
+}

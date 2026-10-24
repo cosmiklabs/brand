@@ -1,0 +1,275 @@
+/* Cosmik controls layer.
+   Framework-neutral classes for buttons, links, selects, text fields, chips and
+   neutral status labels. Every value comes from a semantic token, so the same
+   classes follow the baseline, any family scope, both themes and the motion
+   policy. Load after cosmik.css and any family CSS. Rules: guide/interface.md.
+   Hand-maintained; not generated. */
+
+/* ---- Shared focus ring ---------------------------------------------------
+   Applied to every control below; add .c-focus-ring to other custom controls. */
+:is(.c-button, .c-link, .c-select > select, .c-input, .c-chip, .c-focus-ring):focus-visible {
+  outline: var(--c-layout-focus-width) solid var(--c-focus);
+  outline-offset: var(--c-layout-focus-offset);
+}
+
+/* ---- Buttons ------------------------------------------------------------- */
+.c-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--c-space-2);
+  min-height: var(--c-layout-control-min);
+  min-width: var(--c-layout-control-min);
+  margin: 0;
+  padding: var(--c-space-2) var(--c-space-4);
+  border: 1px solid transparent;
+  border-radius: var(--c-radius-md);
+  font-family: var(--c-type-control-font-family), sans-serif;
+  font-size: var(--c-type-control-font-size);
+  font-weight: var(--c-type-control-font-weight);
+  line-height: var(--c-type-control-line-height);
+  letter-spacing: var(--c-type-control-letter-spacing);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition-property: background-color, border-color, color;
+  transition-duration: var(--c-motion-duration);
+  transition-timing-function: var(--c-motion-easing);
+}
+.c-button--primary {
+  background: var(--c-action-primary);
+  border-color: var(--c-action-primary);
+  color: var(--c-action-primary-fg);
+}
+.c-button--primary:hover {
+  background: var(--c-action-primary-hover);
+  border-color: var(--c-action-primary-hover);
+}
+.c-button--primary:active {
+  background: var(--c-action-primary-active);
+  border-color: var(--c-action-primary-active);
+}
+.c-button--secondary {
+  background: var(--c-action-secondary);
+  border-color: var(--c-border);
+  color: var(--c-action-secondary-fg);
+}
+.c-button--secondary:hover { background: var(--c-action-secondary-hover); }
+.c-button--secondary:active { background: var(--c-action-secondary-active); }
+/* Dense application controls for mouse and trackpad; touch keeps the standard target. */
+.c-button--dense {
+  min-height: var(--c-layout-control-dense);
+  min-width: var(--c-layout-control-dense);
+  padding: var(--c-space-base) calc(var(--c-space-2) * 1.5);
+  font-family: var(--c-type-ui-font-family), sans-serif;
+  font-size: var(--c-type-ui-font-size);
+  font-weight: var(--c-type-ui-font-weight);
+  line-height: var(--c-type-ui-line-height);
+  letter-spacing: var(--c-type-ui-letter-spacing);
+}
+/* Disabled wins over hover and pressed. aria-disabled keeps a control focusable
+   so its prerequisite can be explained; the consumer must still block activation. */
+.c-button:is(:disabled, [aria-disabled="true"]),
+.c-button:is(:disabled, [aria-disabled="true"]):is(:hover, :active) {
+  background: var(--c-disabled-bg);
+  border-color: var(--c-disabled-border);
+  color: var(--c-disabled-fg);
+  cursor: not-allowed;
+}
+/* Pending: keep the label and width; expose aria-busy and name the operation. */
+.c-button[aria-busy="true"] { cursor: progress; }
+
+/* ---- Inline and text links ----------------------------------------------- */
+.c-link {
+  color: var(--c-link);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  border-radius: var(--c-radius-sm);
+  transition-property: color, text-decoration-color;
+  transition-duration: var(--c-motion-duration);
+  transition-timing-function: var(--c-motion-easing);
+}
+.c-link:hover {
+  color: var(--c-link-hover);
+  text-decoration-thickness: 2px;
+}
+.c-link:active { color: var(--c-link-active); }
+
+/* ---- Text fields --------------------------------------------------------- */
+/* Fields fill their container; constrain the container, not the control.
+   Entered text uses the body role, which also avoids mobile zoom on focus. */
+.c-input,
+.c-select > select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--c-layout-control-min);
+  margin: 0;
+  padding: var(--c-space-2) var(--c-space-4);
+  border: 1px solid var(--c-border);
+  border-radius: var(--c-radius-md);
+  background: var(--c-input-bg);
+  color: var(--c-input-fg);
+  font-family: var(--c-type-body-font-family), sans-serif;
+  font-size: var(--c-type-body-font-size);
+  font-weight: var(--c-type-body-font-weight);
+  line-height: var(--c-type-body-line-height);
+  letter-spacing: var(--c-type-body-letter-spacing);
+  transition-property: border-color, box-shadow;
+  transition-duration: var(--c-motion-duration);
+  transition-timing-function: var(--c-motion-easing);
+}
+.c-input::placeholder {
+  color: var(--c-input-placeholder);
+  opacity: 1;
+}
+.c-input:hover,
+.c-select > select:hover { border-color: var(--c-text); }
+/* Invalid: a heavier boundary drawn inside, so the field does not shift.
+   Pair it with an associated error message in words. */
+.c-input[aria-invalid="true"],
+.c-select > select[aria-invalid="true"] {
+  border-color: var(--c-status-error-border, var(--c-border));
+  box-shadow: inset 0 0 0 1px var(--c-status-error-border, var(--c-border));
+}
+.c-input:disabled,
+.c-select > select:disabled,
+.c-input:disabled:hover,
+.c-select > select:disabled:hover {
+  background: var(--c-disabled-bg);
+  border-color: var(--c-disabled-border);
+  color: var(--c-disabled-fg);
+  cursor: not-allowed;
+}
+
+/* ---- Select -------------------------------------------------------------- */
+/* <span class="c-select"><select>…</select></span>: the native control keeps its
+   semantics and keyboard behavior; the wrapper draws a stroked chevron with
+   borders in the control's text colour, inset by a token space. */
+.c-select {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  font-size: var(--c-type-body-font-size);
+}
+.c-select > select {
+  appearance: none;
+  padding-inline-end: calc(var(--c-space-4) * 2 + var(--c-space-2));
+  cursor: pointer;
+}
+.c-select::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  inset-inline-end: var(--c-space-4);
+  width: 0.4375em;
+  height: 0.4375em;
+  border-right: 1.5px solid var(--c-input-fg);
+  border-bottom: 1.5px solid var(--c-input-fg);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+.c-select:has(> select:disabled)::after { border-color: var(--c-disabled-fg); }
+
+/* ---- Chips --------------------------------------------------------------- */
+/* A compact toggle or filter: <button class="c-chip" aria-pressed="false">.
+   Selection shows a stroked check as well as the selected colours. */
+.c-chip {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--c-space-2);
+  min-height: var(--c-layout-control-dense);
+  margin: 0;
+  padding: var(--c-space-base) calc(var(--c-space-2) * 1.5);
+  border: 1px solid var(--c-border);
+  border-radius: var(--c-radius-md);
+  background: var(--c-action-secondary);
+  color: var(--c-action-secondary-fg);
+  font-family: var(--c-type-ui-font-family), sans-serif;
+  font-size: var(--c-type-ui-font-size);
+  font-weight: var(--c-type-ui-font-weight);
+  line-height: var(--c-type-ui-line-height);
+  letter-spacing: var(--c-type-ui-letter-spacing);
+  cursor: pointer;
+  transition-property: background-color, border-color, color;
+  transition-duration: var(--c-motion-duration);
+  transition-timing-function: var(--c-motion-easing);
+}
+.c-chip:hover { background: var(--c-action-secondary-hover); }
+.c-chip:active { background: var(--c-action-secondary-active); }
+/* Hover never erases the current selection. */
+.c-chip:is([aria-pressed="true"], [aria-selected="true"], [aria-checked="true"]),
+.c-chip:is([aria-pressed="true"], [aria-selected="true"], [aria-checked="true"]):is(:hover, :active) {
+  background: var(--c-selected);
+  border-color: var(--c-selected);
+  color: var(--c-on-selected);
+}
+.c-chip:is([aria-pressed="true"], [aria-selected="true"], [aria-checked="true"])::before {
+  content: "";
+  flex: none;
+  width: 0.3em;
+  height: 0.6em;
+  margin-inline: 0.15em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-15%) rotate(45deg);
+}
+.c-chip:is(:disabled, [aria-disabled="true"]),
+.c-chip:is(:disabled, [aria-disabled="true"]):is(:hover, :active) {
+  background: var(--c-disabled-bg);
+  border-color: var(--c-disabled-border);
+  color: var(--c-disabled-fg);
+  cursor: not-allowed;
+}
+
+/* ---- Neutral status label ------------------------------------------------ */
+/* Not interactive. The words carry the meaning; add a symbol for important status. */
+.c-status {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--c-space-2);
+  width: fit-content;
+  padding: var(--c-space-base) var(--c-space-2);
+  border: 1px solid var(--c-status-border);
+  border-radius: var(--c-radius-md);
+  background: var(--c-status-bg);
+  color: var(--c-status-fg);
+  font-family: var(--c-type-ui-font-family), sans-serif;
+  font-size: var(--c-type-ui-font-size);
+  font-weight: var(--c-type-ui-font-weight);
+  line-height: var(--c-type-ui-line-height);
+  letter-spacing: var(--c-type-ui-letter-spacing);
+}
+
+/* Touch keeps the standard target even for dense controls. */
+@media (pointer: coarse) {
+  .c-button--dense,
+  .c-chip {
+    min-height: var(--c-layout-control-min);
+    min-width: var(--c-layout-control-min);
+  }
+}
+
+/* Forced colours: system colours replace the palette. Boundaries, the chevron,
+   the selection check and the focus ring stay visible because they are borders
+   and outlines, never background colour alone. */
+@media (forced-colors: active) {
+  .c-button,
+  .c-chip,
+  .c-status { border-color: ButtonText; }
+  .c-input,
+  .c-select > select { border-color: FieldText; }
+  .c-input[aria-invalid="true"],
+  .c-select > select[aria-invalid="true"] { border-width: 2px; }
+  .c-select::after { border-color: FieldText; }
+  .c-button:is(:disabled, [aria-disabled="true"]),
+  .c-chip:is(:disabled, [aria-disabled="true"]),
+  .c-input:disabled,
+  .c-select > select:disabled { border-color: GrayText; color: GrayText; }
+  .c-select:has(> select:disabled)::after { border-color: GrayText; }
+  :is(.c-button, .c-link, .c-select > select, .c-input, .c-chip, .c-focus-ring):focus-visible { outline-color: Highlight; }
+}

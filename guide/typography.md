@@ -4,13 +4,14 @@
 | --- | --- |
 | Inter | Reading and utility interfaces; default headings |
 | IBM Plex Mono | Code, dimensions and brief technical metadata |
-| Spectral | Approved HPLX heading roles only |
 | COSMIK wordmark | Separate artwork; no typeface may stand in for it |
 
 Type sizes, weights, line heights and tracking live in the
 [token sources](../kits/README.md). Apply the complete role rather than mixing a
 heading's size with a control's spacing. A family may change heading family and
-weight; shared reading and utility type remain Inter.
+weight; shared reading and utility type remain Inter. A family's own heading
+typeface is bundled and licensed in its repository (HPLX's Spectral headings live
+in `cosmiklabs/brand-hplx`); this kit bundles only Inter and IBM Plex Mono.
 
 ## Hierarchy by context
 

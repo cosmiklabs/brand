@@ -4,9 +4,10 @@ Build a quiet frame around useful work. A polished interface makes the next acti
 clear, keeps the user's place and responds consistently. Decoration and animation
 cannot compensate for unclear hierarchy or a broken interaction.
 
-The [component reference](../specimens/components.html) demonstrates the baseline,
-HPLX and Tectra in both themes. These are reusable visual and behavioral
-principles, not a website layout, product workflow or production UI framework.
+The [component reference](../specimens/components.html) demonstrates the baseline
+in both themes; product families apply the same rules from their own repositories.
+These are reusable visual and behavioral principles, not a website layout,
+product workflow or production UI framework.
 The browser reference is one implementation; native and other interfaces should
 adapt the same observable behavior using their platform conventions. Use
 [semantic tokens](../kits/README.md) for values and [motion guidance](motion.md)
@@ -55,6 +56,42 @@ Keep visible labels stable when selection changes would otherwise resize a
 navigation toolbar. The current value can appear in the opened menu; the trigger
 can retain a short functional label such as “View”. Use a checkmark or equivalent
 selection indicator in addition to colour.
+
+## Shared controls
+
+`kits/cosmik/components/controls.css` implements the states above for the common
+controls, using semantic tokens only; the [consumer guide](../kits/README.md#shared-controls)
+lists its classes and markup. This section is the rule; the CSS and the reference
+demonstrate it. A platform without CSS should reproduce the same observable behavior.
+
+- **Buttons** come in two emphases. Primary is the main next action in a local
+  task; secondary is everything else. Use the standard `control-min` target, and
+  `control-dense` only for dense mouse or trackpad controls, never on touch.
+  Hover and pressed change only colour, so nothing nearby moves.
+- **Disabled** controls use the disabled roles in every interaction state. Prefer
+  the native `disabled` attribute; use `aria-disabled="true"` when the control must
+  stay focusable to explain its prerequisite, and block activation yourself.
+- **Pending** buttons keep their label and width, set `aria-busy="true"` and name
+  the operation; announce the start and the outcome.
+- **Links** in text stay underlined and take the link roles; hover thickens the
+  underline as well as changing colour.
+- **Text fields** use the input roles and the body type role, keep a visible
+  label above them and show an invalid state as a heavier boundary drawn inside
+  the field plus an associated message in words.
+- **Selects** keep the native `<select>` for its semantics and keyboard support.
+  Remove only its platform arrow and draw a stroked chevron in the field's text
+  colour, inset by a token space, that never intercepts a click.
+- **Chips** are compact toggles or filters with `aria-pressed` (or the selected
+  semantics of their container). Selection shows a drawn check as well as the
+  selected roles, and hover never erases it.
+- **Status labels** are neutral and non-interactive. The words carry the meaning;
+  add a symbol for important status. A family's status hues supplement the words.
+- **Focus** uses one ring everywhere: the `focus` role at `focus-width`, offset by
+  `focus-offset`. Custom focusable controls use the same ring.
+- **Transitions** use the effective motion duration and easing, so a reduced
+  motion preference removes them.
+- **Forced colours** keep every boundary, the chevron, the selection check and
+  the focus ring, because they are borders and outlines rather than fills.
 
 ## Forms and settings
 

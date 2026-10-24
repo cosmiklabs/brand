@@ -1,10 +1,68 @@
 # Reference validation
 
-This is the current evidence record for the shared component reference and Tectra
-review board. Kit checks establish their tested properties; they do not certify a
-consuming product or replace its interaction journeys.
+This is the current evidence record for the shared component reference and the
+controls layer. Kit checks establish their tested properties; they do not certify
+a consuming product or replace its interaction journeys. Product families keep
+their own validation records in their repositories.
+
+## 0.8.0 review — 24 October 2026
+
+Prepared on branch `foundation-only` from `main` (6bf3c86), on macOS with
+Node.js 24.22.0 and headless Google Chrome 155.0.8059.86. Commands:
+
+```sh
+npm run build
+npm run check
+BRAND_BROWSER="/path/to/chromium" BRAND_SCREENSHOTS=.local/review npm run check:browser
+```
+
+### Automated checks
+
+- Baseline generation is byte-identical to 0.7.0; no token, mark or font bytes
+  changed. Manifest verification passes for 75 hashed files and 20 entry points.
+- All 114 baseline contrast pairs pass (weakest text 4.64:1, weakest boundary
+  3.629:1). The test-only family fixture passes its 120 pairs through `family.mjs check`.
+- All 72 regression tests pass, including the family contract (each forbidden
+  override, `extends` mismatch, drift, missing output and contrast failure),
+  vendored-path resolution, and vendoring (tamper, extra and missing files, a
+  forged lock against its release, and refusal off a release tag or on a dirty tree).
+- The component reference passes in dark and light themes at 1280, 768, 390 and
+  320 CSS px with 100% and 200% root text. A fictional family scope, served from
+  memory, is checked for nested theme precedence, elevation and controls picking
+  up family roles.
+- The controls layer is checked in both themes by forcing hover, active and
+  focus-visible states and comparing computed values with the semantic roles:
+  primary and secondary buttons, disabled buttons under hover, links, text fields
+  (hover, invalid, disabled), the select chevron (stroke, colour, 16 px inset,
+  `pointer-events: none`, clicks reaching the native select), chips (selection
+  check, keyboard toggling, hover keeping selection), the status label, target
+  sizes on fine and coarse pointers, transition tokens and forced-colour borders,
+  chevron, check and focus ring.
+- Existing keyboard, menu, dialog, motion, tooltip, disclosure, completion, font
+  loading and direct `file:` opening checks pass unchanged.
+
+### Rendered inspection
+
+Inspected desktop captures of both themes, the dark and light field panels with
+focus on a text field, the select chevron, chips and status label, menus and
+confirmations, the 320 px / 200% text layout and the forced-colour panel. The
+controls read as the previous specimen styles did; the chevron, chip check and
+focus ring remain visible in forced colours. No visual issue was found.
+
+### Still manual or product-specific
+
+- Actual 200%/400% browser zoom. Root text resizing and a 320 CSS-pixel viewport
+  test different things; they are not substitutes for browser zoom.
+- Other browser engines, operating systems, actual touch devices, screen readers
+  and native system high-contrast settings. CI was not executed in this local review.
+- Real application portals, navigation, network work, loading failures and focus
+  fallbacks. The specimen intentionally changes no product data.
+- Each product family's own screens, in its repository.
 
 ## 0.7.0 review — 23 October 2026
+
+This review covered the HPLX and Tectra kits while they still lived here; their
+family-specific evidence now belongs to `cosmiklabs/brand-hplx` and `cosmiklabs/brand-tectra`.
 
 Reviewed the changes on `codex/brand-system-overhaul`, based on release `v0.6.0`,
 then repeated the build, repository and browser checks with 0.7.0 release metadata.
@@ -83,10 +141,9 @@ confirmation and the forced-colour Tectra board; no new visual issue was found.
 
 The 7 October baseline/HPLX component run was recorded in Chrome and Edge on
 Windows. The 17 October Tectra source review added browser coverage but could not
-execute it in that environment. The current run above supersedes that browser
-blocker and the old two-kit coverage statement. See the
-[historical Tectra review](../kits/tectra/validation.md) for its original source and
-contrast findings. Approval status belongs in the manifest and family guides.
+execute it in that environment; the 0.7.0 run superseded that blocker. The
+historical Tectra review moved with the Tectra kit to `cosmiklabs/brand-tectra`.
+Approval status belongs in the manifest and family guides.
 
 The quality acceptance process is in [guide/quality.md](../guide/quality.md), and
 behavior requirements are in [interface](../guide/interface.md) and

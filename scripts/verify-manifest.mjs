@@ -96,7 +96,7 @@ export function verifyManifest(directory, { updateGenerated = false } = {}) {
   inventory('fonts');
   const kits = path.join(directory, 'kits');
   if (fs.existsSync(kits)) for (const kit of fs.readdirSync(kits, { withFileTypes: true })) {
-    if (kit.isDirectory()) for (const part of ['assets', 'icons', 'tokens']) inventory(`kits/${kit.name}/${part}`);
+    if (kit.isDirectory()) for (const part of ['assets', 'components', 'icons', 'tokens']) inventory(`kits/${kit.name}/${part}`);
   }
   // Do not partially bless generated output when another input is damaged.
   if (updateGenerated && !problems.length) {

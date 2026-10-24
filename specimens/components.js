@@ -19,18 +19,9 @@ document.querySelectorAll('[data-slug]').forEach(input=>{
   });
 });
 
-const kitPicker = document.getElementById('kit-picker');
-kitPicker.addEventListener('change', () => {
-  const kits = {cosmik: ['Cosmik', 'Approved baseline'], hplx: ['HPLX', 'Approved family'], tectra: ['Tectra', 'Approved family']};
-  const id = Object.hasOwn(kits, kitPicker.value) ? kitPicker.value : 'cosmik';
-  const [name, status] = kits[id];
-  document.querySelectorAll('.theme-section').forEach(section => {
-    if (id !== 'cosmik') section.dataset.family = id;
-    else delete section.dataset.family;
-    section.querySelector('.theme-heading .eyebrow').textContent = `${name} / ${status}`;
-  });
-  document.getElementById('kit-status').textContent = `Showing ${name}: ${status.toLowerCase()}.`;
-
+// Toggle chips keep their selected state in aria-pressed; the controls layer draws it.
+document.querySelectorAll('.c-chip[aria-pressed]').forEach(chip => {
+  chip.addEventListener('click', () => chip.setAttribute('aria-pressed', String(chip.getAttribute('aria-pressed') !== 'true')));
 });
 
 document.querySelectorAll('[role="tablist"]').forEach(list => {
@@ -150,7 +141,7 @@ document.querySelectorAll('.interaction-panel').forEach(panel => {
       dialog.querySelector('h3').textContent = title;
       dialog.querySelector('p').textContent = `${description} This is a preview; no files will change.`;
       accept.textContent = label;
-      accept.className = action === 'delete' ? 'button-danger' : 'button-primary';
+      accept.className = action === 'delete' ? 'c-button button-danger' : 'c-button c-button--primary';
       closeMenu();
       dialogPresence.open();
       // On short screens, focusing a button below the fold would skip the

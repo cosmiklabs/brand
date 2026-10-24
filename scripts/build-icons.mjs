@@ -1,5 +1,5 @@
 /** App-icon builder (run through `node scripts/build.mjs`).
- * Packs each identity's plate-variant renders into ICO and ICNS, and area-downsamples
+ * Packs the Cosmik emblem's plate-variant renders into ICO and ICNS, and area-downsamples
  * its 1024 px render to the 512 px and 180 px
  * (apple-touch) PNGs. Node.js only; no third-party packages. The embedded renders are used byte for
  * byte; no optical small-size redesign is implied (see asset-manifest.json known_gaps). */
@@ -9,9 +9,8 @@ import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const kits = [
+  // `small` may name optically redrawn renders for listed sizes; the Cosmik emblem has none yet.
   {name:'cosmik', kit:'cosmik', prefix:'kits/cosmik/assets/vector/png/cosmik-emblem-primary'},
-  // HPLX's icon sizes up to 48 px use its optical redraw; larger ones the faithful renders.
-  {name:'hplx-ember', kit:'hplx', prefix:'kits/hplx/assets/png/hplx-ember-primary', small:{prefix:'kits/hplx/assets/png/hplx-ember-small', sizes:[16, 24, 32, 48]}},
 ];
 
 // ---- Minimal PNG codec: 8-bit RGBA or RGB, non-interlaced ----

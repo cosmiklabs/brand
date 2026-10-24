@@ -10,11 +10,14 @@ The terms for reusing artwork are in [LICENSE.md](../LICENSE.md).
 | Concern | Authoritative home |
 | --- | --- |
 | Baseline token values | `kits/cosmik/tokens/source.json` |
-| Family token overrides | `kits/<family>/tokens/family.json` |
+| Family token overrides | `tokens/family.json` in the family's `brand-<product>` repository |
+| Family contract | `familySource` in `scripts/generate-tokens.mjs`, described in [families](families.md) |
+| Shared controls | `kits/cosmik/components/controls.css`; rules in [interface](interface.md#shared-controls) |
+| Vendorable release files | `vendor` in `asset-manifest.json` |
 | Mark geometry | The accepted source identified by each kit's README and the manifest |
 | Roles, canonical paths, asset status and hashes | `asset-manifest.json` |
-| Use and interaction rules | `guide/` and the family-specific README |
-| Executable examples | `specimens/` and the family review board |
+| Use and interaction rules | `guide/`, and each family's guide in its repository |
+| Executable examples | `specimens/`, and each family's own references |
 | Observed verification | Validation records, with dates and test conditions |
 | Release history | `CHANGELOG.md` and immutable `vX.Y.Z` tags |
 
@@ -50,11 +53,13 @@ authorized. Prepare a release in this order:
    contracts or removed entry points require a major version; additive contracts
    use a minor version; compatible corrections use a patch version. State any
    visual migration a consumer needs to review.
-2. Update the release version in `package.json`, `asset-manifest.json` and the
-   baseline source. Family sources have their own revision numbers; update those
-   when their contract changes, and keep their `extends` metadata accurate to the
-   baseline they resolve against. Update release labels in documentation without
-   calling an uncreated tag published.
+2. Update the release version in `package.json` and `asset-manifest.json`. Change
+   the baseline source's own `version` only when a baseline token value changes:
+   every family's `extends` names it, so a release without token changes leaves
+   families' `extends` valid. Family revisions live in their own repositories.
+   Update release labels in documentation without calling an uncreated tag
+   published. Keep the manifest's `vendor` list complete; the tests check that
+   vendored scripts carry their imports, fonts their notices and the full guide.
 3. Run `npm run build`, then `npm run check` and `npm run check:browser`. Inspect
    generated diffs, hashes and rendered proofs. A build may refresh generated and
    editable assets; it must never bless a changed approved original automatically.
@@ -69,7 +74,8 @@ authorized. Prepare a release in this order:
 
 Pin the new tag and review the changelog before replacing vendored files. Verify
 manifest hashes, include required fonts and notices, and update all related
-outputs together. Keep application-specific components and CSS outside the vendored
+outputs together. A family repository re-runs `vendor.mjs sync` from the new tag,
+then `family.mjs build` and `check`, and reviews the regenerated outputs. Keep application-specific components and CSS outside the vendored
 kit; do not fix a kit defect by silently editing the copied source of truth.
 
 Re-run affected product flows in both themes, at narrow widths and with reduced

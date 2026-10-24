@@ -1,6 +1,7 @@
-/** Vector paths to antialiased pixels, and a minimal PNG codec, for the Cosmik lockup's tracer and builder.
- * Coverage is exact horizontal pixel area at sixteen vertical subpixel positions, as the Ember builder
- * computes it; each shape fills even-odd, so a letter's counter stays open. Node.js only. */
+/** Vector paths to antialiased pixels, and a minimal PNG codec, for the Cosmik lockup's tracer and builder
+ * and for family mark builders that vendor this script from a brand release.
+ * Coverage is exact horizontal pixel area at sixteen vertical subpixel positions; each shape fills
+ * even-odd, so a letter's counter stays open. Node.js only. */
 import zlib from 'node:zlib';
 
 /** SVG path data (M, L, C, Z; commas or spaces) as contours of [op, ...numbers] commands. */

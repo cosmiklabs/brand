@@ -1,7 +1,68 @@
 # Changes
 
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
-their own version in `family.json`.
+their own version in `family.json`; from 0.8.0 they live in their own repositories.
+
+## 0.8.0 · 24 October 2026
+
+This repository now holds only the shared Cosmik foundation. Product families move
+to their own repositories, which build on a pinned release of this kit and can
+prove it. Breaking for consumers of the removed paths (see migration below).
+
+- **Split.** Remove `kits/hplx/` and `kits/tectra/` (tokens, marks, icons, guides,
+  the Tectra review board and validation record), their builders
+  (`build-glimmer-assets`, `build-hplx-assets`, `build-hplx-lockup`,
+  `build-tectra-assets`, the HPLX icon pack in `build-icons`) and tests, and
+  Spectral (`fonts/desktop/Spectral-SemiBold.ttf`, `fonts/web/Spectral-SemiBold.woff2`,
+  `fonts/licenses/Spectral-OFL.txt`). They continue in `cosmiklabs/brand-hplx`
+  and `cosmiklabs/brand-tectra`. The manifest drops `family_identities`,
+  `tectra_identity`, `glimmer_assets`, the family token entry points and Spectral.
+- **Family API.** `scripts/family.mjs build|check <familyRoot>` builds a family's
+  `tokens/family.json` over the baseline of the checkout the script belongs to,
+  including a copy vendored into another repository. `check` fails on a contract
+  violation, an `extends` that does not name this baseline, committed outputs that
+  differ from regeneration, or a failing contrast pair (baseline and extension
+  roles). The contract itself is unchanged. `generate-tokens.mjs` and
+  `validate-tokens.mjs` export their pieces; `generate-tokens.mjs` now generates
+  only the baseline, byte for byte as before. Family output headers name the brand
+  release that generated them and use relative paths only.
+- **Provenance.** `scripts/vendor.mjs sync --from <brand> --into <dir>` copies the
+  reviewable `vendor` set listed in `asset-manifest.json` from a clean checkout at
+  a `vX.Y.Z` tag and writes `brand.lock.json` (repository, tag, commit, SHA-256 per
+  file). `vendor.mjs verify <dir>` fails on any missing, extra or changed file;
+  `--release <brand>` also proves the lock against the tag's own bytes.
+- **Shared controls.** `kits/cosmik/components/controls.css` adds framework-neutral
+  `c-button` (primary, secondary, dense), `c-link`, `c-input`, `c-select` (native
+  select with a drawn, stroked chevron), `c-chip`, `c-status` and `c-focus-ring`,
+  bound only to semantic tokens, with hover, pressed, focus-visible, disabled,
+  pending and forced-colour handling. Rules are in
+  [interface](guide/interface.md#shared-controls); the component reference now uses
+  these classes, and the browser check verifies their computed states.
+- **Tests.** A fictional, test-only family under `tests/fixtures/example/` keeps the
+  family path covered: contract violations, drift, `extends` mismatches, contrast
+  failures, vendored-path resolution and browser family scopes.
+
+No baseline token value, mark, palette or bundled Inter or IBM Plex Mono file
+changes; the baseline token version stays 0.7.0, so families' `extends` remains
+`"Cosmik baseline 0.7.0"`.
+
+### Migration
+
+- **Family repositories** (`brand-hplx`, `brand-tectra`): move `kits/<id>/` content
+  to the repository root (`tokens/family.json`, assets, guide), and HPLX's Spectral
+  files with their notice. Vendor this release with `vendor.mjs sync`, then run
+  `node vendor/brand/scripts/family.mjs build .` and `check .` in CI with
+  `vendor.mjs verify vendor/brand`. Regenerated outputs are byte-identical to 0.7.0
+  apart from the provenance header (CSS comment, DTCG `$description`, Rust comment).
+- **Website and other organisation consumers:** baseline paths are unchanged.
+  Replace hand-written button, link, field and select styles with
+  `kits/cosmik/components/controls.css` where they match, loaded after the token
+  CSS. Take any family CSS from that family's repository instead of `kits/<id>/`.
+- **Tectra app** (`packages/brand/sync.mjs`): keep vendoring `cosmik.css`, the fonts
+  and licences from this repository, but take `tectra.css` and Latch from a
+  `brand-tectra` release, or switch to that repository's vendored layout. The
+  `kits/tectra/...` paths in `vendor.json` no longer exist at 0.8.0.
+- `[data-family]` selectors, token names and generated JSON are unchanged.
 
 ## 0.7.0 · 23 October 2026
 

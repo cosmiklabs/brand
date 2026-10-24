@@ -10,6 +10,7 @@ warm off-white, no accent colour, status in words. Approved by the owner on
 | Path | Holds | Status |
 | --- | --- | --- |
 | `tokens/` | `source.json` and generated CSS, JSON, W3C DTCG JSON and Rust constants | Approved (owner, 2026-10-07) |
+| `components/` | `controls.css`: the shared, framework-neutral controls layer | Reference implementation |
 | `assets/vector/` | The emblem master and its reverses, the traced lockup, full renders and named pixel-size exports | Accepted masters |
 | `assets/approved-raster/` | The original selected square and banner, byte-for-byte | Approved references |
 | `assets/archive/` | Earlier generated light PNGs; their geometry differs | Archive, never a master |

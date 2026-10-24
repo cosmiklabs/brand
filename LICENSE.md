@@ -9,8 +9,9 @@ This repository mixes three kinds of material with different rights. Each part i
 Covers:
 
 - scripts: everything in `scripts/`;
-- token sources and generated token files in each kit's `kits/<kit>/tokens/` folder (every kit: the baseline and the families);
-- the specimen code in `specimens/` and each kit's `specimen.html` and `specimen.css` (HTML, CSS, JavaScript);
+- token sources and generated token files in `kits/cosmik/tokens/`;
+- the controls layer in `kits/cosmik/components/` (CSS);
+- the specimen code in `specimens/` (HTML, CSS, JavaScript);
 - repository configuration, tests and `asset-manifest.json`;
 - all written guidance, including the Markdown documentation in `guide/`, kit guides and template instructions.
 
@@ -45,7 +46,7 @@ A permissive licence on the token values lets any project, including a fork, reu
 
 ## 2. Brand marks: trademark-style policy
 
-Covers the **Cosmik marks**: the emblem (every file in each kit's `kits/<kit>/assets/` folder, the app icons in each kit's `kits/<kit>/icons/` folder, and any render of them), the COSMIK wordmark and banner, the name "Cosmik" used as the name of a product, project or organisation, and the brand artwork embedded in guide and template files. The written instructions in these files are covered by section 1.
+Covers the **Cosmik marks**: the emblem (every file in `kits/cosmik/assets/`, the app icons in `kits/cosmik/icons/`, and any render of them), the COSMIK wordmark and banner, the name "Cosmik" used as the name of a product, project or organisation, and the brand artwork embedded in guide and template files. The written instructions in these files are covered by section 1.
 
 These marks and artwork are **not** licensed under section 1 or under the licence of any project that ships them. The owner of Cosmik Labs keeps all rights in them, subject to the permissions below.
 
@@ -67,9 +68,8 @@ The typefaces in `fonts/` are not Cosmik Labs' work and stay under their own lic
 
 - Inter: `fonts/licenses/Inter-OFL.txt`
 - IBM Plex Mono: `fonts/licenses/IBM-Plex-OFL.txt` (Reserved Font Name "Plex")
-- Spectral (the HPLX family's headings): `fonts/licenses/Spectral-OFL.txt`
 
-Preserve these notices whenever font files are redistributed. `fonts/web/IBMPlexMono-Regular.woff2` is a lossless WOFF2 wrapper of the bundled TTF (every table byte-identical; see `scripts/build-web-fonts.mjs`), made so the web specimen does not need the TTF. Using the fonts here implies no endorsement by their authors.
+Preserve these notices whenever font files are redistributed. Fonts used only by a product family, such as Spectral for HPLX, are distributed with their notices in that family's repository. `fonts/web/IBMPlexMono-Regular.woff2` is a lossless WOFF2 wrapper of the bundled TTF (every table byte-identical; see `scripts/build-web-fonts.mjs`), made so the web specimen does not need the TTF. Using the fonts here implies no endorsement by their authors.
 
 ## Notes
 

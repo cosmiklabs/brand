@@ -1,48 +1,55 @@
 # Cosmik brand kit
 
-The shared identity and interface system for Cosmik, HPLX and Tectra: approved
-marks, semantic tokens, typefaces, practical guidance and interactive references.
-The kit defines reusable principles and tokens independently of any website,
-application layout or framework. Its examples demonstrate components and states,
-not a proposed product design.
+The shared Cosmik foundation: the approved Cosmik marks, baseline semantic tokens,
+Inter and IBM Plex Mono, a framework-neutral controls layer, practical guidance,
+interactive references and the tools product families use to build on it. The kit
+defines reusable principles and tokens independently of any website, application
+layout or framework. Its examples demonstrate components and states, not a
+proposed product design.
 
-**Version: 0.7.0** (`v0.7.0`, 23 October 2026). Consume the matching immutable
-release tag; working-tree changes are unreleased until tagged. See
-[CHANGELOG.md](CHANGELOG.md).
+Product families live in their own repositories and build on a pinned release of
+this one: [`cosmiklabs/brand-hplx`](https://github.com/cosmiklabs/brand-hplx) and
+[`cosmiklabs/brand-tectra`](https://github.com/cosmiklabs/brand-tectra). See
+[product families](guide/families.md).
+
+**Version: 0.8.0** (`v0.8.0`, prepared 24 October 2026; untagged until released).
+Consume an immutable release tag; working-tree changes are unreleased until tagged.
+See [CHANGELOG.md](CHANGELOG.md).
 
 ## Start here
 
 | Your task | Start with |
 | --- | --- |
 | Build or refine an interface | [Interface](guide/interface.md), [motion](guide/motion.md) and the [interactive reference](specimens/components.html) |
-| Integrate tokens or fonts | [Consumer guide](kits/README.md) and the manifest's `entry_points` |
-| Use a logo or product identity | The relevant kit below and [identity rules](guide/identity.md) |
+| Integrate tokens, controls or fonts | [Consumer guide](kits/README.md) and the manifest's `entry_points` |
+| Build or upgrade a product family | [Product families](guide/families.md) and [building a family](kits/README.md#building-a-family) |
+| Use a logo | The [Cosmik kit](kits/cosmik/README.md) and [identity rules](guide/identity.md); a product's marks are in its `brand-<product>` repository |
 | Write product copy | [Voice and imagery](guide/voice.md) and the product's family guide |
 | Make an editable document | [Technical-note template](templates/README.md) |
 | Improve the kit | [Working on the kit](#working-on-the-kit), [quality review](guide/quality.md) and [governance](guide/governance.md) |
 
 Open `specimens/components.html` in a browser; it works offline. It demonstrates
-all three kits in light and dark modes with neutral component examples. Tectra
-also has an existing family [review board](kits/tectra/specimen.html) showing its
-approved visual direction. Neither reference prescribes a consumer's information
-architecture. Interact with examples as well as reading them: source validity
-alone does not prove a usable interface.
+the baseline and the shared controls in light and dark modes with neutral component
+examples. It does not prescribe a consumer's information architecture. Interact
+with examples as well as reading them: source validity alone does not prove a
+usable interface.
 
-## Kits
+## What lives here
 
-| Kit | Use | Approved identity |
+| Part | Use | Status |
 | --- | --- | --- |
-| [Cosmik](kits/cosmik/README.md) | Organisation website, profile and documents | Monochrome baseline and accepted Cosmik masters |
-| [HPLX](kits/hplx/README.md) | HPLX engine, reimplementations, app and editor | Warm palette, Spectral headings and Glimmer |
-| [Tectra](kits/tectra/README.md) | Tectra product, documentation and related presentation | Mineral surfaces, restrained teal and Latch |
+| [Cosmik kit](kits/cosmik/README.md) | Organisation website, profile and documents; the baseline every family extends | Monochrome baseline and accepted Cosmik masters |
+| [Controls layer](kits/README.md#shared-controls) | Buttons, links, selects, text fields, chips and status labels from semantic tokens | Shared reference implementation |
+| [Family tools](guide/families.md#how-a-family-builds-on-the-baseline) | `scripts/vendor.mjs` and `scripts/family.mjs` for `brand-<product>` repositories | Contract enforced by the baseline generator |
 
-Use a family's kit for its product. If family content is presented inside a
-Cosmik organisation surface, that enclosing identity stays baseline. Family JSON and Rust outputs include the baseline values; browser
+Use a family's kit, from its own repository, for its product. If family content is
+presented inside a Cosmik organisation surface, that enclosing identity stays
+baseline. Family JSON and Rust outputs include the baseline values; browser
 integration loads the baseline CSS before the scoped family CSS.
 
 Approved artwork does not settle product availability, commercial terms or the
 organisation wording still under review. The [guide](guide/README.md) and family
-pages distinguish those decisions.
+repositories distinguish those decisions.
 
 ## Consume a release
 
@@ -50,7 +57,9 @@ Pin an exact `vX.Y.Z` tag. Never depend on `main` for production assets.
 
 - **Vendor files:** copy the generated outputs and assets you use, along with
   required fonts and their licence notices. Verify their SHA-256 values against
-  `asset-manifest.json` from the same tag.
+  `asset-manifest.json` from the same tag. Product families use
+  `scripts/vendor.mjs`, which copies the reviewable `vendor` set and writes a
+  lock that `vendor.mjs verify` checks.
 - **Git submodule:** pin its checkout to the exact tag or commit, not a moving
   branch. Keep the checked-in submodule pointer with the consumer change.
 - **Git subtree:** import a tagged release when files need to live directly in the
@@ -66,13 +75,14 @@ explain token, theme, font and motion integration.
 | Path | Responsibility |
 | --- | --- |
 | `guide/` | Identity, design and interaction rules; historical documents in `guide/archive/` |
-| `kits/<kit>/tokens/` | Token source plus generated CSS, JSON, DTCG JSON and Rust |
-| `kits/<kit>/assets/` | Approved sources, generated mark variants and explicitly historical artwork |
-| `kits/<kit>/icons/` | Platform assets where supplied; not every family has a current icon pack |
+| `kits/cosmik/tokens/` | Baseline token source plus generated CSS, JSON, DTCG JSON and Rust |
+| `kits/cosmik/components/` | The framework-neutral controls layer |
+| `kits/cosmik/assets/` | Approved sources, generated mark variants and explicitly historical artwork |
+| `kits/cosmik/icons/` | Cosmik platform icons |
 | `fonts/` | Desktop and web typefaces with licence notices |
 | `specimens/` | Interactive component reference and its validation record |
 | `templates/` | Editable technical-note document and reviewed PDF reference |
-| `scripts/`, `tests/` | Dependency-free Node.js generation and validation |
+| `scripts/`, `tests/` | Dependency-free Node.js generation, validation and the family tools; `tests/fixtures/` holds a fictional test-only family |
 | `asset-manifest.json` | Canonical entry points, roles, hashes and known gaps |
 
 ## Working on the kit
@@ -83,7 +93,7 @@ Edit token and artwork sources, not their generated outputs. Guidance, specimens
 tests and scripts are hand-maintained. Preserve approved originals and font notices.
 
 ```sh
-npm run build                # regenerate outputs and refresh permitted manifest hashes
+npm run build                # regenerate baseline outputs and refresh permitted manifest hashes
 npm run check                # contrast, integrity and regression checks
 npm test                     # regression tests alone
 npm run check:browser        # interactive references in Chromium
@@ -103,9 +113,10 @@ appropriate review; the reference cannot certify a consuming product.
 
 ## Fonts and rights
 
-Inter, IBM Plex Mono and HPLX's Spectral headings are bundled under SIL OFL 1.1.
-Use the supplied files and preserve `fonts/licenses/` notices when redistributing
-fonts. Provenance is recorded in the manifest and family sources. No typeface
+Inter and IBM Plex Mono are bundled under SIL OFL 1.1. Use the supplied files and
+preserve `fonts/licenses/` notices when redistributing fonts. Provenance is recorded
+in the manifest. A family's own typefaces, such as HPLX's Spectral headings, are
+bundled and licensed in its repository. No typeface
 match or rights clearance for the original Cosmik wordmark is asserted.
 
 [LICENSE.md](LICENSE.md) covers tooling, token data and written guidance under MIT,
