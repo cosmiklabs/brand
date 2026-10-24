@@ -4,11 +4,12 @@ This is the current evidence record for the shared component reference and Tectr
 review board. Kit checks establish their tested properties; they do not certify a
 consuming product or replace its interaction journeys.
 
-## Unreleased overhaul — 23 October 2026
+## 0.7.0 review — 23 October 2026
 
-Reviewed the changes on `codex/brand-system-overhaul`, based on release `v0.6.0`.
-The work is not a new release. Tests ran on macOS with Node.js 24.22.0 and headless
-Chrome for Testing 156.0.8078.4. The recorded commands were:
+Reviewed the changes on `codex/brand-system-overhaul`, based on release `v0.6.0`,
+then repeated the build, repository and browser checks with 0.7.0 release metadata.
+Tests ran on macOS with Node.js 24.22.0 and headless Chrome for Testing
+156.0.8078.4. The recorded commands were:
 
 ```sh
 npm run build
@@ -30,8 +31,8 @@ reference does not require a server.
 - All 426 defined contrast pairs pass: 114 baseline, 192 HPLX and 120 Tectra.
   The weakest tested text pair is 4.64:1; the weakest essential boundary is
   3.517:1. These are the defined pairs, not a claim about arbitrary backgrounds.
-- Regression tests cover generated exports, malformed token inputs, no partial
-  output on validation failure, manifest corruption, protected hash refreshes,
+- All 58 regression tests pass, covering generated exports, malformed token inputs,
+  no partial output on validation failure, manifest corruption, protected hash refreshes,
   staged/untracked reproducibility failures and malformed SVG/PNG input.
 - The component reference passes all three kits in dark and light themes at
   1280, 768, 390 and 320 CSS px, with 100% and 200% root text size. Nested family
@@ -60,7 +61,10 @@ and dialog actions, and forced-colour Tectra examples. Reviewed hierarchy, surfa
 boundaries, typography, wrapping and visible focus. This review led to bounded
 menus, more usable short-screen dialog padding and actions, and initial focus on
 long confirmation context. Exit/interruption behavior was checked in the running
-browser in addition to screenshots.
+browser in addition to screenshots. The release verification also inspected fresh
+captures of Tectra desktop components, a light-theme menu, motion examples, short
+enlarged-text menus and dialog actions, Cosmik light components, an HPLX dark
+confirmation and the forced-colour Tectra board; no new visual issue was found.
 
 ### Still manual or product-specific
 

@@ -6,8 +6,9 @@ The kit defines reusable principles and tokens independently of any website,
 application layout or framework. Its examples demonstrate components and states,
 not a proposed product design.
 
-**Latest released version: 0.6.0** (`v0.6.0`, 21 October 2026). Working-tree changes
-are unreleased until tagged. See [CHANGELOG.md](CHANGELOG.md).
+**Version: 0.7.0** (`v0.7.0`, 23 October 2026). Consume the matching immutable
+release tag; working-tree changes are unreleased until tagged. See
+[CHANGELOG.md](CHANGELOG.md).
 
 ## Start here
 

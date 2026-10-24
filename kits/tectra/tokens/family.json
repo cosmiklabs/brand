@@ -1,7 +1,7 @@
 {
   "id": "tectra",
   "name": "Tectra",
-  "extends": "Cosmik baseline 0.6.0",
+  "extends": "Cosmik baseline 0.7.0",
   "version": "0.2.0",
   "status": "Approved \u2014 17 October 2026; angle-only Latch approved",
   "description": "A mineral-and-teal family for Tectra: a planned agent-driven authoring workflow from envisioning and planning through construction, rendering and review. Art direction belongs to the user. All utility, layout and motion rules inherit the Cosmik baseline.",

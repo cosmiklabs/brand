@@ -3,7 +3,7 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`.
 
-## Unreleased
+## 0.7.0 · 23 October 2026
 
 - Add a shared motion contract covering entrances, exits, interruptions, focus,
   reduced motion and pending/completed states, with offline interactive examples
@@ -26,7 +26,8 @@ their own version in `family.json`.
 - Clarify the licence with owner approval: written guidance is MIT; marks and
   artwork keep their separate restrictions, and fonts keep their OFL licences.
 
-No palette, font family, approved artwork or release tag changes.
+No palette, font family or approved artwork changes. Family revisions remain
+HPLX 0.1.0 and Tectra 0.2.0; both resolve against baseline 0.7.0.
 
 ## 0.6.0 · 21 October 2026
 

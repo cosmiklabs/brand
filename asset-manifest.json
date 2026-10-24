@@ -1,7 +1,7 @@
 {
   "name": "Cosmik brand kit",
-  "version": "0.6.0",
-  "date": "2026-10-21",
+  "version": "0.7.0",
+  "date": "2026-10-23",
   "system_status": "baseline approved (owner, 2026-10-07); HPLX family approved (owner, 2026-10-15); Tectra family and angle-only Latch approved (owner, 2026-10-17)",
   "emblem_status": "accepted traced symbol",
   "wordmark_status": "outlined trace of the approved banner (kits/cosmik/assets/vector/cosmik-lockup-*.svg), accepted (owner, 2026-10-11); the approved raster stays the reference",
@@ -1755,7 +1755,7 @@
         "format": "source"
       },
       "status": "baseline source, approved",
-      "sha256": "82a0961ef49fe8839e377e722909871ae5326675d243ac912ab9e16d0e2a924f",
+      "sha256": "d714b23fd14cf179e300392274bf911a69acd1c062a480414bb189b7016a59ce",
       "editable": true
     },
     {
@@ -1766,7 +1766,7 @@
         "format": "css"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "d31ba6079b4d4ab39674ea6140d8516234c0a748efefa11512c8c51ad3e611b5"
+      "sha256": "4eac5f6a397d2f95e30258fe9dca24df9837d8372fcf26df75eba289ab2b1abd"
     },
     {
       "path": "kits/cosmik/tokens/cosmik.json",
@@ -1777,7 +1777,7 @@
         "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "9c2eb0f1ffe300f33b9060d4fd8c2e4d7efbb621e8d7dabf894a13cca6fae68e"
+      "sha256": "c19a4d47bdcaaba69895414640f5238e16895658a319596a3be1ba3a8da2df3a"
     },
     {
       "path": "kits/cosmik/tokens/cosmik.tokens.json",
@@ -1787,7 +1787,7 @@
         "format": "dtcg"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "41c8e42f2f6d763645259ec0e66b5a9b3767a1ce6d144a8f013a09f712dd3873"
+      "sha256": "3ee871f92f024251866e18bebf98ebba4db658b1d82733bd11599672b23dbcff"
     },
     {
       "path": "kits/cosmik/tokens/cosmik_tokens.rs",
@@ -1797,7 +1797,7 @@
         "format": "rust"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "5bfcb76cdc2cac1c7a769e731309ac4cc26138cbec4489f56a21b3a4d27611b8"
+      "sha256": "01832e0e30194b290220c34c081d0ebc601f0003101eecb5d8a984a09a2f7982"
     },
     {
       "path": "kits/hplx/tokens/family.json",
@@ -1807,7 +1807,7 @@
         "format": "source"
       },
       "status": "HPLX family source, approved (owner, 2026-10-15)",
-      "sha256": "b6958a31cff06773ea76bd0111af35673903ac921f163076c92fa5ca5149e02a",
+      "sha256": "708e9340079093a600786776174b94c0100d4e023e735d77fa880658b92c88db",
       "editable": true
     },
     {
@@ -1829,7 +1829,7 @@
         "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "ea7ef9c472a24dbd075f0d12202e9ef45c8b53258d4e66447e96181d4c810c12"
+      "sha256": "920f76c7c85e70cab3f5b7c1bc54532bbed3be004faef857e5e9756ffe0be80e"
     },
     {
       "path": "kits/hplx/tokens/hplx.tokens.json",
@@ -1839,7 +1839,7 @@
         "format": "dtcg"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "622980fad1bb508a50064b0e389bad2d16cfdd67087cd7cc316f977ffcc918f0"
+      "sha256": "096630a11a67bdd0ed3057380b0b1dda8d35baa9e56c08012d212c266f458208"
     },
     {
       "path": "kits/hplx/tokens/hplx_tokens.rs",
@@ -1858,7 +1858,7 @@
         "kit": "tectra",
         "format": "source"
       },
-      "sha256": "7c4448e0d4ba518892f4200c6136e23dfe3b25ea5661267fcaf7e2c2f5f3b46a",
+      "sha256": "730f74224f14acf6f183bf820d0c3e9b3a7af9d9163c8ea4ee33f708cb4bc6f8",
       "editable": true,
       "status": "Approved (owner, 2026-10-17)"
     },
@@ -1879,7 +1879,7 @@
         "kit": "tectra",
         "format": "json"
       },
-      "sha256": "2ef6a041d3ad6f05556260279776478c0887620deaae621edd4fc33fa3e01e03",
+      "sha256": "d0b43c2eeffa4c47b28477268eed99361140933bff1753272ac7003c68f591d0",
       "generated_by": "scripts/generate-tokens.mjs"
     },
     {
@@ -1889,7 +1889,7 @@
         "kit": "tectra",
         "format": "dtcg"
       },
-      "sha256": "fa1a40a949766b935af722fefd05620925bf015ff91689bf60b486deaae7d392",
+      "sha256": "6b0feb7f6c2c93c75a61bffb8bc16c361bfd3e986474c5d6c058477fd19dc158",
       "generated_by": "scripts/generate-tokens.mjs"
     },
     {
