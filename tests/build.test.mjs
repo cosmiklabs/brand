@@ -7,9 +7,15 @@ import { execFileSync } from 'node:child_process';
 import { assertCleanTree } from '../scripts/build.mjs';
 
 test('reproducibility rejects new, staged, deleted and modified files', t => {
-  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'cosmik-build-'));
-  t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
-  const git = (...args) => execFileSync('git', args, { cwd: directory, stdio: 'pipe', env: { ...process.env, GIT_CONFIG_GLOBAL: os.devNull, GIT_CONFIG_SYSTEM: os.devNull } });
+  const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'cosmik-build-'));
+  t.after(() => fs.rmSync(temporary, { recursive: true, force: true }));
+  const directory = path.join(temporary, 'repository');
+  fs.mkdirSync(directory);
+  // Git for Windows cannot open Node's null-device path as a config file.
+  // Keep the empty config outside the repository so it does not affect status.
+  const config = path.join(temporary, 'empty.gitconfig');
+  fs.writeFileSync(config, '');
+  const git = (...args) => execFileSync('git', args, { cwd: directory, stdio: 'pipe', env: { ...process.env, GIT_CONFIG_GLOBAL: config, GIT_CONFIG_SYSTEM: config } });
   git('init', '-q');
   fs.writeFileSync(path.join(directory, 'source.txt'), 'original');
   git('add', 'source.txt');
