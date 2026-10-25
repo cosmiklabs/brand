@@ -1,6 +1,6 @@
 {
   "name": "Cosmik brand kit",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "date": "2026-10-25",
   "system_status": "baseline approved (owner, 2026-10-07). Product families are maintained in their own repositories (cosmiklabs/brand-hplx, cosmiklabs/brand-tectra) and build on a pinned release of this kit.",
   "emblem_status": "accepted traced symbol",
@@ -985,7 +985,7 @@
   "components": [
     {
       "path": "kits/cosmik/components/controls.css",
-      "sha256": "0051dcf3e55097266cc473896d59b4e48973ee88f55a2daec97160ec4752ae19",
+      "sha256": "cb6912b62f341b6844ebc6ef02cd98a9a39393b40e829d80cee342d9a4cd9d90",
       "editable": true,
       "role": {
         "kind": "component-css",
@@ -1149,7 +1149,7 @@
       },
       {
         "path": "package.json",
-        "sha256": "99604341d97afa1d4e9f92f90270e9b8583e22c53ff9cd9d130c2dac74fb65a6"
+        "sha256": "2c7741423924a3891b7e57b3b5103d3b0a42f97c0a804b0184109482f7a68c2d"
       },
       {
         "path": "kits/cosmik/tokens/source.json",
@@ -1173,7 +1173,7 @@
       },
       {
         "path": "kits/cosmik/components/controls.css",
-        "sha256": "0051dcf3e55097266cc473896d59b4e48973ee88f55a2daec97160ec4752ae19"
+        "sha256": "cb6912b62f341b6844ebc6ef02cd98a9a39393b40e829d80cee342d9a4cd9d90"
       },
       {
         "path": "scripts/generate-tokens.mjs",

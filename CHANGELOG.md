@@ -3,6 +3,25 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`; from 0.8.0 they live in their own repositories.
 
+## 0.12.1 · 25 October 2026
+
+A fix to 0.12.0's toolbar controls, found in the first product to use them. Vendor
+0.12.1 rather than 0.12.0.
+
+- **`c-segmented` no longer collapses in a shrink-to-fit container.** Its tracks
+  were `minmax(0, 1fr)`, so inside a `width: min-content` or wrapping container the
+  options shrank to their minimum width and their labels overflowed. Tracks are now
+  `minmax(min-content, 1fr)`: still equal shares of the widest option, never
+  narrower than an option's content. The group takes `max-width: 100%` and labels
+  wrap instead of overflowing a narrow container or enlarged text.
+- **`c-toolbar` wraps** (`flex-wrap: wrap`, `max-width: 100%`) rather than
+  overflowing a narrow container or enlarged text.
+- **Browser checks** add a shrink-wrapped segmented control whose options must
+  keep their content (it fails on 0.12.0), and the existing 320 px, 200 % text
+  check now covers the toolbar row.
+
+No token value, mark or font changed; the baseline token version stays 0.7.0.
+
 ## 0.12.0 · 25 October 2026
 
 Toolbar controls, found missing while rebuilding a product's viewport toolbars on

@@ -5,6 +5,21 @@ controls layer. Kit checks establish their tested properties; they do not certif
 a consuming product or replace its interaction journeys. Product families keep
 their own validation records in their repositories.
 
+## 0.12.1 review — 25 October 2026
+
+The segmented control and toolbar reflow fix. Run on macOS with Node.js 24.22.0 and
+headless Google Chrome 155.0.8059.86:
+
+- `npm run build`, `npm run check` (all contrast pairs, 79 tests) and
+  `node scripts/build.mjs --check` from the release commit pass.
+- `npm run check:browser` passes with the new shrink-wrapped assertion; with
+  0.12.0's `minmax(0, 1fr)` tracks restored, that assertion fails, and with
+  `minmax(max-content, 1fr)` the 390 px, 200 % text page overflows by 51 px.
+- Rendered inspection: the toolbar row at 1280 px in both themes and at 320 px with
+  200 % text, where the combined toolbar wraps its action under the segmented
+  control and labels wrap inside their options (the reference page's
+  `overflow-wrap: anywhere` breaks words at that size). No overflow remains.
+
 ## 0.12.0 review — 25 October 2026
 
 Toolbars, quiet and icon buttons, toggles and the segmented control. Run on macOS

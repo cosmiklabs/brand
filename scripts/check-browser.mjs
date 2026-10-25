@@ -329,6 +329,9 @@ try {
       await key('ArrowRight', 'ArrowRight', 39);
       assert.equal(await evaluate(`document.activeElement.textContent + ':' + document.activeElement.getAttribute('aria-checked')`), 'List:true');
       assert.deepEqual(await widths(), first, `${mode} changing the selection never resizes the group`);
+      // In a shrink-to-fit container every option keeps its content: none is crushed.
+      assert.equal(await evaluate(`(() => {const g=document.querySelector('${seg}'), box=document.createElement('div');box.style.cssText='display:inline-flex;width:min-content';g.before(box);box.append(g);
+        const ok=[...g.children].every(o=>o.scrollWidth<=o.clientWidth+1);box.before(g);box.remove();return ok})()`), true, `${mode} segmented options keep their content when shrink-wrapped`);
       await key('ArrowLeft', 'ArrowLeft', 37);
       await evaluate(`document.querySelector('#${mode}-toolbars').scrollIntoView({block:'center'})`);
       await force(`${bar} .c-button:not([aria-pressed])`, ['hover']); await shot(`cosmik-${mode}-toolbars`); await force(`${bar} .c-button:not([aria-pressed])`);

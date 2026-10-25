@@ -137,11 +137,14 @@
    segmented control, over content or a busy canvas. Its boundary is a border on
    the surface role, so it reads without a shadow; a family elevation shadow may
    add depth. Give it role="toolbar" (with arrow-key focus) or role="group" and an
-   accessible name. Placement is the consumer's. */
+   accessible name. It wraps rather than overflow a narrow container or
+   enlarged text. Placement is the consumer's. */
 .c-toolbar {
   box-sizing: border-box;
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
+  max-width: 100%;
   gap: var(--c-space-base);
   padding: var(--c-space-base);
   border: 1px solid var(--c-border);
@@ -163,7 +166,11 @@
   box-sizing: border-box;
   display: inline-grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(0, 1fr);
+  /* Equal shares of the widest option, never narrower than an option's
+     longest word: a shrink-to-fit container cannot crush the group, and in a
+     narrow one (or at enlarged text) labels wrap rather than overflow. */
+  grid-auto-columns: minmax(min-content, 1fr);
+  max-width: 100%;
   gap: var(--c-space-base);
   min-width: 0;
 }
@@ -187,7 +194,7 @@
   font-weight: var(--c-type-control-font-weight);
   line-height: var(--c-type-control-line-height);
   letter-spacing: var(--c-type-control-letter-spacing);
-  white-space: nowrap;
+  text-align: center;
   cursor: pointer;
   transition-property: background-color, border-color, color;
   transition-duration: var(--c-motion-duration);
