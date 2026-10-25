@@ -71,6 +71,30 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
   prominent call to action more presence; it is still a primary or secondary
   button, and the product decides where it appears.
   Hover and pressed change only colour, so nothing nearby moves.
+- **Quiet buttons** have no fill or boundary until hover, for actions inside a
+  toolbar or another bounded group whose surface supplies the boundary. Use the
+  secondary emphasis for a button that stands alone.
+- **Icon buttons** are square at the button's target size: `control-dense` on a
+  mouse or trackpad when dense, `control-min` on touch. An icon-only control must
+  have an accessible name and a tooltip that opens on keyboard focus as well as
+  hover and names the same action; the tooltip is the product's implementation.
+  When a toolbar narrows, drop the visible labels of its buttons together and
+  keep their icons, so the tooltip carries the name; never drop the icon and keep
+  the label in one place while doing the opposite elsewhere.
+- **Toggles** (`aria-pressed`) show selection with the selected roles plus a drawn
+  bar along the bottom edge, so it never depends on colour; hover and pressed
+  never erase it.
+- **Toolbars** group related controls on a surface with a border, so they stay
+  legible over a busy canvas without relying on a shadow; a family elevation
+  shadow may add depth. Give the group `role="toolbar"` with arrow-key focus, or
+  `role="group"`, and an accessible name. Keep one toolbar per task and leave
+  space between independent groups; placement is the product's.
+- **Segmented controls** choose one of a few mutually exclusive options: a
+  `radiogroup` of `radio` options with a roving tab stop and arrow keys, or a
+  group of `aria-pressed` buttons. Every option takes the widest option's width,
+  so the group never resizes when the selection changes. Selection uses the
+  selected roles plus the drawn bar; hover never erases it. Icon-only options
+  follow the icon button rules.
 - **Disabled** controls use the disabled roles in every interaction state. Prefer
   the native `disabled` attribute; use `aria-disabled="true"` when the control must
   stay focusable to explain its prerequisite, and block activation yourself.
@@ -103,8 +127,9 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
   `focus-offset`. Custom focusable controls use the same ring.
 - **Transitions** use the effective motion duration and easing, so a reduced
   motion preference removes them.
-- **Forced colours** keep every boundary, the chevron, the selection check and
-  the focus ring, because they are borders and outlines rather than fills.
+- **Forced colours** keep every boundary, the chevron, the selection check, the
+  selection bar and the focus ring, because they are borders and outlines rather
+  than fills.
 
 ## Forms and settings
 

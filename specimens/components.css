@@ -9,14 +9,14 @@ body{margin:0;background:var(--c-bg);color:var(--c-text);font-family:var(--c-typ
 /* Buttons, links, fields, selects, chips and status labels come from kits/cosmik/components/controls.css.
    The rules below style specimen-only parts: tabs, menu items, layout and state demonstrations. */
 button,input,a{font:inherit}
-button:not(.c-button,.c-chip),input:not(.c-input){border-radius:var(--c-layout-radius)}
+button:not(.c-button,.c-chip,.c-segmented__option),input:not(.c-input){border-radius:var(--c-layout-radius)}
 a{color:var(--c-link);text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
 a:hover{color:var(--c-link-hover);text-decoration-thickness:2px}
 a:active{color:var(--c-link-active)}
 :focus-visible,.force-focus{outline:var(--c-layout-focus-width) solid var(--c-focus);outline-offset:var(--c-layout-focus-offset)}
 button:focus:not(:focus-visible){outline:none}
 button.force-focus{outline:var(--c-layout-focus-width) solid var(--c-focus);outline-offset:var(--c-layout-focus-offset)}
-button:not(.c-button,.c-chip){font-family:var(--c-type-control-font-family),Arial,sans-serif;font-size:var(--c-type-control-font-size);font-weight:var(--c-type-control-font-weight);line-height:var(--c-type-control-line-height);letter-spacing:var(--c-type-control-letter-spacing);min-height:var(--c-layout-control-min);min-width:var(--c-layout-control-min);padding:.5rem 1rem;cursor:pointer;transition:background-color var(--c-motion-duration) var(--c-motion-easing),color var(--c-motion-duration) var(--c-motion-easing)}
+button:not(.c-button,.c-chip,.c-segmented__option){font-family:var(--c-type-control-font-family),Arial,sans-serif;font-size:var(--c-type-control-font-size);font-weight:var(--c-type-control-font-weight);line-height:var(--c-type-control-line-height);letter-spacing:var(--c-type-control-letter-spacing);min-height:var(--c-layout-control-min);min-width:var(--c-layout-control-min);padding:.5rem 1rem;cursor:pointer;transition:background-color var(--c-motion-duration) var(--c-motion-easing),color var(--c-motion-duration) var(--c-motion-easing)}
 /* Static demonstrations of states a pointer would otherwise have to produce. */
 .c-button--primary.force-hover{background:var(--c-action-primary-hover);border-color:var(--c-action-primary-hover)}
 .c-button--primary.force-active{background:var(--c-action-primary-active);border-color:var(--c-action-primary-active)}
@@ -110,7 +110,7 @@ dialog h3,dialog p{margin-bottom:1rem}
 .preview-controls label{font-size:var(--c-type-ui-font-size)}
 .helper,.reference-note{font-size:var(--c-type-ui-font-size);line-height:1.5}
 .action-menu button{font-family:var(--c-type-ui-font-family);font-size:var(--c-type-ui-font-size);line-height:var(--c-type-ui-line-height);min-height:var(--c-layout-control-dense);padding:.375rem .75rem}
-button:not(.c-button,.c-chip){transition-property:background-color,color,border-color;transition-duration:var(--c-motion-duration);transition-timing-function:var(--c-motion-easing)}
+button:not(.c-button,.c-chip,.c-segmented__option){transition-property:background-color,color,border-color;transition-duration:var(--c-motion-duration);transition-timing-function:var(--c-motion-easing)}
 .action-menu{position:fixed;z-index:20;display:flex;flex-direction:column;gap:.25rem;width:18rem;max-width:calc(100vw - 2rem);max-height:calc(100dvh - 2rem);overflow:auto;scroll-padding:.5rem;padding:.5rem;margin:0;background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--c-radius-md);box-shadow:var(--c-elevation-2-shadow,none)}
 .action-menu button{text-align:left;border-color:transparent;background:transparent;color:var(--c-text);scroll-margin:.5rem}
 .action-menu button:hover,.action-menu button:focus-visible{background:var(--c-raised)}
@@ -152,3 +152,9 @@ dialog.motion-surface[data-phase="closing"]::backdrop{transition-duration:calc(v
 .reference-intro h1{font-family:var(--c-type-section-font-family);font-size:var(--c-type-section-font-size);font-weight:var(--c-type-section-font-weight);line-height:var(--c-type-section-line-height);letter-spacing:var(--c-type-section-letter-spacing);margin:.5rem 0 1rem;max-width:none}
 .reference-index{display:flex;flex-wrap:wrap;gap:.25rem 1rem;margin-top:1rem;font-size:var(--c-type-ui-font-size)}
 .reference-index a{display:inline-flex;align-items:center;min-height:var(--c-layout-control-min)}
+
+/* Toolbars and segmented controls come from controls.css; this only lays out the examples. */
+.toolbar-row{border-top:1px solid var(--c-divider);margin-top:1.5rem;padding-top:1.5rem;display:flex;align-items:stretch;gap:1.5rem 2rem;flex-wrap:wrap}
+.toolbar-row .state{gap:1rem}.toolbar-row .c-button:not(.c-button--icon){width:auto}
+.toolbar-row .helper{flex-basis:100%;margin-top:0}
+.c-button--icon svg{width:1.125rem;height:1.125rem}

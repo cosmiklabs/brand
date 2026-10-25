@@ -292,6 +292,46 @@ try {
         return {large:l.getBoundingClientRect().height, standard:b.getBoundingClientRect().height, expected:(parseFloat(r.getPropertyValue('--c-layout-control-min'))+parseFloat(r.getPropertyValue('--c-space-base'))*3)*16, font:getComputedStyle(l).fontSize===getComputedStyle(b).fontSize}})()`);
       assert.ok(large.large >= large.expected - 0.5 && large.large > large.standard && large.font, `${mode} large button target ${JSON.stringify(large)}`);
       await expectRole(`#${mode}-sizes .c-button--large`, 'background-color', mode, 'action-primary-hover', ['hover']);
+      // Toolbar: a bordered surface (not a shadow alone) with space-base padding and gaps.
+      const bar = `#${mode}-toolbars .c-toolbar[role="toolbar"]`;
+      await expectRole(bar, 'border-top-color', mode, 'border');
+      await expectRole(bar, 'background-color', mode, 'surface');
+      assert.deepEqual(await evaluate(`(() => {const s=getComputedStyle(document.querySelector(${JSON.stringify(bar)})), r=getComputedStyle(document.documentElement), b=parseFloat(r.getPropertyValue('--c-space-base'))*16+'px';return [s.borderTopStyle, s.paddingTop===b, s.columnGap===b]})()`), ['solid', true, true], `${mode} toolbar boundary and spacing`);
+      // Icon buttons: square at control-dense on a fine pointer; quiet until hover; a
+      // pressed toggle takes the selected roles plus a drawn bar, kept under hover.
+      const pressed = `${bar} .c-button[aria-pressed="true"]`, quiet = `${bar} .c-button:not([aria-pressed])`;
+      assert.deepEqual(await evaluate(`[...document.querySelectorAll('${bar} .c-button--icon')].map(e=>{const r=e.getBoundingClientRect();return [Math.round(r.width), Math.round(r.height)]})`), [[32, 32], [32, 32], [32, 32]], `${mode} dense icon buttons are square`);
+      assert.equal(await css(quiet, 'background-color'), 'rgba(0, 0, 0, 0)', `${mode} quiet button has no fill`);
+      await expectRole(quiet, 'background-color', mode, 'action-secondary-hover', ['hover']);
+      await expectRole(quiet, 'background-color', mode, 'action-secondary-active', ['hover', 'active']);
+      await force(quiet, ['hover', 'active']); assert.equal(await css(quiet, 'transform'), 'none', 'pressing never moves a control'); await force(quiet);
+      for (const states of [[], ['hover'], ['hover', 'active']]) {
+        await expectRole(pressed, 'background-color', mode, 'selected', states);
+        await expectRole(pressed, 'color', mode, 'on-selected', states);
+      }
+      assert.equal(await css(pressed, 'border-bottom-style', '::after'), 'solid', `${mode} pressed toggle draws a bar`);
+      assert.equal(await css(quiet, 'content', '::after'), 'none');
+      // Segmented: equal option widths, a stable group width, selected roles plus the bar,
+      // hover never erasing it, and arrow keys moving the checked option.
+      const seg = `#${mode}-segmented`;
+      const widths = () => evaluate(`(() => {const g=document.querySelector('${seg}');return {group:g.getBoundingClientRect().width, options:[...g.children].map(o=>Math.round(o.getBoundingClientRect().width*10)/10)}})()`);
+      const first = await widths();
+      assert.equal(new Set(first.options).size, 1, `${mode} segmented options share one width ${JSON.stringify(first)}`);
+      const checked = `${seg} [aria-checked="true"]`, other = `${seg} [aria-checked="false"]`;
+      for (const states of [[], ['hover'], ['hover', 'active']]) await expectRole(checked, 'background-color', mode, 'selected', states);
+      await expectRole(checked, 'color', mode, 'on-selected');
+      assert.equal(await css(checked, 'border-bottom-style', '::after'), 'solid');
+      await expectRole(other, 'background-color', mode, 'action-secondary-hover', ['hover']);
+      await force(checked, ['focus', 'focus-visible']);
+      assert.deepEqual([await css(checked, 'outline-style'), await css(checked, 'outline-color')], ['solid', await token(mode, 'focus')], `${mode} segmented focus ring`);
+      await force(checked);
+      await evaluate(`document.querySelector('${checked}').focus()`);
+      await key('ArrowRight', 'ArrowRight', 39);
+      assert.equal(await evaluate(`document.activeElement.textContent + ':' + document.activeElement.getAttribute('aria-checked')`), 'List:true');
+      assert.deepEqual(await widths(), first, `${mode} changing the selection never resizes the group`);
+      await key('ArrowLeft', 'ArrowLeft', 37);
+      await evaluate(`document.querySelector('#${mode}-toolbars').scrollIntoView({block:'center'})`);
+      await force(`${bar} .c-button:not([aria-pressed])`, ['hover']); await shot(`cosmik-${mode}-toolbars`); await force(`${bar} .c-button:not([aria-pressed])`);
       await evaluate(`document.querySelector('#${mode}-details').scrollIntoView()`);
       await evaluate(`document.querySelector('#${mode}-name').focus()`);
       await shot(`cosmik-${mode}-controls`);
@@ -441,6 +481,7 @@ try {
   assert.equal(await fits('#dark-action-menu'),true,'menu fits short viewport');
   assert.equal(await evaluate(`[...document.querySelectorAll('#dark-action-menu button')].every(e=>e.getBoundingClientRect().height>=44)`),true);
   assert.equal(await evaluate(`[...document.querySelectorAll('#dark .c-chip, #dark .c-button--dense')].every(e=>e.getBoundingClientRect().height>=44&&e.getBoundingClientRect().width>=44)`),true,'dense controls keep the standard target for touch');
+  assert.equal(await evaluate(`[...document.querySelectorAll('#dark-toolbars .c-button--icon, #dark-toolbars .c-segmented__option')].every(e=>e.getBoundingClientRect().height>=44&&e.getBoundingClientRect().width>=44)`),true,'icon buttons and segmented options keep the standard target for touch');
   // Dense fields return to the standard target and the body size on touch, so focus never zooms.
   assert.deepEqual(await evaluate(`[...document.querySelectorAll('#dark .c-input--dense, #dark .c-select--dense select')].map(e=>e.getBoundingClientRect().height>=44&&getComputedStyle(e).fontSize===parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--c-type-body-font-size'))*parseFloat(getComputedStyle(document.documentElement).fontSize)+'px')`),[true,true],'dense fields keep the standard target and body size for touch');
   // A dense status label is not a target, so touch does not enlarge it.
@@ -472,13 +513,18 @@ try {
   assert.equal(await evaluate(`getComputedStyle(document.querySelector('#light-chip-first'),'::before').borderRightStyle`),'solid');
   await evaluate('document.querySelector("#light-name").focus()');
   assert.equal(await evaluate(`getComputedStyle(document.querySelector('#light-name')).outlineStyle`),'solid','forced colours retain the focus ring');
+  // Toolbars keep their boundary; a selected option or toggle keeps its drawn bar.
+  assert.equal(await evaluate(`getComputedStyle(document.querySelector('#light-toolbars .c-toolbar')).borderTopStyle`),'solid');
+  for (const selected of ['#light-segmented [aria-checked="true"]', '#light-toolbars .c-button[aria-pressed="true"]'])
+    assert.equal(await evaluate(`getComputedStyle(document.querySelector('${selected}'),'::after').borderBottomStyle`),'solid',`forced colours keep the selection bar on ${selected}`);
   // Both status labels, dense or not, keep a visible boundary in the text colours.
   const forcedStatus = await evaluate(`[...document.querySelectorAll('#light-sizes .c-status')].map(e=>{const s=getComputedStyle(e);return [s.borderTopStyle, s.borderTopColor, s.color, s.backgroundColor].join(' ')})`);
   assert.equal(forcedStatus.length, 2); assert.equal(forcedStatus[0], forcedStatus[1], 'dense status label takes the same forced colours'); assert.match(forcedStatus[0], /^solid /);
   await evaluate('document.querySelector("#light-details").scrollIntoView()'); await shot('cosmik-forced-colors');
   await evaluate('document.querySelector("#light-sizes").scrollIntoView({block:"center"})'); await shot('cosmik-forced-colors-sizes');
+  await evaluate('document.querySelector("#light-toolbars").scrollIntoView({block:"center"})'); await shot('cosmik-forced-colors-toolbars');
   assert.deepEqual(errors, []);
-  console.log('Component checks passed: baseline and a test-only family scope, responsive themes, nested preferences, fonts, shared controls states, keyboard menus/dialogs, focus, real exit/interruption transitions, disclosure, tooltip, completion and short touch layouts.');
+  console.log('Component checks passed: baseline and a test-only family scope, responsive themes, nested preferences, fonts, shared controls states, toolbars, icon buttons and segmented controls, keyboard menus/dialogs, focus, real exit/interruption transitions, disclosure, tooltip, completion and short touch layouts.');
   await cdp('Emulation.setEmulatedMedia', {features:[]});
   // The download remains genuinely offline: file URLs must support interactions.
   await cdp('Emulation.setEmulatedMedia',{features:[]});

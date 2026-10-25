@@ -3,6 +3,49 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`; from 0.8.0 they live in their own repositories.
 
+## 0.12.0 · 25 October 2026
+
+Toolbar controls, found missing while rebuilding a product's viewport toolbars on
+the kit. Not breaking: existing markup keeps working.
+
+- **`c-toolbar`.** A bounded group of related controls: the surface role, a
+  border (so it reads over a busy canvas without a shadow; a family elevation
+  shadow may add depth), the medium radius and `space-base` padding and gaps.
+  `c-toolbar--vertical` stacks it. Role, name and placement are the consumer's.
+- **`c-button--quiet`.** A button emphasis with no fill or boundary until hover,
+  for actions inside a toolbar or other bounded group.
+- **`c-button--icon`.** A square icon-only button at the button's target size,
+  `control-dense` with `c-button--dense` on fine pointers and `control-min` on
+  touch. It needs an accessible name and a tooltip on hover and keyboard focus.
+- **Toggles.** A `c-button` with `aria-pressed="true"` takes the selected roles
+  plus a drawn bar along its bottom edge; hover and pressed never erase it.
+- **`c-segmented`.** One choice from a few, as a `radiogroup` of
+  `c-segmented__option` radios or `aria-pressed` buttons. Every option takes the
+  widest option's width, so the group never resizes when the selection changes.
+  Selection uses the selected roles plus the bar. `c-segmented--dense` follows the
+  dense button sizes. Options share the focus ring, disabled roles and forced
+  colours.
+- **Docs.** [Shared controls](kits/README.md#shared-controls) and the
+  [interface guide](guide/interface.md#shared-controls) give the markup and rules,
+  including the narrow-width rule for toolbars (drop labels together, keep icons,
+  tooltips carry the names). The component reference shows a toolbar of icon
+  buttons, a segmented control and a toolbar combining both, in both themes.
+- **Browser checks** assert, in both themes, the toolbar's border, surface and
+  spacing; square 32 px dense icon buttons; quiet buttons with no fill until hover;
+  no transform when pressed; pressed toggles and checked options in the selected
+  roles under hover and pressed, with the drawn bar; equal option widths and an
+  unchanged group width after arrow keys move the selection; the segmented focus
+  ring; at least 44 px targets under touch emulation; and the toolbar boundary
+  and selection bars in forced colours.
+
+No token value, mark or font changed; the baseline token version stays 0.7.0.
+
+### Migration
+
+- Re-sync. Replace local toolbar surfaces, icon buttons and segmented groups with
+  `c-toolbar`, `c-button c-button--quiet c-button--icon` and `c-segmented`. Remove
+  any pressed-state scaling: the rules allow colour changes only.
+
 ## 0.11.0 · 24 October 2026
 
 A dense status label for compact contexts. Not breaking: `c-status` is unchanged.

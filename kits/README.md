@@ -150,6 +150,11 @@ behavior each state must have is defined once, in the
 | `c-button c-button--secondary` | `<button>` | As primary |
 | `c-button--dense` | Added to a button | `control-dense` height and the `ui` type on fine pointers; `control-min` on touch |
 | `c-button--large` | Added to a button | A taller target (`control-min` + 3 × `space-base`) and wider padding for a prominent call to action |
+| `c-button--quiet` | Added to a button inside a toolbar or bounded group | No fill or boundary until hover; pressed, focus, disabled as other buttons |
+| `c-button--icon` | Added to an icon-only button, with an emphasis and optionally `--dense` | Square target (`control-dense` on fine pointers when dense, `control-min` on touch); needs an accessible name and a tooltip |
+| `c-button[aria-pressed]` | A toggle button | Pressed: the selected roles plus a drawn bar, kept under hover |
+| `c-toolbar` | `<div role="toolbar">` or `role="group"`, with an accessible name | Bordered surface with `space-base` padding and gaps; `c-toolbar--vertical` stacks it |
+| `c-segmented`, `c-segmented__option` | `<div role="radiogroup">` with `<button role="radio" aria-checked>` options (or `aria-pressed` buttons) | Equal option widths, hover, pressed, selected roles and bar, focus, disabled; `c-segmented--dense` as dense buttons |
 | `c-link` | `<a>` in text | Underlined; hover, pressed, focus |
 | `c-input` | `<input>`, `<textarea>` | Placeholder, hover, focus, `aria-invalid`, disabled |
 | `c-select` | `<span class="c-select"><select>…</select></span>` | Drawn chevron; hover, focus, `aria-invalid`, disabled |
@@ -170,6 +175,16 @@ behavior each state must have is defined once, in the
 <span class="c-status"><span aria-hidden="true">◷</span> Saved</span>
 <span class="c-status c-status--dense">Running</span>
 
+<div class="c-toolbar" role="toolbar" aria-label="Tools">
+  <button type="button" class="c-button c-button--quiet c-button--icon c-button--dense"
+    aria-label="Grid lines" aria-pressed="true"><svg aria-hidden="true">…</svg></button>
+  <button type="button" class="c-button c-button--quiet c-button--dense" tabindex="-1">View</button>
+</div>
+<div class="c-segmented c-segmented--dense" role="radiogroup" aria-label="Layout">
+  <button type="button" class="c-segmented__option" role="radio" aria-checked="true">Grid</button>
+  <button type="button" class="c-segmented__option" role="radio" aria-checked="false" tabindex="-1">List</button>
+</div>
+
 <a class="c-button c-button--primary c-button--large" href="#start">Get started</a>
 <span class="c-select c-select--dense"><select aria-label="Rows">…</select></span>
 ```
@@ -181,11 +196,18 @@ the product chooses where each appears. A status label must never look like a
 control, so it takes the `label` type role and the full radius, which no control
 uses, and has no hover, pressed or focus state; do not make it a link or button.
 
+Icon-only buttons and options need an accessible name and a tooltip that opens on
+hover and keyboard focus; the layer styles the control, not the tooltip, the roving
+tab stop or the arrow keys, which remain the consumer's. A segmented control sizes
+every option to the widest, so a changing selection never resizes its toolbar;
+hiding labels at narrow widths is the consumer's choice, made for a whole toolbar at
+once. Pressing never scales or moves a control: hover and pressed change colour only.
+
 Fields fill their container; size the container. The select wrapper draws a
 stroked chevron with borders, inset by `--c-space-4`, that ignores pointer input;
 the native `<select>` keeps its semantics and keyboard behavior. Forced-colour
-modes keep borders, the chevron, the selection check and the focus ring in system
-colours. Transitions use `--c-motion-duration` and `--c-motion-easing`, so a
+modes keep borders, the chevron, the selection check and bar and the focus ring in
+system colours. Transitions use `--c-motion-duration` and `--c-motion-easing`, so a
 reduced-motion scope removes them. The layer contains no resets, layout, font
 loading or product defaults such as a theme; your own CSS loads after it.
 Field labels, error text and pending announcements remain the consumer's markup.

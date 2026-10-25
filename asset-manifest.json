@@ -1,7 +1,7 @@
 {
   "name": "Cosmik brand kit",
-  "version": "0.10.0",
-  "date": "2026-10-24",
+  "version": "0.12.0",
+  "date": "2026-10-25",
   "system_status": "baseline approved (owner, 2026-10-07). Product families are maintained in their own repositories (cosmiklabs/brand-hplx, cosmiklabs/brand-tectra) and build on a pinned release of this kit.",
   "emblem_status": "accepted traced symbol",
   "wordmark_status": "outlined trace of the approved banner (kits/cosmik/assets/vector/cosmik-lockup-*.svg), accepted (owner, 2026-10-11); the approved raster stays the reference",
@@ -985,7 +985,7 @@
   "components": [
     {
       "path": "kits/cosmik/components/controls.css",
-      "sha256": "84faa7fa5db11986365933af16ddf2bfb02069250cd055aee35de0df315c2fa8",
+      "sha256": "0051dcf3e55097266cc473896d59b4e48973ee88f55a2daec97160ec4752ae19",
       "editable": true,
       "role": {
         "kind": "component-css",
@@ -1121,17 +1121,17 @@
     },
     {
       "path": "specimens/components.html",
-      "sha256": "8c6f7a18f49217957c0fe91dc885581fe5ff0da01d6312a4574bba11a30f7d14",
+      "sha256": "c5ee86b0c50f8612c45a20f593fad399d312e3de455db4b5f9927fb46d5aac99",
       "editable": true
     },
     {
       "path": "specimens/components.css",
-      "sha256": "7467871105687062bee71dc44b9dfe79d7881b099b1ad3c4d73363f1088473bf",
+      "sha256": "d043b227ee8e2760257b8bbc7432332e8514b5651967a0e3ad6c4fe46be7fdbb",
       "editable": true
     },
     {
       "path": "specimens/components.js",
-      "sha256": "f498cd4d246a93ea789eee7363670f7734f6736ff8f1aadf299499b28f0ccc89",
+      "sha256": "514b02e8174e139a80b4762f0da2553f5e100faa5bec1ef52d99f746408855c4",
       "editable": true
     },
     {
@@ -1149,7 +1149,7 @@
       },
       {
         "path": "package.json",
-        "sha256": "fbddd4dce949b43495b1d2719c14f3a732535ef30ed90ff80302ec2c06b5041c"
+        "sha256": "99604341d97afa1d4e9f92f90270e9b8583e22c53ff9cd9d130c2dac74fb65a6"
       },
       {
         "path": "kits/cosmik/tokens/source.json",
@@ -1173,7 +1173,7 @@
       },
       {
         "path": "kits/cosmik/components/controls.css",
-        "sha256": "84faa7fa5db11986365933af16ddf2bfb02069250cd055aee35de0df315c2fa8"
+        "sha256": "0051dcf3e55097266cc473896d59b4e48973ee88f55a2daec97160ec4752ae19"
       },
       {
         "path": "scripts/generate-tokens.mjs",
@@ -1269,7 +1269,7 @@
       },
       {
         "path": "guide/interface.md",
-        "sha256": "d96e278550df71ce32b631a7cf07cb1272988991058d508a21716e52f2a18b23"
+        "sha256": "c54267f403b185d0b9f339c42402989e92aa413892b24ce2ada756530bd4209a"
       },
       {
         "path": "guide/motion.md",

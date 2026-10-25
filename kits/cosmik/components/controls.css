@@ -1,13 +1,13 @@
 /* Cosmik controls layer.
-   Framework-neutral classes for buttons, links, selects, text fields, chips and
-   neutral status labels. Every value comes from a semantic token, so the same
+   Framework-neutral classes for buttons, icon buttons, toolbars, segmented
+   controls, links, selects, text fields, chips and neutral status labels. Every value comes from a semantic token, so the same
    classes follow the baseline, any family scope, both themes and the motion
    policy. Load after cosmik.css and any family CSS. Rules: guide/interface.md.
    Hand-maintained; not generated. */
 
 /* ---- Shared focus ring ---------------------------------------------------
    Applied to every control below; add .c-focus-ring to other custom controls. */
-:is(.c-button, .c-link, .c-select > select, .c-input, .c-chip, .c-focus-ring):focus-visible {
+:is(.c-button, .c-link, .c-select > select, .c-input, .c-chip, .c-segmented__option, .c-focus-ring):focus-visible {
   outline: var(--c-layout-focus-width) solid var(--c-focus);
   outline-offset: var(--c-layout-focus-offset);
 }
@@ -77,10 +77,53 @@
   padding: var(--c-space-4) var(--c-space-8);
   gap: calc(var(--c-space-2) * 1.5);
 }
+/* Quiet: no fill or boundary until hover, for actions inside a toolbar or other
+   bounded group. The group's surface supplies the boundary. */
+.c-button--quiet {
+  background: transparent;
+  border-color: transparent;
+  color: var(--c-action-secondary-fg);
+}
+.c-button--quiet:hover { background: var(--c-action-secondary-hover); }
+.c-button--quiet:active { background: var(--c-action-secondary-active); }
+/* Icon only: a square of the button's target size. It needs an accessible name
+   (aria-label or visually hidden text) and a tooltip on hover and keyboard focus;
+   the tooltip is the consumer's. Combine with an emphasis and, optionally, dense. */
+.c-button--icon {
+  width: var(--c-layout-control-min);
+  height: var(--c-layout-control-min);
+  padding: 0;
+}
+.c-button--icon.c-button--dense {
+  width: var(--c-layout-control-dense);
+  height: var(--c-layout-control-dense);
+}
+/* A toggle (aria-pressed="true"): the selected roles plus a drawn bar along the
+   bottom edge, so selection never depends on colour. Hover keeps the selection. */
+.c-button[aria-pressed="true"],
+.c-button[aria-pressed="true"]:is(:hover, :active),
+.c-segmented__option:is([aria-pressed="true"], [aria-checked="true"]),
+.c-segmented__option:is([aria-pressed="true"], [aria-checked="true"]):is(:hover, :active) {
+  background: var(--c-selected);
+  border-color: var(--c-selected);
+  color: var(--c-on-selected);
+}
+:is(.c-button[aria-pressed="true"], .c-segmented__option:is([aria-pressed="true"], [aria-checked="true"]))::after {
+  content: "";
+  position: absolute;
+  inset-inline: 25%;
+  bottom: calc(var(--c-space-base) / 2);
+  border-bottom: 2px solid currentColor;
+  border-radius: var(--c-radius-full);
+  pointer-events: none;
+}
+.c-button[aria-pressed] { position: relative; }
 /* Disabled wins over hover and pressed. aria-disabled keeps a control focusable
    so its prerequisite can be explained; the consumer must still block activation. */
 .c-button:is(:disabled, [aria-disabled="true"]),
-.c-button:is(:disabled, [aria-disabled="true"]):is(:hover, :active) {
+.c-button:is(:disabled, [aria-disabled="true"]):is(:hover, :active),
+.c-segmented__option:is(:disabled, [aria-disabled="true"]),
+.c-segmented__option:is(:disabled, [aria-disabled="true"]):is(:hover, :active) {
   background: var(--c-disabled-bg);
   border-color: var(--c-disabled-border);
   color: var(--c-disabled-fg);
@@ -88,6 +131,81 @@
 }
 /* Pending: keep the label and width; expose aria-busy and name the operation. */
 .c-button[aria-busy="true"] { cursor: progress; }
+
+/* ---- Toolbar ------------------------------------------------------------- */
+/* A bounded group of related controls, such as quiet and icon buttons or a
+   segmented control, over content or a busy canvas. Its boundary is a border on
+   the surface role, so it reads without a shadow; a family elevation shadow may
+   add depth. Give it role="toolbar" (with arrow-key focus) or role="group" and an
+   accessible name. Placement is the consumer's. */
+.c-toolbar {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--c-space-base);
+  padding: var(--c-space-base);
+  border: 1px solid var(--c-border);
+  border-radius: var(--c-radius-md);
+  background: var(--c-elevation-1-surface, var(--c-surface));
+  box-shadow: var(--c-elevation-1-shadow, none);
+  color: var(--c-text);
+}
+.c-toolbar--vertical { flex-direction: column; }
+
+/* ---- Segmented control ---------------------------------------------------- */
+/* One choice from a few: <div class="c-segmented" role="radiogroup"> with
+   <button class="c-segmented__option" role="radio" aria-checked> (roving tabindex
+   and arrow keys are the consumer's), or a group of aria-pressed buttons. Every
+   option takes the widest option's width, so the group never resizes when the
+   selection changes. Selection uses the selected roles plus the drawn bar; hover
+   never erases it. Icon-only options need an accessible name and a tooltip. */
+.c-segmented {
+  box-sizing: border-box;
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: var(--c-space-base);
+  min-width: 0;
+}
+.c-segmented__option {
+  box-sizing: border-box;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--c-space-2);
+  min-width: var(--c-layout-control-min);
+  min-height: var(--c-layout-control-min);
+  margin: 0;
+  padding: var(--c-space-2) var(--c-space-4);
+  border: 1px solid transparent;
+  border-radius: var(--c-radius-md);
+  background: transparent;
+  color: var(--c-action-secondary-fg);
+  font-family: var(--c-type-control-font-family), sans-serif;
+  font-size: var(--c-type-control-font-size);
+  font-weight: var(--c-type-control-font-weight);
+  line-height: var(--c-type-control-line-height);
+  letter-spacing: var(--c-type-control-letter-spacing);
+  white-space: nowrap;
+  cursor: pointer;
+  transition-property: background-color, border-color, color;
+  transition-duration: var(--c-motion-duration);
+  transition-timing-function: var(--c-motion-easing);
+}
+.c-segmented__option:hover { background: var(--c-action-secondary-hover); }
+.c-segmented__option:active { background: var(--c-action-secondary-active); }
+/* Dense: control-dense and the ui type on fine pointers; control-min on touch. */
+.c-segmented--dense > .c-segmented__option {
+  min-width: var(--c-layout-control-dense);
+  min-height: var(--c-layout-control-dense);
+  padding: var(--c-space-base) calc(var(--c-space-2) * 1.5);
+  font-family: var(--c-type-ui-font-family), sans-serif;
+  font-size: var(--c-type-ui-font-size);
+  font-weight: var(--c-type-ui-font-weight);
+  line-height: var(--c-type-ui-line-height);
+  letter-spacing: var(--c-type-ui-letter-spacing);
+}
 
 /* ---- Inline and text links ----------------------------------------------- */
 .c-link {
@@ -291,9 +409,14 @@
 /* Touch keeps the standard target even for dense controls. */
 @media (pointer: coarse) {
   .c-button--dense,
-  .c-chip {
+  .c-chip,
+  .c-segmented--dense > .c-segmented__option {
     min-height: var(--c-layout-control-min);
     min-width: var(--c-layout-control-min);
+  }
+  .c-button--icon.c-button--dense {
+    width: var(--c-layout-control-min);
+    height: var(--c-layout-control-min);
   }
   .c-input--dense,
   .c-select--dense > select {
@@ -314,6 +437,12 @@
 @media (forced-colors: active) {
   .c-button,
   .c-chip { border-color: ButtonText; }
+  /* Toolbars keep their boundary; quiet buttons and options are drawn as buttons,
+     and a selected one takes the highlight border and keeps its bar. */
+  .c-toolbar { border-color: CanvasText; }
+  .c-segmented__option { border-color: ButtonText; }
+  .c-button[aria-pressed="true"],
+  .c-segmented__option:is([aria-pressed="true"], [aria-checked="true"]) { border-color: Highlight; }
   /* A status label, dense or not, is text, not a button: it takes the text colours. */
   .c-status { border-color: CanvasText; color: CanvasText; background: Canvas; }
   .c-input,
@@ -323,8 +452,9 @@
   .c-select::after { border-color: FieldText; }
   .c-button:is(:disabled, [aria-disabled="true"]),
   .c-chip:is(:disabled, [aria-disabled="true"]),
+  .c-segmented__option:is(:disabled, [aria-disabled="true"]),
   .c-input:disabled,
   .c-select > select:disabled { border-color: GrayText; color: GrayText; }
   .c-select:has(> select:disabled)::after { border-color: GrayText; }
-  :is(.c-button, .c-link, .c-select > select, .c-input, .c-chip, .c-focus-ring):focus-visible { outline-color: Highlight; }
+  :is(.c-button, .c-link, .c-select > select, .c-input, .c-chip, .c-segmented__option, .c-focus-ring):focus-visible { outline-color: Highlight; }
 }

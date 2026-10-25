@@ -5,6 +5,30 @@ controls layer. Kit checks establish their tested properties; they do not certif
 a consuming product or replace its interaction journeys. Product families keep
 their own validation records in their repositories.
 
+## 0.12.0 review — 25 October 2026
+
+Toolbars, quiet and icon buttons, toggles and the segmented control. Run on macOS
+with Node.js 24.22.0 and headless Google Chrome 155.0.8059.86:
+
+- `npm run build`, then `node scripts/build.mjs --check` from the release commit:
+  no token, mark or font output changed; manifest verification passes for 75
+  hashed files and 20 entry points.
+- `npm run check`: all baseline contrast pairs pass and all 79 tests pass.
+- `npm run check:browser` passes, with new assertions in both themes: the toolbar
+  has a solid border in the `border` role on the `surface` role with `space-base`
+  padding and gaps; dense icon buttons are 32 × 32 px; a quiet button has no fill
+  until hover, then the secondary hover and active roles, and no transform when
+  pressed; a pressed toggle and a checked option keep the selected roles under
+  forced hover and pressed and draw a solid bar; segmented options share one
+  width and the group width is unchanged after the arrow keys move the
+  selection; the checked option takes the focus ring. Under touch emulation icon
+  buttons and options are at least 44 × 44 px. In forced colours the toolbar
+  border and both selection bars stay solid.
+- Rendered inspection: the dark and light toolbar rows at 1280 px and the
+  forced-colour toolbar row. The selected option and pressed toggle read as
+  selected through the inverted fill and the bar; in forced colours the bar and a
+  highlight border remain. No visual issue was found.
+
 ## 0.11.0 review — 24 October 2026
 
 The dense status label. Run on macOS with Node.js 24.22.0 and headless Google

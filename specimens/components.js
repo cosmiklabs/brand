@@ -24,6 +24,35 @@ document.querySelectorAll('.c-chip[aria-pressed]').forEach(chip => {
   chip.addEventListener('click', () => chip.setAttribute('aria-pressed', String(chip.getAttribute('aria-pressed') !== 'true')));
 });
 
+// Toolbars use one tab stop and arrow keys; toggles keep their state in aria-pressed.
+document.querySelectorAll('.c-toolbar[role="toolbar"]').forEach(bar => {
+  const items = [...bar.querySelectorAll('button')];
+  bar.addEventListener('keydown', event => {
+    const step = {ArrowRight:1, ArrowDown:1, ArrowLeft:-1, ArrowUp:-1}[event.key];
+    const at = items.indexOf(document.activeElement);
+    if (!step || at < 0) return;
+    event.preventDefault();
+    const next = items[(at + step + items.length) % items.length];
+    items.forEach(item => { item.tabIndex = item === next ? 0 : -1; });
+    next.focus();
+  });
+  items.filter(item => item.hasAttribute('aria-pressed')).forEach(item => item.addEventListener('click', () => item.setAttribute('aria-pressed', String(item.getAttribute('aria-pressed') !== 'true'))));
+});
+// Segmented radio groups: click or arrow keys move the one checked option and the tab stop.
+document.querySelectorAll('.c-segmented[role="radiogroup"]').forEach(group => {
+  const options = [...group.querySelectorAll('.c-segmented__option')];
+  const choose = option => options.forEach(o => { o.setAttribute('aria-checked', String(o === option)); o.tabIndex = o === option ? 0 : -1; });
+  options.forEach(option => option.addEventListener('click', () => choose(option)));
+  group.addEventListener('keydown', event => {
+    const step = {ArrowRight:1, ArrowDown:1, ArrowLeft:-1, ArrowUp:-1}[event.key];
+    const at = options.indexOf(document.activeElement);
+    if (!step || at < 0) return;
+    event.preventDefault();
+    const next = options[(at + step + options.length) % options.length];
+    choose(next); next.focus();
+  });
+});
+
 document.querySelectorAll('[role="tablist"]').forEach(list => {
   const tabs = [...list.querySelectorAll('[role="tab"]')];
   const select = tab => {
