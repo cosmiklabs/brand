@@ -12,7 +12,7 @@ this one: [`cosmiklabs/brand-hplx`](https://github.com/cosmiklabs/brand-hplx) an
 [`cosmiklabs/brand-tectra`](https://github.com/cosmiklabs/brand-tectra). See
 [product families](guide/families.md).
 
-**Version: 0.12.2** (`v0.12.2`, prepared 25 October 2026; untagged until released).
+**Version: 0.13.0** (`v0.13.0`, prepared 25 October 2026; untagged until released).
 Consume an immutable release tag; working-tree changes are unreleased until tagged.
 See [CHANGELOG.md](CHANGELOG.md).
 
@@ -39,7 +39,7 @@ usable interface.
 | Part | Use | Status |
 | --- | --- | --- |
 | [Cosmik kit](kits/cosmik/README.md) | Organisation website, profile and documents; the baseline every family extends | Monochrome baseline and accepted Cosmik masters |
-| [Controls layer](kits/README.md#shared-controls) | Buttons, icon buttons, toolbars, segmented controls, links, selects, text fields, chips and status labels from semantic tokens | Shared reference implementation |
+| [Controls layer](kits/README.md#shared-controls) | Buttons, icon buttons, toolbars, segmented controls, links, selects, text fields, chips and status labels from semantic tokens, with opt-in glass variants for floating controls | Shared reference implementation |
 | [Family tools](guide/families.md#how-a-family-builds-on-the-baseline) | `scripts/vendor.mjs` and `scripts/family.mjs` for `brand-<product>` repositories | Contract enforced by the baseline generator |
 
 Use a family's kit, from its own repository, for its product. If family content is

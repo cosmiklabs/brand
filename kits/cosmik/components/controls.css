@@ -1,6 +1,7 @@
 /* Cosmik controls layer.
    Framework-neutral classes for buttons, icon buttons, toolbars, segmented
-   controls, links, selects, text fields, chips and neutral status labels.
+   controls, links, selects, text fields, chips and neutral status labels, and
+   opt-in glass variants for floating controls over busy content.
    Every value comes from a semantic token, so the same classes follow the
    baseline, any family scope, both themes and the motion policy. Hover
    treatments apply only under (hover: hover), so a tap never leaves one
@@ -430,6 +431,95 @@
   line-height: var(--c-type-ui-small-line-height);
 }
 
+/* ---- Glass ----------------------------------------------------------------- */
+/* Opt-in translucent surfaces for floating controls over busy or moving content,
+   such as a 3D canvas or media; never for reading content, forms or dense lists,
+   and never the default. Each paints the `glass` tint over a blurred, saturated
+   copy of what lies behind it, draws the `glass-border` hairline and keeps text
+   on `text`; muted text inside resolves to `glass-muted`. The roles are checked
+   for contrast over every backdrop, so a glass control keeps AA text and a 3:1
+   boundary whatever moves beneath it.
+     .c-glass               a container: menus, popovers, hints, labels
+     .c-toolbar--glass      a toolbar; its quiet buttons and segmented controls
+                            need nothing more
+     .c-button--glass       a standalone button on glass, in place of --secondary;
+                            combine with --icon and --dense; aria-pressed keeps the
+                            opaque selected roles and bar
+     .c-segmented--glass    a standalone segmented control on its own glass group
+     .c-select--glass       on the select wrapper: the trigger only; the native
+                            list stays the platform's
+   Without backdrop-filter support, under prefers-reduced-transparency, in a
+   data-glass="solid" region or in forced colours they paint a solid surface
+   instead; a data-glass="flat" region keeps the tint without the blur.
+   --c-glass-fill and --c-glass-backdrop are this layer's internal switches;
+   set the roles or data-glass instead. */
+:is(.c-glass, .c-toolbar--glass, .c-segmented--glass, .c-button--glass, .c-select--glass > select) {
+  --c-glass-fill: var(--c-elevation-1-surface, var(--c-surface));
+  --c-glass-backdrop: none;
+}
+/* The translucent tint and backdrop only where the browser can blur. */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :is(.c-glass, .c-toolbar--glass, .c-segmented--glass, .c-button--glass, .c-select--glass > select) {
+    --c-glass-fill: var(--c-glass);
+    --c-glass-backdrop: blur(var(--c-glass-blur)) saturate(var(--c-glass-saturation));
+  }
+}
+/* A product's own choice for a region, such as a lower graphics quality:
+   data-glass="flat" keeps the tint and drops the blur (the contrast checks hold
+   over unblurred content too, since blur only averages it); data-glass="solid"
+   paints the solid surface. Put it on a region, not on each control. */
+[data-glass="flat"] :is(.c-glass, .c-toolbar--glass, .c-segmented--glass, .c-button--glass, .c-select--glass > select) {
+  --c-glass-backdrop: none;
+}
+[data-glass="solid"] :is(.c-glass, .c-toolbar--glass, .c-segmented--glass, .c-button--glass, .c-select--glass > select) {
+  --c-glass-fill: var(--c-elevation-1-surface, var(--c-surface));
+  --c-glass-backdrop: none;
+}
+/* Less transparency requested: the same controls on the solid surface. */
+@media (prefers-reduced-transparency: reduce) {
+  :is(.c-glass, .c-toolbar--glass, .c-segmented--glass, .c-button--glass, .c-select--glass > select) {
+    --c-glass-fill: var(--c-elevation-1-surface, var(--c-surface));
+    --c-glass-backdrop: none;
+  }
+}
+.c-glass,
+.c-toolbar--glass,
+.c-segmented--glass {
+  --c-muted: var(--c-glass-muted);
+  border: 1px solid var(--c-glass-border);
+  border-radius: var(--c-radius-md);
+  background: var(--c-glass-fill);
+  color: var(--c-text);
+  -webkit-backdrop-filter: var(--c-glass-backdrop);
+  backdrop-filter: var(--c-glass-backdrop);
+}
+.c-glass { box-sizing: border-box; }
+.c-segmented--glass { padding: var(--c-space-base); }
+.c-button--glass,
+.c-select--glass > select {
+  background: var(--c-glass-fill);
+  border-color: var(--c-glass-border);
+  color: var(--c-text);
+  -webkit-backdrop-filter: var(--c-glass-backdrop);
+  backdrop-filter: var(--c-glass-backdrop);
+}
+@media (hover: hover) {
+  .c-button--glass:hover { background: var(--c-action-secondary-hover); }
+}
+.c-button--glass:active { background: var(--c-action-secondary-active); }
+.c-select--glass::after { border-color: var(--c-text); }
+/* A standalone glass control's focus ring sits outside it, over the unknown
+   backdrop: fill the offset with the solid surface so the ring always meets a
+   known colour (focus / surface is a checked pair). Inside a glass toolbar or
+   group the ring falls on the glass itself. */
+.c-button--glass:focus-visible,
+.c-select--glass > select:focus-visible {
+  box-shadow: 0 0 0 var(--c-layout-focus-offset) var(--c-elevation-1-surface, var(--c-surface));
+}
+.c-select--glass > select[aria-invalid="true"]:focus-visible {
+  box-shadow: inset 0 0 0 1px var(--c-status-error-border, var(--c-border)), 0 0 0 var(--c-layout-focus-offset) var(--c-elevation-1-surface, var(--c-surface));
+}
+
 /* Touch keeps the standard target even for dense controls. */
 @media (pointer: coarse) {
   .c-button--dense,
@@ -464,6 +554,27 @@
   /* Toolbars keep their boundary; quiet buttons and options are drawn as buttons,
      and a selected one takes the highlight border and keeps its bar. */
   .c-toolbar { border-color: CanvasText; }
+  /* Glass surfaces become opaque system surfaces with their boundary kept. */
+  :is(.c-glass, .c-toolbar--glass, .c-segmented--glass) {
+    background-color: Canvas;
+    border-color: CanvasText;
+    color: CanvasText;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .c-button--glass {
+    background-color: ButtonFace;
+    color: ButtonText;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .c-select--glass > select {
+    background-color: Field;
+    color: FieldText;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .c-select--glass::after { border-color: FieldText; }
   .c-segmented__option { border-color: ButtonText; }
   .c-button[aria-pressed="true"],
   .c-segmented__option:is([aria-pressed="true"], [aria-checked="true"]) { border-color: Highlight; }

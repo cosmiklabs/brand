@@ -4,7 +4,7 @@
 
 ## Use roles, not colours
 
-Product code reads **semantic roles** (`bg`, `surface`, `raised`, `text`, `muted`, `border`, `focus`, the action, input, disabled and status roles), never raw colours or primitives. Every role exists in both a dark and a light mode. The values, and the full list, are in the [tokens](../kits/README.md).
+Product code reads **semantic roles** (`bg`, `surface`, `raised`, `text`, `muted`, `border`, `focus`, the action, input, disabled, status and glass roles), never raw colours or primitives. Every role exists in both a dark and a light mode. The values, and the full list, are in the [tokens](../kits/README.md).
 
 - **Switch a whole mode together.** Never change text without its surfaces, or put a dark-only colour on a light surface.
 - **Choosing a mode is the product's decision.** `data-theme` sets one on a page or section; without it the page follows the operating system's light or dark preference.
@@ -21,6 +21,24 @@ An attractive translucent panel over a screenshot or 3D viewport is not guarante
 to retain that relationship as the content changes. Use a sufficiently solid
 semantic surface and a functional boundary; do not count a decorative shadow as
 the boundary. Check actual backgrounds in both themes.
+
+The **glass roles** are the one sanctioned translucent surface, for controls that
+float over busy or moving content (see [interface](interface.md#shared-controls)):
+
+| Role | Use |
+| --- | --- |
+| `glass` | The translucent tint (`#RRGGBBAA`) painted over the blurred backdrop |
+| `glass-border` | The hairline boundary of a glass surface |
+| `glass-muted` | Muted text on glass; ordinary text stays `text` |
+
+Text, `glass-muted`, quiet controls, focus and selection are checked against the
+tint composited over every backdrop on a grid of 17 levels per sRGB channel (4,913 colours), with the
+backdrop saturated as the kit's `glass.saturation` does. The boundary passes when
+either the hairline or the glass fill reaches 3:1 against each backdrop. The solid
+fallback (`surface`) is checked too. The backdrop blur radius and saturation are
+`glass.blur` and `glass.saturation`; a family may set its own glass roles, not
+those two. `npm run check` reports each glass pair with the backdrop it is weakest
+over, and the browser check measures the same from rendered pixels.
 
 Portalled overlays must receive the same theme and family context as their trigger.
 Use the [consumer integration contract](../kits/README.md#themes-scopes-and-motion)

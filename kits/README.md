@@ -163,6 +163,12 @@ behavior each state must have is defined once, in the
 | `c-status` | `<span>` | Neutral status label: `label` type, pill shape, no interaction states or pointer cursor |
 | `c-status--dense` | Added to a status label | The same pill, roles and `label` family, tracking and case at the `ui-small` size with tighter padding, for dense rows, headers and cards; still no interaction states |
 | `c-focus-ring` | Any other custom focusable control | The shared focus-visible ring |
+| `c-glass` | A floating container over busy content: a menu, popover, hint or label | Glass tint, hairline, blurred backdrop; `muted` resolves to `glass-muted` inside; solid fallbacks |
+| `c-toolbar--glass` | Added to a toolbar | The toolbar on glass; its quiet buttons and segmented controls need nothing more |
+| `c-button--glass` | Added to a button that floats alone, instead of `--secondary`; with `--icon` and `--dense` as needed | Glass at rest; hover, pressed, toggle (opaque selected roles and bar), disabled as other buttons; focus ring over a solid halo |
+| `c-segmented--glass` | Added to a segmented control that floats alone | Its own glass group with `space-base` padding |
+| `c-select--glass` | Added to the select's wrapper, with `--dense` as needed | The trigger on glass with the chevron in `text`; the opened list stays the platform's |
+| `data-glass="flat"` / `"solid"` | On a region that holds glass controls | Flat keeps the tint without the blur; solid paints the solid surface |
 
 ```html
 <label for="order">Order</label>
@@ -187,6 +193,16 @@ behavior each state must have is defined once, in the
 
 <a class="c-button c-button--primary c-button--large" href="#start">Get started</a>
 <span class="c-select c-select--dense"><select aria-label="Rows">…</select></span>
+
+<!-- Floating over a canvas or media: glass, opt-in per surface. -->
+<div class="c-toolbar c-toolbar--glass" role="toolbar" aria-label="View tools">
+  <button type="button" class="c-button c-button--quiet c-button--icon c-button--dense"
+    aria-label="Grid lines" aria-pressed="true"><svg aria-hidden="true">…</svg></button>
+</div>
+<button type="button" class="c-button c-button--glass c-button--dense">View</button>
+<span class="c-select c-select--dense c-select--glass"><select aria-label="Scale">…</select></span>
+<div class="c-segmented c-segmented--dense c-segmented--glass" role="radiogroup" aria-label="Distance">…</div>
+<div class="c-glass" role="menu" aria-label="Display">…</div>
 ```
 
 Sizes are mechanisms, not defaults: `--dense` suits mouse-driven application
@@ -205,6 +221,20 @@ once. Pressing never scales or moves a control: hover and pressed change colour 
 Hover treatments apply only under `(hover: hover)`, so a tap on a touch screen
 never leaves a control looking hovered; pressed (`:active`) feedback applies on
 every input. Gate your own hover styles the same way.
+
+Glass is a mechanism for controls that float over busy or moving content, not a
+default: the product opts in per surface and keeps reading content, forms, dense
+lists, dialogs and side panels solid ([interface](../guide/interface.md#shared-controls)).
+Glass surfaces read the `glass`, `glass-border` and `glass-muted` roles and the
+`--c-glass-blur` and `--c-glass-saturation` tokens; a family may set the roles,
+not the blur or saturation. Where `backdrop-filter` is unsupported, under
+`prefers-reduced-transparency: reduce`, inside `data-glass="solid"` and in forced
+colours they paint the solid surface (`--c-elevation-1-surface`, else `surface`);
+`data-glass="flat"` keeps the tint and drops the blur, for a region where the blur
+costs too much. Backdrop blur is recomposited whenever the content behind it
+changes, so measure it over a moving canvas. Selection on glass stays opaque. A
+portalled menu or popover takes `c-glass` itself and needs its trigger's theme
+and family, like any portal.
 
 Fields fill their container; size the container. The select wrapper draws a
 stroked chevron with borders, inset by `--c-space-4`, that ignores pointer input;

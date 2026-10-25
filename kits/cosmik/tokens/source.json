@@ -1,6 +1,6 @@
 {
   "name": "Cosmik",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "status": "Approved baseline (owner, 2026-10-07)",
   "proposals": [],
   "primitives": {
@@ -21,7 +21,10 @@
     "rule-light": "#C6C5C0",
     "paper-shade": "#EFEEE9",
     "scrim-dark": "#000000B8",
-    "scrim-light": "#0000007A"
+    "scrim-light": "#0000007A",
+    "glass-dark": "#121212D6",
+    "glass-light": "#FFFFFFD6",
+    "muted-glass-light": "#595959"
   },
   "semantic": {
     "dark": {
@@ -60,7 +63,10 @@
       "ornament-faint": "ornament-dark-faint",
       "ornament-text": "graphite",
       "media-placeholder": "media-dark",
-      "scrim": "scrim-dark"
+      "scrim": "scrim-dark",
+      "glass": "glass-dark",
+      "glass-border": "rule-light",
+      "glass-muted": "muted-dark"
     },
     "light": {
       "bg": "paper",
@@ -98,7 +104,10 @@
       "ornament-faint": "paper-shade",
       "ornament-text": "rule-light",
       "media-placeholder": "light-soft",
-      "scrim": "scrim-light"
+      "scrim": "scrim-light",
+      "glass": "glass-light",
+      "glass-border": "decorative-dark",
+      "glass-muted": "muted-glass-light"
     }
   },
   "space": {
@@ -121,6 +130,10 @@
     "narrow": "380px"
   },
   "elevation": {},
+  "glass": {
+    "blur": "12px",
+    "saturation": 1.2
+  },
   "layout": {
     "radius": "0.25rem",
     "gutter": "1.5rem",

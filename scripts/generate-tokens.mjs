@@ -34,7 +34,10 @@ const toJson = (value) => JSON.stringify(value, null, 2)
 // ui-small, label, identity-label) stays the baseline's in every family.
 const FAMILY_TYPE_ROLES = ['display', 'display-small', 'section', 'card'];
 const FAMILY_TYPE_KEYS = ['fontFamily', 'fontWeight'];
-export const FAMILY_FIXED = ['space', 'layout', 'motion', 'radius', 'breakpoint'];
+// `glass` (backdrop blur and saturation) is fixed like the other non-colour tokens; a family may
+// still override the glass colour roles (`glass`, `glass-border`, `glass-muted`) under `semantic`,
+// and the contrast check proves them over any backdrop.
+export const FAMILY_FIXED = ['space', 'layout', 'motion', 'radius', 'breakpoint', 'glass'];
 /** Resolves a family source over `baseline`, or throws naming the first contract violation. */
 export const familySource = (family, baseline) => {
   const fail = (msg) => { throw new Error(`Family ${family.id}: ${msg}`); };
@@ -80,7 +83,7 @@ export const familySource = (family, baseline) => {
     primitives, semantic, extensionRoles: Object.keys(family.extensions?.dark ?? {}),
     overriddenType: Object.keys(family.type ?? {}),
     space: baseline.space, layout: baseline.layout, motion: baseline.motion, radius: baseline.radius,
-    breakpoint: baseline.breakpoint, type, elevation: family.elevation ?? {},
+    breakpoint: baseline.breakpoint, type, elevation: family.elevation ?? {}, glass: baseline.glass,
   };
 };
 
@@ -140,7 +143,7 @@ export const validateSource = (source, stem) => {
   for (const key of ['name', 'version', 'status']) {
     if (typeof source[key] !== 'string' || !source[key].trim() || /[\r\n]/.test(source[key])) throw new Error(`${stem}.${key}: expected a non-empty single line`);
   }
-  for (const group of ['primitives', 'semantic', 'space', 'layout', 'type', 'motion', 'radius', 'breakpoint', 'elevation']) object(source[group], `${stem}.${group}`);
+  for (const group of ['primitives', 'semantic', 'space', 'layout', 'type', 'motion', 'radius', 'breakpoint', 'elevation', 'glass']) object(source[group], `${stem}.${group}`);
   if (Object.keys(source.semantic).sort().join('|') !== 'dark|light') throw new Error(`${stem}.semantic: expected exactly dark and light modes`);
   for (const [mode, roles] of Object.entries(source.semantic)) {
     object(roles, `${stem}.semantic.${mode}`);
@@ -181,6 +184,13 @@ export const validateSource = (source, stem) => {
     letterSpacingFraction(type.letterSpacing);
     if (type.textTransform !== undefined && !['none', 'uppercase'].includes(type.textTransform)) throw new Error(`${stem}.type.${role}: unsupported text transform ${type.textTransform}`);
   }
+  // Glass surfaces: a backdrop blur radius and a saturation factor (1 leaves colour unchanged).
+  for (const key of Object.keys(source.glass)) if (!['blur', 'saturation'].includes(key)) throw new Error(`${stem}.glass: unsupported property ${key}`);
+  finite(toPx(source.glass.blur ?? ''), `${stem}.glass.blur`);
+  finite(source.glass.saturation, `${stem}.glass.saturation`);
+  // --c-glass-blur and --c-glass-saturation share the colour roles' namespace, as do the controls
+  // layer's internal --c-glass-fill and --c-glass-backdrop switches.
+  for (const key of ['blur', 'saturation', 'fill', 'backdrop']) if (`glass-${key}` in source.semantic.dark) throw new Error(`${stem}: semantic role glass-${key} is reserved by the glass tokens and controls`);
   for (const key of Object.keys(source.motion)) if (!['duration', 'reduced-duration', 'easing'].includes(key)) throw new Error(`${stem}.motion: unsupported property ${key}`);
   parseMs(source.motion.duration); parseMs(source.motion['reduced-duration']); toBezier(source.motion.easing);
   for (const [level, elevation] of Object.entries(source.elevation)) {
@@ -237,6 +247,7 @@ export const renderKit = (source, { stem, scope = null, baseline, provenance }) 
     layout: nativeLayout,
     type: Object.fromEntries(Object.entries(source.type).map(([k, v]) => [k, nativeType(v)])),
     motion: { durationMs: parseMs(source.motion.duration), reducedDurationMs: parseMs(source.motion['reduced-duration']), easing: toBezier(source.motion.easing) },
+    glass: { blurPx: toPx(source.glass.blur), saturation: source.glass.saturation },
   };
 
   // ---- <stem>.json: simple kit-specific contract ----
@@ -245,7 +256,7 @@ export const renderKit = (source, { stem, scope = null, baseline, provenance }) 
     description: 'Resolved semantic tokens. Use semantic tokens in components; primitives are reference values, not theme roles. All dimensions assume a 16px browser root. All-caps tracking is for labels only.',
     primitives: source.primitives, semantic: modes, aliases: source.semantic,
     space: source.space, layout: source.layout, type: source.type, motion: source.motion,
-    proposals: source.proposals, radius: source.radius, breakpoint: source.breakpoint, elevation: source.elevation, native };
+    proposals: source.proposals, radius: source.radius, breakpoint: source.breakpoint, elevation: source.elevation, glass: source.glass, native };
   write(`${stem}.json`, toJson(output));
 
   // ---- <stem>.css ----
@@ -284,6 +295,8 @@ export const renderKit = (source, { stem, scope = null, baseline, provenance }) 
     css += '  --c-motion-duration: var(--c-motion-system-duration);\n';
     css += typeVars(Object.keys(source.type));
     for (const [key, val] of Object.entries(source.radius)) css += `  --c-radius-${key}: ${val};\n`;
+    css += `  --c-glass-blur: ${source.glass.blur};\n`;
+    css += `  --c-glass-saturation: ${source.glass.saturation};\n`;
     css += '  /* Breakpoints are reference values: custom properties cannot be used inside @media. */\n';
     for (const [key, val] of Object.entries(source.breakpoint)) css += `  --c-breakpoint-${key}: ${val};\n`;
     css += '}\n';
@@ -360,6 +373,10 @@ export const renderKit = (source, { stem, scope = null, baseline, provenance }) 
       'reduced-duration': tok('duration', { value: parseMs(source.motion['reduced-duration']), unit: 'ms' }),
       easing: tok('cubicBezier', toBezier(source.motion.easing)),
     },
+    glass: {
+      blur: tok('dimension', dtcgDimension(source.glass.blur), { $description: 'Backdrop blur radius behind a glass surface.' }),
+      saturation: tok('number', source.glass.saturation, { $description: 'Backdrop saturation factor behind a glass surface; 1 leaves colour unchanged.' }),
+    },
   };
   write(`${stem}.tokens.json`, toJson(dtcg));
 
@@ -431,6 +448,7 @@ ${Object.entries(source.primitives).map(([k, v]) => `    pub const ${CONST(k)}: 
     ? `    /// Reading measure in characters.\n    pub const ${CONST(k)}_CHARS: u32 = ${v.chars};`
     : `    pub const ${CONST(k)}: f32 = ${f32(v)};`)).join('\n')}\n}\n`;
   rs += `\npub mod typography {\n    use super::TypeRole;\n${Object.entries(native.type).map(([k, t]) => `    pub const ${CONST(k)}: TypeRole = TypeRole { font_family: ${JSON.stringify(t.fontFamily)}, font_weight: ${t.fontWeight}, font_size: ${f32(t.fontSizePx)}, line_height: ${f32(t.lineHeight)}, letter_spacing: ${f32(t.letterSpacing)}, uppercase: ${t.textTransform === 'uppercase'} };`).join('\n')}\n}\n`;
+  rs += `\n/// Backdrop treatment behind glass surfaces: blur radius in logical px and a saturation factor.\npub mod glass {\n    pub const BLUR: f32 = ${f32(native.glass.blurPx)};\n    pub const SATURATION: f32 = ${f32(native.glass.saturation)};\n}\n`;
   rs += `\npub mod motion {\n    pub const DURATION_MS: u32 = ${native.motion.durationMs};\n    pub const REDUCED_DURATION_MS: u32 = ${native.motion.reducedDurationMs};\n    /// Cubic-bezier control points [x1, y1, x2, y2].\n    pub const EASING: [f32; 4] = ${arr(native.motion.easing)};\n}\n`;
   write(`${stem}_tokens.rs`, rs);
 

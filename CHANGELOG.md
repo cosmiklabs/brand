@@ -3,6 +3,56 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`; from 0.8.0 they live in their own repositories.
 
+## 0.13.0 · 25 October 2026
+
+Glass variants for controls that float over busy or moving content. Not breaking:
+glass is opt-in per surface and no existing class changes. The baseline token
+version moves to **0.8.0** (new roles and tokens), so families update `extends`.
+
+- **Roles.** `glass` (a translucent tint, `#RRGGBBAA`), `glass-border` (the
+  hairline) and `glass-muted` (muted text on glass), in both modes. Dark: the
+  dark surface at 84 % over the backdrop, a `#C6C5C0` hairline and the usual dark
+  muted grey; light: white at 84 %, a `#303030` hairline and a new `#595959`
+  muted grey. A family may override them under `semantic` like any colour role.
+- **Tokens.** A `glass` group: `blur` (12px) and `saturation` (1.2), in CSS
+  (`--c-glass-blur`, `--c-glass-saturation`), JSON (`glass` and `native.glass`),
+  DTCG and Rust (`glass::BLUR`, `glass::SATURATION`). Like spacing and motion they
+  are baseline-only: the family contract now rejects a `glass` section.
+- **Contrast check.** Glass roles are checked against the tint composited over
+  every backdrop on a grid of 17 levels per sRGB channel (4,913 colours),
+  saturated as the token says: text, `glass-muted` and `action-secondary-fg` at 4.5:1, focus and
+  selection at 3:1, and a boundary at 3:1 where either the hairline or the fill
+  must clear each backdrop. The solid fallback is checked against `surface`.
+  Reports name the backdrop each pair is weakest over. Families get the same
+  checks through `family.mjs check`.
+- **Controls.** `c-glass` (a container for menus, popovers, hints and labels),
+  `c-toolbar--glass`, `c-button--glass` (a standalone button, instead of
+  `--secondary`, with `--icon` and `--dense`), `c-segmented--glass` and
+  `c-select--glass` (the trigger). Selection stays opaque with its bar; hover and
+  pressed use the action roles; a standalone glass control's focus ring sits on a
+  solid halo. Inside glass, `--c-muted` resolves to `glass-muted`.
+- **Fallbacks.** Solid by default and glass only under
+  `@supports (backdrop-filter …)`; solid under `prefers-reduced-transparency:
+  reduce`; opaque system colours with the boundary kept in forced colours.
+  Regions may choose `data-glass="flat"` (tint, no blur, for where the blur is
+  too costly) or `data-glass="solid"`.
+- **Docs and reference.** Interface (when to use glass and when not), colour
+  (the roles and how they are checked), families (the contract) and the consumer
+  guide (classes and markup). The reference shows every glass control over white,
+  black, saturated colours, fine stripes and a checker in both themes.
+- **Browser checks** assert the glass roles, blur and selection; measure text,
+  muted text and boundary contrast from screenshots over 14 worst-case backdrops
+  per theme; and prove each fallback (a copy of the layer with the `@supports`
+  condition made false, emulated reduced transparency, both `data-glass` values,
+  forced colours) and that a tapped glass button keeps no hover fill.
+
+### Migrating
+
+Vendor 0.13.0, set a family's `extends` to `"Cosmik baseline 0.8.0"`, rebuild and
+check. A family that overrides `surface` or `muted` heavily should review its glass
+pairs in the report; override `glass`, `glass-border` or `glass-muted` only if the
+baseline values do not suit its palette.
+
 ## 0.12.2 · 25 October 2026
 
 Hover no longer sticks after a tap. Not breaking.

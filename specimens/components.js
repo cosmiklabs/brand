@@ -26,7 +26,8 @@ document.querySelectorAll('.c-chip[aria-pressed]').forEach(chip => {
 
 // Toolbars use one tab stop and arrow keys; toggles keep their state in aria-pressed.
 document.querySelectorAll('.c-toolbar[role="toolbar"]').forEach(bar => {
-  const items = [...bar.querySelectorAll('button')];
+  // A segmented group inside a toolbar keeps its own tab stop and arrow keys.
+  const items = [...bar.querySelectorAll('button:not([role="radio"])')];
   bar.addEventListener('keydown', event => {
     const step = {ArrowRight:1, ArrowDown:1, ArrowLeft:-1, ArrowUp:-1}[event.key];
     const at = items.indexOf(document.activeElement);

@@ -32,7 +32,8 @@ for transitions and their lifecycle.
   the standard minimum and leave space between independent actions.
 - Use the radius tokens and semantic surface roles. Family elevation tokens may
   distinguish an overlay from its surroundings; shadows are not decoration and
-  must not be the only boundary on a busy canvas.
+  must not be the only boundary on a busy canvas. Controls floating over such a
+  canvas may use [glass](#shared-controls); everything else stays solid.
 
 ## Controls and feedback
 
@@ -92,6 +93,24 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
   shadow may add depth. Give the group `role="toolbar"` with arrow-key focus, or
   `role="group"`, and an accessible name. Keep one toolbar per task and leave
   space between independent groups; placement is the product's.
+- **Glass** is an opt-in surface for controls that float over busy or moving
+  content: a 3D canvas, video or an image the user is working on. Use it for the
+  toolbars, triggers, hints and the menus and popovers opened from them, and keep
+  it consistent across one such region. Never use it for reading content, forms,
+  dense lists, dialogs, navigation or panels beside the content: those stay on
+  solid surfaces. It is a mechanism, not a default; the product chooses where it
+  applies. Glass paints the `glass` tint over a blurred, slightly saturated copy
+  of the content behind it and draws the `glass-border` hairline, so it keeps AA
+  text (muted text uses `glass-muted`) and a 3:1 boundary over any backdrop.
+  Selection stays opaque (the selected roles and bar), and hover and pressed use
+  the usual action roles. Where the browser cannot blur, the user asks for
+  reduced transparency or forced colours are on, the same controls are solid.
+  Keep glass calm: one layer deep where possible, no glow, gradient or tinted
+  accent, and no glass on large panels, where the blur costs the most and adds
+  the least. Backdrop blur redraws with every frame of moving content; measure it
+  in the product and drop the blur first if it costs frames: `data-glass="flat"`
+  on a region keeps the tint without the blur (contrast holds, because blurring
+  only averages the content), and `data-glass="solid"` makes it solid.
 - **Segmented controls** choose one of a few mutually exclusive options: a
   `radiogroup` of `radio` options with a roving tab stop and arrow keys, or a
   group of `aria-pressed` buttons. Every option takes the widest option's width,
@@ -132,7 +151,7 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
   motion preference removes them.
 - **Forced colours** keep every boundary, the chevron, the selection check, the
   selection bar and the focus ring, because they are borders and outlines rather
-  than fills.
+  than fills. Glass surfaces become opaque system surfaces with their boundary.
 
 ## Forms and settings
 

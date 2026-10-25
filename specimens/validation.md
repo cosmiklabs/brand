@@ -5,6 +5,40 @@ controls layer. Kit checks establish their tested properties; they do not certif
 a consuming product or replace its interaction journeys. Product families keep
 their own validation records in their repositories.
 
+## 0.13.0 review — 25 October 2026
+
+Glass variants. Run on macOS with Node.js 24.22.0 and headless Chrome for Testing
+156.0.8078.4 (software compositing, `--disable-gpu`):
+
+- `npm run build`, `npm run check` (130 baseline contrast pairs including 16 glass
+  pairs; 87 tests) and `node scripts/build.mjs --check` from the release commit pass.
+- Token check, glass over any of 4,913 backdrops (weakest backdrop in brackets):
+  dark text 10.74:1, `glass-muted` 4.65:1 (white), boundary 3.07:1 (a dull green
+  mid-tone); light text 14.45:1, `glass-muted` 4.82:1 (black), boundary 3.18:1 (a
+  saturated pink). Focus and selection over glass are 10.7:1 or more. The solid
+  fallback: `glass-muted` / `surface` 7.43:1 dark and 7.01:1 light.
+- Browser check, measured from screenshot pixels over 14 backdrops per theme
+  (white, black, mid grey, four saturated mid-tones, pure red and blue, the two
+  weakest boundary mid-tones from the token check, 1 px stripes, a 2 px checker
+  and coloured stripes). Worst pixel in each theme: dark text 10.74:1, muted
+  4.65:1 (over white), boundary 3.08:1; light text 14.45:1, muted 4.82:1 (over
+  black), boundary 3.18:1. The sampled composites match the token model to two
+  decimals, which confirms straight-alpha sRGB compositing; over 1 px stripes the
+  composite's luminance varies by less than 0.02, so the blur is real.
+- Fallbacks, each asserted on every glass control in both themes: a copy of the
+  layer with its `@supports` condition made false paints `surface` with no
+  backdrop filter; so does emulated `prefers-reduced-transparency: reduce` and
+  `data-glass="solid"`; `data-glass="flat"` keeps the tint without the filter;
+  forced colours give an opaque fill, a solid boundary and no filter. Under touch
+  emulation a tapped glass button keeps `:hover` but returns to its tint.
+- Rendered inspection: the glass row in both themes at 1280 px, the probe grids,
+  reduced transparency and forced colours. Controls read clearly over every band;
+  the dark hairline is visibly brighter than the solid toolbar border, which is
+  what holds the boundary over mid-tones. No issue found.
+- Not covered: GPU compositing (the check runs in software), other engines, the
+  frame cost of the blur over moving content (a product measurement) and real
+  photographs or 3D scenes, which the product must review in place.
+
 ## 0.12.2 review — 25 October 2026
 
 Hover gated on `(hover: hover)`. Run on macOS with Node.js 24.22.0 and headless

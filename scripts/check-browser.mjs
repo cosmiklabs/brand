@@ -10,12 +10,19 @@ import http from 'node:http';
 import {spawn} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {renderFamily} from './family.mjs';
+import {decodePng} from './vector-raster.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 // A fictional, test-only family proves family scopes and the controls layer compose. It is rendered
 // in memory by the family API and served at a virtual path; nothing is written into the kit.
 const fixtureFamily = renderFamily(path.join(root, 'tests/fixtures/example'));
 const fixtureCss = fixtureFamily.files.find(([name]) => name === 'example.css')[1];
+const glassTokens = JSON.parse(fs.readFileSync(path.join(root, 'kits/cosmik/tokens/cosmik.json'), 'utf8')).glass;
+// The controls layer as a browser without backdrop-filter sees it: the @supports block never applies.
+const controlsSource = fs.readFileSync(path.join(root, 'kits/cosmik/components/controls.css'), 'utf8');
+const supportsGlass = '@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)))';
+if (!controlsSource.includes(supportsGlass)) throw Error('controls.css no longer gates glass on backdrop-filter support; update the fallback check');
+const controlsWithoutBackdrop = controlsSource.replace(supportsGlass, '@supports (not-a-property: none)');
 if (!process.env.BRAND_BROWSER) throw Error('Set BRAND_BROWSER to an installed Chromium browser executable.');
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'cosmik-browser-'));
 const screenshots = process.env.BRAND_SCREENSHOTS;
@@ -26,6 +33,7 @@ const server = http.createServer((req, res) => {
   catch { res.writeHead(400); res.end(); return; }
   if (pathname === '/favicon.ico') { res.writeHead(204); res.end(); return; }
   if (pathname === '/__fixture__/example.css') { res.setHeader('Content-Type', 'text/css'); res.end(fixtureCss); return; }
+  if (pathname === '/__fixture__/controls-without-backdrop.css') { res.setHeader('Content-Type', 'text/css'); res.end(controlsWithoutBackdrop); return; }
   const file = path.resolve(root, '.' + pathname);
   if (!file.startsWith(root + path.sep) || !fs.existsSync(file) || !fs.statSync(file).isFile() || !fs.realpathSync(file).startsWith(fs.realpathSync(root) + path.sep)) {
     res.writeHead(404); res.end(); return;
@@ -284,7 +292,7 @@ try {
       assert.equal(await evaluate(`[...document.querySelectorAll('#${mode} .c-chip, #${mode} .c-button--dense, #${mode} .c-input--dense, #${mode} .c-select--dense select')].filter(e=>e.getClientRects().length).every(e=>e.getBoundingClientRect().height>=32)`), true);
       // Dense fields on a fine pointer: the control-dense target and the ui type role.
       const denseFields = await evaluate(`[...document.querySelectorAll('#${mode} .c-input--dense, #${mode} .c-select--dense select')].map(e=>{const s=getComputedStyle(e), r=getComputedStyle(document.documentElement);return {height:Math.round(e.getBoundingClientRect().height), size:s.fontSize, ui:parseFloat(r.getPropertyValue('--c-type-ui-font-size'))*16+'px'}})`);
-      assert.equal(denseFields.length, 2);
+      assert.equal(denseFields.length, 3); // two in the field panel, one glass select
       for (const field of denseFields) assert.deepEqual({height:field.height, size:field.size}, {height:32, size:field.ui}, `${mode} dense field on a fine pointer`);
       assert.ok(parseFloat(await css(`#${mode}-rows`, 'padding-right')) >= 28, 'dense select text clears the chevron');
       // Large: a taller target than the standard button, from layout and space tokens.
@@ -335,6 +343,40 @@ try {
       await key('ArrowLeft', 'ArrowLeft', 37);
       await evaluate(`document.querySelector('#${mode}-toolbars').scrollIntoView({block:'center'})`);
       await force(`${bar} .c-button:not([aria-pressed])`, ['hover']); await shot(`cosmik-${mode}-toolbars`); await force(`${bar} .c-button:not([aria-pressed])`);
+      // Glass: opt-in variants paint the glass roles, blur and saturate the backdrop,
+      // keep text on the text roles and muted text on glass-muted, and keep selection opaque.
+      {
+        const g = `#${mode}-glass`, bar = `${g} .c-toolbar--glass`, button = `${g} .c-button--glass:not(.c-button--icon)`, select = `#${mode}-glass-scale`;
+        const group = `#${mode}-glass-segmented`, hint = `#${mode}-glass-hint`;
+        const backdrop = `blur(${glassTokens.blur}) saturate(${glassTokens.saturation})`;
+        for (const surface of [bar, button, select, group, hint]) {
+          await expectRole(surface, 'background-color', mode, 'glass');
+          await expectRole(surface, 'border-top-color', mode, 'glass-border');
+          assert.equal(await css(surface, 'backdrop-filter'), backdrop, `${mode} ${surface} blurs and saturates its backdrop`);
+          assert.equal(await css(surface, 'border-top-style'), 'solid', `${mode} ${surface} keeps a drawn boundary`);
+        }
+        await expectRole(`${hint} .muted`, 'color', mode, 'glass-muted');
+        await expectRole(button, 'color', mode, 'text');
+        await expectRole(select, 'color', mode, 'text');
+        assert.equal(await css(`${g} .c-select--glass`, 'border-right-color', '::after'), await token(mode, 'text'), `${mode} glass select chevron`);
+        await expectRole(button, 'background-color', mode, 'action-secondary-hover', ['hover']);
+        await expectRole(button, 'background-color', mode, 'action-secondary-active', ['hover', 'active']);
+        const toggle = `${bar} .c-button[aria-pressed="true"]`, checked = `${group} [aria-checked="true"]`;
+        for (const states of [[], ['hover'], ['hover', 'active']]) {
+          await expectRole(toggle, 'background-color', mode, 'selected', states);
+          await expectRole(checked, 'background-color', mode, 'selected', states);
+        }
+        await expectRole(toggle, 'color', mode, 'on-selected');
+        assert.equal(await css(toggle, 'border-bottom-style', '::after'), 'solid', `${mode} glass toggle keeps its bar`);
+        // A standalone glass control's ring sits over the unknown backdrop: the offset is filled
+        // with the solid surface so the ring always meets a known colour.
+        await force(button, ['focus', 'focus-visible']);
+        assert.equal(await css(button, 'outline-color'), await token(mode, 'focus'));
+        assert.ok((await css(button, 'box-shadow')).startsWith(await token(mode, 'surface')), `${mode} glass focus halo ${await css(button, 'box-shadow')}`);
+        await force(button);
+        await evaluate(`document.querySelector('${g}').scrollIntoView({block:'center'})`);
+        await force(`${bar} .c-button:not([aria-pressed])`, ['hover']); await shot(`cosmik-${mode}-glass`); await force(`${bar} .c-button:not([aria-pressed])`);
+      }
       await evaluate(`document.querySelector('#${mode}-details').scrollIntoView()`);
       await evaluate(`document.querySelector('#${mode}-name').focus()`);
       await shot(`cosmik-${mode}-controls`);
@@ -348,6 +390,95 @@ try {
     assert.match(easing, /ease-out/);
     await evaluate(`{const p=document.querySelector('#motion-picker');p.value='system';p.dispatchEvent(new Event('change'));}`);
     await cdp('CSS.disable'); await cdp('DOM.disable');
+  }
+  // Glass legibility, measured from pixels. Glass controls are rendered over worst-case content
+  // (white, black, saturated mid-tones, the mid-tones the token check finds hardest for each
+  // theme's boundary, and fine stripes and checkers) in both themes. The composite behind the
+  // text is sampled from a screenshot; text is judged against every sampled pixel, and the
+  // boundary (the hairline or the glass fill, whichever is stronger) against the content just
+  // outside it, column by column.
+  {
+    await evaluate(`{const p=document.querySelector('#motion-picker');p.value='reduce';p.dispatchEvent(new Event('change'));}`);
+    const backdrops = {
+      white: '#FFFFFF', black: '#000000', grey: '#777777', red: '#E0301E', green: '#1F9D55', blue: '#2563EB', magenta: '#D946EF',
+      'pure red': '#FF0000', 'pure blue': '#0000FF', 'dark-boundary worst': '#607060', 'light-boundary worst': '#EF008F',
+      stripes: 'repeating-linear-gradient(90deg,#000 0 1px,#fff 1px 2px)', checker: 'repeating-conic-gradient(#000 0 25%,#fff 0 50%) 0 0/4px 4px',
+      'colour stripes': 'repeating-linear-gradient(90deg,#E0301E 0 2px,#2563EB 2px 4px,#FFFFFF 4px 6px,#000000 6px 8px)',
+    };
+    const L = ([r, g, b]) => [r, g, b].map(v => v / 255).map(c => c <= .04045 ? c / 12.92 : ((c + .055) / 1.055) ** 2.4).reduce((s, c, i) => s + c * [.2126, .7152, .0722][i], 0);
+    const ratio = (a, b) => { const [x, y] = [L(a), L(b)].sort((p, q) => p - q); return (y + .05) / (x + .05); };
+    const rgbOf = value => value.match(/[\d.]+/g).slice(0, 3).map(Number);
+    const results = [];
+    await size(1280);
+    for (const mode of ['dark', 'light']) {
+      await evaluate(`(() => {const o=document.createElement('div');o.id='glass-probes';o.dataset.theme=${JSON.stringify(mode)};
+        o.style.cssText='position:fixed;inset:0;z-index:100;display:grid;grid-template-columns:repeat(4,300px);gap:0;align-content:start;background:var(--c-bg)';
+        o.innerHTML=${JSON.stringify(Object.entries(backdrops))}.map(([name,bg])=>'<div class="probe" style="height:110px;padding:20px;background:'+bg+'"><div class="c-glass" data-name="'+name+'" style="width:220px;padding:8px 12px;font:500 14px/20px Inter"><span class="t">Glass text</span> <span class="muted m">Muted</span></div><div class="c-toolbar c-toolbar--glass" style="margin-top:12px"><button type="button" class="c-button c-button--quiet c-button--dense">View</button></div></div>').join('');
+        document.body.append(o);})()`);
+      await pause(200);
+      const layout = await evaluate(`[...document.querySelectorAll('#glass-probes .c-glass')].map(e=>{const r=e.getBoundingClientRect(),t=e.querySelector('.t').getBoundingClientRect(),m=e.querySelector('.m').getBoundingClientRect();
+        return {name:e.dataset.name,box:[r.left,r.top,r.right,r.bottom].map(Math.round),text:[t.left,t.top,t.right,t.bottom].map(Math.round),muted:[m.left,m.top,m.right,m.bottom].map(Math.round),
+          textColor:getComputedStyle(e.querySelector('.t')).color,mutedColor:getComputedStyle(e.querySelector('.m')).color,filter:getComputedStyle(e).backdropFilter}})`);
+      const shotData = await cdp('Page.captureScreenshot', {format: 'png', captureBeyondViewport: false, fromSurface: true});
+      const png = Buffer.from(shotData.data, 'base64');
+      if (screenshots) fs.writeFileSync(path.join(screenshots, `cosmik-${mode}-glass-probes.png`), png);
+      const image = decodePng(png);
+      const px = (x, y) => { const i = (y * image.width + x) * 4; return [image.rgba[i], image.rgba[i + 1], image.rgba[i + 2]]; };
+      for (const probe of layout) {
+        const [left, top, right, bottom] = probe.box;
+        assert.notEqual(probe.filter, 'none', `${mode} ${probe.name}: the glass probe is blurred`);
+        // The composite: every pixel of the glass to the right of the words, inside the hairline.
+        const composite = [];
+        for (let y = top + 3; y < bottom - 3; y++) for (let x = probe.muted[2] + 6; x < right - 4; x++) composite.push(px(x, y));
+        const text = rgbOf(probe.textColor), muted = rgbOf(probe.mutedColor);
+        const worst = colour => Math.min(...composite.map(c => ratio(colour, c)));
+        // The darkest or lightest glyph pixel, whichever stands furthest from the composite.
+        const core = ([l, t, r, b]) => { let best = 0; for (let y = t; y < b; y++) for (let x = l; x < r; x++) best = Math.max(best, ratio(px(x, y), composite[0])); return best; };
+        let boundary = Infinity;
+        for (let x = left + 6; x < right - 6; x++) boundary = Math.min(boundary, Math.max(ratio(px(x, top), px(x, top - 1)), ratio(px(x, top + 3), px(x, top - 1))), Math.max(ratio(px(x, bottom - 1), px(x, bottom)), ratio(px(x, bottom - 4), px(x, bottom))));
+        for (let y = top + 6; y < bottom - 6; y++) boundary = Math.min(boundary, Math.max(ratio(px(left, y), px(left - 1, y)), ratio(px(left + 3, y), px(left - 1, y))));
+        const spread = Math.max(...composite.map(L)) - Math.min(...composite.map(L));
+        const result = {mode, backdrop: probe.name, text: +worst(text).toFixed(2), muted: +worst(muted).toFixed(2), textGlyph: +core(probe.text).toFixed(2), boundary: +boundary.toFixed(2), compositeLuminanceSpread: +spread.toFixed(3)};
+        results.push(result);
+        assert.ok(result.text >= 4.5 && result.muted >= 4.5, `${mode} glass text over ${probe.name}: ${JSON.stringify(result)}`);
+        assert.ok(result.boundary >= 3, `${mode} glass boundary over ${probe.name}: ${JSON.stringify(result)}`);
+      }
+      // Blur is real: over fine black and white stripes the composite is nearly uniform.
+      assert.ok(results.find(r => r.mode === mode && r.backdrop === 'stripes').compositeLuminanceSpread < 0.02, `${mode} stripes are blurred behind glass`);
+      await evaluate(`document.querySelector('#glass-probes').remove()`);
+    }
+    console.log('Glass contrast measured from screenshots (worst pixel):');
+    for (const r of results) console.log(`  ${r.mode.padEnd(5)} ${r.backdrop.padEnd(21)} text ${r.text}:1  muted ${r.muted}:1  glyph ${r.textGlyph}:1  boundary ${r.boundary}:1`);
+    if (screenshots) fs.writeFileSync(path.join(screenshots, 'glass-contrast.json'), JSON.stringify(results, null, 2));
+    // Fallbacks. Without backdrop-filter support (the @supports condition made false in a copy
+    // of the layer), and under prefers-reduced-transparency, glass paints the solid surface and
+    // blurs nothing; the boundary and text roles stay.
+    const solid = async label => {
+      for (const mode of ['dark', 'light']) for (const surface of [`#${mode}-glass .c-toolbar--glass`, `#${mode}-glass .c-button--glass`, `#${mode}-glass-scale`, `#${mode}-glass-segmented`, `#${mode}-glass-hint`]) {
+        const look = await evaluate(`(() => {const s=getComputedStyle(document.querySelector(${JSON.stringify(surface)}));return [s.backgroundColor, s.backdropFilter, s.borderTopStyle]})()`);
+        const probe = await evaluate(`(() => {const p=document.createElement('span');p.style.color='var(--c-surface)';document.querySelector('#${mode}').append(p);const c=getComputedStyle(p).color;p.remove();return c})()`);
+        assert.deepEqual(look, [probe, 'none', 'solid'], `${label}: ${surface} is solid`);
+      }
+    };
+    await evaluate(`new Promise((resolve, reject) => {const l=document.querySelector('link[href$="controls.css"]');const n=document.createElement('link');n.rel='stylesheet';n.href='/__fixture__/controls-without-backdrop.css';n.onload=()=>{l.disabled=true;resolve()};n.onerror=reject;n.id='no-backdrop';l.after(n)})`);
+    await solid('without backdrop-filter');
+    await evaluate(`document.querySelector('#no-backdrop').remove();document.querySelector('link[href$="controls.css"]').disabled=false`);
+    await cdp('Emulation.setEmulatedMedia', {features: [{name: 'prefers-reduced-transparency', value: 'reduce'}]});
+    assert.equal(await evaluate(`matchMedia('(prefers-reduced-transparency: reduce)').matches`), true, 'the browser emulates reduced transparency');
+    await solid('reduced transparency');
+    await evaluate(`document.querySelector('#light-glass').scrollIntoView({block:'center'})`); await shot('cosmik-light-glass-reduced-transparency');
+    await cdp('Emulation.setEmulatedMedia', {features: []});
+    // A product's region choice: flat keeps the tint without the blur; solid paints the surface.
+    await evaluate(`document.querySelectorAll('#dark, #light').forEach(e => e.dataset.glass = 'solid')`);
+    await solid('data-glass="solid"');
+    await evaluate(`document.querySelectorAll('#dark, #light').forEach(e => e.dataset.glass = 'flat')`);
+    for (const mode of ['dark', 'light']) {
+      const look = await evaluate(`(() => {const s=getComputedStyle(document.querySelector('#${mode}-glass-hint'));return [s.backgroundColor, s.backdropFilter]})()`);
+      const tint = await evaluate(`(() => {const p=document.createElement('span');p.style.color='var(--c-glass)';document.querySelector('#${mode}').append(p);const c=getComputedStyle(p).color;p.remove();return c})()`);
+      assert.deepEqual(look, [tint, 'none'], `${mode} data-glass="flat" keeps the tint and drops the blur`);
+    }
+    await evaluate(`document.querySelectorAll('#dark, #light').forEach(e => delete e.dataset.glass)`);
+    await evaluate(`{const p=document.querySelector('#motion-picker');p.value='system';p.dispatchEvent(new Event('change'));}`);
   }
   // Every combination of distant, nearest and explicit themes, including both orders.
   await evaluate(`{const box=document.createElement('div');box.id='probes';document.body.append(box)}`);
@@ -509,6 +640,12 @@ try {
   await tap(chip); await tap(chip);
   assert.equal(await evaluate(`document.querySelector('${chip}').getAttribute('aria-pressed')`), 'false');
   assert.equal(await background(chip), chipRest, 'no hover fill persists on a tapped chip');
+  // A glass button tapped: no hover fill persists; it returns to its glass tint.
+  const glassButton = '#dark-glass .c-button--glass:not(.c-button--icon)';
+  const glassRest = await background(glassButton);
+  await tap(glassButton);
+  assert.equal(await hovered(glassButton), true);
+  assert.equal(await background(glassButton), glassRest, 'no hover fill persists on a tapped glass button');
   await evaluate(`document.documentElement.style.fontSize='200%';document.querySelector('#dark-actions-tab').click();document.querySelector('#dark-menu-trigger').scrollIntoView({block:'center'});document.querySelector('#dark-menu-trigger').click()`);
   await until(`getComputedStyle(document.querySelector('#dark-action-menu')).opacity === '1'`);
   const fits = selector => evaluate(`(() => {const r=document.querySelector('${selector}').getBoundingClientRect();return r.left>=0&&r.top>=0&&r.right<=innerWidth+1&&r.bottom<=innerHeight+1})()`);
@@ -517,7 +654,7 @@ try {
   assert.equal(await evaluate(`[...document.querySelectorAll('#dark .c-chip, #dark .c-button--dense')].every(e=>e.getBoundingClientRect().height>=44&&e.getBoundingClientRect().width>=44)`),true,'dense controls keep the standard target for touch');
   assert.equal(await evaluate(`[...document.querySelectorAll('#dark-toolbars .c-button--icon, #dark-toolbars .c-segmented__option')].every(e=>e.getBoundingClientRect().height>=44&&e.getBoundingClientRect().width>=44)`),true,'icon buttons and segmented options keep the standard target for touch');
   // Dense fields return to the standard target and the body size on touch, so focus never zooms.
-  assert.deepEqual(await evaluate(`[...document.querySelectorAll('#dark .c-input--dense, #dark .c-select--dense select')].map(e=>e.getBoundingClientRect().height>=44&&getComputedStyle(e).fontSize===parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--c-type-body-font-size'))*parseFloat(getComputedStyle(document.documentElement).fontSize)+'px')`),[true,true],'dense fields keep the standard target and body size for touch');
+  assert.deepEqual(await evaluate(`[...document.querySelectorAll('#dark .c-input--dense, #dark .c-select--dense select')].map(e=>e.getBoundingClientRect().height>=44&&getComputedStyle(e).fontSize===parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--c-type-body-font-size'))*parseFloat(getComputedStyle(document.documentElement).fontSize)+'px')`),[true,true,true],'dense fields keep the standard target and body size for touch');
   // A dense status label is not a target, so touch does not enlarge it.
   assert.equal(await evaluate(`(() => {const d=document.querySelector('#dark-sizes .c-status--dense'), r=getComputedStyle(document.documentElement);return getComputedStyle(d).minHeight===parseFloat(r.getPropertyValue('--c-space-6'))*parseFloat(r.fontSize)+'px'&&getComputedStyle(d).fontSize===parseFloat(r.getPropertyValue('--c-type-ui-small-font-size'))*parseFloat(r.fontSize)+'px'})()`),true,'dense status label keeps its size on touch');
   await shot('cosmik-menu-320-short-text200');
@@ -551,6 +688,12 @@ try {
   assert.equal(await evaluate(`getComputedStyle(document.querySelector('#light-toolbars .c-toolbar')).borderTopStyle`),'solid');
   for (const selected of ['#light-segmented [aria-checked="true"]', '#light-toolbars .c-button[aria-pressed="true"]'])
     assert.equal(await evaluate(`getComputedStyle(document.querySelector('${selected}'),'::after').borderBottomStyle`),'solid',`forced colours keep the selection bar on ${selected}`);
+  // Glass becomes an opaque system surface: no backdrop blur, a solid boundary, an opaque fill.
+  for (const surface of ['#light-glass .c-toolbar--glass', '#light-glass .c-button--glass', '#light-glass-scale', '#light-glass-segmented', '#light-glass-hint']) {
+    const look = await evaluate(`(() => {const s=getComputedStyle(document.querySelector(${JSON.stringify(surface)}));return {filter:s.backdropFilter, border:s.borderTopStyle, opaque:!/rgba\(.*, 0(\.\d+)?\)$/.test(s.backgroundColor)}})()`);
+    assert.deepEqual(look, {filter:'none', border:'solid', opaque:true}, `forced colours: ${surface}`);
+  }
+  await evaluate('document.querySelector("#light-glass").scrollIntoView({block:"center"})'); await shot('cosmik-forced-colors-glass');
   // Both status labels, dense or not, keep a visible boundary in the text colours.
   const forcedStatus = await evaluate(`[...document.querySelectorAll('#light-sizes .c-status')].map(e=>{const s=getComputedStyle(e);return [s.borderTopStyle, s.borderTopColor, s.color, s.backgroundColor].join(' ')})`);
   assert.equal(forcedStatus.length, 2); assert.equal(forcedStatus[0], forcedStatus[1], 'dense status label takes the same forced colours'); assert.match(forcedStatus[0], /^solid /);
@@ -558,7 +701,7 @@ try {
   await evaluate('document.querySelector("#light-sizes").scrollIntoView({block:"center"})'); await shot('cosmik-forced-colors-sizes');
   await evaluate('document.querySelector("#light-toolbars").scrollIntoView({block:"center"})'); await shot('cosmik-forced-colors-toolbars');
   assert.deepEqual(errors, []);
-  console.log('Component checks passed: baseline and a test-only family scope, responsive themes, nested preferences, fonts, shared controls states, toolbars, icon buttons and segmented controls, keyboard menus/dialogs, focus, real exit/interruption transitions, disclosure, tooltip, completion and short touch layouts.');
+  console.log('Component checks passed: baseline and a test-only family scope, responsive themes, nested preferences, fonts, shared controls states, toolbars, icon buttons and segmented controls, glass variants (roles, measured contrast, solid and flat fallbacks), keyboard menus/dialogs, focus, real exit/interruption transitions, disclosure, tooltip, completion and short touch layouts.');
   await cdp('Emulation.setEmulatedMedia', {features:[]});
   // The download remains genuinely offline: file URLs must support interactions.
   await cdp('Emulation.setEmulatedMedia',{features:[]});
