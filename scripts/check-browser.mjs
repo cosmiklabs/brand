@@ -478,6 +478,37 @@ try {
   // Large text, a short viewport, touch targets and an overflowing menu/dialog.
   await cdp('Emulation.setTouchEmulationEnabled',{enabled:true,maxTouchPoints:5});
   await cdp('Emulation.setDeviceMetricsOverride',{width:320,height:480,deviceScaleFactor:1,mobile:false});
+  // A tap leaves the browser's :hover on what was tapped. Under hover: none no hover
+  // treatment may show, so the tapped control returns to its resting colours.
+  assert.equal(await evaluate(`matchMedia('(hover: hover)').matches`), false, 'touch emulation reports no hover');
+  const tap = async selector => {
+    const at = await evaluate(`(() => {const e=document.querySelector(${JSON.stringify(selector)});e.scrollIntoView({block:'center'});const r=e.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2}})()`);
+    await cdp('Input.dispatchTouchEvent', {type:'touchStart', touchPoints:[at]});
+    await cdp('Input.dispatchTouchEvent', {type:'touchEnd', touchPoints:[]});
+    await pause(400);
+  };
+  const background = selector => evaluate(`getComputedStyle(document.querySelector(${JSON.stringify(selector)})).backgroundColor`);
+  const hovered = selector => evaluate(`document.querySelector(${JSON.stringify(selector)}).matches(':hover')`);
+  // A quiet icon button: tapped, it keeps :hover but shows no fill.
+  const zoom = '#dark-toolbars .c-button[aria-label="Zoom in"]';
+  const quietRest = await background(zoom);
+  await tap(zoom);
+  assert.equal(await hovered(zoom), true, 'a tap leaves :hover on the button');
+  assert.equal(await background(zoom), quietRest, 'no hover fill persists on a tapped quiet button');
+  // A segmented option: tapped, then the selection moves elsewhere without a pointer.
+  const list = '#dark-segmented .c-segmented__option:nth-child(2)', grid = '#dark-segmented .c-segmented__option:nth-child(1)';
+  const optionRest = await background(list);
+  await tap(list);
+  assert.equal(await evaluate(`document.querySelector('${list}').getAttribute('aria-checked')`), 'true', 'a tap selects the option');
+  await evaluate(`document.querySelector('${grid}').click()`);
+  assert.equal(await hovered(list), true);
+  assert.equal(await background(list), optionRest, 'no hover fill persists on a tapped, unselected option');
+  // A chip tapped on and off again.
+  const chip = '#dark .chip-row .c-chip:nth-child(2)';
+  const chipRest = await background(chip);
+  await tap(chip); await tap(chip);
+  assert.equal(await evaluate(`document.querySelector('${chip}').getAttribute('aria-pressed')`), 'false');
+  assert.equal(await background(chip), chipRest, 'no hover fill persists on a tapped chip');
   await evaluate(`document.documentElement.style.fontSize='200%';document.querySelector('#dark-actions-tab').click();document.querySelector('#dark-menu-trigger').scrollIntoView({block:'center'});document.querySelector('#dark-menu-trigger').click()`);
   await until(`getComputedStyle(document.querySelector('#dark-action-menu')).opacity === '1'`);
   const fits = selector => evaluate(`(() => {const r=document.querySelector('${selector}').getBoundingClientRect();return r.left>=0&&r.top>=0&&r.right<=innerWidth+1&&r.bottom<=innerHeight+1})()`);

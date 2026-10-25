@@ -3,6 +3,26 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`; from 0.8.0 they live in their own repositories.
 
+## 0.12.2 · 25 October 2026
+
+Hover no longer sticks after a tap. Not breaking.
+
+- **Hover treatments apply only under `(hover: hover)`.** A tap on a touch screen
+  leaves the browser's `:hover` on what was tapped, so a quiet button, a segmented
+  option or a chip kept its hover fill after the tap, and an unselected option
+  could look half-selected beside the real selection. The hover rules of
+  `c-button` (primary, secondary, quiet), `c-segmented__option`, `c-chip`,
+  `c-link`, `c-input` and the select now sit in `@media (hover: hover)`. Pressed
+  (`:active`) feedback, selection and disabled roles are unchanged on every input.
+- **Docs.** The interface guide and the consumer guide state the rule; consumers
+  should gate their own hover styles the same way.
+- **Browser checks** emulate touch (which reports `hover: none`), tap a quiet icon
+  button, a segmented option (then move the selection without a pointer) and a
+  chip (on and off), and assert each keeps `:hover` but shows its resting
+  background. The check fails on 0.12.1.
+
+No token value, mark or font changed; the baseline token version stays 0.7.0.
+
 ## 0.12.1 · 25 October 2026
 
 A fix to 0.12.0's toolbar controls, found in the first product to use them. Vendor

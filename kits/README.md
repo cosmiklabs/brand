@@ -202,6 +202,9 @@ tab stop or the arrow keys, which remain the consumer's. A segmented control siz
 every option to the widest, so a changing selection never resizes its toolbar;
 hiding labels at narrow widths is the consumer's choice, made for a whole toolbar at
 once. Pressing never scales or moves a control: hover and pressed change colour only.
+Hover treatments apply only under `(hover: hover)`, so a tap on a touch screen
+never leaves a control looking hovered; pressed (`:active`) feedback applies on
+every input. Gate your own hover styles the same way.
 
 Fields fill their container; size the container. The select wrapper draws a
 stroked chevron with borders, inset by `--c-space-4`, that ignores pointer input;

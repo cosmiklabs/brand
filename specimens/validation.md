@@ -5,6 +5,18 @@ controls layer. Kit checks establish their tested properties; they do not certif
 a consuming product or replace its interaction journeys. Product families keep
 their own validation records in their repositories.
 
+## 0.12.2 review — 25 October 2026
+
+Hover gated on `(hover: hover)`. Run on macOS with Node.js 24.22.0 and headless
+Google Chrome 155.0.8059.86:
+
+- `npm run build`, `npm run check` (all contrast pairs, 79 tests) and
+  `node scripts/build.mjs --check` from the release commit pass.
+- `npm run check:browser` passes with the new tap assertions; with 0.12.1's
+  controls layer restored it fails at "no hover fill persists on a tapped quiet
+  button". The desktop forced-hover assertions still pass, so a hovering pointer
+  keeps every hover treatment.
+
 ## 0.12.1 review — 25 October 2026
 
 The segmented control and toolbar reflow fix. Run on macOS with Node.js 24.22.0 and

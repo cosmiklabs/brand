@@ -1,9 +1,11 @@
 /* Cosmik controls layer.
    Framework-neutral classes for buttons, icon buttons, toolbars, segmented
-   controls, links, selects, text fields, chips and neutral status labels. Every value comes from a semantic token, so the same
-   classes follow the baseline, any family scope, both themes and the motion
-   policy. Load after cosmik.css and any family CSS. Rules: guide/interface.md.
-   Hand-maintained; not generated. */
+   controls, links, selects, text fields, chips and neutral status labels.
+   Every value comes from a semantic token, so the same classes follow the
+   baseline, any family scope, both themes and the motion policy. Hover
+   treatments apply only under (hover: hover), so a tap never leaves one
+   behind; pressed (:active) feedback applies everywhere. Load after cosmik.css
+   and any family CSS. Rules: guide/interface.md. Hand-maintained; not generated. */
 
 /* ---- Shared focus ring ---------------------------------------------------
    Applied to every control below; add .c-focus-ring to other custom controls. */
@@ -42,9 +44,12 @@
   border-color: var(--c-action-primary);
   color: var(--c-action-primary-fg);
 }
-.c-button--primary:hover {
-  background: var(--c-action-primary-hover);
-  border-color: var(--c-action-primary-hover);
+/* Hover only where a pointer can hover: a tap on touch must not leave it behind. */
+@media (hover: hover) {
+  .c-button--primary:hover {
+    background: var(--c-action-primary-hover);
+    border-color: var(--c-action-primary-hover);
+  }
 }
 .c-button--primary:active {
   background: var(--c-action-primary-active);
@@ -55,7 +60,9 @@
   border-color: var(--c-border);
   color: var(--c-action-secondary-fg);
 }
-.c-button--secondary:hover { background: var(--c-action-secondary-hover); }
+@media (hover: hover) {
+  .c-button--secondary:hover { background: var(--c-action-secondary-hover); }
+}
 .c-button--secondary:active { background: var(--c-action-secondary-active); }
 /* Dense application controls for mouse and trackpad; touch keeps the standard target. */
 .c-button--dense {
@@ -84,7 +91,9 @@
   border-color: transparent;
   color: var(--c-action-secondary-fg);
 }
-.c-button--quiet:hover { background: var(--c-action-secondary-hover); }
+@media (hover: hover) {
+  .c-button--quiet:hover { background: var(--c-action-secondary-hover); }
+}
 .c-button--quiet:active { background: var(--c-action-secondary-active); }
 /* Icon only: a square of the button's target size. It needs an accessible name
    (aria-label or visually hidden text) and a tooltip on hover and keyboard focus;
@@ -200,7 +209,9 @@
   transition-duration: var(--c-motion-duration);
   transition-timing-function: var(--c-motion-easing);
 }
-.c-segmented__option:hover { background: var(--c-action-secondary-hover); }
+@media (hover: hover) {
+  .c-segmented__option:hover { background: var(--c-action-secondary-hover); }
+}
 .c-segmented__option:active { background: var(--c-action-secondary-active); }
 /* Dense: control-dense and the ui type on fine pointers; control-min on touch. */
 .c-segmented--dense > .c-segmented__option {
@@ -225,9 +236,11 @@
   transition-duration: var(--c-motion-duration);
   transition-timing-function: var(--c-motion-easing);
 }
-.c-link:hover {
-  color: var(--c-link-hover);
-  text-decoration-thickness: 2px;
+@media (hover: hover) {
+  .c-link:hover {
+    color: var(--c-link-hover);
+    text-decoration-thickness: 2px;
+  }
 }
 .c-link:active { color: var(--c-link-active); }
 
@@ -259,8 +272,10 @@
   color: var(--c-input-placeholder);
   opacity: 1;
 }
-.c-input:hover,
-.c-select > select:hover { border-color: var(--c-text); }
+@media (hover: hover) {
+  .c-input:hover,
+  .c-select > select:hover { border-color: var(--c-text); }
+}
 /* Invalid: a heavier boundary drawn inside, so the field does not shift.
    Pair it with an associated error message in words. */
 .c-input[aria-invalid="true"],
@@ -350,7 +365,9 @@
   transition-duration: var(--c-motion-duration);
   transition-timing-function: var(--c-motion-easing);
 }
-.c-chip:hover { background: var(--c-action-secondary-hover); }
+@media (hover: hover) {
+  .c-chip:hover { background: var(--c-action-secondary-hover); }
+}
 .c-chip:active { background: var(--c-action-secondary-active); }
 /* Hover never erases the current selection. */
 .c-chip:is([aria-pressed="true"], [aria-selected="true"], [aria-checked="true"]),

@@ -70,7 +70,10 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
   A large button, a taller target with wider padding, gives a page's one
   prominent call to action more presence; it is still a primary or secondary
   button, and the product decides where it appears.
-  Hover and pressed change only colour, so nothing nearby moves.
+  Hover and pressed change only colour, so nothing nearby moves. Hover
+  treatments apply only where the pointer can hover (`(hover: hover)`): a tap
+  on touch leaves the browser's hover state on what was tapped, and it must not
+  look hovered or selected afterwards. Pressed feedback applies everywhere.
 - **Quiet buttons** have no fill or boundary until hover, for actions inside a
   toolbar or another bounded group whose surface supplies the boundary. Use the
   secondary emphasis for a button that stands alone.
