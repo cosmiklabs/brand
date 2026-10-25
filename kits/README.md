@@ -156,6 +156,7 @@ behavior each state must have is defined once, in the
 | `c-input--dense`, `c-select--dense` | Added to the input, or to the select's wrapper | `control-dense` and the `ui` type on fine pointers; `control-min` and the `body` type on touch, so focus never zooms |
 | `c-chip` | `<button aria-pressed>` | Dense target, hover, pressed, selected check, focus, disabled |
 | `c-status` | `<span>` | Neutral status label: `label` type, pill shape, no interaction states or pointer cursor |
+| `c-status--dense` | Added to a status label | The same pill, roles and `label` family, tracking and case at the `ui-small` size with tighter padding, for dense rows, headers and cards; still no interaction states |
 | `c-focus-ring` | Any other custom focusable control | The shared focus-visible ring |
 
 ```html
@@ -167,13 +168,15 @@ behavior each state must have is defined once, in the
   <button type="button" class="c-chip" aria-pressed="false">Closed</button>
 </div>
 <span class="c-status"><span aria-hidden="true">◷</span> Saved</span>
+<span class="c-status c-status--dense">Running</span>
 
 <a class="c-button c-button--primary c-button--large" href="#start">Get started</a>
 <span class="c-select c-select--dense"><select aria-label="Rows">…</select></span>
 ```
 
 Sizes are mechanisms, not defaults: `--dense` suits mouse-driven application
-toolbars and compact footers, `--large` a page's one prominent call to action;
+toolbars and compact footers, `--large` a page's one prominent call to action,
+`c-status--dense` a status inside a dense row, header or card;
 the product chooses where each appears. A status label must never look like a
 control, so it takes the `label` type role and the full radius, which no control
 uses, and has no hover, pressed or focus state; do not make it a link or button.

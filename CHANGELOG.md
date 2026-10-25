@@ -3,6 +3,34 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`; from 0.8.0 they live in their own repositories.
 
+## 0.11.0 · 24 October 2026
+
+A dense status label for compact contexts. Not breaking: `c-status` is unchanged.
+
+- **`c-status--dense`.** Add it to a `c-status` label inside a dense row, header or
+  card. It keeps the pill shape, the neutral status roles and the `label` family,
+  weight, tracking and uppercase, at the `ui-small` size and line height with
+  tighter padding (`0` / `space-2`), a `space-base` gap and a `space-6` minimum
+  height. A label is not a target, so it keeps that size on touch. Like `c-status`
+  it has no hover, pressed, focus, transition or pointer cursor, and in forced
+  colours it takes the text colours.
+- **Docs.** [Shared controls](kits/README.md#shared-controls) and the
+  [interface guide](guide/interface.md#shared-controls) describe when to use it.
+  The component reference shows it beside the dense button and the standard
+  status label in both themes.
+- **Browser checks** assert, in both themes, the `ui-small` size and line height,
+  the same family, weight and tracking as the standard label, the pill, default
+  cursor, no focusability or transition, unchanged roles under forced hover and
+  pressed, tighter padding, the `space-6` minimum height below `control-dense`,
+  the same size under touch emulation and the same forced colours as `c-status`.
+
+No token value, mark or font changed; the baseline token version stays 0.7.0.
+
+### Migration
+
+- Re-sync. Replace local compact status pills (smaller font, tighter padding) with
+  `c-status c-status--dense`.
+
 ## 0.10.0 · 24 October 2026
 
 Three refinements to the shared controls, found by using them on real pages. Not

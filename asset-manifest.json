@@ -985,7 +985,7 @@
   "components": [
     {
       "path": "kits/cosmik/components/controls.css",
-      "sha256": "a89832f14b08a38cac7693fcdb8ecf6a5212fa7b667532cc0e11e157ccc89c13",
+      "sha256": "84faa7fa5db11986365933af16ddf2bfb02069250cd055aee35de0df315c2fa8",
       "editable": true,
       "role": {
         "kind": "component-css",
@@ -1121,7 +1121,7 @@
     },
     {
       "path": "specimens/components.html",
-      "sha256": "9c638a7a64d49d1a8db46c0604a78ce64e6fdb8eb8e8b0f11c33e6cea44f0502",
+      "sha256": "8c6f7a18f49217957c0fe91dc885581fe5ff0da01d6312a4574bba11a30f7d14",
       "editable": true
     },
     {
@@ -1149,7 +1149,7 @@
       },
       {
         "path": "package.json",
-        "sha256": "b64855bf68d852e10865181e571f3cee7f68aad43fb059074a8d1dcf75d133ef"
+        "sha256": "fbddd4dce949b43495b1d2719c14f3a732535ef30ed90ff80302ec2c06b5041c"
       },
       {
         "path": "kits/cosmik/tokens/source.json",
@@ -1173,7 +1173,7 @@
       },
       {
         "path": "kits/cosmik/components/controls.css",
-        "sha256": "a89832f14b08a38cac7693fcdb8ecf6a5212fa7b667532cc0e11e157ccc89c13"
+        "sha256": "84faa7fa5db11986365933af16ddf2bfb02069250cd055aee35de0df315c2fa8"
       },
       {
         "path": "scripts/generate-tokens.mjs",
@@ -1269,7 +1269,7 @@
       },
       {
         "path": "guide/interface.md",
-        "sha256": "4f5dfc6cca3bb7e3892d967c89f0a09d705d183c8a082b7fd2d87af489109aeb"
+        "sha256": "d96e278550df71ce32b631a7cf07cb1272988991058d508a21716e52f2a18b23"
       },
       {
         "path": "guide/motion.md",

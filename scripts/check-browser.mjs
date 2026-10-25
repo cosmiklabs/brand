@@ -257,7 +257,7 @@ try {
       await expectRole(`#${mode}-details .c-status`, 'border-top-color', mode, 'status-border');
       // A status label is not a control: label type, a pill no control uses, no pointer
       // cursor, no hover/pressed change, no transition and not focusable.
-      for (const status of [`#${mode}-details .c-status`, `#${mode}-sizes .c-status`]) {
+      for (const status of [`#${mode}-details .c-status`, `#${mode}-sizes .c-status`, `#${mode}-sizes .c-status--dense`]) {
         const look = await evaluate(`(() => {const s=document.querySelector(${JSON.stringify(status)}), b=document.querySelector('#${mode}-sizes .c-button'), c=document.querySelector('#${mode}-chip-first'), i=document.querySelector('#${mode}-name');
           const st=getComputedStyle(s), label=getComputedStyle(document.documentElement);
           return {cursor:st.cursor, tab:s.tabIndex, family:st.fontFamily.includes(label.getPropertyValue('--c-type-label-font-family').trim().replace(/"/g,'')), transform:st.textTransform,
@@ -271,6 +271,14 @@ try {
           await expectRole(status, 'color', mode, 'status-fg', states);
         }
       }
+      // Dense status label: the ui-small size and line height, the label family and
+      // tracking, tighter padding and a space-6 minimum height, never a control size.
+      const denseStatus = await evaluate(`(() => {const d=document.querySelector('#${mode}-sizes .c-status--dense'), s=document.querySelector('#${mode}-sizes .c-status:not(.c-status--dense)'), r=getComputedStyle(document.documentElement), ds=getComputedStyle(d), ss=getComputedStyle(s), rem=parseFloat(r.fontSize);
+        return {size:ds.fontSize===parseFloat(r.getPropertyValue('--c-type-ui-small-font-size'))*rem+'px', line:Math.abs(parseFloat(ds.lineHeight)-parseFloat(r.getPropertyValue('--c-type-ui-small-line-height'))*parseFloat(ds.fontSize))<0.5,
+          family:ds.fontFamily===ss.fontFamily, tracking:ds.letterSpacing!=='normal'&&parseFloat(ds.letterSpacing)/parseFloat(ds.fontSize)-parseFloat(ss.letterSpacing)/parseFloat(ss.fontSize)<0.001, weight:ds.fontWeight===ss.fontWeight,
+          tighter:parseFloat(ds.paddingLeft)<parseFloat(ss.paddingLeft)&&parseFloat(ds.paddingTop)<=parseFloat(ss.paddingTop), smaller:d.getBoundingClientRect().height<s.getBoundingClientRect().height,
+          min:ds.minHeight===parseFloat(r.getPropertyValue('--c-space-6'))*rem+'px', notTarget:d.getBoundingClientRect().height<parseFloat(r.getPropertyValue('--c-layout-control-dense'))*rem}})()`);
+      assert.deepEqual(denseStatus, {size:true, line:true, family:true, tracking:true, weight:true, tighter:true, smaller:true, min:true, notTarget:true}, `${mode} dense status label`);
       // Targets: standard controls meet control-min; dense controls control-dense on a fine pointer.
       assert.equal(await evaluate(`[...document.querySelectorAll('#${mode} .c-button:not(.c-button--dense), #${mode} .c-input:not(.c-input--dense), #${mode} .c-select:not(.c-select--dense) select')].filter(e=>e.getClientRects().length).every(e=>e.getBoundingClientRect().height>=44)`), true);
       assert.equal(await evaluate(`[...document.querySelectorAll('#${mode} .c-chip, #${mode} .c-button--dense, #${mode} .c-input--dense, #${mode} .c-select--dense select')].filter(e=>e.getClientRects().length).every(e=>e.getBoundingClientRect().height>=32)`), true);
@@ -435,6 +443,8 @@ try {
   assert.equal(await evaluate(`[...document.querySelectorAll('#dark .c-chip, #dark .c-button--dense')].every(e=>e.getBoundingClientRect().height>=44&&e.getBoundingClientRect().width>=44)`),true,'dense controls keep the standard target for touch');
   // Dense fields return to the standard target and the body size on touch, so focus never zooms.
   assert.deepEqual(await evaluate(`[...document.querySelectorAll('#dark .c-input--dense, #dark .c-select--dense select')].map(e=>e.getBoundingClientRect().height>=44&&getComputedStyle(e).fontSize===parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--c-type-body-font-size'))*parseFloat(getComputedStyle(document.documentElement).fontSize)+'px')`),[true,true],'dense fields keep the standard target and body size for touch');
+  // A dense status label is not a target, so touch does not enlarge it.
+  assert.equal(await evaluate(`(() => {const d=document.querySelector('#dark-sizes .c-status--dense'), r=getComputedStyle(document.documentElement);return getComputedStyle(d).minHeight===parseFloat(r.getPropertyValue('--c-space-6'))*parseFloat(r.fontSize)+'px'&&getComputedStyle(d).fontSize===parseFloat(r.getPropertyValue('--c-type-ui-small-font-size'))*parseFloat(r.fontSize)+'px'})()`),true,'dense status label keeps its size on touch');
   await shot('cosmik-menu-320-short-text200');
   await evaluate(`document.querySelector('#dark [data-confirm="delete"]').click()`);
   await until(`getComputedStyle(document.querySelector('#dark dialog')).opacity === '1'`);
@@ -462,7 +472,11 @@ try {
   assert.equal(await evaluate(`getComputedStyle(document.querySelector('#light-chip-first'),'::before').borderRightStyle`),'solid');
   await evaluate('document.querySelector("#light-name").focus()');
   assert.equal(await evaluate(`getComputedStyle(document.querySelector('#light-name')).outlineStyle`),'solid','forced colours retain the focus ring');
+  // Both status labels, dense or not, keep a visible boundary in the text colours.
+  const forcedStatus = await evaluate(`[...document.querySelectorAll('#light-sizes .c-status')].map(e=>{const s=getComputedStyle(e);return [s.borderTopStyle, s.borderTopColor, s.color, s.backgroundColor].join(' ')})`);
+  assert.equal(forcedStatus.length, 2); assert.equal(forcedStatus[0], forcedStatus[1], 'dense status label takes the same forced colours'); assert.match(forcedStatus[0], /^solid /);
   await evaluate('document.querySelector("#light-details").scrollIntoView()'); await shot('cosmik-forced-colors');
+  await evaluate('document.querySelector("#light-sizes").scrollIntoView({block:"center"})'); await shot('cosmik-forced-colors-sizes');
   assert.deepEqual(errors, []);
   console.log('Component checks passed: baseline and a test-only family scope, responsive themes, nested preferences, fonts, shared controls states, keyboard menus/dialogs, focus, real exit/interruption transitions, disclosure, tooltip, completion and short touch layouts.');
   await cdp('Emulation.setEmulatedMedia', {features:[]});

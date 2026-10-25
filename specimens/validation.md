@@ -5,6 +5,27 @@ controls layer. Kit checks establish their tested properties; they do not certif
 a consuming product or replace its interaction journeys. Product families keep
 their own validation records in their repositories.
 
+## 0.11.0 review — 24 October 2026
+
+The dense status label. Run on macOS with Node.js 24.22.0 and headless Google
+Chrome 155.0.8059.86:
+
+- `npm run build`, then `node scripts/build.mjs --check` from the release commit:
+  no token, mark or font output changed; manifest verification passes for 75
+  hashed files and 20 entry points.
+- `npm run check`: all baseline contrast pairs pass and all 79 tests pass.
+- `npm run check:browser` passes, with new assertions in both themes: the dense
+  status label uses the `ui-small` size and line height with the standard label's
+  family, weight and tracking, is a pill with the default cursor, is not
+  focusable, has no transition, keeps its status roles under forced hover and
+  pressed, has tighter padding than the standard label and a `space-6` minimum
+  height below `control-dense`; it keeps that size under touch emulation and takes
+  the same forced colours as the standard label.
+- Rendered inspection: the dark and light actions panels at 1280 px and the
+  forced-colour actions panel. The dense label reads as a smaller version of the
+  standard pill beside the dense button, with its symbol and words aligned; in
+  forced colours its boundary stays visible. No visual issue was found.
+
 ## 0.10.0 review — 24 October 2026
 
 Controls refinements: the status label, dense fields and the large button. Run on

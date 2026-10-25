@@ -276,6 +276,18 @@
   cursor: default;
 }
 
+/* Dense status label for dense rows, headers and cards: the same pill, roles and
+   label family, tracking and case at the ui-small size, with tighter padding. A
+   label is not a target, so its minimum height is a space token, not a control
+   size, on every pointer. */
+.c-status--dense {
+  min-height: var(--c-space-6);
+  gap: var(--c-space-base);
+  padding: 0 var(--c-space-2);
+  font-size: var(--c-type-ui-small-font-size);
+  line-height: var(--c-type-ui-small-line-height);
+}
+
 /* Touch keeps the standard target even for dense controls. */
 @media (pointer: coarse) {
   .c-button--dense,
@@ -302,7 +314,7 @@
 @media (forced-colors: active) {
   .c-button,
   .c-chip { border-color: ButtonText; }
-  /* A status label is text, not a button: it takes the text colours. */
+  /* A status label, dense or not, is text, not a button: it takes the text colours. */
   .c-status { border-color: CanvasText; color: CanvasText; background: Canvas; }
   .c-input,
   .c-select > select { border-color: FieldText; }

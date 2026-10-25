@@ -95,6 +95,10 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
   roles, and no hover, pressed or focus state or pointer cursor. Never make one a
   link or button. The words carry the meaning; add a symbol for important status.
   A family's status hues supplement the words.
+  In dense contexts (a compact row, a header, a card) use the dense status label:
+  the same pill, roles and label family, tracking and case at the `ui-small`
+  size with tighter padding. It is still a label, with no interaction state, and
+  its height is not a target size.
 - **Focus** uses one ring everywhere: the `focus` role at `focus-width`, offset by
   `focus-offset`. Custom focusable controls use the same ring.
 - **Transitions** use the effective motion duration and easing, so a reduced
