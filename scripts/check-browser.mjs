@@ -118,6 +118,9 @@ try {
   };
   console.log('Browser:', (await cdp('Browser.getVersion')).product);
   await cdp('Page.enable'); await cdp('Runtime.enable'); await cdp('Log.enable');
+  // Headless runners may have no physical pointing device. Establish the desktop
+  // input capabilities explicitly before testing hover-gated control states.
+  await cdp('Emulation.setEmulatedMedia', {features:[{name:'hover',value:'hover'},{name:'pointer',value:'fine'}]});
   await size(1280);
   const navigation = await cdp('Page.navigate', {url:`http://127.0.0.1:${server.address().port}/specimens/components.html`});
   assert.equal(navigation.errorText, undefined, `Component navigation failed: ${navigation.errorText}`);
@@ -693,6 +696,7 @@ try {
   await until(`document.querySelector('#completion-result').getAnimations().length === 0`);
   await shot('cosmik-motion-desktop');
   // Large text, a short viewport, touch targets and an overflowing menu/dialog.
+  await cdp('Emulation.setEmulatedMedia',{features:[]});
   await cdp('Emulation.setTouchEmulationEnabled',{enabled:true,maxTouchPoints:5});
   await cdp('Emulation.setDeviceMetricsOverride',{width:320,height:480,deviceScaleFactor:1,mobile:false});
   // A tap leaves the browser's :hover on what was tapped. Under hover: none no hover
