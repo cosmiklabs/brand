@@ -432,3 +432,12 @@ Local review covered 54 page/theme/viewport combinations across the three guides
 The Cosmik identity reference now displays approved off-white artwork on a dark surface and approved ink artwork on a light surface, each with its own SVG download. Both retain the supplied canvas and proportions; at narrow widths, both previews use their matching approved emblem variants. No identity assets or token values changed.
 
 Validation: all 100 repository tests passed. Live local review confirmed both previews load in light and dark page themes at 1280, 390 and 320 px, with no horizontal overflow and the correct narrow-screen emblem variants.
+
+## 2026-10-26 — Reference-site consistency review
+
+- Added searchable product Guide indexes, using the same Start here navigation position and chapter labels as Cosmik.
+- Aligned the shared header identity slot and divider, and scaled product lockups proportionally to match the apparent size of the Cosmik header identity.
+- Added original off-white and ink artwork previews to the Cosmik Overview, in paired dark/light surface cards.
+- Built and checked all three repositories: 104 Cosmik, 31 HPLX and 36 Tectra tests passed.
+- Inspected local desktop renders of all three overviews and the product index; checked all overviews at 1280, 390 and 320 px in light/dark themes: no horizontal overflow or broken images, 88 px desktop and 72 px mobile headers, matching desktop divider position. Product indexes also passed the same width/theme checks. Exercised HPLX index search and identity/index navigation.
+- Approved identity sources, family tokens and vendored foundations were not changed. This is reference-site review evidence, not accessibility certification.
