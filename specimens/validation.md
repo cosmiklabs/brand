@@ -5,6 +5,19 @@ controls layer. Kit checks establish their tested properties; they do not certif
 a consuming product or replace its interaction journeys. Product families keep
 their own validation records in their repositories.
 
+
+## HTML reference review — 26 October 2026 (unreleased)
+
+This review covers the generated HTML guide, not a new token release or identity approval. Kit version remains 0.15.1; baseline token version remains 0.10.1. Markdown guidance and approved masters remain authoritative.
+
+- `npm run build` completed; `npm run check` passed 99 tests and the existing token/manifest checks. Seven new reference tests cover all current guide chapters, heading anchors, local links and downloads, escaped and nested Markdown, all 157 exported CSS token names, both color modes, deterministic output, publishing boundaries and the project-path 404 base.
+- Live in-app browser checks covered seven representative pages (overview, identity, typography, color, integration, assets and tokens), in light and dark modes at 1440, 768, 390 and 320 CSS pixels: 56 combinations, with no horizontal page overflow, loaded images and one page heading each. Narrow navigation started collapsed and was opened and used.
+- Interaction review exercised guide search and its results, Escape clearing, theme selection, a single-token filter, the empty-result state and restoring all 157 token rows. Desktop and mobile compositions and the live color panels were visually inspected. The browser console was checked for warnings and errors.
+- The repository's `npm run check:browser` was attempted with both installed Chrome and Chrome for Testing binaries. Each process exited before opening its debugging port, without diagnostic browser output. The new automated reference cases are written into that runner, but **did not execute** locally. The existing component suite likewise did not complete in that runner during this review.
+- Direct-file navigation is blocked by the in-app browser's URL policy (HTTP/HTTPS only), so offline browser behavior was not independently exercised. No-JavaScript runtime behavior, full browser zoom, forced-color rendering of the new guide, assistive technologies and other browser engines remain unverified. Static and generation checks confirm that reading content, normal links and native navigation are present without enhancement; they do not replace those runtime checks.
+- No GitHub Pages deployment was run. The Pages workflow and the generated publish directory are prepared; the repository must use GitHub Actions as its Pages source. Publishing the guide does not create a new immutable kit release.
+
+
 ## 0.15.1 review — 25 October 2026
 
 Interaction-state ramps. Run on macOS with Node.js 24.22.0 and headless Chrome for

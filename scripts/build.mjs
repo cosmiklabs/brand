@@ -18,5 +18,6 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const run = (script, ...args) => execFileSync(process.execPath, [path.join(here, script), ...args], { stdio: 'inherit', cwd: root });
   for (const script of ['generate-tokens.mjs', 'build-cosmik-lockup.mjs', 'build-icons.mjs', 'build-web-fonts.mjs']) run(script);
   run('verify-manifest.mjs', '--update-generated');
+  run('build-reference.mjs');
   if (args.includes('--check')) assertCleanTree(root);
 }

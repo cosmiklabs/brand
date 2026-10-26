@@ -1149,7 +1149,7 @@
       },
       {
         "path": "package.json",
-        "sha256": "03d1d808222969e00de6f493f13eb5d6d8d058430e422b6536d5c69393d92630"
+        "sha256": "7df56d2b2d924b6f001c311099a6ad08f18d59e11104b06ca90fe2e22f783289"
       },
       {
         "path": "kits/cosmik/tokens/source.json",
@@ -1245,7 +1245,7 @@
       },
       {
         "path": "guide/README.md",
-        "sha256": "d70cfa36b05ef677ad36ea36d7c9a5112995fdecd070697a64c45ba5f0bf014d"
+        "sha256": "dabe3b8a1986b0b6a6e46850059ce3f7431dbdd1d75a6b2f08488daa3b8a6159"
       },
       {
         "path": "guide/colour.md",

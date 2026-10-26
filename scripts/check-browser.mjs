@@ -12,6 +12,7 @@ import {fileURLToPath} from 'node:url';
 import {renderFamily} from './family.mjs';
 import {decodePng} from './vector-raster.mjs';
 import {PRESSED_STEP, PRESSED_BEYOND_HOVER} from './validate-tokens.mjs';
+import {buildReference} from './build-reference.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 // A fictional, test-only family proves family scopes and the controls layer compose. It is rendered
@@ -25,6 +26,7 @@ const supportsGlass = '@supports ((backdrop-filter: blur(1px)) or (-webkit-backd
 if (!controlsSource.includes(supportsGlass)) throw Error('controls.css no longer gates glass on backdrop-filter support; update the fallback check');
 const controlsWithoutBackdrop = controlsSource.replace(supportsGlass, '@supports (not-a-property: none)');
 if (!process.env.BRAND_BROWSER) throw Error('Set BRAND_BROWSER to an installed Chromium browser executable.');
+buildReference(undefined,{baseUrl:process.env.REFERENCE_BASE_URL});
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'cosmik-browser-'));
 const screenshots = process.env.BRAND_SCREENSHOTS;
 if (screenshots) fs.mkdirSync(screenshots, {recursive:true});
@@ -795,6 +797,55 @@ try {
   assert.equal(await evaluate(`document.querySelector('#disclosure-trigger').getAttribute('aria-expanded')`),'true');
   assert.deepEqual(errors,[]);
   console.log('Direct file opening passed: no server or module loader required.');
+  // The generated HTML guide uses the same token/controls foundation, but has
+  // its own reading, search and filtering journeys. The site is served under a
+  // project-like /site/ prefix, not at the domain root.
+  await cdp('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
+  const referencePages=['index.html','identity.html','typography.html','colour.html','integration.html','assets.html','tokens.html'];
+  for(const width of [1440,768,390,320]) {
+    await size(width);
+    for(const mode of ['light','dark'])for(const page of referencePages) {
+      await cdp('Page.navigate',{url:`http://127.0.0.1:${server.address().port}/site/${page}`});
+      await until(`document.readyState==='complete' && !document.querySelector('.theme-control').hidden`);
+      await evaluate(`document.querySelector('#theme').value=${JSON.stringify(mode)};document.querySelector('#theme').dispatchEvent(new Event('change'));document.fonts.ready`);
+      assert.equal(await evaluate('document.documentElement.scrollWidth > innerWidth+1'),false,`${page} ${mode} ${width}: overflow`);
+      assert.equal(await evaluate('document.querySelectorAll("h1").length'),1,`${page}: one page heading`);
+      assert.equal(await evaluate('[...document.images].every(image=>image.complete&&image.naturalWidth>0)'),true,`${page}: images`);
+      assert.equal(await evaluate(`document.documentElement.dataset.theme`),mode);
+      if(width===390)assert.equal(await evaluate(`document.querySelector('.navigation').open`),false,'mobile navigation starts closed');
+      if(width===1440 && ['index.html','typography.html','colour.html'].includes(page))await shot(`reference-${page.replace('.html','')}-${mode}`);
+    }
+  }
+  await size(1280);
+  await cdp('Page.navigate',{url:`http://127.0.0.1:${server.address().port}/site/index.html`});
+  await until(`!!document.querySelector('#guide-search') && !document.querySelector('.search').hidden`);
+  await evaluate(`document.querySelector('#guide-search').value='clear space';document.querySelector('#guide-search').dispatchEvent(new Event('input'));`);
+  assert.equal(await evaluate(`[...document.querySelectorAll('#search-results a')].some(a=>a.getAttribute('href').startsWith('identity.html'))`),true,'guide search finds identity rules');
+  await evaluate(`document.querySelector('#guide-search').focus()`);await key('Escape','Escape',27);
+  assert.equal(await evaluate(`document.querySelector('#guide-search').value`),'','Escape clears search');
+  await evaluate(`document.querySelector('#guide-search').value='no-such-reference-8f92';document.querySelector('#guide-search').dispatchEvent(new Event('input'));`);
+  assert.equal(await evaluate(`document.querySelector('#search-status').textContent`),'No matching pages. Try another term.');
+  await cdp('Page.navigate',{url:`http://127.0.0.1:${server.address().port}/site/tokens.html`});
+  await until(`!document.querySelector('.token-tools').hidden`);
+  await evaluate(`document.querySelector('#token-search').value='control-min';document.querySelector('#token-search').dispatchEvent(new Event('input'));`);
+  assert.equal(await evaluate(`document.querySelectorAll('#token-table tbody tr:not([hidden])').length`),1,'filter finds control-min');
+  await evaluate(`document.querySelector('#token-group').value='Color';document.querySelector('#token-group').dispatchEvent(new Event('change'));`);
+  assert.equal(await evaluate(`document.querySelector('#token-empty').hidden`),false,'empty token results explained');
+  await evaluate(`document.querySelector('#token-search').value='';document.querySelector('#token-group').value='all';document.querySelector('#token-search').dispatchEvent(new Event('input'));`);
+  assert.equal(await evaluate(`document.querySelector('#token-empty').hidden`),true,'clearing filters restores tokens');
+  await size(390);await cdp('Emulation.setScriptExecutionDisabled',{value:true});
+  await cdp('Page.navigate',{url:`http://127.0.0.1:${server.address().port}/site/identity.html`});
+  await until(`document.readyState==='complete'`);
+  assert.equal(await evaluate(`document.querySelector('.navigation').open`),true,'no-JS navigation remains open');
+  assert.equal(await evaluate(`document.querySelector('h1').textContent.includes('Identity')`),true);
+  assert.equal(await evaluate(`getComputedStyle(document.querySelector('.search')).display`),'none','no broken search without JS');
+  await cdp('Emulation.setScriptExecutionDisabled',{value:false});
+  await cdp('Page.navigate',{url:new URL('../site/tokens.html',import.meta.url).href});
+  await until(`document.readyState==='complete' && !document.querySelector('.token-tools').hidden`);
+  await evaluate(`document.querySelector('#token-search').value='focus';document.querySelector('#token-search').dispatchEvent(new Event('input'));`);
+  assert.ok(await evaluate(`document.querySelectorAll('#token-table tbody tr:not([hidden])').length > 0`),'direct-file token filtering works');
+  assert.deepEqual(errors,[]);
+  console.log('HTML reference passed: 56 page/theme/width cases, project-path assets, search and empty results, Escape, token filters and recovery, no-JavaScript reading/navigation, and offline direct-file filtering.');
   await cdp('Browser.close');
   for (let i=0; i<30 && !exited(); i++) await pause(100);
 } finally {

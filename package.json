@@ -16,6 +16,9 @@
     "check": "node scripts/check.mjs",
     "test": "node --test tests/*.test.mjs",
     "check:browser": "node scripts/check-browser.mjs",
-    "check:reproducible": "node scripts/build.mjs --check"
+    "check:reproducible": "node scripts/build.mjs --check",
+    "build:reference": "node scripts/build-reference.mjs",
+    "dev:reference": "npm run build:reference && node scripts/serve-reference.mjs",
+    "preview:reference": "node scripts/serve-reference.mjs"
   }
 }

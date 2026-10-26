@@ -34,6 +34,19 @@ examples. It does not prescribe a consumer's information architecture. Interact
 with examples as well as reading them: source validity alone does not prove a
 usable interface.
 
+## HTML reference
+
+A complete HTML reference is generated from the current Markdown guide, tokens and
+asset manifest, including live type and color exhibits, accepted asset downloads,
+local guide search, a token reference and the interactive component examples.
+The Markdown remains authoritative; the HTML is rebuilt rather than maintained as
+a second copy of the rules.
+
+Run `npm run dev:reference` for the local preview. The GitHub Pages workflow builds
+and publishes only generated `site/` output when enabled. See the
+[HTML reference instructions](reference/README.md) for editing, offline use,
+validation and first-time Pages setup.
+
 ## What lives here
 
 | Part | Use | Status |

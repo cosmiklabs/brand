@@ -1,6 +1,8 @@
 # Cosmik brand guide
 
-The principles behind the Cosmik identity and interfaces. Token values live in
+The principles behind the Cosmik identity and interfaces. A complete HTML edition
+is generated from these sources; see the [reference instructions](https://github.com/cosmiklabs/brand/blob/main/reference/README.md)
+for local preview and GitHub Pages publishing. Token values live in
 [kit sources](../kits/README.md); the guide explains how to apply them. The
 [interactive reference](../specimens/components.html) demonstrates behavior, while
 validation records distinguish tested results from remaining work. Guidance is
