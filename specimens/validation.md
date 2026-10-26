@@ -443,3 +443,15 @@ Validation: all 100 repository tests passed. Live local review confirmed both pr
 - Approved identity sources, family tokens and vendored foundations were not changed. This is reference-site review evidence, not accessibility certification.
 
 - The browser suite passed locally, including 64 reference page/theme/width cases. The first Pages CI attempt timed out before Chrome opened its debugging port; increased only the bounded startup allowance from 10 to 30 seconds.
+
+## 2026-10-26 — Shared presentation and artwork audit
+
+This supersedes the earlier header sizing pass. Container dimensions alone did not establish consistent visible identities.
+
+- Compared approved SVG canvases and visible bounds. Header symbols use their original assets in a 48 px slot, with Glimmer rendered at 36 px to compensate for its taller ink bounds. Visible symbol heights are approximately 30 px. All three names use the same Inter Medium 20 px / 26 px live interface label; full approved wordmarks remain in the artwork previews. No identity paths, fonts, token sources or vendored files changed.
+- Consolidated headers, overview content structure, Guide indexes and identity surfaces into shared functions. Overview actions now open the Guide index on every site. Chapter headings follow navigation labels. Identity, Overview and Asset library pages use the same paired artwork/download cards.
+- Preserved original SVG canvases and compensated for their different padding in CSS. Lockup ink/canvas width ratios are Cosmik 1336.64/2172, HPLX 178.892/192 and Tectra 178.03/195. Narrow previews use approved symbols across all three sites, with accurate captions.
+- Executed local builds/checks: 104 Cosmik, 31 HPLX and 36 Tectra tests passed. Regressions cover live header labels, exclusion of undersized header lockups, common Guide index actions and both artwork surfaces on the three relevant page types.
+- Executed the Chromium browser suite, including 64 reference page/theme/width cases. Separately checked 144 local browser combinations: 3 brands × 8 pages (Overview, Guide index, Identity, Assets, Tokens, Components, Typography, Color) × 3 widths (1440, 390, 320) × 2 themes. No horizontal overflow or unloaded images. All headers measured 88 px desktop / 72 px narrow; labels shared font, size, line height and x-position; desktop overview cards measured the same height.
+- Inspected rendered overview, header, artwork and index comparisons, including the settled dark-theme artwork. An early capture omitted artwork during repaint; a settled capture and reload confirmed both original variants render. Screenshot timing is not counted as a site defect fixed by this change.
+- Family palettes, heading faces, approved logo proportions and source-specific chapters remain distinct. These checks do not constitute accessibility certification.

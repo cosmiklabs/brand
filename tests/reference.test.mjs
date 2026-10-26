@@ -94,8 +94,17 @@ test('the deployed 404 recovers relative links at a GitHub Pages project path',(
 
 
 test('shared navigation labels, order and overview actions stay consistent',()=>{
- assert.match(read('index.html'), /Cosmik · dark surface[\s\S]*Cosmik · light surface/);
+ assert.match(read('index.html'), /data-theme="dark"[\s\S]*data-theme="light"/);
  const home=read('index.html');
+ const header=home.match(/<header class="site-header">([\s\S]*?)<\/header>/)[1];
+ assert.ok(header.includes('<span>Cosmik</span>'), 'the header uses a live UI label');
+ assert.match(header, /class="identity-symbol identity-symbol--/);
+ assert.doesNotMatch(header, /lockup[^" ]*\.svg/, 'full wordmarks belong in artwork previews, not the compact header');
+ assert.ok(home.includes('href="guide.html">Read the brand guide'));
+ for(const page of ['index.html','assets.html',"identity.html"]){
+  const body=read(page);assert.match(body,/data-theme="dark"[\s\S]*data-theme="light"/);
+ }
+
  const nav=home.match(/<nav aria-label="Reference">([\s\S]*?)<\/nav>/)[1];
  assert.match(nav, /href="index.html"[^>]*>Overview<\/a>[\s\S]*?href="guide.html"[^>]*>Guide index<\/a>/);
  assert.ok(read('guide.html').includes('aria-current="page">Guide index'));
