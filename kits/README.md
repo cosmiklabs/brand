@@ -234,7 +234,10 @@ by each surface's `::before` (a glass select draws it on its wrapper), masked to
 the rim so it follows any radius. Each surface is therefore positioned (with zero
 specificity, so your positioning wins) and keeps its `::before` free; a glass
 container that scrolls should scroll an inner element, because overflow clips the
-ring. The solid fallbacks draw a plain `glass-border` instead. Each mode is a glass tone: `data-glass-tone` on a
+ring. The solid fallbacks draw a plain `glass-border` instead. Hover and pressed on glass
+tint it with `glass-hover` and the deeper `glass-active` (a glass button layers the
+tint over its fill; quiet buttons and segment options inside a glass surface take
+the tint alone). Each mode is a glass tone: `data-glass-tone` on a
 surface or region gives it that mode's roles regardless of the page's theme.
 Over content whose brightness varies, the consumer chooses the tone: measure the
 relative luminance behind each surface (a small downscaled copy of the frame is

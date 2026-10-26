@@ -30,6 +30,7 @@ float over busy or moving content (see [interface](interface.md#shared-controls)
 | `glass` | The translucent tint (`#RRGGBBAA`) painted over the blurred backdrop |
 | `glass-sheen` | The edge sheen where the rim catches light, at the top left (translucent) |
 | `glass-sheen-low` | The sheen's fainter return at the bottom right (translucent) |
+| `glass-hover`, `glass-active` | Translucent tints over glass for hover and pressed; pressed is the deeper of the two |
 | `glass-border` | A plain, subtle border for the solid fallbacks, in place of the sheen |
 | `glass-muted` | Muted text on glass; ordinary text stays `text` |
 
@@ -39,6 +40,13 @@ each tone has its own tint, sheen, text, muted text, icons (which take the text
 colour), selection and focus. The dark tone is for content darker than
 `glass.toneThreshold` (a relative luminance, published as
 `--c-glass-tone-threshold`), the light tone for content at or above it.
+
+The action roles step one way: `*-hover` and `*-active` move from the rest role in
+the same direction of lightness, `*-active` at least 1.25:1 from rest and 1.08:1
+beyond hover; on glass, the same holds for the tints over every backdrop in a tone's
+band, and quiet control text holds 4.5:1 on the pressed tint. `npm run check`
+reports these as `state` pairs, and the browser check measures each control's
+rendered fill.
 
 Each tone's text, `glass-muted`, quiet controls, focus and selection are checked
 against the tint composited over every backdrop in its band, taken from a grid of

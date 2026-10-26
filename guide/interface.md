@@ -40,7 +40,7 @@ for transitions and their lifecycle.
 | State | Required treatment |
 | --- | --- |
 | Default | A specific action label; no unexplained icon or ambiguous “OK” |
-| Hover / pressed | Immediate feedback without shifting nearby controls; retain text contrast |
+| Hover / pressed | Immediate feedback without shifting nearby controls; retain text contrast. Pressed is a deeper step of hover in the same direction, never a return towards rest |
 | Focus | Visible `focus` outline and offset, including inside scrolling panels and overlays |
 | Selected | A persistent indicator plus the appropriate selected semantics |
 | Disabled | Prevent activation and use disabled roles; explain the prerequisite when it is not apparent |
@@ -75,6 +75,11 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
   treatments apply only where the pointer can hover (`(hover: hover)`): a tap
   on touch leaves the browser's hover state on what was tapped, and it must not
   look hovered or selected afterwards. Pressed feedback applies everywhere.
+  From rest, hover and pressed move the same way in lightness, pressed further:
+  at least 1.25:1 from rest and 1.08:1 beyond hover, so pressing reads as
+  pressing harder rather than letting go. On glass, hover and pressed tint the
+  glass (`glass-hover`, then `glass-active`) instead of swapping to an opaque
+  fill; selected and disabled controls keep their own treatment.
 - **Quiet buttons** have no fill or boundary until hover, for actions inside a
   toolbar or another bounded group whose surface supplies the boundary. Use the
   secondary emphasis for a button that stands alone.

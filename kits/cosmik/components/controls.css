@@ -529,10 +529,19 @@
   -webkit-backdrop-filter: var(--c-glass-backdrop);
   backdrop-filter: var(--c-glass-backdrop);
 }
+/* On glass, hover and pressed tint the glass (`glass-hover`, then the deeper
+   `glass-active`) rather than swapping to an opaque fill. Selected and disabled
+   controls keep their own treatment. */
 @media (hover: hover) {
-  .c-button--glass:hover { background: var(--c-action-secondary-hover); }
+  .c-button--glass:hover { background: linear-gradient(var(--c-glass-hover), var(--c-glass-hover)), var(--c-glass-fill); }
+  :is(.c-glass, .c-toolbar--glass, .c-segmented--glass) :is(.c-button--quiet, .c-segmented__option):not([aria-pressed="true"], [aria-checked="true"], :disabled, [aria-disabled="true"]):hover {
+    background: var(--c-glass-hover);
+  }
 }
-.c-button--glass:active { background: var(--c-action-secondary-active); }
+.c-button--glass:active { background: linear-gradient(var(--c-glass-active), var(--c-glass-active)), var(--c-glass-fill); }
+:is(.c-glass, .c-toolbar--glass, .c-segmented--glass) :is(.c-button--quiet, .c-segmented__option):not([aria-pressed="true"], [aria-checked="true"], :disabled, [aria-disabled="true"]):active {
+  background: var(--c-glass-active);
+}
 .c-select--glass { border-radius: var(--c-radius-md); }
 .c-select--glass::after { border-color: var(--c-text); }
 

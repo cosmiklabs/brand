@@ -3,6 +3,32 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`; from 0.8.0 they live in their own repositories.
 
+## 0.15.1 · 25 October 2026
+
+Pressed no longer looks like letting go. A fix; the baseline token version moves
+to **0.10.1**, so families update `extends` and re-check their action roles.
+
+- **Pressed is a deeper hover.** `action-*-active` ran the other way from hover:
+  in the dark theme the secondary role went lighter on hover and then black when
+  pressed, darker than rest, and in the light theme pressed returned to paper,
+  almost the rest colour; the dark primary went lighter on hover and darker when
+  pressed. Now rest → hover → pressed moves one way: dark secondary
+  `#121212` → `#1F1F1F` → `#2C2C2C`, light secondary white → `#E8E7E3` →
+  `#D6D5D0`, dark primary paper → `#E8E7E3` → `#D6D5D0` (hover now darkens), and
+  the light primary was already monotonic. This covers every control that uses
+  them: buttons (primary, secondary, quiet, icon), segment options and chips.
+- **Glass tints instead of swapping.** New translucent roles `glass-hover` and
+  `glass-active` per tone (white 8 % and 16 % on the dark tone, black 6 % and
+  12 % on the light tone). A glass button layers the tint over its fill; quiet
+  buttons and segment options inside a glass surface take the tint. Selected and
+  disabled states are unchanged.
+- **Checks.** The token check adds `state` pairs: each rest → hover → pressed
+  ramp must move one way with pressed at least 1.25:1 from rest and 1.08:1 beyond
+  hover (for glass, over every backdrop in the tone's band, with quiet text at
+  4.5:1 on the pressed tint). The browser check measures the rendered fill of
+  every control with a pressed state, in both themes and both glass tones, and
+  asserts the same. Both fail on 0.15.0's values.
+
 ## 0.15.0 · 25 October 2026
 
 Glass loses its solid border: its edge is now a sheen of light caught by the rim.

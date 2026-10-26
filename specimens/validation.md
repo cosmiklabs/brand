@@ -5,6 +5,24 @@ controls layer. Kit checks establish their tested properties; they do not certif
 a consuming product or replace its interaction journeys. Product families keep
 their own validation records in their repositories.
 
+## 0.15.1 review — 25 October 2026
+
+Interaction-state ramps. Run on macOS with Node.js 24.22.0 and headless Chrome for
+Testing 156.0.8078.4:
+
+- `npm run build`, `npm run check` and `node scripts/build.mjs --check` from the
+  release commit pass, with the new `state` pairs.
+- Browser check, rendered fill sampled in each control's padding at rest, hover
+  and pressed (relative luminance; pressed / rest, pressed / hover): opaque
+  controls 1.34:1 and 1.18:1 (dark primary 0.91 → 0.80 → 0.66; dark secondary,
+  quiet, segment option and chip 0.006 → 0.014 → 0.025), light 1.47:1 and 1.19:1
+  (secondary family) and 1.27:1 and 1.14:1 (primary). Glass: dark tone 1.54–1.68:1
+  and 1.30–1.32:1, light tone 1.31–1.32:1 and 1.16:1, in both page themes.
+- With 0.15.0's action values restored, `npm run check` fails six `state` pairs
+  and the browser check fails at the dark primary button ("must move one way").
+- Rendered inspection of the rest, hover and pressed crops of every control in
+  both themes and tones: pressed reads as a deeper hover throughout.
+
 ## 0.15.0 review — 25 October 2026
 
 The edge sheen. Run on macOS with Node.js 24.22.0 and headless Chrome for Testing

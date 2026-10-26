@@ -1,6 +1,6 @@
 {
   "name": "Cosmik",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "status": "Approved baseline (owner, 2026-10-07)",
   "description": "Resolved semantic tokens. Use semantic tokens in components; primitives are reference values, not theme roles. All dimensions assume a 16px browser root. All-caps tracking is for labels only.",
   "primitives": {
@@ -29,7 +29,13 @@
     "sheen-white": "#FFFFFFA6",
     "sheen-white-faint": "#FFFFFF33",
     "sheen-white-strong": "#FFFFFFF2",
-    "sheen-shade": "#00000040"
+    "sheen-shade": "#00000040",
+    "pressed-dark": "#2C2C2C",
+    "pressed-light": "#D6D5D0",
+    "tint-light-hover": "#FFFFFF14",
+    "tint-light-active": "#FFFFFF29",
+    "tint-dark-hover": "#0000000F",
+    "tint-dark-active": "#0000001F"
   },
   "semantic": {
     "dark": {
@@ -47,12 +53,12 @@
       "on-selected": "#000000",
       "selected": "#F6F5F0",
       "action-primary": "#F6F5F0",
-      "action-primary-hover": "#FFFFFF",
-      "action-primary-active": "#E8E7E3",
+      "action-primary-hover": "#E8E7E3",
+      "action-primary-active": "#D6D5D0",
       "action-primary-fg": "#000000",
       "action-secondary": "#121212",
       "action-secondary-hover": "#1F1F1F",
-      "action-secondary-active": "#000000",
+      "action-secondary-active": "#2C2C2C",
       "action-secondary-fg": "#F6F5F0",
       "input-bg": "#000000",
       "input-fg": "#F6F5F0",
@@ -73,7 +79,9 @@
       "glass-border": "#414141",
       "glass-muted": "#C8C8C8",
       "glass-sheen": "#FFFFFFA6",
-      "glass-sheen-low": "#FFFFFF33"
+      "glass-sheen-low": "#FFFFFF33",
+      "glass-hover": "#FFFFFF14",
+      "glass-active": "#FFFFFF29"
     },
     "light": {
       "bg": "#F6F5F0",
@@ -95,7 +103,7 @@
       "action-primary-fg": "#FFFFFF",
       "action-secondary": "#FFFFFF",
       "action-secondary-hover": "#E8E7E3",
-      "action-secondary-active": "#F6F5F0",
+      "action-secondary-active": "#D6D5D0",
       "action-secondary-fg": "#000000",
       "input-bg": "#FFFFFF",
       "input-fg": "#000000",
@@ -116,7 +124,9 @@
       "glass-border": "#C6C5C0",
       "glass-muted": "#454545",
       "glass-sheen": "#FFFFFFF2",
-      "glass-sheen-low": "#00000040"
+      "glass-sheen-low": "#00000040",
+      "glass-hover": "#0000000F",
+      "glass-active": "#0000001F"
     }
   },
   "aliases": {
@@ -135,12 +145,12 @@
       "on-selected": "black",
       "selected": "paper",
       "action-primary": "paper",
-      "action-primary-hover": "white",
-      "action-primary-active": "light-soft",
+      "action-primary-hover": "light-soft",
+      "action-primary-active": "pressed-light",
       "action-primary-fg": "black",
       "action-secondary": "surface-dark",
       "action-secondary-hover": "raised-dark",
-      "action-secondary-active": "black",
+      "action-secondary-active": "pressed-dark",
       "action-secondary-fg": "paper",
       "input-bg": "black",
       "input-fg": "paper",
@@ -161,7 +171,9 @@
       "glass-border": "graphite",
       "glass-muted": "muted-glass-dark",
       "glass-sheen": "sheen-white",
-      "glass-sheen-low": "sheen-white-faint"
+      "glass-sheen-low": "sheen-white-faint",
+      "glass-hover": "tint-light-hover",
+      "glass-active": "tint-light-active"
     },
     "light": {
       "bg": "paper",
@@ -183,7 +195,7 @@
       "action-primary-fg": "white",
       "action-secondary": "white",
       "action-secondary-hover": "light-soft",
-      "action-secondary-active": "paper",
+      "action-secondary-active": "pressed-light",
       "action-secondary-fg": "black",
       "input-bg": "white",
       "input-fg": "black",
@@ -204,7 +216,9 @@
       "glass-border": "rule-light",
       "glass-muted": "muted-glass-light",
       "glass-sheen": "sheen-white-strong",
-      "glass-sheen-low": "sheen-shade"
+      "glass-sheen-low": "sheen-shade",
+      "glass-hover": "tint-dark-hover",
+      "glass-active": "tint-dark-active"
     }
   },
   "space": {
@@ -456,6 +470,36 @@
         "hex": "#00000040",
         "srgb": [0, 0, 0, 0.25098],
         "linear": [0, 0, 0, 0.25098]
+      },
+      "pressed-dark": {
+        "hex": "#2C2C2C",
+        "srgb": [0.172549, 0.172549, 0.172549, 1],
+        "linear": [0.025187, 0.025187, 0.025187, 1]
+      },
+      "pressed-light": {
+        "hex": "#D6D5D0",
+        "srgb": [0.839216, 0.835294, 0.815686, 1],
+        "linear": [0.672443, 0.665387, 0.630757, 1]
+      },
+      "tint-light-hover": {
+        "hex": "#FFFFFF14",
+        "srgb": [1, 1, 1, 0.078431],
+        "linear": [1, 1, 1, 0.078431]
+      },
+      "tint-light-active": {
+        "hex": "#FFFFFF29",
+        "srgb": [1, 1, 1, 0.160784],
+        "linear": [1, 1, 1, 0.160784]
+      },
+      "tint-dark-hover": {
+        "hex": "#0000000F",
+        "srgb": [0, 0, 0, 0.058824],
+        "linear": [0, 0, 0, 0.058824]
+      },
+      "tint-dark-active": {
+        "hex": "#0000001F",
+        "srgb": [0, 0, 0, 0.121569],
+        "linear": [0, 0, 0, 0.121569]
       }
     },
     "semantic": {
@@ -531,14 +575,14 @@
           "linear": [0.921582, 0.913099, 0.871367, 1]
         },
         "action-primary-hover": {
-          "hex": "#FFFFFF",
-          "srgb": [1, 1, 1, 1],
-          "linear": [1, 1, 1, 1]
-        },
-        "action-primary-active": {
           "hex": "#E8E7E3",
           "srgb": [0.909804, 0.905882, 0.890196, 1],
           "linear": [0.806952, 0.799103, 0.768151, 1]
+        },
+        "action-primary-active": {
+          "hex": "#D6D5D0",
+          "srgb": [0.839216, 0.835294, 0.815686, 1],
+          "linear": [0.672443, 0.665387, 0.630757, 1]
         },
         "action-primary-fg": {
           "hex": "#000000",
@@ -556,9 +600,9 @@
           "linear": [0.013702, 0.013702, 0.013702, 1]
         },
         "action-secondary-active": {
-          "hex": "#000000",
-          "srgb": [0, 0, 0, 1],
-          "linear": [0, 0, 0, 1]
+          "hex": "#2C2C2C",
+          "srgb": [0.172549, 0.172549, 0.172549, 1],
+          "linear": [0.025187, 0.025187, 0.025187, 1]
         },
         "action-secondary-fg": {
           "hex": "#F6F5F0",
@@ -664,6 +708,16 @@
           "hex": "#FFFFFF33",
           "srgb": [1, 1, 1, 0.2],
           "linear": [1, 1, 1, 0.2]
+        },
+        "glass-hover": {
+          "hex": "#FFFFFF14",
+          "srgb": [1, 1, 1, 0.078431],
+          "linear": [1, 1, 1, 0.078431]
+        },
+        "glass-active": {
+          "hex": "#FFFFFF29",
+          "srgb": [1, 1, 1, 0.160784],
+          "linear": [1, 1, 1, 0.160784]
         }
       },
       "light": {
@@ -763,9 +817,9 @@
           "linear": [0.806952, 0.799103, 0.768151, 1]
         },
         "action-secondary-active": {
-          "hex": "#F6F5F0",
-          "srgb": [0.964706, 0.960784, 0.941176, 1],
-          "linear": [0.921582, 0.913099, 0.871367, 1]
+          "hex": "#D6D5D0",
+          "srgb": [0.839216, 0.835294, 0.815686, 1],
+          "linear": [0.672443, 0.665387, 0.630757, 1]
         },
         "action-secondary-fg": {
           "hex": "#000000",
@@ -871,6 +925,16 @@
           "hex": "#00000040",
           "srgb": [0, 0, 0, 0.25098],
           "linear": [0, 0, 0, 0.25098]
+        },
+        "glass-hover": {
+          "hex": "#0000000F",
+          "srgb": [0, 0, 0, 0.058824],
+          "linear": [0, 0, 0, 0.058824]
+        },
+        "glass-active": {
+          "hex": "#0000001F",
+          "srgb": [0, 0, 0, 0.121569],
+          "linear": [0, 0, 0, 0.121569]
         }
       }
     },

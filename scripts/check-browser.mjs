@@ -11,6 +11,7 @@ import {spawn} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {renderFamily} from './family.mjs';
 import {decodePng} from './vector-raster.mjs';
+import {PRESSED_STEP, PRESSED_BEYOND_HOVER} from './validate-tokens.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 // A fictional, test-only family proves family scopes and the controls layer compose. It is rendered
@@ -213,6 +214,7 @@ try {
       assert.equal(await css(selector, property), await token(mode, role), label);
       await force(selector);
     };
+    const stateRamps = [];
     for (const mode of ['dark', 'light']) {
       const primary = `#${mode}-actions .state:nth-child(1) .c-button`, disabled = `#${mode}-actions .state:nth-child(5) .c-button`;
       const secondary = `#${mode}-actions .action-row .c-button`, link = `#${mode}-actions .c-link`;
@@ -367,8 +369,14 @@ try {
         await expectRole(button, 'color', mode, 'text');
         await expectRole(select, 'color', mode, 'text');
         assert.equal(await css(`${g} .c-select--glass`, 'border-right-color', '::after'), await token(mode, 'text'), `${mode} glass select chevron`);
-        await expectRole(button, 'background-color', mode, 'action-secondary-hover', ['hover']);
-        await expectRole(button, 'background-color', mode, 'action-secondary-active', ['hover', 'active']);
+        // Hover and pressed tint the glass: the glass-hover or glass-active layer over the glass fill.
+        for (const [states, role] of [[['hover'], 'glass-hover'], [['hover', 'active'], 'glass-active']]) {
+          await expectRole(button, 'background-color', mode, 'glass', states, `${mode} glass button ${states.join('+')} keeps the glass`);
+          await force(button, states);
+          const tint = await token(mode, role);
+          assert.ok((await css(button, 'background-image')).startsWith(`linear-gradient(${tint}, ${tint})`), `${mode} glass button ${states.join('+')} layers ${role}`);
+          await force(button);
+        }
         const toggle = `${bar} .c-button[aria-pressed="true"]`, checked = `${group} [aria-checked="true"]`;
         for (const states of [[], ['hover'], ['hover', 'active']]) {
           await expectRole(toggle, 'background-color', mode, 'selected', states);
@@ -385,10 +393,59 @@ try {
         await evaluate(`document.querySelector('${g}').scrollIntoView({block:'center'})`);
         await force(`${bar} .c-button:not([aria-pressed])`, ['hover']); await shot(`cosmik-${mode}-glass`); await force(`${bar} .c-button:not([aria-pressed])`);
       }
+      // Pressed is a deeper step of hover: for every control with a pressed state, in this theme
+      // and in both glass tones, the rendered fill moves one way from rest to hover to pressed,
+      // and pressed stands clearly apart from rest (and from hover). Measured from pixels in the
+      // control's padding, so translucent glass tints count as painted.
+      {
+        const other = mode === 'dark' ? 'light' : 'dark';
+        const lum = ([r, g, b]) => [r, g, b].map(v => v / 255).map(c => c <= .04045 ? c / 12.92 : ((c + .055) / 1.055) ** 2.4).reduce((s, c, i) => s + c * [.2126, .7152, .0722][i], 0);
+        const step = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => p - q); return (y + .05) / (x + .05); };
+        const controls = [
+          ['primary', `#${mode}-actions .state:nth-child(1) .c-button`],
+          ['secondary', `#${mode}-actions .action-row .c-button`],
+          ['quiet icon', `#${mode}-toolbars .c-toolbar[role="toolbar"] .c-button:not([aria-pressed])`],
+          ['segmented option', `#${mode}-segmented [aria-checked="false"]`],
+          ['chip', `#${mode} .chip-row .c-chip:nth-child(2)`],
+          ...[mode, other].flatMap(tone => [
+            [`glass ${tone} quiet icon`, `#${mode}-glass .glass-stage--${tone} .c-toolbar--glass .c-button:not([aria-pressed])`],
+            [`glass ${tone} button`, `#${mode}-glass .glass-stage--${tone} .c-button--glass:not(.c-button--icon)`],
+            [`glass ${tone} segmented option`, `#${mode}-glass .glass-stage--${tone} .c-segmented--glass [aria-checked="false"]`],
+          ]),
+        ];
+        for (const [name, selector] of controls) {
+          await evaluate(`document.querySelector(${JSON.stringify(selector)}).scrollIntoView({block:'center'})`);
+          const box = await evaluate(`(() => {const r=document.querySelector(${JSON.stringify(selector)}).getBoundingClientRect();return {x:r.left + scrollX, y:r.top + scrollY, width:r.width, height:r.height}})()`);
+          const fill = {};
+          for (const [state, forced] of [['rest', []], ['hover', ['hover']], ['pressed', ['hover', 'active']]]) {
+            await force(selector, forced);
+            await pause(30);
+            const clip = {x: box.x - 4, y: box.y - 4, width: box.width + 8, height: box.height + 8, scale: 2};
+            const data = Buffer.from((await cdp('Page.captureScreenshot', {format: 'png', clip, captureBeyondViewport: false, fromSurface: true})).data, 'base64');
+            if (screenshots) fs.writeFileSync(path.join(screenshots, `state-${mode}-${name.replaceAll(' ', '-')}-${state}.png`), data);
+            const image = decodePng(data);
+            // A 3 × 3 patch in the left padding, clear of the label, icon and edge.
+            const px = [];
+            for (let dy = -1; dy <= 1; dy++) for (let dx = 0; dx < 3; dx++) {
+              const x = Math.round((4 + 5 + dx) * 2), y = Math.round((4 + box.height / 2 + dy) * 2), i = (y * image.width + x) * 4;
+              px.push([image.rgba[i], image.rgba[i + 1], image.rgba[i + 2]]);
+            }
+            fill[state] = [0, 1, 2].map(c => px.reduce((sum, p) => sum + p[c], 0) / px.length);
+            await force(selector);
+          }
+          const [rest, hover, pressed] = [fill.rest, fill.hover, fill.pressed].map(lum);
+          const ramp = {oneWay: (hover - rest) * (pressed - hover) > 0, pressed: +step(fill.rest, fill.pressed).toFixed(3), beyond: +step(fill.hover, fill.pressed).toFixed(3)};
+          stateRamps.push({mode, name, ...ramp, luminance: [rest, hover, pressed].map(v => +v.toFixed(4))});
+          assert.ok(ramp.oneWay && ramp.pressed >= PRESSED_STEP && ramp.beyond >= PRESSED_BEYOND_HOVER,
+            `${mode} ${name}: rest → hover → pressed must move one way, pressed ${PRESSED_STEP}:1 from rest and ${PRESSED_BEYOND_HOVER}:1 from hover: ${JSON.stringify(ramp)}`);
+        }
+      }
       await evaluate(`document.querySelector('#${mode}-details').scrollIntoView()`);
       await evaluate(`document.querySelector('#${mode}-name').focus()`);
       await shot(`cosmik-${mode}-controls`);
     }
+    console.log('Interaction states, rest → hover → pressed (luminance; pressed / rest, pressed / hover):');
+    for (const r of stateRamps) console.log(`  ${r.mode.padEnd(5)} ${r.name.padEnd(28)} ${r.luminance.join(' → ')}  ${r.pressed}:1  ${r.beyond}:1`);
     // Transitions use the effective motion duration and easing tokens.
     const transition = () => evaluate(`(() => {const s=getComputedStyle(document.querySelector('#dark-actions .c-button'));return [s.transitionDuration.split(',').map(v=>parseFloat(v)), s.transitionTimingFunction]})()`);
     assert.ok((await transition())[0].every(v => v === 0));

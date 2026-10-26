@@ -30,6 +30,18 @@ const linear=c=>c<=.04045?c/12.92:((c+.055)/1.055)**2.4;
 export const backdropLuminance=([r,g,b])=>.2126*linear(r)+.7152*linear(g)+.0722*linear(b);
 /** The backdrops a glass tone (a mode name) must hold over: [low, high] relative luminance. */
 export const glassBand=(mode,glass)=>mode==='dark'?[0,glass.toneThreshold+glass.toneHysteresis]:[glass.toneThreshold-glass.toneHysteresis,1];
+/** A translucent colour (#RRGGBBAA) painted over an opaque one (#RRGGBB). */
+export const over=(tint,base)=>{const [r,g,b,a=1]=channels(tint);const under=channels(base);return toHex([r,g,b].map((c,i)=>c*a+under[i]*(1-a)));};
+// Interaction states: hover and pressed move the same way from rest, pressed further, by at least
+// these contrast steps, so pressing reads as a deeper hover rather than a return to rest.
+export const PRESSED_STEP=1.25, PRESSED_BEYOND_HOVER=1.08;
+const relative=hex=>luminance(hex);
+/** Whether rest → hover → pressed moves one way in luminance, with pressed clearly apart. */
+export const stateRamp=(rest,hover,pressed)=>{
+ const [a,b,c]=[rest,hover,pressed].map(relative);
+ const oneWay=(b-a)*(c-b)>0;
+ return {oneWay, pressed:contrast(rest,pressed), beyond:contrast(hover,pressed)};
+};
 export const glassComposite=(tint,backdrop,saturation=1)=>{const [r,g,b,a=1]=channels(tint);const behind=saturate(backdrop,saturation).map(c=>Math.min(1,Math.max(0,c)));return toHex([r,g,b].map((c,i)=>c*a+behind[i]*(1-a)));};
 
 /** Every defined pair for one kit's resolved `semantic` map ({dark, light}); throws on a malformed map.
@@ -55,6 +67,12 @@ export function contrastChecks(kit, semantic, glass = {saturation: 1, toneThresh
   for(const bg of ['bg','surface','raised','disabled-bg']) add('disabled-border',bg,3,'boundary');
   for(const bg of ['status-bg','bg','surface','raised']) add('status-border',bg,3,'boundary');
   for(const bg of ['input-bg','status-bg']) add('muted',bg,4.5,'text');
+  // Pressed is a deeper step of hover, never back towards rest.
+  for(const p of ['action-primary','action-secondary']){
+   const ramp=stateRamp(t[p],t[`${p}-hover`],t[`${p}-active`]);
+   checks.push({kit, mode, kind:'state', pair:`${p} rest → hover → active (pressed / rest)${ramp.oneWay?'':', not one way'}`, foreground:t[`${p}-active`], background:t[p], ratio:Number(ramp.pressed.toFixed(3)), threshold:PRESSED_STEP, pass:ramp.oneWay&&ramp.pressed>=PRESSED_STEP});
+   checks.push({kit, mode, kind:'state', pair:`${p} rest → hover → active (pressed / hover)${ramp.oneWay?'':', not one way'}`, foreground:t[`${p}-active`], background:t[`${p}-hover`], ratio:Number(ramp.beyond.toFixed(3)), threshold:PRESSED_BEYOND_HOVER, pass:ramp.oneWay&&ramp.beyond>=PRESSED_BEYOND_HOVER});
+  }
   // Glass. Text, muted text, quiet controls, focus and selection over each tone's band, and muted
   // text on the solid fallback (no backdrop-filter, reduced transparency), which paints `surface`.
   if('glass' in t){
@@ -65,9 +83,17 @@ export function contrastChecks(kit, semantic, glass = {saturation: 1, toneThresh
    const overAny=(fg,threshold,kind,ratioOf)=>{
     let worst=Infinity,at;
     for(const [b,c] of composites){const r=ratioOf(c,b);if(r<worst){worst=r;at=toHex(b);}}
-    checks.push({kit, mode, kind, pair: `${fg} / glass over ${band}`, foreground: fg==='glass boundary'?t['glass-border']:t[fg], background: `${t.glass} over ${at}`, ratio: Number(worst.toFixed(3)), threshold, pass: worst >= threshold});
+    checks.push({kit, mode, kind, pair: `${fg} / glass over ${band}`, foreground: t[fg]??t['action-secondary-fg'], background: `${t.glass} over ${at}`, ratio: Number(worst.toFixed(3)), threshold, pass: worst >= threshold});
    };
    for(const fg of ['text','glass-muted','action-secondary-fg']) overAny(fg,4.5,'text',c=>contrast(t[fg],c));
+   // Hover and pressed tint the glass (translucent glass-hover and glass-active over it): text
+   // holds on the pressed tint, and the tints step one way from rest, pressed clearly apart.
+   for(const role of ['glass-hover','glass-active']) if(typeof t[role]!=='string'||!/^#[0-9A-F]{8}$/i.test(t[role])) throw new Error(`${kit} ${mode} ${role}: expected a translucent #RRGGBBAA role`);
+   overAny('action-secondary-fg on glass-active',4.5,'text',c=>contrast(t['action-secondary-fg'],over(t['glass-active'],c)));
+   let worstPressed=Infinity,worstBeyond=Infinity,oneWay=true;
+   for(const [,c] of composites){const r=stateRamp(c,over(t['glass-hover'],c),over(t['glass-active'],c));oneWay&&=r.oneWay;worstPressed=Math.min(worstPressed,r.pressed);worstBeyond=Math.min(worstBeyond,r.beyond);}
+   checks.push({kit, mode, kind:'state', pair:`glass rest → glass-hover → glass-active over ${band} (pressed / rest)`, foreground:t['glass-active'], background:t.glass, ratio:Number(worstPressed.toFixed(3)), threshold:PRESSED_STEP, pass:oneWay&&worstPressed>=PRESSED_STEP});
+   checks.push({kit, mode, kind:'state', pair:`glass rest → glass-hover → glass-active over ${band} (pressed / hover)`, foreground:t['glass-active'], background:t['glass-hover'], ratio:Number(worstBeyond.toFixed(3)), threshold:PRESSED_BEYOND_HOVER, pass:oneWay&&worstBeyond>=PRESSED_BEYOND_HOVER});
    overAny('focus',3,'focus',c=>contrast(t.focus,c));
    overAny('selected',3,'boundary',c=>contrast(t.selected,c));
    // The panel's edge (the sheen, or glass-border on the solid fallback) is decorative: controls

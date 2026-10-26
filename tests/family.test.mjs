@@ -139,6 +139,15 @@ test('a family may set its own glass roles, and the check proves them over each 
   assert.throws(() => checkFamily(f.dir), /light glass-sheen: expected a translucent #RRGGBBAA role/);
 });
 
+test('check rejects a pressed role that runs back towards rest', t => {
+  const f = familyRepo(t);
+  // Lighter on hover, then darker than rest when pressed: pressing would look like letting go.
+  f.edit(s => { s.primitives['example-dark-action-active'] = '#669DF6'; });
+  buildFamily(f.dir);
+  const {problems} = checkFamily(f.dir);
+  assert.ok(problems.some(p => /contrast: dark action-primary rest → hover → active \(pressed \/ rest\), not one way is [\d.]+:1, below 1\.25:1 \(state\)/.test(p)), problems.join('\n'));
+});
+
 test('check explains a missing family source and the CLI rejects bad usage', t => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'brand-family-empty-'));
   t.after(() => fs.rmSync(dir, {recursive: true, force: true}));
