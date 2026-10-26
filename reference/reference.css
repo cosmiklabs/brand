@@ -166,3 +166,6 @@ hr{border:0;border-top:1px solid var(--c-divider);margin-block:var(--c-space-8)}
 @media(hover:hover){.brand-sites a:hover{text-decoration:underline}}
 @media(max-width:720px){.brand-sites{padding-inline:var(--c-space-4);gap:var(--c-space-4)}}
 @media print{.brand-sites{display:none}}
+
+/* Shared component examples in the reference shell. */
+.component-panel{padding:var(--c-space-6);border:1px solid var(--c-divider-strong);margin-top:var(--c-space-8)}.component-panel form{display:grid;gap:var(--c-space-6);margin-top:var(--c-space-6)}.component-panel label{display:grid;gap:var(--c-space-2)}.component-panel details{border-top:1px solid var(--c-divider);padding-top:var(--c-space-4)}.component-panel summary{cursor:pointer;min-height:var(--c-layout-control-min)}.sample-actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--c-space-4)}

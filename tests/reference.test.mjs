@@ -16,7 +16,7 @@ const content=text=>text.replace(/<pre\b[^>]*>[\s\S]*?<\/pre>/g,'');
 test('the reference covers every current guide and preserves the source heading structure',()=>{
  const expected=fs.readdirSync(path.join(root,'guide')).filter(f=>f.endsWith('.md')).map(f=>'guide/'+f);
  for(const source of expected)assert.ok(documents.some(([file])=>file===source),source);
- assert.equal(result.pages,22);
+ assert.equal(result.pages,23);
  for(const [source,url] of documents){
   const original=fs.readFileSync(path.join(root,source),'utf8');
   const parsed=renderMarkdown(original);
@@ -81,7 +81,8 @@ test('the build is deterministic and works without a root domain',()=>{
  finally{fs.rmSync(again,{recursive:true,force:true});}
  for(const file of html)assert.doesNotMatch(fs.readFileSync(file,'utf8'),/(?:href|src)="\//);
  for(const [,url] of documents)assert.match(read(url),/<main id="main" tabindex="-1"/);
- assert.doesNotMatch(read('reference.js'),/localStorage|sessionStorage|fetch\(|cookie/);
+ assert.doesNotMatch(read('reference.js'),/sessionStorage|fetch\(|cookie/);
+ assert.deepEqual([...read('reference.js').matchAll(/localStorage\.(?:getItem|setItem)\('([^']+)'/g)].map(m=>m[1]),['cosmik-reference-theme','cosmik-reference-theme']);
 });
 
 
@@ -89,4 +90,19 @@ test('the deployed 404 recovers relative links at a GitHub Pages project path',(
  const temporary=fs.mkdtempSync(path.join(os.tmpdir(),'cosmik-reference-base-'));
  try{buildReference(temporary,{baseUrl:'https://cosmiklabs.github.io/brand/'});assert.ok(fs.readFileSync(path.join(temporary,'404.html'),'utf8').includes('<base href="/brand/">'));assert.throws(()=>buildReference(temporary,{baseUrl:'https://user:secret@example.com/brand/'}),/without credentials/);}
  finally{fs.rmSync(temporary,{recursive:true,force:true});}
+});
+
+
+test('shared navigation labels, order and overview actions stay consistent',()=>{
+ const home=read('index.html');
+ const nav=home.match(/<nav aria-label="Reference">([\s\S]*?)<\/nav>/)[1];
+ const groups=[...nav.matchAll(/class="eyebrow">([^<]+)/g)].map(m=>m[1]);
+ assert.deepEqual(groups.filter(g=>g!=='Archive'),['Start here','Foundations','Experience','Implementation','Tools','Resources']);
+ for(const label of ['Identity &amp; usage','Family contract','Quality review','Governance','Asset library','Design tokens','Component examples','Validation record'])assert.ok(nav.includes('>'+label+'</a>'),label);
+ assert.ok(home.includes('placeholder="Search this guide…"'));
+ assert.ok(home.includes('Read the brand guide'));
+ assert.ok(home.includes('href="assets.html">Browse assets</a>'));
+ const components=read('components.html');
+ assert.ok(components.includes('aria-current="page">Component examples'));
+ assert.ok(components.includes('aria-label="Brand references"'));
 });

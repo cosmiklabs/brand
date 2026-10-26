@@ -1,5 +1,5 @@
 /* Progressive enhancement. Content, links, downloads and navigation work offline
- * and without JavaScript. Preferences are page-local; no storage or analytics. */
+ * and without JavaScript. Only the selected theme is stored locally; no analytics or network writes. */
 (() => {
   const doc=document.documentElement;
   const theme=document.querySelector('#theme');
@@ -14,8 +14,10 @@
     image.src=isDark?image.dataset.darkSrc:image.dataset.lightSrc;
   }
   if(theme){
+    try{const saved=localStorage.getItem('cosmik-reference-theme');if(['system','light','dark'].includes(saved))theme.value=saved;}catch{}
+    if(theme.value!=='system')doc.dataset.theme=theme.value;
     theme.closest('label').hidden=false;
-    theme.addEventListener('change',()=>{if(theme.value==='system')doc.removeAttribute('data-theme');else doc.dataset.theme=theme.value;identity();});
+    theme.addEventListener('change',()=>{if(theme.value==='system')doc.removeAttribute('data-theme');else doc.dataset.theme=theme.value;try{localStorage.setItem('cosmik-reference-theme',theme.value);}catch{}identity();});
     dark.addEventListener('change',identity);identity();
   }
   const navigation=document.querySelector('.navigation'),compact=matchMedia('(max-width:720px)');

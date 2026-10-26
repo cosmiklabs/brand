@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {escape, plain, renderMarkdown} from './reference-markdown.mjs';
-import {siteNavigation} from './reference-sites.mjs';
+import {siteNavigation,normalizeNavigation,referenceNavigation,componentExamples} from './reference-sites.mjs';
 export const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 export const documents=[
   ['guide/README.md','guide.html','Guide index','Start here'],
@@ -29,7 +29,7 @@ export const documents=[
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const manifest=JSON.parse(read('asset-manifest.json')),tokens=JSON.parse(read('kits/cosmik/tokens/cosmik.json'));
 const icon='kits/cosmik/icons/cosmik.ico',emblem=manifest.entry_points.emblem_master,lockup=manifest.entry_points.lockup_master;
-const nav=[['index.html','Overview','Start here'],...documents.map(([,url,title,group])=>[url,title,group]),['assets.html','Asset library','Tools'],['tokens.html','Token reference','Tools'],['specimens/components.html','Interactive components','Tools']];
+const nav=normalizeNavigation([['index.html','Overview','Start here'],...documents.map(([,url,title,group])=>[url,title,group]),['assets.html','Asset library','Tools'],['tokens.html','Token reference','Tools'],['components.html','Component examples','Tools']]);
 const sourceRoutes=new Map(documents.map(([source,url])=>[source,url]));
 const downloads=new Set(['asset-manifest.json','kits/cosmik/tokens/source.json',...Object.values(manifest.entry_points.tokens.cosmik),manifest.entry_points.controls,
  ...manifest.entry_points.web_fonts,...manifest.entry_points.desktop_fonts,...Object.values(manifest.entry_points).filter(v=>typeof v==='string' && v.startsWith('kits/')),
@@ -46,24 +46,21 @@ function linkFor(source,href){
  return `https://github.com/cosmiklabs/brand/${target.endsWith('/')?'tree':'blob'}/main/${target}${fragment}`;
 }
 const label=text=>`<p class="eyebrow">${escape(text)}</p>`;
-function navigation(current){
- const groups=[...new Set(nav.map(n=>n[2]))];
- return groups.map(group=>`<div class="nav-group">${label(group)}<ul>${nav.filter(n=>n[2]===group).map(([url,title])=>`<li><a href="${url}"${url===current?' aria-current="page"':''}>${escape(title)}</a></li>`).join('')}</ul></div>`).join('');
-}
+const navigation=current=>referenceNavigation(nav,current);
 function shell({url,title,description,body,toc=[],source,baseHref}){
  return `<!doctype html>
 <html lang="en" data-motion="system"><head>${baseHref?`<base href="${escape(baseHref)}">`:""}<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(title)} — Cosmik brand reference</title><meta name="description" content="${escape(description)}"><meta name="color-scheme" content="light dark"><link rel="icon" href="files/${icon}"><link rel="stylesheet" href="files/kits/cosmik/tokens/cosmik.css"><link rel="stylesheet" href="files/kits/cosmik/components/controls.css"><link rel="stylesheet" href="reference.css"><script defer src="search-index.js"></script><script defer src="reference.js"></script></head><body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><a class="identity" href="index.html" aria-label="Cosmik brand reference home"><picture><source media="(prefers-color-scheme:dark)" srcset="files/${emblem}"><img src="files/kits/cosmik/assets/vector/cosmik-emblem-ink.svg" width="48" height="48" alt="" data-identity-image data-dark-src="files/${emblem}" data-light-src="files/kits/cosmik/assets/vector/cosmik-emblem-ink.svg"></picture><span>Cosmik</span></a><span class="header-label">Brand reference</span><div class="header-actions"><label class="theme-control" hidden>Theme <span class="c-select c-select--dense"><select id="theme" aria-label="Theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></span></label><a class="source-link" href="https://github.com/cosmiklabs/brand">GitHub ↗</a></div></header>
 ${siteNavigation('cosmik')}
-<div class="reference-layout"><aside class="sidebar"><details class="navigation" open><summary>Reference navigation</summary><div class="navigation-content"><div class="search" hidden><label for="guide-search">Find guidance</label><input class="c-input" type="search" id="guide-search" placeholder="Identity, glass, fonts…" autocomplete="off" aria-controls="search-results"><p id="search-status" role="status" aria-live="polite"></p><ul id="search-results" hidden></ul></div><nav aria-label="Reference">${navigation(url)}</nav><p class="sidebar-version">Kit ${escape(manifest.version)}<br>Token schema ${escape(tokens.version)}</p></div></details></aside>
+<div class="reference-layout"><aside class="sidebar"><details class="navigation" open><summary>Reference navigation</summary><div class="navigation-content"><div class="search" hidden><label for="guide-search">Find guidance</label><input class="c-input" type="search" id="guide-search" placeholder="Search this guide…" autocomplete="off" aria-controls="search-results"><p id="search-status" role="status" aria-live="polite"></p><ul id="search-results" hidden></ul></div><nav aria-label="Reference">${navigation(url)}</nav><p class="sidebar-version">Cosmik kit ${escape(manifest.version)}<br>Token schema ${escape(tokens.version)}</p></div></details></aside>
 <main id="main" tabindex="-1" class="${url==='index.html'?'overview':'document'}">${source?`<div class="document-meta">${label(nav.find(n=>n[0]===url)?.[2] ?? 'Reference')}<a class="source-link" href="https://github.com/cosmiklabs/brand/blob/main/${source}">Markdown source ↗</a></div>`:''}${body}<footer class="page-footer"><p>Cosmik brand reference · Kit ${escape(manifest.version)}</p><p><a href="licensing.html">Licensing &amp; brand use</a><span aria-hidden="true"> / </span><a href="quality.html">Quality review</a></p></footer></main>
 <aside class="page-index" aria-label="On this page">${toc.length?`<p class="eyebrow">On this page</p><nav><ul>${toc.filter(h=>h.level===2).map(h=>`<li><a href="#${escape(h.id)}">${escape(h.title)}</a></li>`).join('')}</ul></nav>`:''}</aside></div>
 </body></html>`;
 }
 const entry=(href,title,text,number)=>`<a class="chapter" href="${href}">${label(number)}<h3>${escape(title)} <span aria-hidden="true">↗</span></h3><p>${escape(text)}</p></a>`;
 function overview(){
- return `<div class="hero">${label('The shared Cosmik foundation')}<h1>The Cosmik<br> brand reference.</h1><p class="lead">Identity, design and implementation guidance for Cosmik and its product families.</p><div class="hero-actions"><a class="c-button c-button--primary" href="identity.html">Start with the identity <span aria-hidden="true">→</span></a><a class="c-link" href="specimens/components.html">Try the components</a></div></div>
+ return `<div class="hero">${label('The shared Cosmik foundation')}<h1>The Cosmik<br> brand reference.</h1><p class="lead">Identity, design and implementation guidance for Cosmik and its product families.</p><div class="hero-actions"><a class="c-button c-button--primary" href="identity.html">Read the brand guide <span aria-hidden="true">→</span></a><a class="c-link" href="assets.html">Browse assets</a></div></div>
 <figure class="identity-board" data-theme="dark"><picture><source media="(max-width:400px)" srcset="files/${emblem}" width="1254" height="1254"><img src="files/${lockup}" width="2172" height="724" alt="Accepted Cosmik identity artwork"></picture><figcaption>Accepted Cosmik artwork <span>Black and warm off-white</span></figcaption></figure>
 <section aria-labelledby="explore"><div class="section-title">${label('01 / Explore')}<h2 id="explore">From principles to practice.</h2></div><div class="chapters">${entry('identity.html','Identity','Names, approved marks, clear space and reproduction.','Foundation')}${entry('interface.html','Interface','Composition, controls, overlays and responsive behavior.','Experience')}${entry('integration.html','Implementation','Browser, native and DTCG integration; pinned family kits.','Implementation')}${entry('assets.html','Assets & tokens','Accepted downloads and a searchable reference of source values.','Resources')}</div></section>
 <section class="scope-section" aria-labelledby="scope">${label('02 / Scope')}<h2 id="scope">One foundation. Distinct identities.</h2><p>Cosmik is the parent identity. Organization surfaces use this monochrome baseline. Each product’s identity lives in its own family kit, built on a pinned release of the foundation.</p><div class="scope-flow"><div><strong>Cosmik</strong><span>Foundation, shared behavior and utility type</span></div><div><strong>Product families</strong><span>Own identity, tokens and product guidance</span></div><div><strong>Consumers</strong><span>Websites, applications, adapters and documents</span></div></div><a class="c-link" href="families.html">Understand the family contract</a></section>
@@ -106,20 +103,21 @@ export function buildReference(output=path.join(root,'site'),{baseUrl}={}){
  page({url:'index.html',title:'Overview',description:'The complete Cosmik brand reference: identity, interface, implementation, assets and tokens.',body:overview()});
  for(const [source,url,title] of documents){
    const markdown=read(source),rendered=renderMarkdown(markdown,href=>linkFor(source,href));
-   page({url,title,description:plain(markdown.split('\n\n').find(p=>!p.startsWith('#')) ?? title).replace(/\s+/g,' ').slice(0,180),body:`<article class="prose">${rendered.html.replace(/<\/h1>/,end=>end+visualReference(source))}</article>`,toc:rendered.headings,source});
-   search.push({title,url,text:plain(markdown).replace(/\s+/g,' '),sections:rendered.headings.filter(h=>h.level===2)});
+   page({url,title:nav.find(n=>n[0]===url)?.[1]??title,description:plain(markdown.split('\n\n').find(p=>!p.startsWith('#')) ?? title).replace(/\s+/g,' ').slice(0,180),body:`<article class="prose">${rendered.html.replace(/<\/h1>/,end=>end+visualReference(source))}</article>`,toc:rendered.headings,source});
+   search.push({title:nav.find(n=>n[0]===url)?.[1]??title,url,text:plain(markdown).replace(/\s+/g,' '),sections:rendered.headings.filter(h=>h.level===2)});
  }
+ page({url:'components.html',title:'Component examples',description:'Shared controls and interactive specimens for the Cosmik brand.',body:componentExamples('Cosmik',`v${manifest.version}`)+'<section class="component-panel"><h2>Interactive specimen</h2><p>Explore the full control states, keyboard behavior, dialogs, menus and motion examples.</p><a class="c-link" href="specimens/components.html">Open the interactive specimen →</a></section>'});
  page({url:'assets.html',title:'Asset library',description:'Approved Cosmik assets, platform icons, fonts, templates and source-backed download links.',body:assetPage()});
  page({url:'tokens.html',title:'Design tokens',description:'Search the complete generated Cosmik baseline: semantic color, type, spacing, layout and motion tokens.',body:tokenPage()});
- search.push({title:'Asset library',url:'assets.html',text:'emblem lockup logo SVG icons fonts templates downloads assets',sections:[]},{title:'Design tokens',url:'tokens.html',text:'CSS JSON Rust DTCG colors typography spacing layout motion radius glass breakpoint',sections:[]},{title:'Interactive components',url:'specimens/components.html',text:'buttons inputs selects toolbar dialog popover menu glass states motion',sections:[]});
+ search.push({title:'Asset library',url:'assets.html',text:'emblem lockup logo SVG icons fonts templates downloads assets',sections:[]},{title:'Design tokens',url:'tokens.html',text:'CSS JSON Rust DTCG colors typography spacing layout motion radius glass breakpoint',sections:[]},{title:'Component examples',url:'components.html',text:'components buttons inputs selects toolbar dialog popover menu glass states motion',sections:[]});
  write('search-index.js',`window.CosmikReferenceIndex=${JSON.stringify(search).replace(/</g,'\\u003c')};\n`);
  for(const file of ['reference.css','reference.js'])write(file,read('reference/'+file));
  for(const file of downloads){if(!fs.existsSync(path.join(root,file)))throw Error(`Missing reference asset: ${file}`);write('files/'+file,fs.readFileSync(path.join(root,file)));}
  // The existing offline component reference remains intact, including its relative paths.
- for(const file of ['components.html','components.css','components.js','motion.js'])write('specimens/'+file,file==='components.html'?read('specimens/'+file).replace('href="../guide/motion.md"','href="../motion.html"').replace('href="validation.md"','href="../validation.html"').replace('<nav class="reference-index"', '<p><a href="../index.html">← Brand reference</a></p><nav class="reference-index"'):read('specimens/'+file));
+ for(const file of ['components.html','components.css','components.js','motion.js'])write('specimens/'+file,file==='components.html'?read('specimens/'+file).replace('href="../guide/motion.md"','href="../motion.html"').replace('href="validation.md"','href="../validation.html"').replace('<nav class="reference-index"', '<p><a href="../components.html">← Component examples</a></p><nav class="reference-index"'):read('specimens/'+file));
  for(const file of [manifest.entry_points.controls,...Object.values(manifest.entry_points.tokens.cosmik),...manifest.entry_points.web_fonts,'fonts/licenses/Inter-OFL.txt','fonts/licenses/IBM-Plex-OFL.txt'])write(file,fs.readFileSync(path.join(root,file)));
  write('.nojekyll','');write('404.html',shell({baseHref,url:'404.html',title:'Page not found',description:'Return to the Cosmik brand reference.',body:'<h1>Page not found.</h1><p>Find the current chapters in the <a href="index.html">reference overview</a>.</p>'}));
- return {pages:documents.length+4,output};
+ return {pages:documents.length+5,output};
 }
 if(process.argv[1] && path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  // Clean this generated output only; never copy the repository wholesale.

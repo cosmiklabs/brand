@@ -815,7 +815,7 @@ try {
   // its own reading, search and filtering journeys. The site is served under a
   // project-like /site/ prefix, not at the domain root.
   await cdp('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
-  const referencePages=['index.html','identity.html','typography.html','colour.html','integration.html','assets.html','tokens.html'];
+  const referencePages=['index.html','identity.html','typography.html','colour.html','integration.html','assets.html','tokens.html','components.html'];
   for(const width of [1440,768,390,320]) {
     await size(width);
     for(const mode of ['light','dark'])for(const page of referencePages) {
@@ -833,6 +833,7 @@ try {
   await size(1280);
   await cdp('Page.navigate',{url:`http://127.0.0.1:${server.address().port}/site/index.html`});
   await until(`!!document.querySelector('#guide-search') && !document.querySelector('.search').hidden`);
+  assert.equal(await evaluate('document.documentElement.dataset.theme'),'dark','selected theme survives page navigation');
   await evaluate(`document.querySelector('#guide-search').value='clear space';document.querySelector('#guide-search').dispatchEvent(new Event('input'));`);
   assert.equal(await evaluate(`[...document.querySelectorAll('#search-results a')].some(a=>a.getAttribute('href').startsWith('identity.html'))`),true,'guide search finds identity rules');
   await evaluate(`document.querySelector('#guide-search').focus()`);await key('Escape','Escape',27);
@@ -859,7 +860,7 @@ try {
   await evaluate(`document.querySelector('#token-search').value='focus';document.querySelector('#token-search').dispatchEvent(new Event('input'));`);
   assert.ok(await evaluate(`document.querySelectorAll('#token-table tbody tr:not([hidden])').length > 0`),'direct-file token filtering works');
   assert.deepEqual(errors,[]);
-  console.log('HTML reference passed: 56 page/theme/width cases, project-path assets, search and empty results, Escape, token filters and recovery, no-JavaScript reading/navigation, and offline direct-file filtering.');
+  console.log('HTML reference passed: 64 page/theme/width cases, project-path assets, search and empty results, Escape, token filters and recovery, no-JavaScript reading/navigation, and offline direct-file filtering.');
   await cdp('Browser.close');
   for (let i=0; i<30 && !exited(); i++) await pause(100);
 } finally {
