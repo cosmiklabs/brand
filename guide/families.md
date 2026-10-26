@@ -97,8 +97,8 @@ table describes it, the code decides.
 | May override | Baseline semantic colour roles in either mode (`semantic` names both `dark` and `light`), using its own or baseline primitives, including the glass roles `glass`, `glass-sheen`, `glass-sheen-low`, `glass-border` and `glass-muted` |
 | May add | Roles under `extensions`, named identically in both modes (for example `accent`, `shadow` or status tones); elevation levels; licensed fonts it supplies itself |
 | May change type | Typeface family and weight for the heading roles `display`, `display-small`, `section` and `card` only |
-| Must keep | Every baseline role and both modes; the baseline contrast requirements, including each glass tone's text, icons, selection and focus over its luminance band |
-| Must not change | Utility type (`body`, `control`, `ui`, `ui-small`, `label`, `identity-label`), type sizes, spacing, layout, motion, radii, breakpoints or the glass blur, saturation, tone threshold, hysteresis and sheen angle |
+| Must keep | Every baseline role and both modes; the baseline contrast requirements, including each glass tone's text, icons, selection and focus over any backdrop |
+| Must not change | Utility type (`body`, `control`, `ui`, `ui-small`, `label`, `identity-label`), type sizes, spacing, layout, motion, radii, breakpoints or the glass blur, saturation, each tone's backdrop contrast and brightness, and sheen angle |
 
 Every resolved family keeps both themes, the shared [controls](interface.md#shared-controls)
 and [motion](motion.md) behavior. Family-specific mark usage, imagery and product

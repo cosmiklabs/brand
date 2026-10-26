@@ -104,36 +104,39 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
   it consistent across one such region. Never use it for reading content, forms,
   dense lists, dialogs, navigation or panels beside the content: those stay on
   solid surfaces. It is a mechanism, not a default; the product chooses where it
-  applies. Glass paints the `glass` tint over a blurred, saturated copy of the
-  content behind it, clear enough that the content visibly shows through. It has
+  applies. Glass paints the `glass` tint over a blurred, saturated and filtered
+  copy of the content behind it, clear enough that the content visibly shows
+  through. It has
   no solid border: its edge is a sheen, a 1px gradient where the rim catches light
   from the top left (`glass-sheen`), fading along the sides to a fainter return at
   the bottom right (`glass-sheen-low`). The sheen is decorative and gives the
   shape; what identifies a control on glass is its label, icon, selection and
   focus, which carry the contrast requirements. The solid fallbacks replace the
   sheen with a plain, subtle `glass-border`.
-- **Glass tone.** Glass has a dark and a light tone, and a tone is that theme for
-  the surface and its contents: text, muted text (`glass-muted`), selection,
-  hover and focus all follow it. Each tone keeps AA text, icons and selection only
-  over content on its side of the published threshold (`--c-glass-tone-threshold`,
-  a relative luminance) and a little past it (`--c-glass-tone-hysteresis`); the
-  wrong tone does not. A surface without `data-glass-tone` takes the page's
-  theme, which is right only over content whose brightness the product knows,
-  such as a fixed image. Over content whose brightness varies (a 3D canvas,
-  video, a photograph the user changes) the product must choose the tone from
-  what is behind each surface: measure the backdrop's relative luminance, take
-  the light tone at or above the threshold and the dark tone below it, and switch
-  with hysteresis so the tone does not flicker. A menu or popover takes the tone
-  of the content it opens over. A tone change crossfades with the motion tokens.
-  Selection stays opaque (the selected roles and bar), and hover and pressed use
-  the usual action roles. Where the browser cannot blur, the user asks for
+- **Glass tone follows the theme.** Glass has a dark and a light tone, and a tone
+  is that theme for the surface and its contents: text, muted text
+  (`glass-muted`), selection, hover and focus all follow it. Glass takes the
+  page's theme, whatever is behind it: dark glass in the dark theme, light glass
+  in the light theme. Its legibility comes from the backdrop filter, not from a
+  heavy tint: dark glass dims the content behind it and lowers its contrast,
+  light glass lowers its contrast and brightens it (`--c-glass-contrast`,
+  `--c-glass-brightness`), so each tone keeps AA text and 3:1 icons, selection and
+  focus over any content while the content still shows through. Do not pick the
+  tone from the backdrop: over a moving canvas or video the controls would flip
+  between tones constantly, which reads as jarring and scripted. Menus and
+  popovers take the theme too. `data-glass-tone="dark"` or `"light"` is an
+  explicit override for a surface or region the product must force; use it for a
+  fixed reason, not to track the content. A theme change crossfades with the
+  motion tokens.
+  Selection stays opaque (the selected roles and bar), and hover and pressed tint
+  the glass. Where the browser cannot blur, the user asks for
   reduced transparency or forced colours are on, the same controls are solid.
   Keep glass calm: one layer deep where possible, no glow, gradient or tinted
   accent, and no glass on large panels, where the blur costs the most and adds
   the least. Backdrop blur redraws with every frame of moving content; measure it
   in the product and drop the blur first if it costs frames: `data-glass="flat"`
-  on a region keeps the tint without the blur (contrast holds, because blurring
-  only averages the content), and `data-glass="solid"` makes it solid.
+  on a region keeps the tint and the tone's filter without the blur (contrast
+  holds, because blurring only averages the content), and `data-glass="solid"` makes it solid.
 - **Segmented controls** choose one of a few mutually exclusive options: a
   `radiogroup` of `radio` options with a roving tab stop and arrow keys, or a
   group of `aria-pressed` buttons. Every option takes the widest option's width,

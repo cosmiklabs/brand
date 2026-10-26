@@ -434,17 +434,18 @@
 /* ---- Glass ----------------------------------------------------------------- */
 /* Opt-in translucent surfaces for floating controls over busy or moving content,
    such as a 3D canvas or media; never for reading content, forms or dense lists,
-   and never the default. Each paints the `glass` tint over a blurred, saturated
-   copy of what lies behind it, catches an edge sheen (below) and keeps text on
-   `text`; muted text inside resolves to `glass-muted`.
-   Tone: glass comes in a dark and a light tone, and a tone is that mode for the
-   surface and everything in it (text, selection, hover, focus). Without
-   data-glass-tone a surface takes the page's theme. Over content whose brightness
-   varies (a 3D canvas, video), set data-glass-tone="light" or "dark" on the
-   surface or a region from the backdrop's relative luminance against
-   --c-glass-tone-threshold: each tone keeps AA text and a 3:1 boundary only over
-   backdrops on its side of the threshold (plus --c-glass-tone-hysteresis), and
-   the wrong tone does not. Choosing the tone is the consumer's.
+   and never the default. Each paints the `glass` tint over a filtered copy of
+   what lies behind it, catches an edge sheen (below) and keeps text on `text`;
+   muted text inside resolves to `glass-muted`.
+   Tone: glass follows the theme. Dark glass dims its backdrop and lowers its
+   contrast (--c-glass-contrast, --c-glass-brightness below 1); light glass
+   lowers its contrast and brightens it (brightness above 1). The scene still
+   shows through, with its luminance range compressed far enough that each
+   tone keeps AA text and 3:1 focus and selection over any backdrop, so a
+   surface never needs to change tone with what is behind it. Switching tones
+   by backdrop is discouraged: in motion it flips constantly. data-glass-tone=
+   "light" or "dark" remains an explicit override for a surface or region, and
+   is that mode for it and everything in it (text, selection, hover, focus).
      .c-glass               a container: menus, popovers, hints, labels
      .c-toolbar--glass      a toolbar; its quiet buttons and segmented controls
                             need nothing more
@@ -471,18 +472,21 @@
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   :is(.c-glass, .c-toolbar--glass, .c-segmented--glass, .c-button--glass, .c-select--glass, .c-select--glass > select) {
     --c-glass-fill: var(--c-glass);
-    --c-glass-backdrop: blur(var(--c-glass-blur)) saturate(var(--c-glass-saturation));
+    --c-glass-backdrop: blur(var(--c-glass-blur)) saturate(var(--c-glass-saturation)) contrast(var(--c-glass-contrast)) brightness(var(--c-glass-brightness));
     --c-glass-edge: transparent;
     --c-glass-sheen-opacity: 1;
   }
 }
 /* A product's own choice for a region, such as a lower graphics quality:
-   data-glass="flat" keeps the tint and sheen and drops the blur (the contrast
-   checks hold over unblurred content too, since blur only averages it);
+   data-glass="flat" keeps the tint, the tone's contrast and brightness and the
+   sheen, and drops the blur (the contrast checks hold over unblurred content
+   too, since blur only averages it);
    data-glass="solid" paints the solid surface. Put it on a region, not on each
    control. */
-[data-glass="flat"] :is(.c-glass, .c-toolbar--glass, .c-segmented--glass, .c-button--glass, .c-select--glass, .c-select--glass > select) {
-  --c-glass-backdrop: none;
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  [data-glass="flat"] :is(.c-glass, .c-toolbar--glass, .c-segmented--glass, .c-button--glass, .c-select--glass, .c-select--glass > select) {
+    --c-glass-backdrop: saturate(var(--c-glass-saturation)) contrast(var(--c-glass-contrast)) brightness(var(--c-glass-brightness));
+  }
 }
 [data-glass="solid"] :is(.c-glass, .c-toolbar--glass, .c-segmented--glass, .c-button--glass, .c-select--glass, .c-select--glass > select) {
   --c-glass-fill: var(--c-elevation-1-surface, var(--c-surface));
@@ -512,7 +516,8 @@
   backdrop-filter: var(--c-glass-backdrop);
 }
 .c-glass { box-sizing: border-box; }
-/* A tone change crossfades with the motion tokens; reduced motion snaps. */
+/* A theme change (or an explicit tone override) crossfades with the motion
+   tokens; reduced motion snaps. */
 .c-glass,
 .c-toolbar--glass,
 .c-segmented--glass {

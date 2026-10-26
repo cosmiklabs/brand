@@ -64,8 +64,12 @@ for (const [label, mutate, expected] of [
   ['unknown glass properties', s => { s.glass.opacity = 0.5; }, /glass: unsupported property opacity/],
   ['a negative glass blur', s => { s.glass.blur = '-4px'; }, /glass\.blur: expected a finite number >= 0/],
   ['a missing glass saturation', s => { delete s.glass.saturation; }, /glass\.saturation: expected a finite number/],
-  ['a tone threshold outside 0..1', s => { s.glass.toneThreshold = 1.2; }, /toneThreshold: expected a relative luminance/],
-  ['a tone band that leaves 0..1', s => { s.glass.toneHysteresis = 0.3; }, /threshold ± hysteresis must stay within/],
+  ['a tone threshold, now that glass follows the theme', s => { s.glass.toneThreshold = 0.2; }, /glass: unsupported property toneThreshold/],
+  ['a missing tone filter', s => { delete s.glass.light; }, /glass\.light: expected an object/],
+  ['a glass contrast that raises contrast', s => { s.glass.dark.contrast = 1.2; }, /glass\.dark\.contrast: expected 0\.\.1/],
+  ['a dark tone that brightens its backdrop', s => { s.glass.dark.brightness = 1.1; }, /dark tone dims its backdrop/],
+  ['a light tone that dims its backdrop', s => { s.glass.light.brightness = 0.9; }, /light tone brightens its backdrop/],
+  ['an unknown tone filter property', s => { s.glass.dark.blur = 2; }, /glass\.dark: unsupported property blur/],
   ['a sheen angle of a full turn or more', s => { s.glass.sheenAngle = 360; }, /sheenAngle: expected degrees/],
   ['a role named after a glass switch', s => { for (const m of ['dark', 'light']) s.semantic[m]['glass-fill'] = 'paper'; }, /glass-fill is reserved/],
 ]) {
@@ -236,7 +240,7 @@ test('contrast check diagnoses missing or translucent functional roles', t => {
   }
 });
 
-test('glass blur and saturation reach every output format', () => {
+test('glass blur, saturation and each tone\'s filter reach every output format', () => {
   const source = json(BASELINE);
   const css = read(baselineOutput('css'));
   assert.match(css, new RegExp(`--c-glass-blur: ${source.glass.blur};`));
@@ -250,17 +254,35 @@ test('glass blur and saturation reach every output format', () => {
   assert.equal(dtcg.glass.saturation.$value, source.glass.saturation);
   assert.match(css, new RegExp(`--c-glass-sheen-angle: ${source.glass.sheenAngle}deg;`));
   assert.match(read('kits/cosmik/tokens/cosmik_tokens.rs'), /pub mod glass \{\n {4}pub const BLUR: f32 = [\d.]+;\n {4}pub const SATURATION: f32 = [\d.]+;/);
+  // Each tone's filter is declared with its mode, so glass follows the theme and data-glass-tone.
+  for (const mode of ['dark', 'light']) {
+    const block = css.split(/\n(?=[^\s])/).find(b => b.includes(`[data-glass-tone="${mode}"] {`));
+    assert.ok(block, mode);
+    assert.match(block, new RegExp(`--c-glass-contrast: ${source.glass[mode].contrast};\\n  --c-glass-brightness: ${source.glass[mode].brightness};`));
+    assert.equal(dtcg.glass[mode].brightness.$value, source.glass[mode].brightness);
+    assert.equal(out.native.glass[mode].contrast, source.glass[mode].contrast);
+    assert.match(read('kits/cosmik/tokens/cosmik_tokens.rs'), new RegExp(`pub const ${mode.toUpperCase()}_BRIGHTNESS: f32 = ${source.glass[mode].brightness};`));
+  }
+  assert.doesNotMatch(css, /tone-threshold|tone-hysteresis/);
 });
 
-test('each glass tone fails over the other band, so a product must switch tones', () => {
+test('each glass tone holds over any backdrop because of its filter, not its tint alone', () => {
   const tokens = json(baselineOutput());
   const {glassComposite, contrast} = validate;
-  // Muted text on the dark tone over a white backdrop, and on the light tone over a black one.
-  assert.ok(contrast(tokens.semantic.dark['glass-muted'], glassComposite(tokens.semantic.dark.glass, [1, 1, 1], tokens.glass.saturation)) < 4.5);
-  assert.ok(contrast(tokens.semantic.light['glass-muted'], glassComposite(tokens.semantic.light.glass, [0, 0, 0], tokens.glass.saturation)) < 4.5);
-  // The bands overlap around the threshold, so either tone holds where a product hesitates.
-  const [, darkHigh] = validate.glassBand('dark', tokens.glass), [lightLow] = validate.glassBand('light', tokens.glass);
-  assert.ok(lightLow < tokens.glass.toneThreshold && tokens.glass.toneThreshold < darkHigh);
+  const unfiltered = {saturation: tokens.glass.saturation, dark: {contrast: 1, brightness: 1}, light: {contrast: 1, brightness: 1}};
+  // Muted text on the dark tone over a white backdrop, and on the light tone over a black one:
+  // they hold through the tone's filter and fail through the tint alone.
+  for (const [mode, backdrop] of [['dark', [1, 1, 1]], ['light', [0, 0, 0]]]) {
+    const t = tokens.semantic[mode];
+    assert.ok(contrast(t['glass-muted'], glassComposite(t.glass, backdrop, tokens.glass, mode)) >= 4.5, mode);
+    assert.ok(contrast(t['glass-muted'], glassComposite(t.glass, backdrop, unfiltered, mode)) < 4.5, mode);
+  }
+  // The filter matches Chromium's rendering, measured: #FF0000 behind dark glass at saturate(1.4)
+  // contrast(0.75) brightness(0.5) paints rgb(112, 16, 16) before the tint.
+  const filtered = validate.glassFilter([1, 0, 0], {saturation: 1.4, dark: {contrast: 0.75, brightness: 0.5}}, 'dark').map(v => Math.round(v * 255));
+  assert.deepEqual(filtered, [112, 16, 16]);
+  // The scene still shows: the brightest backdrop stays clearly apart from the darkest.
+  for (const mode of ['dark', 'light']) assert.ok(validate.glassScene(tokens.semantic[mode].glass, tokens.glass, mode).ratio > 1.8, mode);
 });
 
 test('contrast check requires a translucent glass tint and names the backdrop a glass role fails over', t => {
@@ -275,5 +297,5 @@ test('contrast check requires a translucent glass tint and names the backdrop a 
   result = f.validate();
   assert.equal(result.status, 1);
   const report = JSON.parse(result.stdout);
-  assert.ok(report.failed.some(c => c.pair === 'text / glass over backdrops of luminance 0.00–0.25' && c.mode === 'dark' && /^#12121210 over #/.test(c.background)), JSON.stringify(report.failed));
+  assert.ok(report.failed.some(c => c.pair === 'glass-muted / glass over any backdrop' && c.mode === 'dark' && /^#12121210 over #/.test(c.background)), JSON.stringify(report.failed));
 });

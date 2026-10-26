@@ -6,6 +6,45 @@ a consuming product or replace its interaction journeys. Product families keep
 their own validation records in their repositories.
 
 
+## 0.16.0 review — 26 October 2026
+
+Glass follows the theme, legible through a per-tone backdrop filter. Run on macOS
+with Node.js 24.22.0 and headless Chrome for Testing 156.0.8078.4 (software
+compositing, `--disable-gpu`):
+
+- Filter model measured before the contract was written: solid backdrops behind
+  `saturate(1.4) contrast(0.75) brightness(0.5)` and `saturate(1.4) contrast(0.5)
+  brightness(1.35)` (16 colours each, including the saturated primaries) render
+  exactly as per-channel sRGB with the saturate result clamped, then contrast,
+  then brightness clamped. The token check uses that model; a unit test pins one
+  measured value.
+- `npm run build` and `npm run check` (104 tests) pass. Worst cases over all 4,913
+  backdrops through the filter: dark text 7.16:1, `glass-muted` 4.67:1, quiet text
+  on the pressed tint 4.67:1, focus and selection 7.16:1, pressed / rest 1.53:1;
+  light text 10.24:1, `glass-muted` 4.68:1, pressed text 7.93:1, focus and selection
+  10.24:1, pressed / rest 1.29:1. Scene kept: dark filtered backdrop luminance
+  0.005–0.161, composite 0.006–0.084 (2.42:1); light filtered 0.093–1.000,
+  composite 0.462–1.000 (2.05:1).
+- `npm run check:browser` passes. Every glass surface in each theme's section
+  (dark, light and busy content stages) computes the theme's tint, text and
+  filter; the override stage computes the other tone's. Rendered probes, each
+  theme over 17 backdrops spanning white to black, saturated primaries, stripes and
+  checkers: dark text 7.05–17.3:1, muted 4.60–11.29:1 (worst over white); light
+  text 10.24–21:1, muted 4.68–9.59:1 (worst over black). Composite luminance over
+  white / black content: dark 0.0865 / 0.0056 (2.46:1), light 1.0 / 0.462
+  (2.05:1). Glass pressed ramps 1.50–1.67:1 (dark) and 1.32:1 (light). Solid
+  fallbacks (no backdrop-filter, reduced transparency, `data-glass="solid"`) and
+  forced colours unchanged; `data-glass="flat"` keeps the tint and the tone's
+  filter without blur.
+- On `main` before this change the browser check failed at the
+  reduced-transparency fallback in this Chrome: re-enabling the `disabled`
+  controls stylesheet after the no-backdrop fixture did not reapply it in time.
+  The fixture now toggles the link's `media`; the check passes.
+- Rendered inspection of the specimen in both themes and the probe sheets: the
+  content's colours and stripes visibly show through both tones; text, muted text,
+  icons and selection read clearly over light, dark and busy content; the tone
+  never changes within a theme.
+
 ## HTML reference review — 26 October 2026 (unreleased)
 
 This review covers the generated HTML guide, not a new token release or identity approval. Kit version remains 0.15.1; baseline token version remains 0.10.1. Markdown guidance and approved masters remain authoritative.

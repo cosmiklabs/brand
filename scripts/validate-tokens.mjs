@@ -11,14 +11,14 @@ const luminance=hex=>{const rgb=hex.replace('#','').match(/../g).map(x=>parseInt
 export const contrast=(a,b)=>{let [x,y]=[luminance(a),luminance(b)].sort((a,b)=>a-b);return (y+.05)/(x+.05);};
 
 // ---- Glass: a translucent role over content the kit cannot know ----
-// A glass surface paints the `glass` tint over a blurred, saturated copy of whatever lies behind it.
-// Each mode is also a glass tone: the dark tone for content darker than the tone threshold, the light
-// tone for content at or above it. A tone's contrast is checked against every backdrop in its
-// luminance band (the threshold plus or minus the hysteresis), taken from a grid of 17 levels per sRGB
-// channel (4,913 colours). Blurring only averages backdrop colours, so a solid backdrop is the worst
-// case for text; the browser check samples real composites over stripes and checkers too.
-// Compositing is straight-alpha in sRGB, as browsers paint it; saturation is the CSS saturate()
-// matrix, clamped.
+// A glass surface paints the `glass` tint over a filtered copy of whatever lies behind it: blurred,
+// saturated, then the tone's contrast() and brightness(). Glass follows the theme, so each mode (a
+// glass tone) must hold over ANY backdrop: its contrast is checked against a grid of 17 levels per
+// sRGB channel (4,913 colours, the full luminance range and saturated primaries). Blurring only
+// averages backdrop colours, so a solid backdrop is the worst case for text; the browser check
+// samples real composites over stripes and checkers too. Filters and compositing are per channel in
+// sRGB, as Chromium paints them (measured): saturate() is the CSS matrix, clamped; contrast(c) is
+// (x - 0.5) * c + 0.5; brightness(b) is x * b, clamped; the tint composites straight-alpha.
 const toHex=rgb=>'#'+rgb.map(c=>Math.round(Math.min(1,Math.max(0,c))*255).toString(16).padStart(2,'0')).join('').toUpperCase();
 const channels=hex=>hex.replace('#','').match(/../g).map(x=>parseInt(x,16)/255);
 const saturate=([r,g,b],s)=>[[.213+.787*s,.715-.715*s,.072-.072*s],[.213-.213*s,.715+.285*s,.072-.072*s],[.213-.213*s,.715-.715*s,.072+.928*s]].map(m=>m[0]*r+m[1]*g+m[2]*b);
@@ -28,8 +28,8 @@ export const glassBackdrops=(()=>{const out=[];for(let r=0;r<=GLASS_GRID_STEPS;r
 const linear=c=>c<=.04045?c/12.92:((c+.055)/1.055)**2.4;
 /** Relative luminance of a backdrop given as sRGB floats. */
 export const backdropLuminance=([r,g,b])=>.2126*linear(r)+.7152*linear(g)+.0722*linear(b);
-/** The backdrops a glass tone (a mode name) must hold over: [low, high] relative luminance. */
-export const glassBand=(mode,glass)=>mode==='dark'?[0,glass.toneThreshold+glass.toneHysteresis]:[glass.toneThreshold-glass.toneHysteresis,1];
+/** A backdrop (sRGB floats) through one tone's filter: saturate, contrast, brightness. */
+export const glassFilter=(backdrop,glass,mode)=>{const {contrast:c=1,brightness:b=1}=glass[mode]??{};return saturate(backdrop,glass.saturation??1).map(v=>Math.min(1,Math.max(0,v))).map(v=>Math.min(1,Math.max(0,((v-.5)*c+.5)*b)));};
 /** A translucent colour (#RRGGBBAA) painted over an opaque one (#RRGGBB). */
 export const over=(tint,base)=>{const [r,g,b,a=1]=channels(tint);const under=channels(base);return toHex([r,g,b].map((c,i)=>c*a+under[i]*(1-a)));};
 // Interaction states: hover and pressed move the same way from rest, pressed further, by at least
@@ -42,11 +42,20 @@ export const stateRamp=(rest,hover,pressed)=>{
  const oneWay=(b-a)*(c-b)>0;
  return {oneWay, pressed:contrast(rest,pressed), beyond:contrast(hover,pressed)};
 };
-export const glassComposite=(tint,backdrop,saturation=1)=>{const [r,g,b,a=1]=channels(tint);const behind=saturate(backdrop,saturation).map(c=>Math.min(1,Math.max(0,c)));return toHex([r,g,b].map((c,i)=>c*a+behind[i]*(1-a)));};
+/** The opaque colour a glass tint (#RRGGBBAA) produces over one backdrop through `mode`'s filter. */
+export const glassComposite=(tint,backdrop,glass,mode)=>{const [r,g,b,a=1]=channels(tint);const behind=glassFilter(backdrop,glass,mode);return toHex([r,g,b].map((c,i)=>c*a+behind[i]*(1-a)));};
+/** How much of the scene a tone keeps: the relative luminance range of the filtered backdrop
+ * (black to white) and of the composite over the whole grid, with the composite's own ratio. */
+export const glassScene=(tint,glass,mode)=>{
+ const filtered=[[0,0,0],[1,1,1]].map(b=>backdropLuminance(glassFilter(b,glass,mode)));
+ const ls=glassBackdrops.map(b=>luminance(glassComposite(tint,b,glass,mode)));
+ const lo=Math.min(...ls),hi=Math.max(...ls);
+ return {filtered,composite:[lo,hi],ratio:(hi+.05)/(lo+.05)};
+};
 
 /** Every defined pair for one kit's resolved `semantic` map ({dark, light}); throws on a malformed map.
  * `glass` is the kit's glass group; its saturation shapes the backdrops the glass roles are checked over. */
-export function contrastChecks(kit, semantic, glass = {saturation: 1, toneThreshold: 0.5, toneHysteresis: 0.5}){
+export function contrastChecks(kit, semantic, glass = {saturation: 1, dark: {contrast: 1, brightness: 1}, light: {contrast: 1, brightness: 1}}){
  const checks=[];
  if (!semantic || typeof semantic !== 'object' || Object.keys(semantic).sort().join('|') !== 'dark|light') throw new Error(`${kit}: expected dark and light semantic maps`);
  for(const [mode,t] of Object.entries(semantic)){
@@ -73,13 +82,12 @@ export function contrastChecks(kit, semantic, glass = {saturation: 1, toneThresh
    checks.push({kit, mode, kind:'state', pair:`${p} rest → hover → active (pressed / rest)${ramp.oneWay?'':', not one way'}`, foreground:t[`${p}-active`], background:t[p], ratio:Number(ramp.pressed.toFixed(3)), threshold:PRESSED_STEP, pass:ramp.oneWay&&ramp.pressed>=PRESSED_STEP});
    checks.push({kit, mode, kind:'state', pair:`${p} rest → hover → active (pressed / hover)${ramp.oneWay?'':', not one way'}`, foreground:t[`${p}-active`], background:t[`${p}-hover`], ratio:Number(ramp.beyond.toFixed(3)), threshold:PRESSED_BEYOND_HOVER, pass:ramp.oneWay&&ramp.beyond>=PRESSED_BEYOND_HOVER});
   }
-  // Glass. Text, muted text, quiet controls, focus and selection over each tone's band, and muted
+  // Glass. Text, muted text, quiet controls, focus and selection over any backdrop, and muted
   // text on the solid fallback (no backdrop-filter, reduced transparency), which paints `surface`.
   if('glass' in t){
    if(typeof t.glass!=='string'||!/^#[0-9A-F]{8}$/i.test(t.glass)) throw new Error(`${kit} ${mode} glass: expected a translucent #RRGGBBAA role`);
-   const [low,high]=glassBand(mode,glass);
-   const band=`backdrops of luminance ${low.toFixed(2)}–${high.toFixed(2)}`;
-   const composites=glassBackdrops.filter(b=>{const l=backdropLuminance(b);return l>=low&&l<=high;}).map(b=>[b,glassComposite(t.glass,b,glass.saturation)]);
+   const band='any backdrop';
+   const composites=glassBackdrops.map(b=>[b,glassComposite(t.glass,b,glass,mode)]);
    const overAny=(fg,threshold,kind,ratioOf)=>{
     let worst=Infinity,at;
     for(const [b,c] of composites){const r=ratioOf(c,b);if(r<worst){worst=r;at=toHex(b);}}
@@ -114,6 +122,12 @@ export function contrastChecks(kit, semantic, glass = {saturation: 1, toneThresh
  return checks;
 }
 
+/** Not a requirement, a record: how much of the scene each glass tone keeps. */
+export const glassScenes=(kit,semantic,glass)=>Object.entries(semantic).filter(([,t])=>'glass' in t).map(([mode,t])=>{
+ const scene=glassScene(t.glass,glass,mode);
+ return `${kit} ${mode}: filtered backdrop luminance ${scene.filtered.map(v=>v.toFixed(3)).join('–')}, composite ${scene.composite.map(v=>v.toFixed(3)).join('–')} (${scene.ratio.toFixed(2)}:1 between the brightest and darkest scene)`;
+});
+
 export function contrastReport(checks, kits){
  const failed=checks.filter(x=>!x.pass);
  const byKit=Object.fromEntries(kits.map(kit=>[kit,checks.filter(x=>x.kit===kit).length]));
@@ -133,8 +147,9 @@ if (process.argv[1] && fs.realpathSync(process.argv[1]) === fs.realpathSync(file
  if (!kits.some(([id]) => id === 'cosmik')) throw new Error('Missing Cosmik baseline; refusing an empty contrast check');
  // The baseline first.
  kits.sort((a,b)=>(b[0]==='cosmik')-(a[0]==='cosmik'));
- const checks=kits.flatMap(([kit,file])=>{const tokens=JSON.parse(fs.readFileSync(path.join(root,file),'utf8'));return contrastChecks(kit, tokens.semantic, tokens.glass);});
- const report=contrastReport(checks, kits.map(([kit])=>kit));
+ const resolved=kits.map(([kit,file])=>[kit,JSON.parse(fs.readFileSync(path.join(root,file),'utf8'))]);
+ const checks=resolved.flatMap(([kit,tokens])=>contrastChecks(kit, tokens.semantic, tokens.glass));
+ const report={...contrastReport(checks, kits.map(([kit])=>kit)),glassScene:resolved.flatMap(([kit,tokens])=>glassScenes(kit,tokens.semantic,tokens.glass))};
  console.log(JSON.stringify(report,null,2));
  process.exit(report.failed.length?1:0);
 }

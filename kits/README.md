@@ -163,13 +163,13 @@ behavior each state must have is defined once, in the
 | `c-status` | `<span>` | Neutral status label: `label` type, pill shape, no interaction states or pointer cursor |
 | `c-status--dense` | Added to a status label | The same pill, roles and `label` family, tracking and case at the `ui-small` size with tighter padding, for dense rows, headers and cards; still no interaction states |
 | `c-focus-ring` | Any other custom focusable control | The shared focus-visible ring |
-| `c-glass` | A floating container over busy content: a menu, popover, hint or label | Glass tint, edge sheen, blurred backdrop; `muted` resolves to `glass-muted` inside; solid fallbacks |
+| `c-glass` | A floating container over busy content: a menu, popover, hint or label | Glass tint, edge sheen, blurred and filtered backdrop in the theme's tone; `muted` resolves to `glass-muted` inside; solid fallbacks |
 | `c-toolbar--glass` | Added to a toolbar | The toolbar on glass; its quiet buttons and segmented controls need nothing more |
 | `c-button--glass` | Added to a button that floats alone, instead of `--secondary`; with `--icon` and `--dense` as needed | Glass at rest; hover, pressed, toggle (opaque selected roles and bar), disabled as other buttons; focus ring over a solid halo |
 | `c-segmented--glass` | Added to a segmented control that floats alone | Its own glass group with `space-base` padding |
 | `c-select--glass` | Added to the select's wrapper, with `--dense` as needed | The trigger on glass with the chevron in `text`; the opened list stays the platform's |
-| `data-glass="flat"` / `"solid"` | On a region that holds glass controls | Flat keeps the tint without the blur; solid paints the solid surface |
-| `data-glass-tone="dark"` / `"light"` | On a glass surface or a region | That mode's roles for the surface and its contents, whatever the page's theme; choose it from the backdrop's luminance against `--c-glass-tone-threshold` |
+| `data-glass="flat"` / `"solid"` | On a region that holds glass controls | Flat keeps the tint and the tone's filter without the blur; solid paints the solid surface |
+| `data-glass-tone="dark"` / `"light"` | On a glass surface or a region, only to force a tone | That mode's roles and filter for the surface and its contents, whatever the page's theme. Glass follows the theme without it; do not set it from the backdrop |
 
 ```html
 <label for="order">Order</label>
@@ -195,8 +195,8 @@ behavior each state must have is defined once, in the
 <a class="c-button c-button--primary c-button--large" href="#start">Get started</a>
 <span class="c-select c-select--dense"><select aria-label="Rows">…</select></span>
 
-<!-- Floating over a canvas or media: glass, opt-in per surface, toned by what is behind it. -->
-<div class="c-toolbar c-toolbar--glass" data-glass-tone="light" role="toolbar" aria-label="View tools">
+<!-- Floating over a canvas or media: glass, opt-in per surface, in the theme's tone. -->
+<div class="c-toolbar c-toolbar--glass" role="toolbar" aria-label="View tools">
   <button type="button" class="c-button c-button--quiet c-button--icon c-button--dense"
     aria-label="Grid lines" aria-pressed="true"><svg aria-hidden="true">…</svg></button>
 </div>
@@ -227,9 +227,11 @@ Glass is a mechanism for controls that float over busy or moving content, not a
 default: the product opts in per surface and keeps reading content, forms, dense
 lists, dialogs and side panels solid ([interface](../guide/interface.md#shared-controls)).
 Glass surfaces read the `glass`, `glass-sheen`, `glass-sheen-low`, `glass-border`
-and `glass-muted` roles and the `--c-glass-blur`, `--c-glass-saturation` and
-`--c-glass-sheen-angle` tokens; a family may set the roles, not the blur,
-saturation or angle. The edge is a sheen, not a border: a 1px gradient ring drawn
+and `glass-muted` roles and the `--c-glass-blur`, `--c-glass-saturation`,
+`--c-glass-contrast`, `--c-glass-brightness` and `--c-glass-sheen-angle` tokens; a
+family may set the roles, not the blur, saturation, filter or angle. The backdrop
+filter is `blur() saturate() contrast() brightness()`, with contrast and brightness
+declared per mode beside the colour roles. The edge is a sheen, not a border: a 1px gradient ring drawn
 by each surface's `::before` (a glass select draws it on its wrapper), masked to
 the rim so it follows any radius. Each surface is therefore positioned (with zero
 specificity, so your positioning wins) and keeps its `::before` free; a glass
@@ -237,18 +239,17 @@ container that scrolls should scroll an inner element, because overflow clips th
 ring. The solid fallbacks draw a plain `glass-border` instead. Hover and pressed on glass
 tint it with `glass-hover` and the deeper `glass-active` (a glass button layers the
 tint over its fill; quiet buttons and segment options inside a glass surface take
-the tint alone). Each mode is a glass tone: `data-glass-tone` on a
-surface or region gives it that mode's roles regardless of the page's theme.
-Over content whose brightness varies, the consumer chooses the tone: measure the
-relative luminance behind each surface (a small downscaled copy of the frame is
-enough), take `light` at or above `--c-glass-tone-threshold` and `dark` below it,
-and keep the current tone until the luminance passes the threshold by
-`--c-glass-tone-hysteresis`, within which both tones are checked to hold. JSON,
-DTCG and Rust carry the same `toneThreshold` and `toneHysteresis`. Without a tone a
-surface follows the page's theme. Where `backdrop-filter` is unsupported, under
+the tint alone). Glass follows the theme: each mode is a glass tone, and its
+filter (the dark tone dims the backdrop and lowers its contrast, the light tone
+lowers its contrast and brightens it) keeps text, icons, selection and focus
+legible over any backdrop, so there is nothing to measure. Do not switch tones by
+what is behind a surface; over moving content it flips constantly.
+`data-glass-tone` on a surface or region is an explicit override that gives it that
+mode's roles and filter regardless of the page's theme. JSON, DTCG and Rust carry
+each tone's `contrast` and `brightness` under `glass.dark` and `glass.light`. Where `backdrop-filter` is unsupported, under
 `prefers-reduced-transparency: reduce`, inside `data-glass="solid"` and in forced
 colours they paint the solid surface (`--c-elevation-1-surface`, else `surface`);
-`data-glass="flat"` keeps the tint and drops the blur, for a region where the blur
+`data-glass="flat"` keeps the tint and the tone's filter and drops the blur, for a region where the blur
 costs too much. Backdrop blur is recomposited whenever the content behind it
 changes, so measure it over a moving canvas. Selection on glass stays opaque. A
 portalled menu or popover takes `c-glass` itself and needs its trigger's theme

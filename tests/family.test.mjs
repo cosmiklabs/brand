@@ -119,19 +119,19 @@ test('check and build report contrast failures for baseline and extension roles'
   assert.match(result.stderr, /contrast: light accent \/ bg is [\d.]+:1, below 3:1 \(boundary\)/);
 });
 
-test('a family may set its own glass roles, and the check proves them over each tone band', t => {
+test('a family may set its own glass roles, and the check proves them over any backdrop', t => {
   const f = familyRepo(t);
   f.edit(s => {
-    s.primitives['example-dark-glass'] = '#0A122099';
+    s.primitives['example-dark-glass'] = '#0A122066';
     s.semantic.dark.glass = 'example-dark-glass';
   });
   assert.deepEqual(buildFamily(f.dir).failed, []);
   assert.match(fs.readFileSync(path.join(f.dir, 'tokens/example.css'), 'utf8'), /--c-glass: light-dark\(var\(--c-primitive-glass-light\), var\(--c-primitive-example-dark-glass\)\);/);
-  // Too clear a tint loses text contrast over its band, and a sheen must be translucent.
+  // Too clear a tint loses text contrast over some backdrop, and a sheen must be translucent.
   f.edit(s => { s.primitives['example-dark-glass'] = '#0A122020'; });
   buildFamily(f.dir);
   const {problems} = checkFamily(f.dir);
-  assert.ok(problems.some(p => /contrast: dark text \/ glass over backdrops of luminance 0\.00–0\.25 is [\d.]+:1, below 4\.5:1 \(text\)/.test(p)), problems.join('\n'));
+  assert.ok(problems.some(p => /contrast: dark glass-muted \/ glass over any backdrop is [\d.]+:1, below 4\.5:1 \(text\)/.test(p)), problems.join('\n'));
   f.edit(s => {
     s.primitives['example-light-sheen'] = '#FFFFFF';
     s.semantic.light['glass-sheen'] = 'example-light-sheen';

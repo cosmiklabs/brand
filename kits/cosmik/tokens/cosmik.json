@@ -1,6 +1,6 @@
 {
   "name": "Cosmik",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "status": "Approved baseline (owner, 2026-10-07)",
   "description": "Resolved semantic tokens. Use semantic tokens in components; primitives are reference values, not theme roles. All dimensions assume a 16px browser root. All-caps tracking is for labels only.",
   "primitives": {
@@ -22,8 +22,8 @@
     "paper-shade": "#EFEEE9",
     "scrim-dark": "#000000B8",
     "scrim-light": "#0000007A",
-    "glass-dark": "#12121299",
-    "glass-light": "#FFFFFF99",
+    "glass-dark": "#12121250",
+    "glass-light": "#FFFFFF8F",
     "muted-glass-dark": "#C8C8C8",
     "muted-glass-light": "#454545",
     "sheen-white": "#FFFFFFA6",
@@ -75,7 +75,7 @@
       "ornament-text": "#414141",
       "media-placeholder": "#111111",
       "scrim": "#000000B8",
-      "glass": "#12121299",
+      "glass": "#12121250",
       "glass-border": "#414141",
       "glass-muted": "#C8C8C8",
       "glass-sheen": "#FFFFFFA6",
@@ -120,7 +120,7 @@
       "ornament-text": "#C6C5C0",
       "media-placeholder": "#E8E7E3",
       "scrim": "#0000007A",
-      "glass": "#FFFFFF99",
+      "glass": "#FFFFFF8F",
       "glass-border": "#C6C5C0",
       "glass-muted": "#454545",
       "glass-sheen": "#FFFFFFF2",
@@ -333,9 +333,15 @@
   "glass": {
     "blur": "24px",
     "saturation": 1.4,
-    "toneThreshold": 0.2,
-    "toneHysteresis": 0.05,
-    "sheenAngle": 160
+    "sheenAngle": 160,
+    "dark": {
+      "contrast": 0.75,
+      "brightness": 0.5
+    },
+    "light": {
+      "contrast": 0.5,
+      "brightness": 1.35
+    }
   },
   "native": {
     "description": "Values for non-browser consumers (desktop, game UI, design tools). Lengths are logical px at a 16 px root; letterSpacing is a fraction of the font size; layout.line is a measure in characters; easing is cubic-bezier control points [x1, y1, x2, y2]; colours give hex, straight-alpha sRGB floats [r, g, b, a] and linear-light floats.",
@@ -432,14 +438,14 @@
         "linear": [0, 0, 0, 0.478431]
       },
       "glass-dark": {
-        "hex": "#12121299",
-        "srgb": [0.070588, 0.070588, 0.070588, 0.6],
-        "linear": [0.006049, 0.006049, 0.006049, 0.6]
+        "hex": "#12121250",
+        "srgb": [0.070588, 0.070588, 0.070588, 0.313725],
+        "linear": [0.006049, 0.006049, 0.006049, 0.313725]
       },
       "glass-light": {
-        "hex": "#FFFFFF99",
-        "srgb": [1, 1, 1, 0.6],
-        "linear": [1, 1, 1, 0.6]
+        "hex": "#FFFFFF8F",
+        "srgb": [1, 1, 1, 0.560784],
+        "linear": [1, 1, 1, 0.560784]
       },
       "muted-glass-dark": {
         "hex": "#C8C8C8",
@@ -685,9 +691,9 @@
           "linear": [0, 0, 0, 0.721569]
         },
         "glass": {
-          "hex": "#12121299",
-          "srgb": [0.070588, 0.070588, 0.070588, 0.6],
-          "linear": [0.006049, 0.006049, 0.006049, 0.6]
+          "hex": "#12121250",
+          "srgb": [0.070588, 0.070588, 0.070588, 0.313725],
+          "linear": [0.006049, 0.006049, 0.006049, 0.313725]
         },
         "glass-border": {
           "hex": "#414141",
@@ -902,9 +908,9 @@
           "linear": [0, 0, 0, 0.478431]
         },
         "glass": {
-          "hex": "#FFFFFF99",
-          "srgb": [1, 1, 1, 0.6],
-          "linear": [1, 1, 1, 0.6]
+          "hex": "#FFFFFF8F",
+          "srgb": [1, 1, 1, 0.560784],
+          "linear": [1, 1, 1, 0.560784]
         },
         "glass-border": {
           "hex": "#C6C5C0",
@@ -1083,9 +1089,15 @@
     "glass": {
       "blurPx": 24,
       "saturation": 1.4,
-      "toneThreshold": 0.2,
-      "toneHysteresis": 0.05,
-      "sheenAngleDeg": 160
+      "sheenAngleDeg": 160,
+      "dark": {
+        "contrast": 0.75,
+        "brightness": 0.5
+      },
+      "light": {
+        "contrast": 0.5,
+        "brightness": 1.35
+      }
     }
   }
 }

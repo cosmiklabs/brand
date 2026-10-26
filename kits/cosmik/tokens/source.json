@@ -1,6 +1,6 @@
 {
   "name": "Cosmik",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "status": "Approved baseline (owner, 2026-10-07)",
   "proposals": [],
   "primitives": {
@@ -22,8 +22,8 @@
     "paper-shade": "#EFEEE9",
     "scrim-dark": "#000000B8",
     "scrim-light": "#0000007A",
-    "glass-dark": "#12121299",
-    "glass-light": "#FFFFFF99",
+    "glass-dark": "#12121250",
+    "glass-light": "#FFFFFF8F",
     "muted-glass-dark": "#C8C8C8",
     "muted-glass-light": "#454545",
     "sheen-white": "#FFFFFFA6",
@@ -152,9 +152,15 @@
   "glass": {
     "blur": "24px",
     "saturation": 1.4,
-    "toneThreshold": 0.2,
-    "toneHysteresis": 0.05,
-    "sheenAngle": 160
+    "sheenAngle": 160,
+    "dark": {
+      "contrast": 0.75,
+      "brightness": 0.5
+    },
+    "light": {
+      "contrast": 0.5,
+      "brightness": 1.35
+    }
   },
   "layout": {
     "radius": "0.25rem",

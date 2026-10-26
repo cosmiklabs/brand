@@ -24,7 +24,10 @@ const glassTokens = JSON.parse(fs.readFileSync(path.join(root, 'kits/cosmik/toke
 const controlsSource = fs.readFileSync(path.join(root, 'kits/cosmik/components/controls.css'), 'utf8');
 const supportsGlass = '@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)))';
 if (!controlsSource.includes(supportsGlass)) throw Error('controls.css no longer gates glass on backdrop-filter support; update the fallback check');
-const controlsWithoutBackdrop = controlsSource.replace(supportsGlass, '@supports (not-a-property: none)');
+const controlsWithoutBackdrop = controlsSource.replaceAll(supportsGlass, '@supports (not-a-property: none)');
+// Each tone's backdrop filter, as the controls layer composes it.
+const glassFilter = mode => `saturate(${glassTokens.saturation}) contrast(${glassTokens[mode].contrast}) brightness(${glassTokens[mode].brightness})`;
+const glassBackdrop = mode => `blur(${glassTokens.blur}) ${glassFilter(mode)}`;
 if (!process.env.BRAND_BROWSER) throw Error('Set BRAND_BROWSER to an installed Chromium browser executable.');
 buildReference(undefined,{baseUrl:process.env.REFERENCE_BASE_URL});
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'cosmik-browser-'));
@@ -360,15 +363,16 @@ try {
       await key('ArrowLeft', 'ArrowLeft', 37);
       await evaluate(`document.querySelector('#${mode}-toolbars').scrollIntoView({block:'center'})`);
       await force(`${bar} .c-button:not([aria-pressed])`, ['hover']); await shot(`cosmik-${mode}-toolbars`); await force(`${bar} .c-button:not([aria-pressed])`);
-      // Glass: opt-in variants paint the glass roles, blur and saturate the backdrop,
-      // keep text on the text roles and muted text on glass-muted, and keep selection opaque.
+      // Glass: opt-in variants paint the theme's glass roles, blur, saturate and filter the backdrop
+      // with the theme's contrast and brightness, keep text on the text roles and muted text on
+      // glass-muted, and keep selection opaque.
       {
         const g = `#${mode}-glass`, bar = `${g} .c-toolbar--glass`, button = `${g} .c-button--glass:not(.c-button--icon)`, select = `#${mode}-glass-scale`;
         const group = `#${mode}-glass-segmented`, hint = `#${mode}-glass-hint`;
-        const backdrop = `blur(${glassTokens.blur}) saturate(${glassTokens.saturation})`;
+        const backdrop = glassBackdrop(mode);
         for (const surface of [bar, button, select, group, hint]) {
           await expectRole(surface, 'background-color', mode, 'glass');
-          assert.equal(await css(surface, 'backdrop-filter'), backdrop, `${mode} ${surface} blurs and saturates its backdrop`);
+          assert.equal(await css(surface, 'backdrop-filter'), backdrop, `${mode} ${surface} blurs, saturates and filters its backdrop`);
           // No solid border: the edge is a sheen, a masked 1px gradient ring over the rim.
           assert.equal(await css(surface, 'border-top-color'), 'rgba(0, 0, 0, 0)', `${mode} ${surface} has no solid border`);
           const sheen = await evaluate(`(() => {const e=document.querySelector(${JSON.stringify(surface)}), host=e.matches('select')?e.parentElement:e, b=getComputedStyle(host,'::before');
@@ -376,11 +380,16 @@ try {
           assert.deepEqual(sheen, {gradient:true, opacity:'1', ring:'1px', masked:true, radius:true}, `${mode} ${surface} catches an edge sheen`);
         }
         await expectRole(`${hint} .muted`, 'color', mode, 'glass-muted');
-        // A tone overrides the page theme for the surface and its contents: the other tone's
-        // stage in this section paints the other mode's glass, text and selection.
-        const other = mode === 'dark' ? 'light' : 'dark', toned = `${g} .glass-stage--${other}`;
-        assert.deepEqual(await evaluate(`(() => {const h=getComputedStyle(document.querySelector('${toned} .c-glass')), t=getComputedStyle(document.querySelector('${toned} .c-button[aria-pressed="true"]'));return [h.backgroundColor, h.color, t.backgroundColor, h.colorScheme]})()`),
-          [await token(other, 'glass'), await token(other, 'text'), await token(other, 'selected'), other], `${mode} page, ${other} glass tone`);
+        // Glass follows the theme: over light, dark and busy content alike, every glass surface in
+        // this theme paints the theme's tint, text and filter. Only the explicit override differs.
+        const themed = await evaluate(`[...document.querySelectorAll('${g} .glass-stage:not(.glass-stage--tone) :is(.c-glass, .c-toolbar--glass, .c-button--glass, .c-segmented--glass)')].map(e=>{const s=getComputedStyle(e);return [s.backgroundColor, s.color, s.backdropFilter, s.colorScheme].join(' | ')})`);
+        assert.ok(themed.length >= 12, `${mode} theme glass surfaces: ${themed.length}`);
+        assert.deepEqual([...new Set(themed)], [[await token(mode, 'glass'), await token(mode, 'text'), backdrop, mode].join(' | ')], `${mode} theme: one glass tone over every backdrop`);
+        // data-glass-tone overrides the page theme for the surface and its contents: the override
+        // stage paints the other mode's glass, text, selection and filter.
+        const other = mode === 'dark' ? 'light' : 'dark', toned = `${g} .glass-stage--tone`;
+        assert.deepEqual(await evaluate(`(() => {const h=getComputedStyle(document.querySelector('${toned} .c-glass')), t=getComputedStyle(document.querySelector('${toned} .c-button[aria-pressed="true"]'));return [h.backgroundColor, h.color, t.backgroundColor, h.colorScheme, h.backdropFilter]})()`),
+          [await token(other, 'glass'), await token(other, 'text'), await token(other, 'selected'), other, glassBackdrop(other)], `${mode} page, ${other} glass tone override`);
         await expectRole(button, 'color', mode, 'text');
         await expectRole(select, 'color', mode, 'text');
         assert.equal(await css(`${g} .c-select--glass`, 'border-right-color', '::after'), await token(mode, 'text'), `${mode} glass select chevron`);
@@ -408,8 +417,8 @@ try {
         await evaluate(`document.querySelector('${g}').scrollIntoView({block:'center'})`);
         await force(`${bar} .c-button:not([aria-pressed])`, ['hover']); await shot(`cosmik-${mode}-glass`); await force(`${bar} .c-button:not([aria-pressed])`);
       }
-      // Pressed is a deeper step of hover: for every control with a pressed state, in this theme
-      // and in both glass tones, the rendered fill moves one way from rest to hover to pressed,
+      // Pressed is a deeper step of hover: for every control with a pressed state, in this theme,
+      // on its glass and on the other tone's override, the rendered fill moves one way from rest to hover to pressed,
       // and pressed stands clearly apart from rest (and from hover). Measured from pixels in the
       // control's padding, so translucent glass tints count as painted.
       {
@@ -422,10 +431,10 @@ try {
           ['quiet icon', `#${mode}-toolbars .c-toolbar[role="toolbar"] .c-button:not([aria-pressed])`],
           ['segmented option', `#${mode}-segmented [aria-checked="false"]`],
           ['chip', `#${mode} .chip-row .c-chip:nth-child(2)`],
-          ...[mode, other].flatMap(tone => [
-            [`glass ${tone} quiet icon`, `#${mode}-glass .glass-stage--${tone} .c-toolbar--glass .c-button:not([aria-pressed])`],
-            [`glass ${tone} button`, `#${mode}-glass .glass-stage--${tone} .c-button--glass:not(.c-button--icon)`],
-            [`glass ${tone} segmented option`, `#${mode}-glass .glass-stage--${tone} .c-segmented--glass [aria-checked="false"]`],
+          ...[[mode, `.glass-stage--${mode}:not(.glass-stage--tone)`], [other, '.glass-stage--tone']].flatMap(([tone, stage]) => [
+            [`glass ${tone} quiet icon`, `#${mode}-glass ${stage} .c-toolbar--glass .c-button:not([aria-pressed])`],
+            [`glass ${tone} button`, `#${mode}-glass ${stage} .c-button--glass:not(.c-button--icon)`],
+            [`glass ${tone} segmented option`, `#${mode}-glass ${stage} .c-segmented--glass [aria-checked="false"]`],
           ]),
         ];
         for (const [name, selector] of controls) {
@@ -471,31 +480,23 @@ try {
     await evaluate(`{const p=document.querySelector('#motion-picker');p.value='system';p.dispatchEvent(new Event('change'));}`);
     await cdp('CSS.disable'); await cdp('DOM.disable');
   }
-  // Glass legibility, measured from pixels. Each glass tone is rendered over hard content in its
-  // own luminance band (white or black, saturated colours, the band's edge, the colours the token
-  // check finds hardest, fine stripes and checkers), and over the other tone's extreme, where it
-  // must fail: a product has to switch tones. The composite behind the text is sampled from a
-  // screenshot; text is judged against every sampled pixel. The panel's edge is decorative, so its
-  // contrast with the content outside is reported, not required; the sheen must be brighter at the
-  // top left than at the bottom right.
+  // Glass legibility, measured from pixels. Glass keeps the theme's tone, so each theme's glass
+  // is rendered over hard content across the whole range (white, black, greys, saturated
+  // primaries, the colours the token check finds hardest, fine stripes and checkers) and must
+  // hold over all of it. The composite behind the text is sampled from a screenshot; text is
+  // judged against every sampled pixel. The panel's edge is decorative, so its contrast with the
+  // content outside is reported, not required; the sheen must be brighter at the top left than at
+  // the bottom right. How much of the scene shows is recorded from the white and black probes.
   {
     await evaluate(`{const p=document.querySelector('#motion-picker');p.value='reduce';p.dispatchEvent(new Event('change'));}`);
-    const bands = {
-      light: {
-        white: '#FFFFFF', 'light grey': '#BDBDBD', 'band edge grey': '#6C6C6C', yellow: '#FFD54F', 'sky blue': '#9AD0FF',
-        'pure green': '#00FF00', pink: '#FF8080', magenta: '#D946EF', 'muted worst': '#DF0000', 'boundary worst': '#AF30BF',
-        stripes: 'repeating-linear-gradient(90deg,#999 0 1px,#fff 1px 2px)', checker: 'repeating-conic-gradient(#888 0 25%,#fff 0 50%) 0 0/4px 4px',
-        'colour stripes': 'repeating-linear-gradient(90deg,#FFD54F 0 2px,#9AD0FF 2px 4px,#FFFFFF 4px 6px,#BDBDBD 6px 8px)',
-        'wrong: black': '#000000',
-      },
-      dark: {
-        black: '#000000', 'dark grey': '#1F1F1F', 'band edge grey': '#898989', red: '#E0301E', blue: '#2563EB',
-        'pure red': '#FF0000', 'pure blue': '#0000FF', 'muted worst': '#009F00', 'boundary worst': '#6080FF',
-        stripes: 'repeating-linear-gradient(90deg,#000 0 1px,#666 1px 2px)', checker: 'repeating-conic-gradient(#000 0 25%,#555 0 50%) 0 0/4px 4px',
-        'colour stripes': 'repeating-linear-gradient(90deg,#E0301E 0 2px,#2563EB 2px 4px,#000000 4px 6px,#444444 6px 8px)',
-        'wrong: white': '#FFFFFF',
-      },
+    const anyBackdrop = {
+      white: '#FFFFFF', black: '#000000', 'light grey': '#BDBDBD', 'mid grey': '#808080', 'dark grey': '#1F1F1F',
+      yellow: '#FFD54F', 'sky blue': '#9AD0FF', 'pure green': '#00FF00', 'pure red': '#FF0000', 'pure blue': '#0000FF',
+      magenta: '#D946EF', cyan: '#00FFFF', red: '#E0301E', blue: '#2563EB',
+      stripes: 'repeating-linear-gradient(90deg,#000 0 1px,#fff 1px 2px)', checker: 'repeating-conic-gradient(#000 0 25%,#fff 0 50%) 0 0/4px 4px',
+      'colour stripes': 'repeating-linear-gradient(90deg,#FFD54F 0 2px,#2563EB 2px 4px,#FFFFFF 4px 6px,#000000 6px 8px)',
     };
+    const bands = {dark: anyBackdrop, light: anyBackdrop};
     const L = ([r, g, b]) => [r, g, b].map(v => v / 255).map(c => c <= .04045 ? c / 12.92 : ((c + .055) / 1.055) ** 2.4).reduce((s, c, i) => s + c * [.2126, .7152, .0722][i], 0);
     const ratio = (a, b) => { const [x, y] = [L(a), L(b)].sort((p, q) => p - q); return (y + .05) / (x + .05); };
     const rgbOf = value => value.match(/[\d.]+/g).slice(0, 3).map(Number);
@@ -503,7 +504,7 @@ try {
     await size(1280);
     for (const mode of ['dark', 'light']) {
       const backdrops = bands[mode];
-      await evaluate(`(() => {const o=document.createElement('div');o.id='glass-probes';o.dataset.glassTone=${JSON.stringify(mode)};
+      await evaluate(`(() => {const o=document.createElement('div');o.id='glass-probes';o.dataset.theme=${JSON.stringify(mode)};
         o.style.cssText='position:fixed;inset:0;z-index:100;display:grid;grid-template-columns:repeat(4,300px);gap:0;align-content:start;background:var(--c-bg)';
         o.innerHTML=${JSON.stringify(Object.entries(backdrops))}.map(([name,bg])=>'<div class="probe" style="height:110px;padding:20px;background:'+bg+'"><div class="c-glass" data-name="'+name+'" style="width:220px;padding:8px 12px;font:500 14px/20px Inter"><span class="t">Glass text</span> <span class="muted m">Muted</span></div><div class="c-toolbar c-toolbar--glass" style="margin-top:12px"><button type="button" class="c-button c-button--quiet c-button--dense">View</button></div></div>').join('');
         document.body.append(o);})()`);
@@ -532,11 +533,8 @@ try {
         const spread = Math.max(...composite.map(L)) - Math.min(...composite.map(L));
         const sheenTop = L(px(left + 12, top)), sheenBottom = L(px(right - 12, bottom - 1));
         const result = {mode, backdrop: probe.name, text: +worst(text).toFixed(2), muted: +worst(muted).toFixed(2), textGlyph: +core(probe.text).toFixed(2), boundary: +boundary.toFixed(2), sheenTop: +sheenTop.toFixed(3), sheenBottom: +sheenBottom.toFixed(3), compositeLuminanceSpread: +spread.toFixed(3)};
+        result.compositeLuminance = +(composite.map(L).reduce((a, b) => a + b, 0) / composite.length).toFixed(4);
         results.push(result);
-        if (probe.name.startsWith('wrong:')) {
-          assert.ok(result.text < 4.5 || result.muted < 4.5, `${mode} glass must not hold over ${probe.name}: ${JSON.stringify(result)}`);
-          continue;
-        }
         assert.ok(result.text >= 4.5 && result.muted >= 4.5, `${mode} glass text over ${probe.name}: ${JSON.stringify(result)}`);
         // The panel's edge is decorative now (no 3:1 requirement), but the sheen must read as light
         // from the top left: the top edge near the left is brighter than the bottom edge near the right.
@@ -546,8 +544,17 @@ try {
       assert.ok(results.find(r => r.mode === mode && r.backdrop === 'stripes').compositeLuminanceSpread < 0.02, `${mode} stripes are blurred behind glass`);
       await evaluate(`document.querySelector('#glass-probes').remove()`);
     }
-    console.log('Glass contrast measured from screenshots, by tone (worst pixel):');
-    for (const r of results) console.log(`  ${r.mode.padEnd(5)} ${r.backdrop.padEnd(21)} text ${r.text}:1  muted ${r.muted}:1  edge ${r.boundary}:1  sheen L ${r.sheenTop} top / ${r.sheenBottom} bottom`);
+    // The scene still shows: behind each theme's glass, white content stays clearly apart from black.
+    const scene = {};
+    for (const mode of ['dark', 'light']) {
+      const [white, black] = ['white', 'black'].map(name => results.find(r => r.mode === mode && r.backdrop === name).compositeLuminance);
+      scene[mode] = {white, black, ratio: +((white + .05) / (black + .05)).toFixed(2)};
+      assert.ok(scene[mode].ratio > 1.8, `${mode} glass still shows the scene: ${JSON.stringify(scene[mode])}`);
+    }
+    console.log('Glass scene through each theme (composite luminance over white / black content):');
+    for (const [mode, v] of Object.entries(scene)) console.log(`  ${mode.padEnd(5)} ${v.white} / ${v.black}  ${v.ratio}:1`);
+    console.log('Glass contrast measured from screenshots, by theme (worst pixel):');
+    for (const r of results) console.log(`  ${r.mode.padEnd(5)} ${r.backdrop.padEnd(21)} L ${String(r.compositeLuminance).padEnd(6)} text ${r.text}:1  muted ${r.muted}:1  edge ${r.boundary}:1  sheen L ${r.sheenTop} top / ${r.sheenBottom} bottom`);
     if (screenshots) fs.writeFileSync(path.join(screenshots, 'glass-contrast.json'), JSON.stringify(results, null, 2));
     // Fallbacks. Without backdrop-filter support (the @supports condition made false in a copy
     // of the layer), and under prefers-reduced-transparency, glass paints the solid surface and
@@ -559,9 +566,9 @@ try {
         assert.deepEqual(look, [await role('surface'), 'none', 'solid', await role('glass-border'), '0'], `${label}: ${surface} is solid with a plain border`);
       }
     };
-    await evaluate(`new Promise((resolve, reject) => {const l=document.querySelector('link[href$="controls.css"]');const n=document.createElement('link');n.rel='stylesheet';n.href='/__fixture__/controls-without-backdrop.css';n.onload=()=>{l.disabled=true;resolve()};n.onerror=reject;n.id='no-backdrop';l.after(n)})`);
+    await evaluate(`new Promise((resolve, reject) => {const l=document.querySelector('link[href$="controls.css"]');const n=document.createElement('link');n.rel='stylesheet';n.href='/__fixture__/controls-without-backdrop.css';n.onload=()=>{l.media='not all';resolve()};n.onerror=reject;n.id='no-backdrop';l.after(n)})`);
     await solid('without backdrop-filter');
-    await evaluate(`document.querySelector('#no-backdrop').remove();document.querySelector('link[href$="controls.css"]').disabled=false`);
+    await evaluate(`document.querySelector('#no-backdrop').remove();document.querySelector('link[href$="controls.css"]').media=''`);
     await cdp('Emulation.setEmulatedMedia', {features: [{name: 'prefers-reduced-transparency', value: 'reduce'}]});
     assert.equal(await evaluate(`matchMedia('(prefers-reduced-transparency: reduce)').matches`), true, 'the browser emulates reduced transparency');
     await solid('reduced transparency');
@@ -574,7 +581,7 @@ try {
     for (const mode of ['dark', 'light']) {
       const look = await evaluate(`(() => {const s=getComputedStyle(document.querySelector('#${mode}-glass-hint'));return [s.backgroundColor, s.backdropFilter]})()`);
       const tint = await evaluate(`(() => {const p=document.createElement('span');p.style.color='var(--c-glass)';document.querySelector('#${mode}').append(p);const c=getComputedStyle(p).color;p.remove();return c})()`);
-      assert.deepEqual(look, [tint, 'none'], `${mode} data-glass="flat" keeps the tint and drops the blur`);
+      assert.deepEqual(look, [tint, glassFilter(mode)], `${mode} data-glass="flat" keeps the tint and the tone's filter and drops the blur`);
     }
     await evaluate(`document.querySelectorAll('#dark, #light').forEach(e => delete e.dataset.glass)`);
     await evaluate(`{const p=document.querySelector('#motion-picker');p.value='system';p.dispatchEvent(new Event('change'));}`);

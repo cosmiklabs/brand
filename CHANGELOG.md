@@ -3,6 +3,59 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`; from 0.8.0 they live in their own repositories.
 
+## 0.16.0 · 26 October 2026
+
+Glass keeps the theme's tone. Choosing a tone from the content behind each surface
+made viewport controls flip between light and dark as a colourful scene moved
+under them, which read as jarring and scripted. Glass now stays dark in the dark
+theme and light in the light theme over anything, and gets its legibility from
+filtering the backdrop instead. Not breaking for markup; the baseline token
+version moves to **0.11.0**, so families update `extends` and re-check their glass
+tints against the new contract.
+
+- **Backdrop filter per tone.** After the shared blur and `saturate(1.4)`, each
+  tone applies `contrast()` then `brightness()`: dark glass `contrast(0.75)
+  brightness(0.5)` dims the backdrop and lowers its contrast; light glass
+  `contrast(0.5) brightness(1.35)` lowers its contrast and brightens it, mapping
+  black to a light grey and leaving white just short of clipping. New tokens
+  `glass.dark` and `glass.light` (`contrast`, `brightness`), published as
+  `--c-glass-contrast` and `--c-glass-brightness` in each mode's block, so they
+  follow the theme and `data-glass-tone` like the colour roles. Baseline-only.
+- **Lighter tints.** With the filter doing the work, the tint drops from 60 % to
+  31 % on the dark tone (`#12121250`) and to 56 % on the light tone (`#FFFFFF8F`),
+  the most translucent values that pass over any backdrop with a small margin.
+  The scene keeps a 2.42:1 (dark) and 2.05:1 (light) luminance ratio between its
+  brightest and darkest content behind the glass.
+- **Contract: any backdrop.** Each tone's text and `glass-muted` (4.5:1), quiet
+  control text including on the pressed tint (4.5:1), focus and selection (3:1),
+  and the hover and pressed ramps are now checked over the full 4,913-colour grid,
+  passed through the tone's filter as Chromium paints it (measured: per channel in
+  sRGB, saturate clamped, then contrast, then brightness clamped), not over a
+  luminance band. Worst cases: dark text 7.16:1, muted 4.67:1, pressed text
+  4.67:1; light text 10.24:1, muted 4.68:1. The report adds each tone's scene
+  range.
+- **Removed: the tone threshold.** `glass.toneThreshold`, `glass.toneHysteresis`,
+  `--c-glass-tone-threshold`, `--c-glass-tone-hysteresis` and the Rust
+  `TONE_THRESHOLD` and `TONE_HYSTERESIS` are gone, with the guidance to pick a tone
+  from the backdrop's luminance. Remove any per-backdrop tone switching: glass
+  follows the theme, and switching by backdrop is discouraged because it flips in
+  motion. `data-glass-tone` stays as an explicit override for a surface or region
+  a product must force.
+- **Fallbacks unchanged in kind.** No backdrop-filter, reduced transparency,
+  `data-glass="solid"` and forced colours stay solid; `data-glass="flat"` now keeps
+  the tone's saturate, contrast and brightness and drops only the blur, since the
+  tint alone no longer holds. The edge sheen is unchanged.
+- **Specimen and checks.** Each theme shows its glass over light, dark and busy
+  content, plus one override stage. The browser check asserts every glass surface
+  in a theme paints that theme's tint, text and filter over all three, measures
+  rendered text and muted contrast for each theme over white, black, greys,
+  saturated primaries, stripes and checkers (all must pass; the old
+  "wrong tone must fail" probes are gone), and records how much of the scene
+  shows. The no-backdrop-filter fixture now restores the real stylesheet through
+  its `media` attribute; re-enabling a `disabled` link no longer reapplied it
+  synchronously in Chrome for Testing 156, which failed the reduced-transparency
+  check on `main`.
+
 ## 0.15.1 · 25 October 2026
 
 Pressed no longer looks like letting go. A fix; the baseline token version moves
