@@ -4,8 +4,8 @@
 
 Write like an independent developer sharing useful work: say what a project does,
 what works today and what someone can do next. Use “I” for Matthew's personal
-updates and “Cosmik” for neutral descriptions. Do not imply a larger team or a
-formal company. Use plain American English in interface copy.
+updates and “Cosmik” for neutral descriptions. Do not imply a larger team or
+write like a press release. Use plain American English in interface copy.
 
 Labels name the task: “Export”, “Save changes”, “Choose folder”. Use sentence case,
 specific verbs and familiar nouns. Explain an unfamiliar setting directly beside

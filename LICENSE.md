@@ -1,6 +1,6 @@
 # Licensing and brand use
 
-> **Names.** Cosmik Labs (long form), CosmikLabs (full name), `cosmiklabs` (GitHub handle) and Cosmik (short form) all name the same personal GitHub organisation. It is not a company or other legal entity: copyright stays with the contributors, and the Cosmik marks are held by the organisation's owner.
+> **Names.** Cosmik Labs (long form), CosmikLabs (full name), `cosmiklabs` (GitHub handle) and Cosmik (short form) all name COSMIK LABS, LLC and its GitHub organisation. COSMIK LABS, LLC holds the copyright in this repository's own material (the fonts keep their authors' copyright; see section 3) and holds the Cosmik marks.
 
 This repository mixes three kinds of material with different rights. Each part is covered separately; a licence for one part says nothing about the others.
 
@@ -21,7 +21,7 @@ The MIT grant covers the written instructions, not the artwork or marks embedded
 ```
 MIT License
 
-Copyright (c) 2026 Cosmik Labs contributors
+Copyright (c) 2026 COSMIK LABS, LLC
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -48,7 +48,7 @@ A permissive licence on the token values lets any project, including a fork, reu
 
 Covers the **Cosmik marks**: the emblem (every file in `kits/cosmik/assets/`, the app icons in `kits/cosmik/icons/`, and any render of them), the COSMIK wordmark and banner, the name "Cosmik" used as the name of a product, project or organisation, and the brand artwork embedded in guide and template files. The written instructions in these files are covered by section 1.
 
-These marks and artwork are **not** licensed under section 1 or under the licence of any project that ships them. The owner of Cosmik Labs keeps all rights in them, subject to the permissions below.
+These marks and artwork are **not** licensed under section 1 or under the licence of any project that ships them. COSMIK LABS, LLC keeps all rights in them, subject to the permissions below.
 
 **Who may ship the marks.**
 
@@ -60,7 +60,7 @@ These marks and artwork are **not** licensed under section 1 or under the licenc
 
 **Forks and derivative distributions.** A fork of a Cosmik project, or any build not published by Cosmik Labs, must remove the Cosmik marks and must not use "Cosmik" as its own name or imply it is an official Cosmik release. It may state factually that it is "based on" or "a fork of" the Cosmik project. This applies whatever the code licence of the forked project: a copyleft or permissive code licence grants rights in the code, not in the marks. For GPL-3.0 projects, this is the declination of trademark rights that GPL-3.0 section 7(e) permits.
 
-**Everything else** (merchandise, third-party products, modified marks, co-branding) needs written permission from the owner of Cosmik Labs.
+**Everything else** (merchandise, third-party products, modified marks, co-branding) needs written permission from COSMIK LABS, LLC.
 
 ## 3. Fonts: SIL Open Font License 1.1
 

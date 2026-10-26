@@ -3,6 +3,23 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`; from 0.8.0 they live in their own repositories.
 
+## 0.16.1 · 26 October 2026
+
+Licensing names COSMIK LABS, LLC. No token, mark, font or control changes; the
+baseline token version stays **0.11.0**, so families' `extends` is unchanged.
+
+- **Licence.** `LICENSE.md` no longer says Cosmik is not a company or other legal
+  entity. COSMIK LABS, LLC holds the copyright in this repository's own material
+  and the Cosmik marks; the MIT notice reads "Copyright (c) 2026 COSMIK LABS, LLC",
+  and the brand-use policy names COSMIK LABS, LLC where it named the owner of
+  Cosmik Labs. Sections, grants and permissions are otherwise unchanged. Fonts keep
+  their own OFL notices. The change applies from this release; earlier tags keep
+  the terms they were published with.
+- **Guide.** The identity guide's names table adds COSMIK LABS, LLC as the legal
+  name for notices, and the identity and voice guides drop "not a company" while
+  keeping "never imply a larger team". The voice guide now asks not to write like
+  a press release.
+
 ## 0.16.0 · 26 October 2026
 
 Glass keeps the theme's tone. Choosing a tone from the content behind each surface

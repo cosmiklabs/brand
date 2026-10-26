@@ -24,8 +24,9 @@ Use one approved source for each identity role. Keep the original compositions a
 | **Cosmik Labs** | The long form, where a formal name reads better |
 | **CosmikLabs** | The full name written as one word |
 | **cosmiklabs** | The handle: the GitHub organisation, URLs, package and file names |
+| **COSMIK LABS, LLC** | The legal name: copyright and licence notices only |
 
-Cosmik is a personal GitHub organisation, not a company: never imply a larger team or a formal company.
+Cosmik is owned by COSMIK LABS, LLC, which holds the copyright and the marks. Use the legal name only where a notice needs it, and never imply a larger team than there is.
 
 ## The live identity label
 

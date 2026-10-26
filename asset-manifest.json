@@ -1,6 +1,6 @@
 {
   "name": "Cosmik brand kit",
-  "version": "0.16.0",
+  "version": "0.16.1",
   "date": "2026-10-26",
   "system_status": "baseline approved (owner, 2026-10-07). Product families are maintained in their own repositories (cosmiklabs/brand-hplx, cosmiklabs/brand-tectra) and build on a pinned release of this kit.",
   "emblem_status": "accepted traced symbol",
@@ -1106,7 +1106,7 @@
   ],
   "repository_license": {
     "path": "LICENSE.md",
-    "sha256": "12ec3364762237764fac36cfc13ee736b398e67242ec7cf04ad65a08e09bd47c"
+    "sha256": "ccc4f78e669d0c030ad61967d07e2b0659fb7b3ed59cb7ae1346be1fcaab1b2d"
   },
   "reference_files": [
     {
@@ -1145,11 +1145,11 @@
     "files": [
       {
         "path": "LICENSE.md",
-        "sha256": "12ec3364762237764fac36cfc13ee736b398e67242ec7cf04ad65a08e09bd47c"
+        "sha256": "ccc4f78e669d0c030ad61967d07e2b0659fb7b3ed59cb7ae1346be1fcaab1b2d"
       },
       {
         "path": "package.json",
-        "sha256": "e0a18dae2348486470b2211efbb7d853ac7d9f4954e123c295ea00fb73eb001d"
+        "sha256": "0f5b716cd8075e3e2ae1e3a73b89349aa87f4f1f5123304479b5b72fd970e146"
       },
       {
         "path": "kits/cosmik/tokens/source.json",
@@ -1265,7 +1265,7 @@
       },
       {
         "path": "guide/identity.md",
-        "sha256": "7d360224a1bc3e9e76333ec82314065626205d6bb9762f8cc15d9f49ffee78a9"
+        "sha256": "c3116a391d27ed40dc51722fa2098e1f1d96f622c7f00157ce51864975082685"
       },
       {
         "path": "guide/interface.md",
@@ -1285,7 +1285,7 @@
       },
       {
         "path": "guide/voice.md",
-        "sha256": "b625d99a571bd119deaa2a2ee8bdfb1db1008c5b76020a60c492b804cfd429b6"
+        "sha256": "21b3a46a64ef3cd3a25a879ec62a4037e9651b2bd7466a9ea263fbea3b295186"
       }
     ]
   }
