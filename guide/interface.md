@@ -99,9 +99,22 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
   it consistent across one such region. Never use it for reading content, forms,
   dense lists, dialogs, navigation or panels beside the content: those stay on
   solid surfaces. It is a mechanism, not a default; the product chooses where it
-  applies. Glass paints the `glass` tint over a blurred, slightly saturated copy
-  of the content behind it and draws the `glass-border` hairline, so it keeps AA
-  text (muted text uses `glass-muted`) and a 3:1 boundary over any backdrop.
+  applies. Glass paints the `glass` tint over a blurred, saturated copy of the
+  content behind it, clear enough that the content visibly shows through, and
+  draws the `glass-border` hairline.
+- **Glass tone.** Glass has a dark and a light tone, and a tone is that theme for
+  the surface and its contents: text, muted text (`glass-muted`), selection,
+  hover and focus all follow it. Each tone keeps AA text and a 3:1 boundary only
+  over content on its side of the published threshold (`--c-glass-tone-threshold`,
+  a relative luminance) and a little past it (`--c-glass-tone-hysteresis`); the
+  wrong tone does not. A surface without `data-glass-tone` takes the page's
+  theme, which is right only over content whose brightness the product knows,
+  such as a fixed image. Over content whose brightness varies (a 3D canvas,
+  video, a photograph the user changes) the product must choose the tone from
+  what is behind each surface: measure the backdrop's relative luminance, take
+  the light tone at or above the threshold and the dark tone below it, and switch
+  with hysteresis so the tone does not flicker. A menu or popover takes the tone
+  of the content it opens over. A tone change crossfades with the motion tokens.
   Selection stays opaque (the selected roles and bar), and hover and pressed use
   the usual action roles. Where the browser cannot blur, the user asks for
   reduced transparency or forced colours are on, the same controls are solid.

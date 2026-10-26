@@ -31,14 +31,26 @@ float over busy or moving content (see [interface](interface.md#shared-controls)
 | `glass-border` | The hairline boundary of a glass surface |
 | `glass-muted` | Muted text on glass; ordinary text stays `text` |
 
-Text, `glass-muted`, quiet controls, focus and selection are checked against the
-tint composited over every backdrop on a grid of 17 levels per sRGB channel (4,913 colours), with the
-backdrop saturated as the kit's `glass.saturation` does. The boundary passes when
-either the hairline or the glass fill reaches 3:1 against each backdrop. The solid
-fallback (`surface`) is checked too. The backdrop blur radius and saturation are
-`glass.blur` and `glass.saturation`; a family may set its own glass roles, not
-those two. `npm run check` reports each glass pair with the backdrop it is weakest
-over, and the browser check measures the same from rendered pixels.
+Each mode is also a **glass tone**: `data-glass-tone="dark"` or `"light"` gives a
+glass surface and its contents that mode's roles, whatever the page's theme, so
+each tone has its own tint, hairline, text, muted text, icons (which take the text
+colour), selection and focus. The dark tone is for content darker than
+`glass.toneThreshold` (a relative luminance, published as
+`--c-glass-tone-threshold`), the light tone for content at or above it.
+
+Each tone's text, `glass-muted`, quiet controls, focus and selection are checked
+against the tint composited over every backdrop in its band, taken from a grid of
+17 levels per sRGB channel (4,913 colours) and saturated as `glass.saturation`
+does. The dark tone's band runs from black to the threshold plus
+`glass.toneHysteresis`; the light tone's from the threshold minus the hysteresis
+to white, so either tone holds where a product hesitates between them. The
+boundary passes when either the hairline or the glass fill reaches 3:1 against
+each backdrop. The solid fallback (`surface`) is checked too. Neither tone holds
+over the other's extreme, which the tests prove, so the switch is required. The
+blur, saturation, threshold and hysteresis are baseline-only; a family may set
+its own glass roles in either mode. `npm run check` reports each glass pair with
+the backdrop it is weakest over, and the browser check measures the same from
+rendered pixels.
 
 Portalled overlays must receive the same theme and family context as their trigger.
 Use the [consumer integration contract](../kits/README.md#themes-scopes-and-motion)

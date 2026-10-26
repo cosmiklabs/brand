@@ -169,6 +169,7 @@ behavior each state must have is defined once, in the
 | `c-segmented--glass` | Added to a segmented control that floats alone | Its own glass group with `space-base` padding |
 | `c-select--glass` | Added to the select's wrapper, with `--dense` as needed | The trigger on glass with the chevron in `text`; the opened list stays the platform's |
 | `data-glass="flat"` / `"solid"` | On a region that holds glass controls | Flat keeps the tint without the blur; solid paints the solid surface |
+| `data-glass-tone="dark"` / `"light"` | On a glass surface or a region | That mode's roles for the surface and its contents, whatever the page's theme; choose it from the backdrop's luminance against `--c-glass-tone-threshold` |
 
 ```html
 <label for="order">Order</label>
@@ -194,8 +195,8 @@ behavior each state must have is defined once, in the
 <a class="c-button c-button--primary c-button--large" href="#start">Get started</a>
 <span class="c-select c-select--dense"><select aria-label="Rows">…</select></span>
 
-<!-- Floating over a canvas or media: glass, opt-in per surface. -->
-<div class="c-toolbar c-toolbar--glass" role="toolbar" aria-label="View tools">
+<!-- Floating over a canvas or media: glass, opt-in per surface, toned by what is behind it. -->
+<div class="c-toolbar c-toolbar--glass" data-glass-tone="light" role="toolbar" aria-label="View tools">
   <button type="button" class="c-button c-button--quiet c-button--icon c-button--dense"
     aria-label="Grid lines" aria-pressed="true"><svg aria-hidden="true">…</svg></button>
 </div>
@@ -227,7 +228,15 @@ default: the product opts in per surface and keeps reading content, forms, dense
 lists, dialogs and side panels solid ([interface](../guide/interface.md#shared-controls)).
 Glass surfaces read the `glass`, `glass-border` and `glass-muted` roles and the
 `--c-glass-blur` and `--c-glass-saturation` tokens; a family may set the roles,
-not the blur or saturation. Where `backdrop-filter` is unsupported, under
+not the blur or saturation. Each mode is a glass tone: `data-glass-tone` on a
+surface or region gives it that mode's roles regardless of the page's theme.
+Over content whose brightness varies, the consumer chooses the tone: measure the
+relative luminance behind each surface (a small downscaled copy of the frame is
+enough), take `light` at or above `--c-glass-tone-threshold` and `dark` below it,
+and keep the current tone until the luminance passes the threshold by
+`--c-glass-tone-hysteresis`, within which both tones are checked to hold. JSON,
+DTCG and Rust carry the same `toneThreshold` and `toneHysteresis`. Without a tone a
+surface follows the page's theme. Where `backdrop-filter` is unsupported, under
 `prefers-reduced-transparency: reduce`, inside `data-glass="solid"` and in forced
 colours they paint the solid surface (`--c-elevation-1-surface`, else `surface`);
 `data-glass="flat"` keeps the tint and drops the blur, for a region where the blur

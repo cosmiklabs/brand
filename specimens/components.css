@@ -159,16 +159,23 @@ dialog.motion-surface[data-phase="closing"]::backdrop{transition-duration:calc(v
 .toolbar-row .helper{flex-basis:100%;margin-top:0}
 .c-button--icon svg{width:1.125rem;height:1.125rem}
 
-/* Glass controls come from controls.css. The stage stands in for busy content
-   (a canvas, media): its raw colours are content, not interface roles, chosen as
-   worst cases — white, black, saturated mid-tones, fine stripes and a checker. */
+/* Glass controls come from controls.css. The stages stand in for busy content
+   (a canvas, media): their raw colours are content, not interface roles, chosen
+   as hard cases inside each tone's band: saturated colours, fine stripes and a
+   checker, light for the light tone and dark for the dark tone. */
 .glass-row{border-top:1px solid var(--c-divider);margin-top:1.5rem;padding-top:1.5rem;display:flex;flex-direction:column;gap:1rem}
 .glass-row .helper{margin-top:0}
-.glass-stage{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;padding:1rem 1.5rem;border-radius:var(--c-radius-md);min-height:12rem;
-  background:
-    linear-gradient(90deg,#FFFFFF 0 14%,#000000 14% 28%,#E0301E 28% 42%,#1F9D55 42% 56%,#2563EB 56% 70%,#D946EF 70% 84%,#777777 84%) top/100% 34% no-repeat,
-    repeating-linear-gradient(90deg,#000000 0 1px,#FFFFFF 1px 2px) center/100% 33% no-repeat,
-    repeating-conic-gradient(#000000 0 25%,#FFFFFF 0 50%) bottom left/16px 16px}
+.glass-stage{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;padding:1rem 1.5rem;border-radius:var(--c-radius-md);min-height:12rem}
+/* Light content: every colour in the light tone's band. */
+.glass-stage--light{background:
+    linear-gradient(90deg,#FFFFFF 0 14%,#F2E8D5 14% 28%,#FFD54F 28% 42%,#9AD0FF 42% 56%,#F4A6B8 56% 70%,#C8E6C9 70% 84%,#BDBDBD 84%) top/100% 34% no-repeat,
+    repeating-linear-gradient(90deg,#999999 0 1px,#FFFFFF 1px 2px) center/100% 33% no-repeat,
+    repeating-conic-gradient(#AAAAAA 0 25%,#FFFFFF 0 50%) bottom left/16px 16px}
+/* Dark content: every colour in the dark tone's band. */
+.glass-stage--dark{background:
+    linear-gradient(90deg,#000000 0 14%,#1F1F1F 14% 28%,#E0301E 28% 42%,#2563EB 42% 56%,#3A0D4D 56% 70%,#0F3D2A 70% 84%,#6E6E6E 84%) top/100% 34% no-repeat,
+    repeating-linear-gradient(90deg,#000000 0 1px,#555555 1px 2px) center/100% 33% no-repeat,
+    repeating-conic-gradient(#000000 0 25%,#444444 0 50%) bottom left/16px 16px}
 /* Spread the controls over all three kinds of content: blocks, stripes, checker. */
 .glass-stage>:nth-child(3n+1){align-self:flex-start}.glass-stage>:nth-child(3n){align-self:flex-end}
 .glass-hint{padding:.5rem .75rem;font-size:var(--c-type-ui-font-size);line-height:var(--c-type-ui-line-height)}

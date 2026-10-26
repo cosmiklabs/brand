@@ -356,6 +356,11 @@ try {
           assert.equal(await css(surface, 'border-top-style'), 'solid', `${mode} ${surface} keeps a drawn boundary`);
         }
         await expectRole(`${hint} .muted`, 'color', mode, 'glass-muted');
+        // A tone overrides the page theme for the surface and its contents: the other tone's
+        // stage in this section paints the other mode's glass, text and selection.
+        const other = mode === 'dark' ? 'light' : 'dark', toned = `${g} .glass-stage--${other}`;
+        assert.deepEqual(await evaluate(`(() => {const h=getComputedStyle(document.querySelector('${toned} .c-glass')), t=getComputedStyle(document.querySelector('${toned} .c-button[aria-pressed="true"]'));return [h.backgroundColor, h.color, t.backgroundColor, h.colorScheme]})()`),
+          [await token(other, 'glass'), await token(other, 'text'), await token(other, 'selected'), other], `${mode} page, ${other} glass tone`);
         await expectRole(button, 'color', mode, 'text');
         await expectRole(select, 'color', mode, 'text');
         assert.equal(await css(`${g} .c-select--glass`, 'border-right-color', '::after'), await token(mode, 'text'), `${mode} glass select chevron`);
@@ -391,19 +396,29 @@ try {
     await evaluate(`{const p=document.querySelector('#motion-picker');p.value='system';p.dispatchEvent(new Event('change'));}`);
     await cdp('CSS.disable'); await cdp('DOM.disable');
   }
-  // Glass legibility, measured from pixels. Glass controls are rendered over worst-case content
-  // (white, black, saturated mid-tones, the mid-tones the token check finds hardest for each
-  // theme's boundary, and fine stripes and checkers) in both themes. The composite behind the
-  // text is sampled from a screenshot; text is judged against every sampled pixel, and the
-  // boundary (the hairline or the glass fill, whichever is stronger) against the content just
-  // outside it, column by column.
+  // Glass legibility, measured from pixels. Each glass tone is rendered over hard content in its
+  // own luminance band (white or black, saturated colours, the band's edge, the colours the token
+  // check finds hardest, fine stripes and checkers), and over the other tone's extreme, where it
+  // must fail: a product has to switch tones. The composite behind the text is sampled from a
+  // screenshot; text is judged against every sampled pixel, and the boundary (the hairline or the
+  // glass fill, whichever is stronger) against the content just outside it, column by column.
   {
     await evaluate(`{const p=document.querySelector('#motion-picker');p.value='reduce';p.dispatchEvent(new Event('change'));}`);
-    const backdrops = {
-      white: '#FFFFFF', black: '#000000', grey: '#777777', red: '#E0301E', green: '#1F9D55', blue: '#2563EB', magenta: '#D946EF',
-      'pure red': '#FF0000', 'pure blue': '#0000FF', 'dark-boundary worst': '#607060', 'light-boundary worst': '#EF008F',
-      stripes: 'repeating-linear-gradient(90deg,#000 0 1px,#fff 1px 2px)', checker: 'repeating-conic-gradient(#000 0 25%,#fff 0 50%) 0 0/4px 4px',
-      'colour stripes': 'repeating-linear-gradient(90deg,#E0301E 0 2px,#2563EB 2px 4px,#FFFFFF 4px 6px,#000000 6px 8px)',
+    const bands = {
+      light: {
+        white: '#FFFFFF', 'light grey': '#BDBDBD', 'band edge grey': '#6C6C6C', yellow: '#FFD54F', 'sky blue': '#9AD0FF',
+        'pure green': '#00FF00', pink: '#FF8080', magenta: '#D946EF', 'muted worst': '#DF0000', 'boundary worst': '#AF30BF',
+        stripes: 'repeating-linear-gradient(90deg,#999 0 1px,#fff 1px 2px)', checker: 'repeating-conic-gradient(#888 0 25%,#fff 0 50%) 0 0/4px 4px',
+        'colour stripes': 'repeating-linear-gradient(90deg,#FFD54F 0 2px,#9AD0FF 2px 4px,#FFFFFF 4px 6px,#BDBDBD 6px 8px)',
+        'wrong: black': '#000000',
+      },
+      dark: {
+        black: '#000000', 'dark grey': '#1F1F1F', 'band edge grey': '#898989', red: '#E0301E', blue: '#2563EB',
+        'pure red': '#FF0000', 'pure blue': '#0000FF', 'muted worst': '#009F00', 'boundary worst': '#6080FF',
+        stripes: 'repeating-linear-gradient(90deg,#000 0 1px,#666 1px 2px)', checker: 'repeating-conic-gradient(#000 0 25%,#555 0 50%) 0 0/4px 4px',
+        'colour stripes': 'repeating-linear-gradient(90deg,#E0301E 0 2px,#2563EB 2px 4px,#000000 4px 6px,#444444 6px 8px)',
+        'wrong: white': '#FFFFFF',
+      },
     };
     const L = ([r, g, b]) => [r, g, b].map(v => v / 255).map(c => c <= .04045 ? c / 12.92 : ((c + .055) / 1.055) ** 2.4).reduce((s, c, i) => s + c * [.2126, .7152, .0722][i], 0);
     const ratio = (a, b) => { const [x, y] = [L(a), L(b)].sort((p, q) => p - q); return (y + .05) / (x + .05); };
@@ -411,7 +426,8 @@ try {
     const results = [];
     await size(1280);
     for (const mode of ['dark', 'light']) {
-      await evaluate(`(() => {const o=document.createElement('div');o.id='glass-probes';o.dataset.theme=${JSON.stringify(mode)};
+      const backdrops = bands[mode];
+      await evaluate(`(() => {const o=document.createElement('div');o.id='glass-probes';o.dataset.glassTone=${JSON.stringify(mode)};
         o.style.cssText='position:fixed;inset:0;z-index:100;display:grid;grid-template-columns:repeat(4,300px);gap:0;align-content:start;background:var(--c-bg)';
         o.innerHTML=${JSON.stringify(Object.entries(backdrops))}.map(([name,bg])=>'<div class="probe" style="height:110px;padding:20px;background:'+bg+'"><div class="c-glass" data-name="'+name+'" style="width:220px;padding:8px 12px;font:500 14px/20px Inter"><span class="t">Glass text</span> <span class="muted m">Muted</span></div><div class="c-toolbar c-toolbar--glass" style="margin-top:12px"><button type="button" class="c-button c-button--quiet c-button--dense">View</button></div></div>').join('');
         document.body.append(o);})()`);
@@ -440,6 +456,10 @@ try {
         const spread = Math.max(...composite.map(L)) - Math.min(...composite.map(L));
         const result = {mode, backdrop: probe.name, text: +worst(text).toFixed(2), muted: +worst(muted).toFixed(2), textGlyph: +core(probe.text).toFixed(2), boundary: +boundary.toFixed(2), compositeLuminanceSpread: +spread.toFixed(3)};
         results.push(result);
+        if (probe.name.startsWith('wrong:')) {
+          assert.ok(result.text < 4.5 || result.muted < 4.5 || result.boundary < 3, `${mode} glass must not hold over ${probe.name}: ${JSON.stringify(result)}`);
+          continue;
+        }
         assert.ok(result.text >= 4.5 && result.muted >= 4.5, `${mode} glass text over ${probe.name}: ${JSON.stringify(result)}`);
         assert.ok(result.boundary >= 3, `${mode} glass boundary over ${probe.name}: ${JSON.stringify(result)}`);
       }
@@ -447,7 +467,7 @@ try {
       assert.ok(results.find(r => r.mode === mode && r.backdrop === 'stripes').compositeLuminanceSpread < 0.02, `${mode} stripes are blurred behind glass`);
       await evaluate(`document.querySelector('#glass-probes').remove()`);
     }
-    console.log('Glass contrast measured from screenshots (worst pixel):');
+    console.log('Glass contrast measured from screenshots, by tone (worst pixel):');
     for (const r of results) console.log(`  ${r.mode.padEnd(5)} ${r.backdrop.padEnd(21)} text ${r.text}:1  muted ${r.muted}:1  glyph ${r.textGlyph}:1  boundary ${r.boundary}:1`);
     if (screenshots) fs.writeFileSync(path.join(screenshots, 'glass-contrast.json'), JSON.stringify(results, null, 2));
     // Fallbacks. Without backdrop-filter support (the @supports condition made false in a copy

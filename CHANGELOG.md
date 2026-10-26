@@ -3,6 +3,46 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`; from 0.8.0 they live in their own repositories.
 
+## 0.14.0 · 25 October 2026
+
+Glass you can see through, in two tones that follow the content behind it. 0.13.0's
+glass, at an 84 % tint, read as a solid surface. Not breaking for markup; the
+baseline token version moves to **0.9.0**, so families update `extends` and
+review their glass roles.
+
+- **Clearer glass.** The tint drops to 60 % (`#12121299` dark, `#FFFFFF99`
+  light) over a stronger backdrop: `glass.blur` 24px and `glass.saturation` 1.4.
+  Hairlines are white on the dark tone and black on the light tone; `glass-muted`
+  is `#C8C8C8` and `#454545`.
+- **Glass tones.** Each mode is a glass tone. `data-glass-tone="dark"` or
+  `"light"` on a glass surface or a region gives it and its contents that mode's
+  roles (tint, hairline, text, muted, selection, hover, focus) regardless of the
+  page's theme; without it, glass follows the theme as before. The token CSS
+  scopes the themes to `[data-glass-tone]` as well as `[data-theme]`.
+- **Tone threshold.** `glass.toneThreshold` (0.2) and `glass.toneHysteresis`
+  (0.05), relative luminances, in CSS (`--c-glass-tone-threshold`,
+  `--c-glass-tone-hysteresis`), JSON, DTCG and Rust. Content at or above the
+  threshold takes the light tone, below it the dark tone. Baseline-only.
+- **Contrast contract.** Glass now holds over the content its tone is for, not
+  over any content: the dark tone over backdrops of luminance 0–0.25, the light
+  tone over 0.15–1. The check reports each pair over its band, and a test proves
+  that each tone fails over the other's extreme, so a product must switch.
+- **Tone crossfade.** Glass surfaces transition background, border and text
+  colour with the motion tokens, so a tone change crossfades and reduced motion
+  snaps.
+- **Reference and browser checks.** The reference shows both tones over light and
+  dark busy content in both themes. The browser check measures each tone over 12–13
+  backdrops in its band from screenshot pixels, asserts the wrong tone fails over
+  the other extreme, and asserts a tone overrides the page theme. Fallbacks are
+  unchanged and still checked.
+
+### Migrating
+
+Vendor 0.14.0 and set `extends` to `"Cosmik baseline 0.9.0"`. Glass over content
+of varying brightness now needs `data-glass-tone` chosen from that content; see
+the interface guide. Families that set their own glass roles re-check them
+against the bands.
+
 ## 0.13.0 · 25 October 2026
 
 Glass variants for controls that float over busy or moving content. Not breaking:

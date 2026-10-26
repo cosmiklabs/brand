@@ -12,22 +12,29 @@ export const contrast=(a,b)=>{let [x,y]=[luminance(a),luminance(b)].sort((a,b)=>
 
 // ---- Glass: a translucent role over content the kit cannot know ----
 // A glass surface paints the `glass` tint over a blurred, saturated copy of whatever lies behind it.
-// Its contrast is checked against every backdrop on a grid of 17 levels per sRGB channel (4,913 colours,
-// including all eight corners). Blurring only averages backdrop colours, so a solid backdrop is the
-// worst case for text; the browser check samples real composites over these extremes and over
-// stripes and checkers. Compositing is straight-alpha in sRGB, as browsers paint it; saturation is the
-// CSS saturate() matrix, clamped.
+// Each mode is also a glass tone: the dark tone for content darker than the tone threshold, the light
+// tone for content at or above it. A tone's contrast is checked against every backdrop in its
+// luminance band (the threshold plus or minus the hysteresis), taken from a grid of 17 levels per sRGB
+// channel (4,913 colours). Blurring only averages backdrop colours, so a solid backdrop is the worst
+// case for text; the browser check samples real composites over stripes and checkers too.
+// Compositing is straight-alpha in sRGB, as browsers paint it; saturation is the CSS saturate()
+// matrix, clamped.
 const toHex=rgb=>'#'+rgb.map(c=>Math.round(Math.min(1,Math.max(0,c))*255).toString(16).padStart(2,'0')).join('').toUpperCase();
 const channels=hex=>hex.replace('#','').match(/../g).map(x=>parseInt(x,16)/255);
 const saturate=([r,g,b],s)=>[[.213+.787*s,.715-.715*s,.072-.072*s],[.213-.213*s,.715+.285*s,.072-.072*s],[.213-.213*s,.715-.715*s,.072+.928*s]].map(m=>m[0]*r+m[1]*g+m[2]*b);
 export const GLASS_GRID_STEPS=16;
 export const glassBackdrops=(()=>{const out=[];for(let r=0;r<=GLASS_GRID_STEPS;r++)for(let g=0;g<=GLASS_GRID_STEPS;g++)for(let b=0;b<=GLASS_GRID_STEPS;b++)out.push([r,g,b].map(v=>v/GLASS_GRID_STEPS));return out;})();
 /** The opaque colour a glass tint (#RRGGBBAA) produces over one backdrop (sRGB floats). */
+const linear=c=>c<=.04045?c/12.92:((c+.055)/1.055)**2.4;
+/** Relative luminance of a backdrop given as sRGB floats. */
+export const backdropLuminance=([r,g,b])=>.2126*linear(r)+.7152*linear(g)+.0722*linear(b);
+/** The backdrops a glass tone (a mode name) must hold over: [low, high] relative luminance. */
+export const glassBand=(mode,glass)=>mode==='dark'?[0,glass.toneThreshold+glass.toneHysteresis]:[glass.toneThreshold-glass.toneHysteresis,1];
 export const glassComposite=(tint,backdrop,saturation=1)=>{const [r,g,b,a=1]=channels(tint);const behind=saturate(backdrop,saturation).map(c=>Math.min(1,Math.max(0,c)));return toHex([r,g,b].map((c,i)=>c*a+behind[i]*(1-a)));};
 
 /** Every defined pair for one kit's resolved `semantic` map ({dark, light}); throws on a malformed map.
  * `glass` is the kit's glass group; its saturation shapes the backdrops the glass roles are checked over. */
-export function contrastChecks(kit, semantic, glass = {saturation: 1}){
+export function contrastChecks(kit, semantic, glass = {saturation: 1, toneThreshold: 0.5, toneHysteresis: 0.5}){
  const checks=[];
  if (!semantic || typeof semantic !== 'object' || Object.keys(semantic).sort().join('|') !== 'dark|light') throw new Error(`${kit}: expected dark and light semantic maps`);
  for(const [mode,t] of Object.entries(semantic)){
@@ -53,11 +60,13 @@ export function contrastChecks(kit, semantic, glass = {saturation: 1}){
   // solid fallback (no backdrop-filter, reduced transparency), which paints `surface`.
   if('glass' in t){
    if(typeof t.glass!=='string'||!/^#[0-9A-F]{8}$/i.test(t.glass)) throw new Error(`${kit} ${mode} glass: expected a translucent #RRGGBBAA role`);
-   const composites=glassBackdrops.map(b=>[b,glassComposite(t.glass,b,glass.saturation)]);
+   const [low,high]=glassBand(mode,glass);
+   const band=`backdrops of luminance ${low.toFixed(2)}–${high.toFixed(2)}`;
+   const composites=glassBackdrops.filter(b=>{const l=backdropLuminance(b);return l>=low&&l<=high;}).map(b=>[b,glassComposite(t.glass,b,glass.saturation)]);
    const overAny=(fg,threshold,kind,ratioOf)=>{
     let worst=Infinity,at;
     for(const [b,c] of composites){const r=ratioOf(c,b);if(r<worst){worst=r;at=toHex(b);}}
-    checks.push({kit, mode, kind, pair: `${fg} / glass over any backdrop`, foreground: fg==='glass boundary'?t['glass-border']:t[fg], background: `${t.glass} over ${at}`, ratio: Number(worst.toFixed(3)), threshold, pass: worst >= threshold});
+    checks.push({kit, mode, kind, pair: `${fg} / glass over ${band}`, foreground: fg==='glass boundary'?t['glass-border']:t[fg], background: `${t.glass} over ${at}`, ratio: Number(worst.toFixed(3)), threshold, pass: worst >= threshold});
    };
    for(const fg of ['text','glass-muted','action-secondary-fg']) overAny(fg,4.5,'text',c=>contrast(t[fg],c));
    overAny('focus',3,'focus',c=>contrast(t.focus,c));

@@ -436,9 +436,15 @@
    such as a 3D canvas or media; never for reading content, forms or dense lists,
    and never the default. Each paints the `glass` tint over a blurred, saturated
    copy of what lies behind it, draws the `glass-border` hairline and keeps text
-   on `text`; muted text inside resolves to `glass-muted`. The roles are checked
-   for contrast over every backdrop, so a glass control keeps AA text and a 3:1
-   boundary whatever moves beneath it.
+   on `text`; muted text inside resolves to `glass-muted`.
+   Tone: glass comes in a dark and a light tone, and a tone is that mode for the
+   surface and everything in it (text, selection, hover, focus). Without
+   data-glass-tone a surface takes the page's theme. Over content whose brightness
+   varies (a 3D canvas, video), set data-glass-tone="light" or "dark" on the
+   surface or a region from the backdrop's relative luminance against
+   --c-glass-tone-threshold: each tone keeps AA text and a 3:1 boundary only over
+   backdrops on its side of the threshold (plus --c-glass-tone-hysteresis), and
+   the wrong tone does not. Choosing the tone is the consumer's.
      .c-glass               a container: menus, popovers, hints, labels
      .c-toolbar--glass      a toolbar; its quiet buttons and segmented controls
                             need nothing more
@@ -494,6 +500,14 @@
   backdrop-filter: var(--c-glass-backdrop);
 }
 .c-glass { box-sizing: border-box; }
+/* A tone change crossfades with the motion tokens; reduced motion snaps. */
+.c-glass,
+.c-toolbar--glass,
+.c-segmented--glass {
+  transition-property: background-color, border-color, color;
+  transition-duration: var(--c-motion-duration);
+  transition-timing-function: var(--c-motion-easing);
+}
 .c-segmented--glass { padding: var(--c-space-base); }
 .c-button--glass,
 .c-select--glass > select {

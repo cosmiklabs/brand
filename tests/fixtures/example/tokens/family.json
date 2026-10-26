@@ -1,7 +1,7 @@
 {
   "id": "example",
   "name": "Example",
-  "extends": "Cosmik baseline 0.8.0",
+  "extends": "Cosmik baseline 0.9.0",
   "version": "0.0.0",
   "status": "Test fixture; not a product identity",
   "description": "A fictional family used only by the brand kit's tests to exercise the family contract: its own primitives, overridden baseline roles, extension roles, a heading override and elevation.",

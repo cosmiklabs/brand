@@ -5,6 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
+import * as validate from '../scripts/validate-tokens.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
@@ -63,6 +64,8 @@ for (const [label, mutate, expected] of [
   ['unknown glass properties', s => { s.glass.opacity = 0.5; }, /glass: unsupported property opacity/],
   ['a negative glass blur', s => { s.glass.blur = '-4px'; }, /glass\.blur: expected a finite number >= 0/],
   ['a missing glass saturation', s => { delete s.glass.saturation; }, /glass\.saturation: expected a finite number/],
+  ['a tone threshold outside 0..1', s => { s.glass.toneThreshold = 1.2; }, /toneThreshold: expected a relative luminance/],
+  ['a tone band that leaves 0..1', s => { s.glass.toneHysteresis = 0.3; }, /threshold ± hysteresis must stay within/],
   ['a role named after a glass switch', s => { for (const m of ['dark', 'light']) s.semantic[m]['glass-fill'] = 'paper'; }, /glass-fill is reserved/],
 ]) {
   test(`baseline generator rejects ${label} without publishing partial output`, t => {
@@ -247,6 +250,17 @@ test('glass blur and saturation reach every output format', () => {
   assert.match(read('kits/cosmik/tokens/cosmik_tokens.rs'), /pub mod glass \{\n {4}pub const BLUR: f32 = [\d.]+;\n {4}pub const SATURATION: f32 = [\d.]+;/);
 });
 
+test('each glass tone fails over the other band, so a product must switch tones', () => {
+  const tokens = json(baselineOutput());
+  const {glassComposite, contrast} = validate;
+  // Muted text on the dark tone over a white backdrop, and on the light tone over a black one.
+  assert.ok(contrast(tokens.semantic.dark['glass-muted'], glassComposite(tokens.semantic.dark.glass, [1, 1, 1], tokens.glass.saturation)) < 4.5);
+  assert.ok(contrast(tokens.semantic.light['glass-muted'], glassComposite(tokens.semantic.light.glass, [0, 0, 0], tokens.glass.saturation)) < 4.5);
+  // The bands overlap around the threshold, so either tone holds where a product hesitates.
+  const [, darkHigh] = validate.glassBand('dark', tokens.glass), [lightLow] = validate.glassBand('light', tokens.glass);
+  assert.ok(lightLow < tokens.glass.toneThreshold && tokens.glass.toneThreshold < darkHigh);
+});
+
 test('contrast check requires a translucent glass tint and names the backdrop a glass role fails over', t => {
   const f = fixture(t);
   f.edit(BASELINE, s => { s.primitives['glass-dark'] = '#121212'; });
@@ -254,10 +268,10 @@ test('contrast check requires a translucent glass tint and names the backdrop a 
   let result = f.validate();
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /dark glass: expected a translucent #RRGGBBAA role/);
-  f.edit(BASELINE, s => { s.primitives['glass-dark'] = '#12121240'; });
+  f.edit(BASELINE, s => { s.primitives['glass-dark'] = '#12121210'; });
   assert.equal(f.generate().status, 0);
   result = f.validate();
   assert.equal(result.status, 1);
   const report = JSON.parse(result.stdout);
-  assert.ok(report.failed.some(c => c.pair === 'text / glass over any backdrop' && c.mode === 'dark' && /over #FFFFFF$/.test(c.background)), JSON.stringify(report.failed));
+  assert.ok(report.failed.some(c => c.pair === 'text / glass over backdrops of luminance 0.00–0.25' && c.mode === 'dark' && /^#12121210 over #/.test(c.background)), JSON.stringify(report.failed));
 });

@@ -12,7 +12,7 @@ this one: [`cosmiklabs/brand-hplx`](https://github.com/cosmiklabs/brand-hplx) an
 [`cosmiklabs/brand-tectra`](https://github.com/cosmiklabs/brand-tectra). See
 [product families](guide/families.md).
 
-**Version: 0.13.0** (`v0.13.0`, prepared 25 October 2026; untagged until released).
+**Version: 0.14.0** (`v0.14.0`, prepared 25 October 2026; untagged until released).
 Consume an immutable release tag; working-tree changes are unreleased until tagged.
 See [CHANGELOG.md](CHANGELOG.md).
 

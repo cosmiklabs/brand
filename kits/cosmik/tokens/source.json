@@ -1,6 +1,6 @@
 {
   "name": "Cosmik",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "status": "Approved baseline (owner, 2026-10-07)",
   "proposals": [],
   "primitives": {
@@ -22,9 +22,10 @@
     "paper-shade": "#EFEEE9",
     "scrim-dark": "#000000B8",
     "scrim-light": "#0000007A",
-    "glass-dark": "#121212D6",
-    "glass-light": "#FFFFFFD6",
-    "muted-glass-light": "#595959"
+    "glass-dark": "#12121299",
+    "glass-light": "#FFFFFF99",
+    "muted-glass-dark": "#C8C8C8",
+    "muted-glass-light": "#454545"
   },
   "semantic": {
     "dark": {
@@ -65,8 +66,8 @@
       "media-placeholder": "media-dark",
       "scrim": "scrim-dark",
       "glass": "glass-dark",
-      "glass-border": "rule-light",
-      "glass-muted": "muted-dark"
+      "glass-border": "white",
+      "glass-muted": "muted-glass-dark"
     },
     "light": {
       "bg": "paper",
@@ -106,7 +107,7 @@
       "media-placeholder": "light-soft",
       "scrim": "scrim-light",
       "glass": "glass-light",
-      "glass-border": "decorative-dark",
+      "glass-border": "black",
       "glass-muted": "muted-glass-light"
     }
   },
@@ -131,8 +132,10 @@
   },
   "elevation": {},
   "glass": {
-    "blur": "12px",
-    "saturation": 1.2
+    "blur": "24px",
+    "saturation": 1.4,
+    "toneThreshold": 0.2,
+    "toneHysteresis": 0.05
   },
   "layout": {
     "radius": "0.25rem",

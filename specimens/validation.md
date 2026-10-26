@@ -5,6 +5,33 @@ controls layer. Kit checks establish their tested properties; they do not certif
 a consuming product or replace its interaction journeys. Product families keep
 their own validation records in their repositories.
 
+## 0.14.0 review — 25 October 2026
+
+Clearer glass in two tones. Run on macOS with Node.js 24.22.0 and headless Chrome
+for Testing 156.0.8078.4 (software compositing, `--disable-gpu`):
+
+- `npm run build`, `npm run check` (130 baseline contrast pairs including 16 glass
+  pairs; 90 tests) and `node scripts/build.mjs --check` from the release commit pass.
+- Token check, each tone over its band of the 4,913-colour grid (weakest backdrop
+  in brackets): dark tone over luminance 0–0.25: text 8.64:1, `glass-muted` 5.64:1
+  (`#009F00`), boundary 3.48:1 (`#6080FF`); light tone over 0.15–1: text 10.27:1,
+  `glass-muted` 4.69:1 (`#DF0000`), boundary 4.00:1 (`#AF30BF`). Solid fallback:
+  `glass-muted` / `surface` 11.20:1 dark and 9.59:1 light. Wrong tones fail: dark
+  `glass-muted` over white 2.92:1, light `glass-muted` over black 3.37:1.
+- Browser check, measured from screenshot pixels, 12 (dark) and 13 (light) in-band backdrops
+  (band edges, saturated colours, the token check's weakest colours, stripes, a
+  checker and coloured stripes). Worst pixel: dark tone text 8.64:1, muted 5.64:1,
+  boundary 3.48:1; light tone text 10.27:1, muted 4.69:1, boundary 4.00:1. The
+  wrong tone fails as asserted (dark over white: text 4.47:1, muted 2.92:1; light
+  over black: muted 3.37:1). A tone overrides the page theme for glass, text,
+  selection and `color-scheme`. Fallbacks as in 0.13.0 pass.
+- One browser run failed early and was not captured; four further runs, with and
+  without screenshots, passed. Treat it as a possible intermittent failure.
+- Rendered inspection: both tones over light and dark content in both themes and
+  the probe grids. The content visibly shows through the glass (colour bands read
+  through the toolbar and hint), and text, muted text, selection and hairlines stay
+  clear. No issue found.
+
 ## 0.13.0 review — 25 October 2026
 
 Glass variants. Run on macOS with Node.js 24.22.0 and headless Chrome for Testing
