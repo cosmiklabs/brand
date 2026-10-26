@@ -374,3 +374,8 @@ Approval status belongs in the manifest and family guides.
 The quality acceptance process is in [guide/quality.md](../guide/quality.md), and
 behavior requirements are in [interface](../guide/interface.md) and
 [motion](../guide/motion.md).
+
+
+## Reference header alignment — 2026-10-26
+
+The shared reference header now has an 88 px minimum desktop height and a 72 px minimum mobile height. Logos retain their proportions and remain vertically centered. At widths of 380 px and below, the visible Theme label is hidden while the select retains its accessible name, keeping the header on one row. Live local browser measurements confirmed identical heights across Cosmik, HPLX and Tectra at 1280, 390 and 320 px with no horizontal overflow. All 164 repository tests passed before the final narrow-screen label adjustment; that adjustment was checked in the live browser.
