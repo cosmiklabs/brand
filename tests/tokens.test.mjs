@@ -66,6 +66,7 @@ for (const [label, mutate, expected] of [
   ['a missing glass saturation', s => { delete s.glass.saturation; }, /glass\.saturation: expected a finite number/],
   ['a tone threshold outside 0..1', s => { s.glass.toneThreshold = 1.2; }, /toneThreshold: expected a relative luminance/],
   ['a tone band that leaves 0..1', s => { s.glass.toneHysteresis = 0.3; }, /threshold ± hysteresis must stay within/],
+  ['a sheen angle of a full turn or more', s => { s.glass.sheenAngle = 360; }, /sheenAngle: expected degrees/],
   ['a role named after a glass switch', s => { for (const m of ['dark', 'light']) s.semantic[m]['glass-fill'] = 'paper'; }, /glass-fill is reserved/],
 ]) {
   test(`baseline generator rejects ${label} without publishing partial output`, t => {
@@ -247,6 +248,7 @@ test('glass blur and saturation reach every output format', () => {
   const dtcg = json(baselineOutput('tokens.json'));
   assert.equal(dtcg.glass.blur.$type, 'dimension');
   assert.equal(dtcg.glass.saturation.$value, source.glass.saturation);
+  assert.match(css, new RegExp(`--c-glass-sheen-angle: ${source.glass.sheenAngle}deg;`));
   assert.match(read('kits/cosmik/tokens/cosmik_tokens.rs'), /pub mod glass \{\n {4}pub const BLUR: f32 = [\d.]+;\n {4}pub const SATURATION: f32 = [\d.]+;/);
 });
 

@@ -34,8 +34,9 @@ const toJson = (value) => JSON.stringify(value, null, 2)
 // ui-small, label, identity-label) stays the baseline's in every family.
 const FAMILY_TYPE_ROLES = ['display', 'display-small', 'section', 'card'];
 const FAMILY_TYPE_KEYS = ['fontFamily', 'fontWeight'];
-// `glass` (backdrop blur, saturation and the tone threshold) is fixed like the other non-colour
-// tokens; a family may still override the glass colour roles (`glass`, `glass-border`, `glass-muted`)
+// `glass` (backdrop blur, saturation, the tone threshold and the sheen angle) is fixed like the other non-colour
+// tokens; a family may still override the glass colour roles (`glass`, `glass-border`, `glass-muted`,
+// `glass-sheen`, `glass-sheen-low`)
 // in either mode under `semantic`, since each mode is also a glass tone,
 // and the contrast check proves them over any backdrop.
 export const FAMILY_FIXED = ['space', 'layout', 'motion', 'radius', 'breakpoint', 'glass'];
@@ -186,7 +187,7 @@ export const validateSource = (source, stem) => {
     if (type.textTransform !== undefined && !['none', 'uppercase'].includes(type.textTransform)) throw new Error(`${stem}.type.${role}: unsupported text transform ${type.textTransform}`);
   }
   // Glass surfaces: a backdrop blur radius and a saturation factor (1 leaves colour unchanged).
-  for (const key of Object.keys(source.glass)) if (!['blur', 'saturation', 'toneThreshold', 'toneHysteresis'].includes(key)) throw new Error(`${stem}.glass: unsupported property ${key}`);
+  for (const key of Object.keys(source.glass)) if (!['blur', 'saturation', 'toneThreshold', 'toneHysteresis', 'sheenAngle'].includes(key)) throw new Error(`${stem}.glass: unsupported property ${key}`);
   finite(toPx(source.glass.blur ?? ''), `${stem}.glass.blur`);
   finite(source.glass.saturation, `${stem}.glass.saturation`);
   // The backdrop relative luminance (0..1) at which a product switches glass between the dark and
@@ -196,10 +197,13 @@ export const validateSource = (source, stem) => {
     finite(source.glass[key], `${stem}.glass.${key}`);
     if (source.glass[key] > 1) throw new Error(`${stem}.glass.${key}: expected a relative luminance in 0..1`);
   }
+  // The direction light comes from for the edge sheen, in degrees as CSS linear-gradient() reads them.
+  finite(source.glass.sheenAngle, `${stem}.glass.sheenAngle`);
+  if (source.glass.sheenAngle >= 360) throw new Error(`${stem}.glass.sheenAngle: expected degrees in 0..360`);
   if (source.glass.toneThreshold - source.glass.toneHysteresis < 0 || source.glass.toneThreshold + source.glass.toneHysteresis > 1) throw new Error(`${stem}.glass: the tone threshold ± hysteresis must stay within 0..1`);
   // --c-glass-blur and --c-glass-saturation share the colour roles' namespace, as do the controls
   // layer's internal --c-glass-fill and --c-glass-backdrop switches.
-  for (const key of ['blur', 'saturation', 'tone-threshold', 'tone-hysteresis', 'fill', 'backdrop']) if (`glass-${key}` in source.semantic.dark) throw new Error(`${stem}: semantic role glass-${key} is reserved by the glass tokens and controls`);
+  for (const key of ['blur', 'saturation', 'tone-threshold', 'tone-hysteresis', 'sheen-angle', 'sheen-opacity', 'edge', 'fill', 'backdrop']) if (`glass-${key}` in source.semantic.dark) throw new Error(`${stem}: semantic role glass-${key} is reserved by the glass tokens and controls`);
   for (const key of Object.keys(source.motion)) if (!['duration', 'reduced-duration', 'easing'].includes(key)) throw new Error(`${stem}.motion: unsupported property ${key}`);
   parseMs(source.motion.duration); parseMs(source.motion['reduced-duration']); toBezier(source.motion.easing);
   for (const [level, elevation] of Object.entries(source.elevation)) {
@@ -256,7 +260,7 @@ export const renderKit = (source, { stem, scope = null, baseline, provenance }) 
     layout: nativeLayout,
     type: Object.fromEntries(Object.entries(source.type).map(([k, v]) => [k, nativeType(v)])),
     motion: { durationMs: parseMs(source.motion.duration), reducedDurationMs: parseMs(source.motion['reduced-duration']), easing: toBezier(source.motion.easing) },
-    glass: { blurPx: toPx(source.glass.blur), saturation: source.glass.saturation, toneThreshold: source.glass.toneThreshold, toneHysteresis: source.glass.toneHysteresis },
+    glass: { blurPx: toPx(source.glass.blur), saturation: source.glass.saturation, toneThreshold: source.glass.toneThreshold, toneHysteresis: source.glass.toneHysteresis, sheenAngleDeg: source.glass.sheenAngle },
   };
 
   // ---- <stem>.json: simple kit-specific contract ----
@@ -309,6 +313,7 @@ export const renderKit = (source, { stem, scope = null, baseline, provenance }) 
     css += '  /* Glass tone: backdrop relative luminance at or above the threshold takes the light tone. */\n';
     css += `  --c-glass-tone-threshold: ${source.glass.toneThreshold};\n`;
     css += `  --c-glass-tone-hysteresis: ${source.glass.toneHysteresis};\n`;
+    css += `  --c-glass-sheen-angle: ${source.glass.sheenAngle}deg;\n`;
     css += '  /* Breakpoints are reference values: custom properties cannot be used inside @media. */\n';
     for (const [key, val] of Object.entries(source.breakpoint)) css += `  --c-breakpoint-${key}: ${val};\n`;
     css += '}\n';
@@ -390,6 +395,7 @@ export const renderKit = (source, { stem, scope = null, baseline, provenance }) 
       blur: tok('dimension', dtcgDimension(source.glass.blur), { $description: 'Backdrop blur radius behind a glass surface.' }),
       saturation: tok('number', source.glass.saturation, { $description: 'Backdrop saturation factor behind a glass surface; 1 leaves colour unchanged.' }),
       toneThreshold: tok('number', source.glass.toneThreshold, { $description: 'Backdrop relative luminance (0..1) at or above which glass takes the light tone, below which the dark tone.' }),
+      sheenAngle: tok('number', source.glass.sheenAngle, { $description: 'Direction of the edge sheen gradient in degrees (CSS linear-gradient angle): from glass-sheen to glass-sheen-low.' }),
       toneHysteresis: tok('number', source.glass.toneHysteresis, { $description: 'How far past the threshold each tone still holds its contrast, so a product can switch with hysteresis.' }),
     },
   };
@@ -463,7 +469,7 @@ ${Object.entries(source.primitives).map(([k, v]) => `    pub const ${CONST(k)}: 
     ? `    /// Reading measure in characters.\n    pub const ${CONST(k)}_CHARS: u32 = ${v.chars};`
     : `    pub const ${CONST(k)}: f32 = ${f32(v)};`)).join('\n')}\n}\n`;
   rs += `\npub mod typography {\n    use super::TypeRole;\n${Object.entries(native.type).map(([k, t]) => `    pub const ${CONST(k)}: TypeRole = TypeRole { font_family: ${JSON.stringify(t.fontFamily)}, font_weight: ${t.fontWeight}, font_size: ${f32(t.fontSizePx)}, line_height: ${f32(t.lineHeight)}, letter_spacing: ${f32(t.letterSpacing)}, uppercase: ${t.textTransform === 'uppercase'} };`).join('\n')}\n}\n`;
-  rs += `\n/// Backdrop treatment behind glass surfaces: blur radius in logical px and a saturation factor.\npub mod glass {\n    pub const BLUR: f32 = ${f32(native.glass.blurPx)};\n    pub const SATURATION: f32 = ${f32(native.glass.saturation)};\n    /// Backdrop relative luminance at or above which glass takes the light tone.\n    pub const TONE_THRESHOLD: f32 = ${f32(native.glass.toneThreshold)};\n    /// How far past the threshold each tone still holds its contrast.\n    pub const TONE_HYSTERESIS: f32 = ${f32(native.glass.toneHysteresis)};\n}\n`;
+  rs += `\n/// Backdrop treatment behind glass surfaces: blur radius in logical px and a saturation factor.\npub mod glass {\n    pub const BLUR: f32 = ${f32(native.glass.blurPx)};\n    pub const SATURATION: f32 = ${f32(native.glass.saturation)};\n    /// Backdrop relative luminance at or above which glass takes the light tone.\n    pub const TONE_THRESHOLD: f32 = ${f32(native.glass.toneThreshold)};\n    /// How far past the threshold each tone still holds its contrast.\n    pub const TONE_HYSTERESIS: f32 = ${f32(native.glass.toneHysteresis)};\n    /// Edge sheen direction in degrees (CSS linear-gradient angle).\n    pub const SHEEN_ANGLE_DEG: f32 = ${f32(native.glass.sheenAngleDeg)};\n}\n`;
   rs += `\npub mod motion {\n    pub const DURATION_MS: u32 = ${native.motion.durationMs};\n    pub const REDUCED_DURATION_MS: u32 = ${native.motion.reducedDurationMs};\n    /// Cubic-bezier control points [x1, y1, x2, y2].\n    pub const EASING: [f32; 4] = ${arr(native.motion.easing)};\n}\n`;
   write(`${stem}_tokens.rs`, rs);
 

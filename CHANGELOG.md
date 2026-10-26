@@ -3,6 +3,42 @@
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`; from 0.8.0 they live in their own repositories.
 
+## 0.15.0 · 25 October 2026
+
+Glass loses its solid border: its edge is now a sheen of light caught by the rim.
+Not breaking for markup; the baseline token version moves to **0.10.0**, so
+families update `extends`.
+
+- **Edge sheen.** Each glass surface draws a 1px gradient ring from its
+  `::before`, masked to the rim (`mask-composite: exclude`), so it follows any
+  border radius and never tints the fill. Light comes from the top left: brightest
+  there, fading along the sides, with a fainter return at the bottom right. A
+  glass select draws it on its wrapper. Surfaces are positioned with zero
+  specificity; a glass container that scrolls should scroll an inner element.
+- **Roles.** New `glass-sheen` and `glass-sheen-low`, translucent, per tone. Dark:
+  white at 65 % fading to white at 20 %. Light: white at 95 % (a highlight that
+  shows on mid-tones) fading to black at 25 %, a faint lower edge that keeps the
+  shape on light content. `glass-border` is now the plain, subtle border of the
+  solid fallbacks (`#414141` dark, `#C6C5C0` light).
+- **Token.** `glass.sheenAngle` (160°), `--c-glass-sheen-angle`, baseline-only;
+  families may tint the sheen roles.
+- **Contrast contract.** A glass surface's own edge is decorative and no longer
+  needs 3:1 against the content behind it. The 3:1 non-text requirement applies to
+  what identifies the controls on glass: icons (the text colour), selection and
+  focus, all checked over each tone's band. A standalone glass button or select
+  trigger is identified by its label, icon or chevron, which meet 4.5:1, so it
+  needs no boundary of its own; its focus ring keeps the solid halo.
+- **Fallbacks.** Without backdrop blur, with reduced transparency or in
+  `data-glass="solid"`: the solid surface with a plain `glass-border` and no
+  sheen. Forced colours: no sheen, a solid system border. `data-glass="flat"`
+  keeps the sheen.
+- **Checks.** The panel-edge boundary assertions are gone (the edge contrast is
+  still reported). The browser check asserts every glass surface has no solid
+  border and a masked 1px sheen gradient matching its radius, that the sheen is
+  brighter at the top left than the bottom right over every backdrop in both
+  tones, the plain border in each solid fallback, and the solid system border in
+  forced colours. The token check requires translucent sheen roles.
+
 ## 0.14.0 · 25 October 2026
 
 Glass you can see through, in two tones that follow the content behind it. 0.13.0's

@@ -55,9 +55,8 @@ export function contrastChecks(kit, semantic, glass = {saturation: 1, toneThresh
   for(const bg of ['bg','surface','raised','disabled-bg']) add('disabled-border',bg,3,'boundary');
   for(const bg of ['status-bg','bg','surface','raised']) add('status-border',bg,3,'boundary');
   for(const bg of ['input-bg','status-bg']) add('muted',bg,4.5,'text');
-  // Glass. Text, muted text, quiet controls, focus and selection over every backdrop; a boundary
-  // (the glass-border hairline or the glass fill itself) at 3:1 against every backdrop; and the
-  // solid fallback (no backdrop-filter, reduced transparency), which paints `surface`.
+  // Glass. Text, muted text, quiet controls, focus and selection over each tone's band, and muted
+  // text on the solid fallback (no backdrop-filter, reduced transparency), which paints `surface`.
   if('glass' in t){
    if(typeof t.glass!=='string'||!/^#[0-9A-F]{8}$/i.test(t.glass)) throw new Error(`${kit} ${mode} glass: expected a translucent #RRGGBBAA role`);
    const [low,high]=glassBand(mode,glass);
@@ -71,8 +70,10 @@ export function contrastChecks(kit, semantic, glass = {saturation: 1, toneThresh
    for(const fg of ['text','glass-muted','action-secondary-fg']) overAny(fg,4.5,'text',c=>contrast(t[fg],c));
    overAny('focus',3,'focus',c=>contrast(t.focus,c));
    overAny('selected',3,'boundary',c=>contrast(t.selected,c));
-   overAny('glass boundary',3,'boundary',(c,b)=>Math.max(contrast(t['glass-border'],toHex(b)),contrast(c,toHex(b))));
-   add('glass-muted','surface',4.5,'text');add('glass-border','surface',3,'boundary');
+   // The panel's edge (the sheen, or glass-border on the solid fallback) is decorative: controls
+   // inside identify themselves by their text, icons, selection and focus, checked above.
+   for(const role of ['glass-sheen','glass-sheen-low']) if(typeof t[role]!=='string'||!/^#[0-9A-F]{8}$/i.test(t[role])) throw new Error(`${kit} ${mode} ${role}: expected a translucent #RRGGBBAA role`);
+   add('glass-muted','surface',4.5,'text');
   }
   // Family extensions: checked when a kit defines them.
   if('accent' in t) for(const bg of ['bg','surface','raised']) add('accent',bg,3,'boundary');

@@ -351,9 +351,12 @@ try {
         const backdrop = `blur(${glassTokens.blur}) saturate(${glassTokens.saturation})`;
         for (const surface of [bar, button, select, group, hint]) {
           await expectRole(surface, 'background-color', mode, 'glass');
-          await expectRole(surface, 'border-top-color', mode, 'glass-border');
           assert.equal(await css(surface, 'backdrop-filter'), backdrop, `${mode} ${surface} blurs and saturates its backdrop`);
-          assert.equal(await css(surface, 'border-top-style'), 'solid', `${mode} ${surface} keeps a drawn boundary`);
+          // No solid border: the edge is a sheen, a masked 1px gradient ring over the rim.
+          assert.equal(await css(surface, 'border-top-color'), 'rgba(0, 0, 0, 0)', `${mode} ${surface} has no solid border`);
+          const sheen = await evaluate(`(() => {const e=document.querySelector(${JSON.stringify(surface)}), host=e.matches('select')?e.parentElement:e, b=getComputedStyle(host,'::before');
+            return {gradient:b.backgroundImage.startsWith('linear-gradient(${glassTokens.sheenAngle}deg'), opacity:b.opacity, ring:b.paddingTop, masked:/exclude|xor/.test(b.maskComposite+' '+b.webkitMaskComposite), radius:b.borderTopLeftRadius===getComputedStyle(host).borderTopLeftRadius}})()`);
+          assert.deepEqual(sheen, {gradient:true, opacity:'1', ring:'1px', masked:true, radius:true}, `${mode} ${surface} catches an edge sheen`);
         }
         await expectRole(`${hint} .muted`, 'color', mode, 'glass-muted');
         // A tone overrides the page theme for the surface and its contents: the other tone's
@@ -400,8 +403,9 @@ try {
   // own luminance band (white or black, saturated colours, the band's edge, the colours the token
   // check finds hardest, fine stripes and checkers), and over the other tone's extreme, where it
   // must fail: a product has to switch tones. The composite behind the text is sampled from a
-  // screenshot; text is judged against every sampled pixel, and the boundary (the hairline or the
-  // glass fill, whichever is stronger) against the content just outside it, column by column.
+  // screenshot; text is judged against every sampled pixel. The panel's edge is decorative, so its
+  // contrast with the content outside is reported, not required; the sheen must be brighter at the
+  // top left than at the bottom right.
   {
     await evaluate(`{const p=document.querySelector('#motion-picker');p.value='reduce';p.dispatchEvent(new Event('change'));}`);
     const bands = {
@@ -454,30 +458,33 @@ try {
         for (let x = left + 6; x < right - 6; x++) boundary = Math.min(boundary, Math.max(ratio(px(x, top), px(x, top - 1)), ratio(px(x, top + 3), px(x, top - 1))), Math.max(ratio(px(x, bottom - 1), px(x, bottom)), ratio(px(x, bottom - 4), px(x, bottom))));
         for (let y = top + 6; y < bottom - 6; y++) boundary = Math.min(boundary, Math.max(ratio(px(left, y), px(left - 1, y)), ratio(px(left + 3, y), px(left - 1, y))));
         const spread = Math.max(...composite.map(L)) - Math.min(...composite.map(L));
-        const result = {mode, backdrop: probe.name, text: +worst(text).toFixed(2), muted: +worst(muted).toFixed(2), textGlyph: +core(probe.text).toFixed(2), boundary: +boundary.toFixed(2), compositeLuminanceSpread: +spread.toFixed(3)};
+        const sheenTop = L(px(left + 12, top)), sheenBottom = L(px(right - 12, bottom - 1));
+        const result = {mode, backdrop: probe.name, text: +worst(text).toFixed(2), muted: +worst(muted).toFixed(2), textGlyph: +core(probe.text).toFixed(2), boundary: +boundary.toFixed(2), sheenTop: +sheenTop.toFixed(3), sheenBottom: +sheenBottom.toFixed(3), compositeLuminanceSpread: +spread.toFixed(3)};
         results.push(result);
         if (probe.name.startsWith('wrong:')) {
-          assert.ok(result.text < 4.5 || result.muted < 4.5 || result.boundary < 3, `${mode} glass must not hold over ${probe.name}: ${JSON.stringify(result)}`);
+          assert.ok(result.text < 4.5 || result.muted < 4.5, `${mode} glass must not hold over ${probe.name}: ${JSON.stringify(result)}`);
           continue;
         }
         assert.ok(result.text >= 4.5 && result.muted >= 4.5, `${mode} glass text over ${probe.name}: ${JSON.stringify(result)}`);
-        assert.ok(result.boundary >= 3, `${mode} glass boundary over ${probe.name}: ${JSON.stringify(result)}`);
+        // The panel's edge is decorative now (no 3:1 requirement), but the sheen must read as light
+        // from the top left: the top edge near the left is brighter than the bottom edge near the right.
+        assert.ok(result.sheenTop > result.sheenBottom, `${mode} sheen over ${probe.name} is brighter at the top: ${JSON.stringify(result)}`);
       }
       // Blur is real: over fine black and white stripes the composite is nearly uniform.
       assert.ok(results.find(r => r.mode === mode && r.backdrop === 'stripes').compositeLuminanceSpread < 0.02, `${mode} stripes are blurred behind glass`);
       await evaluate(`document.querySelector('#glass-probes').remove()`);
     }
     console.log('Glass contrast measured from screenshots, by tone (worst pixel):');
-    for (const r of results) console.log(`  ${r.mode.padEnd(5)} ${r.backdrop.padEnd(21)} text ${r.text}:1  muted ${r.muted}:1  glyph ${r.textGlyph}:1  boundary ${r.boundary}:1`);
+    for (const r of results) console.log(`  ${r.mode.padEnd(5)} ${r.backdrop.padEnd(21)} text ${r.text}:1  muted ${r.muted}:1  edge ${r.boundary}:1  sheen L ${r.sheenTop} top / ${r.sheenBottom} bottom`);
     if (screenshots) fs.writeFileSync(path.join(screenshots, 'glass-contrast.json'), JSON.stringify(results, null, 2));
     // Fallbacks. Without backdrop-filter support (the @supports condition made false in a copy
     // of the layer), and under prefers-reduced-transparency, glass paints the solid surface and
-    // blurs nothing; the boundary and text roles stay.
+    // blurs nothing; the sheen gives way to a plain glass-border, and the text roles stay.
     const solid = async label => {
       for (const mode of ['dark', 'light']) for (const surface of [`#${mode}-glass .c-toolbar--glass`, `#${mode}-glass .c-button--glass`, `#${mode}-glass-scale`, `#${mode}-glass-segmented`, `#${mode}-glass-hint`]) {
-        const look = await evaluate(`(() => {const s=getComputedStyle(document.querySelector(${JSON.stringify(surface)}));return [s.backgroundColor, s.backdropFilter, s.borderTopStyle]})()`);
-        const probe = await evaluate(`(() => {const p=document.createElement('span');p.style.color='var(--c-surface)';document.querySelector('#${mode}').append(p);const c=getComputedStyle(p).color;p.remove();return c})()`);
-        assert.deepEqual(look, [probe, 'none', 'solid'], `${label}: ${surface} is solid`);
+        const look = await evaluate(`(() => {const e=document.querySelector(${JSON.stringify(surface)}), s=getComputedStyle(e), host=e.matches('select')?e.parentElement:e;return [s.backgroundColor, s.backdropFilter, s.borderTopStyle, s.borderTopColor, getComputedStyle(host,'::before').opacity]})()`);
+        const role = name => evaluate(`(() => {const p=document.createElement('span');p.style.color='var(--c-${name})';document.querySelector('#${mode}').append(p);const c=getComputedStyle(p).color;p.remove();return c})()`);
+        assert.deepEqual(look, [await role('surface'), 'none', 'solid', await role('glass-border'), '0'], `${label}: ${surface} is solid with a plain border`);
       }
     };
     await evaluate(`new Promise((resolve, reject) => {const l=document.querySelector('link[href$="controls.css"]');const n=document.createElement('link');n.rel='stylesheet';n.href='/__fixture__/controls-without-backdrop.css';n.onload=()=>{l.disabled=true;resolve()};n.onerror=reject;n.id='no-backdrop';l.after(n)})`);
@@ -708,10 +715,10 @@ try {
   assert.equal(await evaluate(`getComputedStyle(document.querySelector('#light-toolbars .c-toolbar')).borderTopStyle`),'solid');
   for (const selected of ['#light-segmented [aria-checked="true"]', '#light-toolbars .c-button[aria-pressed="true"]'])
     assert.equal(await evaluate(`getComputedStyle(document.querySelector('${selected}'),'::after').borderBottomStyle`),'solid',`forced colours keep the selection bar on ${selected}`);
-  // Glass becomes an opaque system surface: no backdrop blur, a solid boundary, an opaque fill.
+  // Glass becomes an opaque system surface: no backdrop blur, no sheen, a solid system border, an opaque fill.
   for (const surface of ['#light-glass .c-toolbar--glass', '#light-glass .c-button--glass', '#light-glass-scale', '#light-glass-segmented', '#light-glass-hint']) {
-    const look = await evaluate(`(() => {const s=getComputedStyle(document.querySelector(${JSON.stringify(surface)}));return {filter:s.backdropFilter, border:s.borderTopStyle, opaque:!/rgba\(.*, 0(\.\d+)?\)$/.test(s.backgroundColor)}})()`);
-    assert.deepEqual(look, {filter:'none', border:'solid', opaque:true}, `forced colours: ${surface}`);
+    const look = await evaluate(`(() => {const e=document.querySelector(${JSON.stringify(surface)}), s=getComputedStyle(e), host=e.matches('select')?e.parentElement:e;return {filter:s.backdropFilter, border:s.borderTopStyle, drawn:s.borderTopColor!=='rgba(0, 0, 0, 0)', sheen:getComputedStyle(host,'::before').display, opaque:!/rgba\(.*, 0(\.\d+)?\)$/.test(s.backgroundColor)}})()`);
+    assert.deepEqual(look, {filter:'none', border:'solid', drawn:true, sheen:'none', opaque:true}, `forced colours: ${surface}`);
   }
   await evaluate('document.querySelector("#light-glass").scrollIntoView({block:"center"})'); await shot('cosmik-forced-colors-glass');
   // Both status labels, dense or not, keep a visible boundary in the text colours.

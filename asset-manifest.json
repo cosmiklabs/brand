@@ -1,6 +1,6 @@
 {
   "name": "Cosmik brand kit",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "date": "2026-10-25",
   "system_status": "baseline approved (owner, 2026-10-07). Product families are maintained in their own repositories (cosmiklabs/brand-hplx, cosmiklabs/brand-tectra) and build on a pinned release of this kit.",
   "emblem_status": "accepted traced symbol",
@@ -937,7 +937,7 @@
         "format": "source"
       },
       "status": "baseline source, approved",
-      "sha256": "ba79a8dcebd0fd4c7b79cde5c5d295ec1d3f9d0b49f93b7d3f16b2fa313af299",
+      "sha256": "7aa48acc14df2418593a7354e475b4cb502f9776935174b09da2871ca2eb23dd",
       "editable": true
     },
     {
@@ -948,7 +948,7 @@
         "format": "css"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "142a6e827b4d3db7bb33faef174f41ab58103eb71c0d5e8c4d58776cd6001590"
+      "sha256": "9272bacb6b0fe04f31d283d3ce04174ae941ad458de9d0d1a4949c04c89c4697"
     },
     {
       "path": "kits/cosmik/tokens/cosmik.json",
@@ -959,7 +959,7 @@
         "note": "kit-specific JSON; includes a native section in px, fractions, characters, bezier points and colour floats"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "10040f67b741a8fde2b9a200ae0148b149f80493f82609dd9a1100d4a0d7c3a0"
+      "sha256": "dc6094aeaf402f91f08749208b90c620078d4c752fef1c39c1e3d23a1ef3c570"
     },
     {
       "path": "kits/cosmik/tokens/cosmik.tokens.json",
@@ -969,7 +969,7 @@
         "format": "dtcg"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "40e376133df92ea160ca50071b53d7d2c04382ecea398208aa6a41eb0ae68377"
+      "sha256": "8915c2f50b5d8b009dc4fb56d704f4b53ab30116c02bd7145688ca364c47783f"
     },
     {
       "path": "kits/cosmik/tokens/cosmik_tokens.rs",
@@ -979,13 +979,13 @@
         "format": "rust"
       },
       "generated_by": "scripts/generate-tokens.mjs",
-      "sha256": "f37a04667bb76105e4f935ac30540ba89ecc419e05d38add74d416ecab837c21"
+      "sha256": "42a86d8d2f8d13b06fcf9a92f26534fb8ce60d0cc5cedb449667e80187f8dae3"
     }
   ],
   "components": [
     {
       "path": "kits/cosmik/components/controls.css",
-      "sha256": "e91761678832d810bf07b79d939c6002011888602b52e91eb68bf32ec314c97f",
+      "sha256": "3f0f8c094911582520e6a78ab38f34281beffed07c91edfc789610337c6a4708",
       "editable": true,
       "role": {
         "kind": "component-css",
@@ -1121,7 +1121,7 @@
     },
     {
       "path": "specimens/components.html",
-      "sha256": "72c946e540df222b6733899480644f7e72b808f1d12d235b02f7b9a20cb704f4",
+      "sha256": "657700ef2ebbf5c97c4e90b22a2da94cd9623dc98bc6929d983302f5d07071b0",
       "editable": true
     },
     {
@@ -1149,35 +1149,35 @@
       },
       {
         "path": "package.json",
-        "sha256": "69ac1c67fe4af154112a9d14cf31ac20c2717712c6900583e0a35d2a5e478ecf"
+        "sha256": "eba68dba2d98e638336b65c3d78e7ff6959ee29189c2928c233df73c1fa2ae61"
       },
       {
         "path": "kits/cosmik/tokens/source.json",
-        "sha256": "ba79a8dcebd0fd4c7b79cde5c5d295ec1d3f9d0b49f93b7d3f16b2fa313af299"
+        "sha256": "7aa48acc14df2418593a7354e475b4cb502f9776935174b09da2871ca2eb23dd"
       },
       {
         "path": "kits/cosmik/tokens/cosmik.css",
-        "sha256": "142a6e827b4d3db7bb33faef174f41ab58103eb71c0d5e8c4d58776cd6001590"
+        "sha256": "9272bacb6b0fe04f31d283d3ce04174ae941ad458de9d0d1a4949c04c89c4697"
       },
       {
         "path": "kits/cosmik/tokens/cosmik.json",
-        "sha256": "10040f67b741a8fde2b9a200ae0148b149f80493f82609dd9a1100d4a0d7c3a0"
+        "sha256": "dc6094aeaf402f91f08749208b90c620078d4c752fef1c39c1e3d23a1ef3c570"
       },
       {
         "path": "kits/cosmik/tokens/cosmik.tokens.json",
-        "sha256": "40e376133df92ea160ca50071b53d7d2c04382ecea398208aa6a41eb0ae68377"
+        "sha256": "8915c2f50b5d8b009dc4fb56d704f4b53ab30116c02bd7145688ca364c47783f"
       },
       {
         "path": "kits/cosmik/tokens/cosmik_tokens.rs",
-        "sha256": "f37a04667bb76105e4f935ac30540ba89ecc419e05d38add74d416ecab837c21"
+        "sha256": "42a86d8d2f8d13b06fcf9a92f26534fb8ce60d0cc5cedb449667e80187f8dae3"
       },
       {
         "path": "kits/cosmik/components/controls.css",
-        "sha256": "e91761678832d810bf07b79d939c6002011888602b52e91eb68bf32ec314c97f"
+        "sha256": "3f0f8c094911582520e6a78ab38f34281beffed07c91edfc789610337c6a4708"
       },
       {
         "path": "scripts/generate-tokens.mjs",
-        "sha256": "91b9323cdf11e99756009b8ae48746bf1912763035b591bf9f11c606405ce8ac"
+        "sha256": "e06972c6489d0165e85f55ab526e2119019602e63ec748adb17e502ab8906574"
       },
       {
         "path": "scripts/family.mjs",
@@ -1185,7 +1185,7 @@
       },
       {
         "path": "scripts/validate-tokens.mjs",
-        "sha256": "30444a0a06b676bf4c63837f2dbeda471726b18417edc15a0148633a4192f126"
+        "sha256": "8da7b9a28e22f9a4505dc858d1ba216e9578a04ed465414e4ff683cd332269fb"
       },
       {
         "path": "scripts/vendor.mjs",
@@ -1249,7 +1249,7 @@
       },
       {
         "path": "guide/colour.md",
-        "sha256": "769f086521ee5b60a5be8aca7988858b3d3159eadc8b9af45951ea5700fc9103"
+        "sha256": "f1d3ef4f2dfd1f9f57e6127ac15f592b1ec2717ab64bf962ba2b81f872958fec"
       },
       {
         "path": "guide/documents.md",
@@ -1257,7 +1257,7 @@
       },
       {
         "path": "guide/families.md",
-        "sha256": "77df482a6a8219979cf8127c7744a11f58bee0a1cc0e6f0d4c72f39b7a28e662"
+        "sha256": "a25a7b8d5a682b6b63244e08e8c29c839d4b1769f4015c44608eb34481e6ad89"
       },
       {
         "path": "guide/governance.md",
@@ -1269,7 +1269,7 @@
       },
       {
         "path": "guide/interface.md",
-        "sha256": "c2dd8c7a3ba8800ee8b5e50c9959d5affe25aed19258089b5233323650ad563b"
+        "sha256": "1c0fc09d099ac59de93dca36cff640ec02e4739aa17857d98c1e4dc7478c2a0f"
       },
       {
         "path": "guide/motion.md",

@@ -163,7 +163,7 @@ behavior each state must have is defined once, in the
 | `c-status` | `<span>` | Neutral status label: `label` type, pill shape, no interaction states or pointer cursor |
 | `c-status--dense` | Added to a status label | The same pill, roles and `label` family, tracking and case at the `ui-small` size with tighter padding, for dense rows, headers and cards; still no interaction states |
 | `c-focus-ring` | Any other custom focusable control | The shared focus-visible ring |
-| `c-glass` | A floating container over busy content: a menu, popover, hint or label | Glass tint, hairline, blurred backdrop; `muted` resolves to `glass-muted` inside; solid fallbacks |
+| `c-glass` | A floating container over busy content: a menu, popover, hint or label | Glass tint, edge sheen, blurred backdrop; `muted` resolves to `glass-muted` inside; solid fallbacks |
 | `c-toolbar--glass` | Added to a toolbar | The toolbar on glass; its quiet buttons and segmented controls need nothing more |
 | `c-button--glass` | Added to a button that floats alone, instead of `--secondary`; with `--icon` and `--dense` as needed | Glass at rest; hover, pressed, toggle (opaque selected roles and bar), disabled as other buttons; focus ring over a solid halo |
 | `c-segmented--glass` | Added to a segmented control that floats alone | Its own glass group with `space-base` padding |
@@ -226,9 +226,15 @@ every input. Gate your own hover styles the same way.
 Glass is a mechanism for controls that float over busy or moving content, not a
 default: the product opts in per surface and keeps reading content, forms, dense
 lists, dialogs and side panels solid ([interface](../guide/interface.md#shared-controls)).
-Glass surfaces read the `glass`, `glass-border` and `glass-muted` roles and the
-`--c-glass-blur` and `--c-glass-saturation` tokens; a family may set the roles,
-not the blur or saturation. Each mode is a glass tone: `data-glass-tone` on a
+Glass surfaces read the `glass`, `glass-sheen`, `glass-sheen-low`, `glass-border`
+and `glass-muted` roles and the `--c-glass-blur`, `--c-glass-saturation` and
+`--c-glass-sheen-angle` tokens; a family may set the roles, not the blur,
+saturation or angle. The edge is a sheen, not a border: a 1px gradient ring drawn
+by each surface's `::before` (a glass select draws it on its wrapper), masked to
+the rim so it follows any radius. Each surface is therefore positioned (with zero
+specificity, so your positioning wins) and keeps its `::before` free; a glass
+container that scrolls should scroll an inner element, because overflow clips the
+ring. The solid fallbacks draw a plain `glass-border` instead. Each mode is a glass tone: `data-glass-tone` on a
 surface or region gives it that mode's roles regardless of the page's theme.
 Over content whose brightness varies, the consumer chooses the tone: measure the
 relative luminance behind each surface (a small downscaled copy of the frame is

@@ -1,6 +1,6 @@
 {
   "name": "Cosmik",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "status": "Approved baseline (owner, 2026-10-07)",
   "description": "Resolved semantic tokens. Use semantic tokens in components; primitives are reference values, not theme roles. All dimensions assume a 16px browser root. All-caps tracking is for labels only.",
   "primitives": {
@@ -25,7 +25,11 @@
     "glass-dark": "#12121299",
     "glass-light": "#FFFFFF99",
     "muted-glass-dark": "#C8C8C8",
-    "muted-glass-light": "#454545"
+    "muted-glass-light": "#454545",
+    "sheen-white": "#FFFFFFA6",
+    "sheen-white-faint": "#FFFFFF33",
+    "sheen-white-strong": "#FFFFFFF2",
+    "sheen-shade": "#00000040"
   },
   "semantic": {
     "dark": {
@@ -66,8 +70,10 @@
       "media-placeholder": "#111111",
       "scrim": "#000000B8",
       "glass": "#12121299",
-      "glass-border": "#FFFFFF",
-      "glass-muted": "#C8C8C8"
+      "glass-border": "#414141",
+      "glass-muted": "#C8C8C8",
+      "glass-sheen": "#FFFFFFA6",
+      "glass-sheen-low": "#FFFFFF33"
     },
     "light": {
       "bg": "#F6F5F0",
@@ -107,8 +113,10 @@
       "media-placeholder": "#E8E7E3",
       "scrim": "#0000007A",
       "glass": "#FFFFFF99",
-      "glass-border": "#000000",
-      "glass-muted": "#454545"
+      "glass-border": "#C6C5C0",
+      "glass-muted": "#454545",
+      "glass-sheen": "#FFFFFFF2",
+      "glass-sheen-low": "#00000040"
     }
   },
   "aliases": {
@@ -150,8 +158,10 @@
       "media-placeholder": "media-dark",
       "scrim": "scrim-dark",
       "glass": "glass-dark",
-      "glass-border": "white",
-      "glass-muted": "muted-glass-dark"
+      "glass-border": "graphite",
+      "glass-muted": "muted-glass-dark",
+      "glass-sheen": "sheen-white",
+      "glass-sheen-low": "sheen-white-faint"
     },
     "light": {
       "bg": "paper",
@@ -191,8 +201,10 @@
       "media-placeholder": "light-soft",
       "scrim": "scrim-light",
       "glass": "glass-light",
-      "glass-border": "black",
-      "glass-muted": "muted-glass-light"
+      "glass-border": "rule-light",
+      "glass-muted": "muted-glass-light",
+      "glass-sheen": "sheen-white-strong",
+      "glass-sheen-low": "sheen-shade"
     }
   },
   "space": {
@@ -308,7 +320,8 @@
     "blur": "24px",
     "saturation": 1.4,
     "toneThreshold": 0.2,
-    "toneHysteresis": 0.05
+    "toneHysteresis": 0.05,
+    "sheenAngle": 160
   },
   "native": {
     "description": "Values for non-browser consumers (desktop, game UI, design tools). Lengths are logical px at a 16 px root; letterSpacing is a fraction of the font size; layout.line is a measure in characters; easing is cubic-bezier control points [x1, y1, x2, y2]; colours give hex, straight-alpha sRGB floats [r, g, b, a] and linear-light floats.",
@@ -423,6 +436,26 @@
         "hex": "#454545",
         "srgb": [0.270588, 0.270588, 0.270588, 1],
         "linear": [0.059511, 0.059511, 0.059511, 1]
+      },
+      "sheen-white": {
+        "hex": "#FFFFFFA6",
+        "srgb": [1, 1, 1, 0.65098],
+        "linear": [1, 1, 1, 0.65098]
+      },
+      "sheen-white-faint": {
+        "hex": "#FFFFFF33",
+        "srgb": [1, 1, 1, 0.2],
+        "linear": [1, 1, 1, 0.2]
+      },
+      "sheen-white-strong": {
+        "hex": "#FFFFFFF2",
+        "srgb": [1, 1, 1, 0.94902],
+        "linear": [1, 1, 1, 0.94902]
+      },
+      "sheen-shade": {
+        "hex": "#00000040",
+        "srgb": [0, 0, 0, 0.25098],
+        "linear": [0, 0, 0, 0.25098]
       }
     },
     "semantic": {
@@ -613,14 +646,24 @@
           "linear": [0.006049, 0.006049, 0.006049, 0.6]
         },
         "glass-border": {
-          "hex": "#FFFFFF",
-          "srgb": [1, 1, 1, 1],
-          "linear": [1, 1, 1, 1]
+          "hex": "#414141",
+          "srgb": [0.254902, 0.254902, 0.254902, 1],
+          "linear": [0.052861, 0.052861, 0.052861, 1]
         },
         "glass-muted": {
           "hex": "#C8C8C8",
           "srgb": [0.784314, 0.784314, 0.784314, 1],
           "linear": [0.57758, 0.57758, 0.57758, 1]
+        },
+        "glass-sheen": {
+          "hex": "#FFFFFFA6",
+          "srgb": [1, 1, 1, 0.65098],
+          "linear": [1, 1, 1, 0.65098]
+        },
+        "glass-sheen-low": {
+          "hex": "#FFFFFF33",
+          "srgb": [1, 1, 1, 0.2],
+          "linear": [1, 1, 1, 0.2]
         }
       },
       "light": {
@@ -810,14 +853,24 @@
           "linear": [1, 1, 1, 0.6]
         },
         "glass-border": {
-          "hex": "#000000",
-          "srgb": [0, 0, 0, 1],
-          "linear": [0, 0, 0, 1]
+          "hex": "#C6C5C0",
+          "srgb": [0.776471, 0.772549, 0.752941, 1],
+          "linear": [0.564712, 0.55834, 0.527115, 1]
         },
         "glass-muted": {
           "hex": "#454545",
           "srgb": [0.270588, 0.270588, 0.270588, 1],
           "linear": [0.059511, 0.059511, 0.059511, 1]
+        },
+        "glass-sheen": {
+          "hex": "#FFFFFFF2",
+          "srgb": [1, 1, 1, 0.94902],
+          "linear": [1, 1, 1, 0.94902]
+        },
+        "glass-sheen-low": {
+          "hex": "#00000040",
+          "srgb": [0, 0, 0, 0.25098],
+          "linear": [0, 0, 0, 0.25098]
         }
       }
     },
@@ -967,7 +1020,8 @@
       "blurPx": 24,
       "saturation": 1.4,
       "toneThreshold": 0.2,
-      "toneHysteresis": 0.05
+      "toneHysteresis": 0.05,
+      "sheenAngleDeg": 160
     }
   }
 }

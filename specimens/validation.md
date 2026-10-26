@@ -5,6 +5,27 @@ controls layer. Kit checks establish their tested properties; they do not certif
 a consuming product or replace its interaction journeys. Product families keep
 their own validation records in their repositories.
 
+## 0.15.0 review — 25 October 2026
+
+The edge sheen. Run on macOS with Node.js 24.22.0 and headless Chrome for Testing
+156.0.8078.4 (software compositing, `--disable-gpu`):
+
+- `npm run build`, `npm run check` (126 baseline contrast pairs, 91 tests) and
+  `node scripts/build.mjs --check` from the release commit pass. Text, muted text,
+  focus and selection over each tone's band are unchanged from 0.14.0.
+- Browser check: every glass surface has a transparent border and a `::before`
+  ring (160° gradient, 1px, masked, radius matching its host). Measured sheen
+  luminance, top-left edge against bottom-right edge, over every probe backdrop:
+  dark tone 0.35–0.58 top against 0.04–0.26 bottom; light tone 0.90–0.99 top
+  against 0.18–0.56 bottom. The panel edge's contrast with the content outside is
+  reported and now ranges down to 1.0:1 (light tone over white), as intended for a
+  decorative edge. Solid fallbacks show the plain `glass-border` with no sheen;
+  forced colours show a solid system border and no sheen.
+- Rendered inspection, including 2× crops of a toolbar in each tone: the dark
+  tone's rim brightens at the top left and fades along the top and sides; the light
+  tone reads by its faint darker lower and right edges on light content, with the
+  white highlight showing over mid-tones. Text and selection stay clear.
+
 ## 0.14.0 review — 25 October 2026
 
 Clearer glass in two tones. Run on macOS with Node.js 24.22.0 and headless Chrome

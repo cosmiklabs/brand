@@ -28,12 +28,14 @@ float over busy or moving content (see [interface](interface.md#shared-controls)
 | Role | Use |
 | --- | --- |
 | `glass` | The translucent tint (`#RRGGBBAA`) painted over the blurred backdrop |
-| `glass-border` | The hairline boundary of a glass surface |
+| `glass-sheen` | The edge sheen where the rim catches light, at the top left (translucent) |
+| `glass-sheen-low` | The sheen's fainter return at the bottom right (translucent) |
+| `glass-border` | A plain, subtle border for the solid fallbacks, in place of the sheen |
 | `glass-muted` | Muted text on glass; ordinary text stays `text` |
 
 Each mode is also a **glass tone**: `data-glass-tone="dark"` or `"light"` gives a
 glass surface and its contents that mode's roles, whatever the page's theme, so
-each tone has its own tint, hairline, text, muted text, icons (which take the text
+each tone has its own tint, sheen, text, muted text, icons (which take the text
 colour), selection and focus. The dark tone is for content darker than
 `glass.toneThreshold` (a relative luminance, published as
 `--c-glass-tone-threshold`), the light tone for content at or above it.
@@ -44,10 +46,16 @@ against the tint composited over every backdrop in its band, taken from a grid o
 does. The dark tone's band runs from black to the threshold plus
 `glass.toneHysteresis`; the light tone's from the threshold minus the hysteresis
 to white, so either tone holds where a product hesitates between them. The
-boundary passes when either the hairline or the glass fill reaches 3:1 against
-each backdrop. The solid fallback (`surface`) is checked too. Neither tone holds
+solid fallback (`surface`) is checked too. The glass surface's own edge (the
+sheen, or `glass-border` when solid) is decorative and has no contrast
+requirement: the 3:1 non-text contrast applies to what identifies the controls on
+it (icons, which take the text colour, the selected state and its bar, and the
+focus ring), and a standalone glass button or select trigger is identified by its
+label, icon or chevron, which meet the text requirement. The sheen roles must be
+translucent. Its direction (`glass.sheenAngle`, `--c-glass-sheen-angle`) is
+baseline; a family may tint its colours. Neither tone holds
 over the other's extreme, which the tests prove, so the switch is required. The
-blur, saturation, threshold and hysteresis are baseline-only; a family may set
+blur, saturation, threshold, hysteresis and sheen angle are baseline-only; a family may set
 its own glass roles in either mode. `npm run check` reports each glass pair with
 the backdrop it is weakest over, and the browser check measures the same from
 rendered pixels.

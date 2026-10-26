@@ -100,11 +100,16 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
   dense lists, dialogs, navigation or panels beside the content: those stay on
   solid surfaces. It is a mechanism, not a default; the product chooses where it
   applies. Glass paints the `glass` tint over a blurred, saturated copy of the
-  content behind it, clear enough that the content visibly shows through, and
-  draws the `glass-border` hairline.
+  content behind it, clear enough that the content visibly shows through. It has
+  no solid border: its edge is a sheen, a 1px gradient where the rim catches light
+  from the top left (`glass-sheen`), fading along the sides to a fainter return at
+  the bottom right (`glass-sheen-low`). The sheen is decorative and gives the
+  shape; what identifies a control on glass is its label, icon, selection and
+  focus, which carry the contrast requirements. The solid fallbacks replace the
+  sheen with a plain, subtle `glass-border`.
 - **Glass tone.** Glass has a dark and a light tone, and a tone is that theme for
   the surface and its contents: text, muted text (`glass-muted`), selection,
-  hover and focus all follow it. Each tone keeps AA text and a 3:1 boundary only
+  hover and focus all follow it. Each tone keeps AA text, icons and selection only
   over content on its side of the published threshold (`--c-glass-tone-threshold`,
   a relative luminance) and a little past it (`--c-glass-tone-hysteresis`); the
   wrong tone does not. A surface without `data-glass-tone` takes the page's
@@ -164,7 +169,8 @@ demonstrate it. A platform without CSS should reproduce the same observable beha
   motion preference removes them.
 - **Forced colours** keep every boundary, the chevron, the selection check, the
   selection bar and the focus ring, because they are borders and outlines rather
-  than fills. Glass surfaces become opaque system surfaces with their boundary.
+  than fills. Glass surfaces become opaque system surfaces with a solid system
+  border in place of the sheen.
 
 ## Forms and settings
 
