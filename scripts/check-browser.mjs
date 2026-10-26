@@ -72,9 +72,9 @@ const rejectPending = error => {
 };
 try {
   const portFile = path.join(profile, 'DevToolsActivePort');
-  for (let i = 0; i < 100 && !fs.existsSync(portFile) && !launchError && !exited(); i++) await pause(100);
+  for (let i = 0; i < 300 && !fs.existsSync(portFile) && !launchError && !exited(); i++) await pause(100);
   if (launchError) throw launchError;
-  if (!fs.existsSync(portFile)) throw Error(`Chromium did not open its debugging port${exited() ? ' before exiting' : ' within 10 seconds'}: ${browserLog}`);
+  if (!fs.existsSync(portFile)) throw Error(`Chromium did not open its debugging port${exited() ? ' before exiting' : ' within 30 seconds'}: ${browserLog}`);
   const debugPort = fs.readFileSync(portFile, 'utf8').split('\n')[0];
   const pages = await (await fetch(`http://127.0.0.1:${debugPort}/json/list`, {signal:AbortSignal.timeout(10000)})).json();
   const page = pages.find(page => page.type === 'page');
