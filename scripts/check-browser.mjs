@@ -48,6 +48,9 @@ const server = http.createServer((req, res) => {
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 await new Promise((resolve, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolve); });
 const browser = spawn(process.env.BRAND_BROWSER, ['--headless=new', '--disable-gpu', '--no-first-run',
+  // CI has no physical mouse. Blink needs desktop pointer capabilities for
+  // hover-gated rules; the touch checks override these through emulation later.
+  '--blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4',
   // This disposable profile has no credentials. On macOS a new Chrome for
   // Testing binary otherwise waits for an invisible Keychain permission prompt
   // before it sends even its first loopback HTTP request.
@@ -118,9 +121,6 @@ try {
   };
   console.log('Browser:', (await cdp('Browser.getVersion')).product);
   await cdp('Page.enable'); await cdp('Runtime.enable'); await cdp('Log.enable');
-  // Headless runners may have no physical pointing device. Establish the desktop
-  // input capabilities explicitly before testing hover-gated control states.
-  await cdp('Emulation.setEmulatedMedia', {features:[{name:'hover',value:'hover'},{name:'pointer',value:'fine'}]});
   await size(1280);
   const navigation = await cdp('Page.navigate', {url:`http://127.0.0.1:${server.address().port}/specimens/components.html`});
   assert.equal(navigation.errorText, undefined, `Component navigation failed: ${navigation.errorText}`);
