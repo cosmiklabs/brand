@@ -211,12 +211,22 @@ try {
       const {nodeId} = await cdp('DOM.querySelector', {nodeId: doc.nodeId, selector});
       assert.ok(nodeId, `missing ${selector}`);
       await cdp('CSS.forcePseudoState', {nodeId, forcedPseudoClasses: states});
+      // Chromium applies forced pseudo classes during its rendering lifecycle.
+      await evaluate('new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))');
     };
     const css = (selector, property, pseudo = '') => evaluate(`getComputedStyle(document.querySelector(${JSON.stringify(selector)})${pseudo ? `, '${pseudo}'` : ''}).getPropertyValue(${JSON.stringify(property)})`);
     const token = (mode, role) => evaluate(`(() => {const p=document.createElement('span');p.style.color='var(--c-${role})';document.querySelector('#${mode}').append(p);const c=getComputedStyle(p).color;p.remove();return c})()`);
     const expectRole = async (selector, property, mode, role, states = [], label = `${selector} ${states.join('+') || 'default'} ${property}`) => {
       await force(selector, states);
-      assert.equal(await css(selector, property), await token(mode, role), label);
+      const expected = await token(mode, role);
+      let actual;
+      for (let attempt=0; attempt<20; attempt++) {
+        actual=await css(selector, property);
+        if(actual===expected)break;
+        await pause(25);
+      }
+      if(actual!==expected) console.log('State diagnostics:', await evaluate(`({hover:matchMedia('(hover:hover)').matches,pointer:matchMedia('(pointer:fine)').matches,forced:document.querySelector(${JSON.stringify(selector)}).matches(':hover'),duration:getComputedStyle(document.querySelector(${JSON.stringify(selector)})).transitionDuration})`));
+      assert.equal(actual, expected, label);
       await force(selector);
     };
     const stateRamps = [];
