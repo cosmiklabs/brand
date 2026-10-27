@@ -461,3 +461,22 @@ This supersedes the earlier header sizing pass. Container dimensions alone did n
 Removed the Historical navigation/page from the shared reference builder. Retired HPLX Ember assets, lockups, icons, builders and asset tests, plus Cosmik’s superseded guides and alternate artwork, are recoverable from Git history. Current approved assets, font notices, licence terms and pinned foundations remain unchanged. Manifest and navigation checks reject references to the retired page and HPLX distribution entries.
 
 Executed builds and checks: 104 Cosmik, 24 current HPLX and 36 Tectra tests passed. HPLX’s seven retired-asset tests were removed with their assets; current Glimmer geometry, manifest, vendoring and navigation checks remain. Inspected the local HPLX Guide index and confirmed that neither navigation nor index contains an Archive/Historical section.
+
+
+## Marketing guidance — 26 October 2026 (unreleased)
+
+Updated company positioning, product-family marketing architecture and evidence rules.
+Marks, palettes, token values and fonts are unchanged. The shared family reference
+composes current product presentation from each family's README with pinned general
+writing and imagery guidance. It explicitly identifies both sources, omits the
+superseded organization-positioning section from that rendered page, and preserves
+the immutable vendored file.
+
+Executed `npm run build` and `npm run check`: 104 tests passed. The installed Chrome
+156 browser suite passed all component checks and 64 reference page/theme/width
+cases, plus search, token filtering, no-JavaScript and direct-file behavior. The
+runner now waits for the selected theme's image sources to finish loading before
+asserting they are healthy; previously it could test the new source immediately
+after a theme change. Family-specific current-content and search-index regressions
+are executed in the family repositories. This is local review work, not a published
+brand release or a claim of full accessibility conformance.

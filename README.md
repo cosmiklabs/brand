@@ -60,9 +60,9 @@ presented inside a Cosmik organisation surface, that enclosing identity stays
 baseline. Family JSON and Rust outputs include the baseline values; browser
 integration loads the baseline CSS before the scoped family CSS.
 
-Approved artwork does not settle product availability, commercial terms or the
-organisation wording still under review. The [guide](guide/README.md) and family
-repositories distinguish those decisions.
+Approved artwork does not settle product availability or commercial terms. The
+[voice guide](guide/voice.md) describes the company and its messaging; each family
+guide sets its own product presentation and constraints.
 
 ## Consume a release
 

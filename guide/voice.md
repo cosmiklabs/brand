@@ -25,25 +25,49 @@ Do not repeat the same explanation in a heading, subtitle and helper. Short does
 not mean cryptic: keep important consequences and limitations visible. Product
 copy can be confident without exaggerated claims or decorative slogans.
 
-## Organisation wording under review
+## Organisation positioning
 
-The prior “Reimagine / Extend / Create” motto must not be used in new current-facing
-material. No replacement motto or organisation-wide descriptor is approved.
-“Tools for building interactive worlds.” and “Give worlds shape.” are exploratory
-options only, not official copy.
+Cosmik is an independent software company building tools for creating 3D structures
+and playable stories. Use this as a factual description, not a motto that must
+appear on every surface. The company is owned and run by Matthew Downs.
 
-The earlier published description, “Cosmik is an independent open-source gaming
-workshop, building games, mods, tools, and modern reimplementations of classic game
-technology”, is historical wording under review, not a new-copy template. Cosmik
-accommodates open-source and proprietary work; do not describe every product as
-open-source or free forever. A product's own commitments remain specific to that
-product and are stated in its family guide.
+Lead a Cosmik introduction with what the company makes, then identify the products
+and their different purposes. A newcomer should not need to recognize HPLX or
+Tectra before understanding the company. About and contact pages explain who is
+behind the work; design-system implementation belongs in the brand reference.
 
-A visual-system change does not announce a launch, price or availability. Each
-product's presentation and any unresolved commercial terms are in its family guide,
-in its `brand-<product>` repository (for example `cosmiklabs/brand-hplx` and
-`cosmiklabs/brand-tectra`). Describe capabilities from verified product evidence
-and identify intended workflow as intended.
+Cosmik accommodates open-source and proprietary work. Do not describe the whole
+company as open-source, free forever, a game studio or a collection of mods. Each
+product's own availability and licensing commitments remain specific to it. The
+former “Reimagine / Extend / Create” motto is retired; no replacement motto is
+needed to explain the company.
+
+Use Cosmik for the company and the product's own name for its customer-facing
+story. Keep the parent endorsement secondary. The [product-family guidance](families.md#marketing-architecture)
+sets the relationship between company, product and reference sites.
+
+## Product messages
+
+Explain the person's task before the implementation. A product introduction
+answers four questions: who is it for, what can they do, why is that useful, and
+what can they do next? Give the reader a concrete example before listing features.
+Product-specific wording and commercial constraints live in its `brand-<product>`
+guide; shared typography does not make the products interchangeable.
+
+| Content | Rule |
+| --- | --- |
+| Headline | Name a useful outcome; let a nearby plain-language description identify the product category and audience. |
+| Capability | Describe verified behavior at its actual scope. Avoid “always”, “every”, “exactly” and “never” unless evidence supports the full promise. |
+| Demonstration | Prefer a real workflow and representative result. Label illustrations, prepared examples and hypothetical data where they appear. |
+| Availability | Distinguish in development, preview access and an available release. A working feature in a private build is not public availability. |
+| Action | Offer a working destination that matches the label. “Download” needs an available artifact; “Get updates” needs a maintained update destination. |
+| Contact | Use a monitored address or working form. State a response window only when it can be maintained; do not imply a support team. |
+| Pricing and licence | Use the product's settled terms. Never infer a trial, free allowance, subscription or open-source licence from another product. |
+
+Do not invent testimonials, adoption numbers, customers, benchmark results or
+release dates. A restrained “In development” status is enough; the rest of the page
+can still explain useful work confidently. Keep requirements visible near the
+relevant decision without making the opening paragraph a disclaimer.
 
 ## Imagery and icons
 

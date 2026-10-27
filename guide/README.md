@@ -30,10 +30,10 @@ is separate from a product release or accessibility
 verification. Family guides, in each family's repository, identify its approved
 identities; the manifest records this kit's asset status and entry points.
 
-**Positioning remains under review.** The former “Reimagine / Extend / Create”
-motto must not appear in new current-facing material. No replacement motto or
-organisation-wide descriptor has been approved. [Voice](voice.md) is the home for
-current wording constraints; a visual refresh does not settle them.
+**Current positioning.** Cosmik is an independent software company building tools
+for creating 3D structures and playable stories. [Voice](voice.md) explains the
+company description and truthful product messaging; [product families](families.md#marketing-architecture)
+sets the relationship between independent product identities and the parent.
 
 Superseded guides and retired artwork are recoverable from Git history. Current
 source guidance takes precedence.

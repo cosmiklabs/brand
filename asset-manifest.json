@@ -1215,7 +1215,7 @@
       },
       {
         "path": "guide/README.md",
-        "sha256": "900a15ad489f65011d4caf01f6e7a0ba0a5b555092417121534169fb1d36b383"
+        "sha256": "b2c86ef7f44f865c8831947567c26632bf6cf8a7a78891f67a9f6a6fe28814d9"
       },
       {
         "path": "guide/colour.md",
@@ -1227,7 +1227,7 @@
       },
       {
         "path": "guide/families.md",
-        "sha256": "aad1e40bfa9e00d942baf4a693e3ff788359548f21f5a5014505f7360f315ce3"
+        "sha256": "5be1b3191dcf9ad7fae56f72502c425cb42ccaaa40a90358c7f838f471c30bbb"
       },
       {
         "path": "guide/governance.md",
@@ -1235,7 +1235,7 @@
       },
       {
         "path": "guide/identity.md",
-        "sha256": "ae4f9663ff44bb6c9d2ec98f245b8a7e80f57795e6bf0a37c69b0653952fec26"
+        "sha256": "095a481dbf2ed7ae8bc0db0a62f9c5d4a100aebbfe4c06510a35b0bee4ad20ca"
       },
       {
         "path": "guide/interface.md",
@@ -1255,7 +1255,7 @@
       },
       {
         "path": "guide/voice.md",
-        "sha256": "21b3a46a64ef3cd3a25a879ec62a4037e9651b2bd7466a9ea263fbea3b295186"
+        "sha256": "983fa50740f6f5c6a23a19241171002c8e3de3079af68c06e475e29ae8cba092"
       }
     ]
   }

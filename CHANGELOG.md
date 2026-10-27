@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Established the company description and marketing architecture: independent product identities with secondary Cosmik endorsement, truthful demonstrations and useful next steps. Updated the family voice-page presentation to distinguish current product messaging from pinned shared guidance.
+
 - Removed superseded guide documents and archived alternate artwork from the current tree; recover them from Git history. Removed Historical navigation from the shared reference sites.
 
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry

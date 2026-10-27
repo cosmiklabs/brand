@@ -70,13 +70,24 @@ export function buildFamilyReference(directory,output=path.join(directory,'site'
  }
  for(const [source,url,title] of documents){
   let markdown=read(source);
-  const rendered=renderMarkdown(markdown,href=>linkFor(source,href));
   const inherited=source.startsWith('vendor/brand/');
-  const note=inherited?`<p class="notice">Shared Cosmik guidance from the foundation pinned by this family: <strong>${lock.tag}</strong>. Family-specific identity and exceptions are in the <a href="family-guide.html">${name} guide</a>. The linked Cosmik site may describe a newer foundation.</p>`:'';
-  let content=rendered.html.replace(/(<h1[^>]*>)[\s\S]*?(<\/h1>)/,(_,open,close)=>open+escape(nav.find(n=>n[0]===url)?.[1]??title)+close).replace(/<\/h1>/,end=>end+exhibits(url));
-  const toc=headingNotes[url]?[{level:2,id:headingNotes[url][0],title:headingNotes[url][1]},...rendered.headings]:rendered.headings;
-  page({url,title:nav.find(n=>n[0]===url)?.[1]??title,description:`${title} for the ${name} brand family.`,body:note+`<article class="prose">${content}</article>`,toc,source});
-  search.push({title:nav.find(n=>n[0]===url)?.[1]??title,url,text:plain(markdown).replace(/\s+/g,' '),sections:rendered.headings.filter(h=>h.level===2)});
+  // Product wording evolves separately from a pinned design-system release.
+  // Compose the current README section with the pinned general writing rules;
+  // never mutate vendor/ or silently present its old positioning as current.
+  const presentation=url==='voice.html'?read('README.md').match(/^## Product presentation\n[\s\S]*?(?=^## |$(?![\s\S]))/m)?.[0]:null;
+  let current=null;
+  if(presentation){
+   markdown=markdown.replace(/^## Organisation wording under review\n[\s\S]*?(?=^## |$(?![\s\S]))/m,'');
+   current=renderMarkdown(presentation,href=>linkFor('README.md',href));
+  }
+  const rendered=renderMarkdown(markdown,href=>linkFor(source,href));
+  const note=current?`<p class="notice">Current ${name} product wording comes from the <a href="family-guide.html#product-presentation">family guide</a>. General writing and imagery rules below follow Cosmik <strong>${lock.tag}</strong>. The pinned release’s superseded organization-positioning section is omitted here; see <a href="https://cosmiklabs.github.io/brand/voice.html">current Cosmik positioning</a>. The vendored source remains unchanged.</p>`:inherited?`<p class="notice">Shared Cosmik guidance from the foundation pinned by this family: <strong>${lock.tag}</strong>. Family-specific identity and exceptions are in the <a href="family-guide.html">${name} guide</a>. The linked Cosmik site may describe a newer foundation.</p>`:'';
+  let content=rendered.html.replace(/(<h1[^>]*>)[\s\S]*?(<\/h1>)/,(_,open,close)=>open+escape(nav.find(n=>n[0]===url)?.[1]??title)+close).replace(/<\/h1>/,end=>end+(current?.html??'')+exhibits(url));
+  const headings=[...(current?.headings??[]),...rendered.headings];
+  const toc=headingNotes[url]?[{level:2,id:headingNotes[url][0],title:headingNotes[url][1]},...headings]:headings;
+  const sourceMeta=current?`<div class="document-meta">${label('Foundations')}<span><a class="source-link" href="${sourceLink('README.md')}#product-presentation">Product source ↗</a> · <a class="source-link" href="${sourceLink(source)}">Pinned shared source ↗</a></span></div>`:'';
+  page({url,title:nav.find(n=>n[0]===url)?.[1]??title,description:`${title} for the ${name} brand family.`,body:sourceMeta+note+`<article class="prose">${content}</article>`,toc,source:current?undefined:source});
+  search.push({title:nav.find(n=>n[0]===url)?.[1]??title,url,text:plain((presentation??'')+'\n'+markdown).replace(/\s+/g,' '),sections:headings.filter(h=>h.level===2)});
  }
  const assetGroups=[['Current identity', [...new Set(Object.values(ownIdentity).filter(file=>file.endsWith('.svg')))]],['Family tokens',Object.values(manifest.entry_points.tokens[family])],['Fonts & license notices',[...manifest.entry_points.web_fonts,...manifest.entry_points.desktop_fonts,...manifest.entry_points.font_licenses]]];
  page({url:'assets.html',title:'Asset library',description:`Approved ${name} identity variants, fonts and tokens.`,body:`${label('Downloads')}<h1>Asset library.</h1><p class="lead">Approved artwork, fonts and implementation files for ${name}.</p>${board}${identitySurfaces({name,id:family,identity,symbols:true})}<p class="notice">${escape(config.assetNote)} <a href="licensing.html">Read the artwork terms</a>; the tooling license does not grant unrestricted identity use.</p>${assetGroups.map(([title,files])=>`<section class="download-group"><h2>${title}</h2><ul class="download-list">${files.map(file=>`<li><a download href="files/${file}"><span>${escape(path.basename(file))}</span><span>${escape(path.dirname(file))}</span><span aria-hidden="true">↓</span></a></li>`).join('')}</ul></section>`).join('')}<p><a download href="files/asset-manifest.json">Full asset manifest and hashes</a> · <a href="family-guide.html">Identity rules</a></p>`});

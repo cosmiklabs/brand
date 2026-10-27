@@ -37,6 +37,44 @@ content and artistic choices independent of the surrounding interface palette.
 These are identity scopes, not page-layout requirements. The kit does not require
 an organisation header, navigation shell or footer in a product interface.
 
+## Marketing architecture
+
+Cosmik is the company behind independently recognizable products. Someone should
+understand a product's purpose, recognize its identity and find its next step
+without first learning about Cosmik. The parent remains easy to discover when a
+visitor wants to know who makes the product.
+
+| Surface | Lead identity and job |
+| --- | --- |
+| Company website and organization profile | Cosmik introduces the business, its owner and the products; product summaries lead to their own destinations. |
+| Product marketing site | The product explains its audience, useful outcome, evidence, requirements and availability. Its own mark, palette and heading type lead. |
+| Product interface, documentation and support | The product helps the person complete a task. Cosmik attribution remains secondary. |
+| Brand reference | The relevant identity leads, with familiar guide navigation and links to the other brand references. |
+| Ownership and policy information | State the responsible entity and the actual scope of the policy. A shared owner does not make every product's terms identical. |
+
+The product name stands alone: HPLX and Tectra, not “Cosmik HPLX” or “Cosmik
+Tectra”. Do not treat adapters, integrations, repositories or internal modules as
+new consumer brands. Product domains provide a clear destination; a repository
+name or a reserved domain does not prove that a site is live.
+
+Share dependable navigation behavior, control semantics, accessibility, spacing,
+status language and the quality of the presentation. Keep product audiences,
+examples, color, heading character and primary actions distinct. A desktop app's
+“Download” and a web product's “Open app” need not become the same label. Use the
+same label when the destination has the same purpose: “How it works”, “Questions”,
+“Documentation”, “Support” and “Contact”. Include only destinations that exist.
+
+Cross-brand navigation helps people compare brand references. It is not a default
+marketing masthead: a product visitor should stay focused on that product. Put
+related work in a secondary About or footer context when useful. Do not send a
+visitor back to Cosmik as the only continuation after a product story.
+
+One owner can share publishing tools, operational processes and design primitives
+while maintaining separate product stories. Prefer a small number of maintained
+channels with useful demonstrations over empty social accounts and nominal
+newsletters. Match measurements to the product's stage: useful inquiries and
+qualified feedback before release; successful activation and repeat use afterward.
+
 ## How a family builds on the baseline
 
 A family repository never copies the contract, generator or contrast pairs into
@@ -125,9 +163,10 @@ name, mark or organisation-wide claims.
 
 ## Endorsement
 
-Let the product title lead. Place “A Cosmik project” beneath the title or in an
-appropriate footer using subdued reading or utility type, with clear separation
-from the title block. Keep at least 16 px on screen or 4 mm in documents. Never
+Let the product title lead. Use “By Cosmik” for a compact marketing endorsement,
+or “A Cosmik project” in explanatory and reference contexts. Prefer a footer or
+About context rather than repeating the endorsement beside every product title.
+Use subdued reading or utility type, with clear separation from the title block. Keep at least 16 px on screen or 4 mm in documents. Never
 combine product and parent marks into a new logo. An endorsement need not repeat
 inside every small control or dialog.
 

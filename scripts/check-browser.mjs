@@ -831,6 +831,9 @@ try {
       await evaluate(`document.querySelector('#theme').value=${JSON.stringify(mode)};document.querySelector('#theme').dispatchEvent(new Event('change'));document.fonts.ready`);
       assert.equal(await evaluate('document.documentElement.scrollWidth > innerWidth+1'),false,`${page} ${mode} ${width}: overflow`);
       assert.equal(await evaluate('document.querySelectorAll("h1").length'),1,`${page}: one page heading`);
+      // Changing theme selects another approved image source; load completion
+      // of the previous document/theme does not imply that source has decoded.
+      await until('[...document.images].every(image=>image.complete&&image.naturalWidth>0)',`${page} ${mode} ${width}: theme images loaded`);
       assert.equal(await evaluate('[...document.images].every(image=>image.complete&&image.naturalWidth>0)'),true,`${page}: images`);
       assert.equal(await evaluate(`document.documentElement.dataset.theme`),mode);
       if(width===390)assert.equal(await evaluate(`document.querySelector('.navigation').open`),false,'mobile navigation starts closed');
