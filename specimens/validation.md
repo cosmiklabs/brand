@@ -480,3 +480,20 @@ asserting they are healthy; previously it could test the new source immediately
 after a theme change. Family-specific current-content and search-index regressions
 are executed in the family repositories. This is local review work, not a published
 brand release or a claim of full accessibility conformance.
+
+
+## Narrow prose readability — 26 October 2026 (unreleased)
+
+Rendered family Voice review found that page-width checks alone missed two defects:
+the source category wrapped inside a compressed flex item, and minimum table-cell
+widths put the last prose column outside its scrolling viewport. Shared metadata
+now wraps deliberately, keeps its category on one line and stacks source links on
+narrow screens. Prose tables retain semantic markup and fit the available width
+with wrapping cells; the token browser retains its separate horizontal layout.
+Family Voice headings lead a compact disclosure identifying current product
+wording and pinned shared rules; full source scope remains available in the disclosure.
+
+Executed the 104-test repository check and the Chrome component/reference browser
+suite. Its expanded 72 page/theme/width cases include Voice and assert single-line
+metadata and fully visible prose-table columns at 390 and 320 px in both modes.
+These checks supplement, rather than replace, rendered review of family pages.

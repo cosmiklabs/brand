@@ -822,7 +822,7 @@ try {
   // its own reading, search and filtering journeys. The site is served under a
   // project-like /site/ prefix, not at the domain root.
   await cdp('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
-  const referencePages=['index.html','identity.html','typography.html','colour.html','integration.html','assets.html','tokens.html','components.html'];
+  const referencePages=['index.html','identity.html','typography.html','colour.html','voice.html','integration.html','assets.html','tokens.html','components.html'];
   for(const width of [1440,768,390,320]) {
     await size(width);
     for(const mode of ['light','dark'])for(const page of referencePages) {
@@ -835,6 +835,10 @@ try {
       // of the previous document/theme does not imply that source has decoded.
       await until('[...document.images].every(image=>image.complete&&image.naturalWidth>0)',`${page} ${mode} ${width}: theme images loaded`);
       assert.equal(await evaluate('[...document.images].every(image=>image.complete&&image.naturalWidth>0)'),true,`${page}: images`);
+      if(page==='voice.html' && width<=390) {
+        assert.equal(await evaluate(`(() => {const e=document.querySelector('.document-meta>.eyebrow');return e.getBoundingClientRect().height <= parseFloat(getComputedStyle(e).lineHeight)+1})()`),true,'narrow metadata category stays on one line');
+        assert.equal(await evaluate(`[...document.querySelectorAll('.prose .table-scroll')].every(e=>e.scrollWidth<=e.clientWidth+1)`),true,'narrow prose tables expose every column without horizontal clipping');
+      }
       assert.equal(await evaluate(`document.documentElement.dataset.theme`),mode);
       if(width===390)assert.equal(await evaluate(`document.querySelector('.navigation').open`),false,'mobile navigation starts closed');
       if(width===1440 && ['index.html','typography.html','colour.html'].includes(page))await shot(`reference-${page.replace('.html','')}-${mode}`);
@@ -870,7 +874,7 @@ try {
   await evaluate(`document.querySelector('#token-search').value='focus';document.querySelector('#token-search').dispatchEvent(new Event('input'));`);
   assert.ok(await evaluate(`document.querySelectorAll('#token-table tbody tr:not([hidden])').length > 0`),'direct-file token filtering works');
   assert.deepEqual(errors,[]);
-  console.log('HTML reference passed: 64 page/theme/width cases, project-path assets, search and empty results, Escape, token filters and recovery, no-JavaScript reading/navigation, and offline direct-file filtering.');
+  console.log('HTML reference passed: 72 page/theme/width cases, project-path assets, search and empty results, Escape, token filters and recovery, no-JavaScript reading/navigation, and offline direct-file filtering.');
   await cdp('Browser.close');
   for (let i=0; i<30 && !exited(); i++) await pause(100);
 } finally {

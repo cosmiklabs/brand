@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Fixed narrow reference metadata and prose-table readability. Current family voice pages put the title before a compact, expandable source explanation; shared browser coverage now checks the Voice page at narrow widths.
+
 - Established the company description and marketing architecture: independent product identities with secondary Cosmik endorsement, truthful demonstrations and useful next steps. Updated the family voice-page presentation to distinguish current product messaging from pinned shared guidance.
 
 - Removed superseded guide documents and archived alternate artwork from the current tree; recover them from Git history. Removed Historical navigation from the shared reference sites.
