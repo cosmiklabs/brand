@@ -13,7 +13,6 @@ warm off-white, no accent colour, status in words. Approved by the owner on
 | `components/` | `controls.css`: the shared, framework-neutral controls layer | Reference implementation |
 | `assets/vector/` | The emblem master and its reverses, the traced lockup, full renders and named pixel-size exports | Accepted masters |
 | `assets/approved-raster/` | The original selected square and banner, byte-for-byte | Approved references |
-| `assets/archive/` | Earlier generated light PNGs; their geometry differs | Archive, never a master |
 | `icons/` | App icons generated from the plate variant (`.ico`, `.icns`, 512 px and 180 px apple-touch PNGs) | Generated |
 | `validation/` | Emblem and lockup trace evidence (QA JSON, overlays, vector notes) | Evidence |
 

@@ -86,36 +86,6 @@
       "sha256": "bd895a41d92c56c52eed70811282bce4cafe9f5c4989499d51a20b222456944c"
     },
     {
-      "path": "kits/cosmik/assets/archive/cosmik-mark-light-generated.png",
-      "role": {
-        "kind": "archive",
-        "variant": "mark-light"
-      },
-      "source_filename": "Cosmik Profile Picture - Inverted.png",
-      "status": "archived separately generated light alternative",
-      "dimensions_px": [
-        1254,
-        1254
-      ],
-      "source_bytes_unchanged": true,
-      "sha256": "0cd8a627df7aed930ea7bee3d52e2c695124d762f19b8787244083758cf1684f"
-    },
-    {
-      "path": "kits/cosmik/assets/archive/cosmik-banner-light-generated.png",
-      "role": {
-        "kind": "archive",
-        "variant": "banner-light"
-      },
-      "source_filename": "Cosmik Banner - Inverted.png",
-      "status": "archived separately generated light alternative",
-      "dimensions_px": [
-        2171,
-        724
-      ],
-      "source_bytes_unchanged": true,
-      "sha256": "fb36139005d6991416cda2df34104dba0a889af24a982f9edc13364452c4c16f"
-    },
-    {
       "path": "kits/cosmik/assets/vector/cosmik-emblem-ink.png",
       "role": {
         "kind": "emblem",
@@ -1245,7 +1215,7 @@
       },
       {
         "path": "guide/README.md",
-        "sha256": "dabe3b8a1986b0b6a6e46850059ce3f7431dbdd1d75a6b2f08488daa3b8a6159"
+        "sha256": "900a15ad489f65011d4caf01f6e7a0ba0a5b555092417121534169fb1d36b383"
       },
       {
         "path": "guide/colour.md",
@@ -1257,15 +1227,15 @@
       },
       {
         "path": "guide/families.md",
-        "sha256": "5a622721aa5b610086ba19d52c941a5132019d008443283ec5c2114dfb20ec93"
+        "sha256": "aad1e40bfa9e00d942baf4a693e3ff788359548f21f5a5014505f7360f315ce3"
       },
       {
         "path": "guide/governance.md",
-        "sha256": "a8cd23dd692c69b40bab9583481893c8bb90107af4f25b4ea72198d3308e7ee3"
+        "sha256": "7a296c5c798ec53e9dfcb41a75cc67f2a6cb9fb256680306bd9a7721dd75f623"
       },
       {
         "path": "guide/identity.md",
-        "sha256": "c3116a391d27ed40dc51722fa2098e1f1d96f622c7f00157ce51864975082685"
+        "sha256": "ae4f9663ff44bb6c9d2ec98f245b8a7e80f57795e6bf0a37c69b0653952fec26"
       },
       {
         "path": "guide/interface.md",

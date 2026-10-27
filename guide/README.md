@@ -24,9 +24,9 @@ how to adapt the contracts, not which framework to choose.
 | [Governance](governance.md) | Decisions, contribution, releases and consumer upgrades |
 
 **Status words.** *Approved* identifies an owner decision or accepted master.
-*Proposed* awaits a decision. *Deprecated* remains for existing consumers but must
-not be selected for new work. *Archive* is historical reference, never a production
-master. Approval of an identity is separate from a product release or accessibility
+*Proposed* awaits a decision. *Deprecated* identifies retired material recoverable
+from Git history; it must not be selected for new work. Approval of an identity
+is separate from a product release or accessibility
 verification. Family guides, in each family's repository, identify its approved
 identities; the manifest records this kit's asset status and entry points.
 
@@ -35,6 +35,5 @@ motto must not appear in new current-facing material. No replacement motto or
 organisation-wide descriptor has been approved. [Voice](voice.md) is the home for
 current wording constraints; a visual refresh does not settle them.
 
-The earlier Word and PDF guide in [archive/](archive/) predates the approved
-baseline and family kits. Keep it as history. Current source guidance takes
-precedence where it differs.
+Superseded guides and retired artwork are recoverable from Git history. Current
+source guidance takes precedence.

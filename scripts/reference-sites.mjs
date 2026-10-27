@@ -12,8 +12,8 @@ export function siteNavigation(current){
 // Keep shared destinations in the same order, while retaining kit-specific chapters.
 export function normalizeNavigation(entries){
  const labels={'identity.html':'Identity & usage','family-guide.html':'Identity & usage','families.html':'Family contract','family-contract.html':'Family contract','tokens.html':'Design tokens','components.html':'Component examples','validation.html':'Validation record'};
- const groups=['Start here','Foundations','Experience','Implementation','Tools','Resources','Archive'];
- const order=['index.html','guide.html','identity.html','family-guide.html','typography.html','colour.html','voice.html','interface.html','motion.html','documents.html','families.html','family-contract.html','integration.html','baseline.html','quality.html','governance.html','assets.html','tokens.html','components.html','templates.html','token-guide.html','validation.html','kit-validation.html','licensing.html','changelog.html','repository.html','historical.html'];
+ const groups=['Start here','Foundations','Experience','Implementation','Tools','Resources'];
+ const order=['index.html','guide.html','identity.html','family-guide.html','typography.html','colour.html','voice.html','interface.html','motion.html','documents.html','families.html','family-contract.html','integration.html','baseline.html','quality.html','governance.html','assets.html','tokens.html','components.html','templates.html','token-guide.html','validation.html','kit-validation.html','licensing.html','changelog.html','repository.html'];
  return entries.map(([url,title,group])=>[url,labels[url]??title,['identity.html','family-guide.html'].includes(url)?'Foundations':['quality.html','governance.html'].includes(url)?'Implementation':group]).sort((a,b)=>groups.indexOf(a[2])-groups.indexOf(b[2])||order.indexOf(a[0])-order.indexOf(b[0]));
 }
 export function referenceNavigation(entries,current){
@@ -43,7 +43,7 @@ const chapterDescriptions={
  'quality.html':'Visual review, interactions and validation evidence.', 'governance.html':'Decisions, contribution, releases and upgrades.',
  'assets.html':'Approved artwork, fonts and downloads.', 'tokens.html':'Searchable CSS names and resolved token values.', 'components.html':'Interactive examples of shared controls.',
  'templates.html':'Document templates and export guidance.', 'validation.html':'Checks and limitations for this reference.', 'licensing.html':'Code, artwork and font usage terms.', 'changelog.html':'Recorded changes to the kit.', 'repository.html':'Repository structure and contribution guidance.',
- 'token-guide.html':'Family token sources, outputs and integration.', 'kit-validation.html':'Validation evidence for the family kit.', 'historical.html':'Deprecated Ember history; use Glimmer for new work.'
+ 'token-guide.html':'Family token sources, outputs and integration.', 'kit-validation.html':'Validation evidence for the family kit.'
 };
 export function guideIndex({name,nav,identityUrl,note}){
  const groups=[...new Set(nav.map(n=>n[2]))].filter(group=>group!=='Start here');

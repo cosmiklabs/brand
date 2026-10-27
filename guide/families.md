@@ -14,7 +14,7 @@ this kit:
 
 | Family | Repository | Holds |
 | --- | --- | --- |
-| HPLX | [`cosmiklabs/brand-hplx`](https://github.com/cosmiklabs/brand-hplx) | HPLX tokens, Glimmer, historical Ember, Spectral headings and the HPLX guide |
+| HPLX | [`cosmiklabs/brand-hplx`](https://github.com/cosmiklabs/brand-hplx) | HPLX tokens, Glimmer, Spectral headings and the HPLX guide |
 | Tectra | [`cosmiklabs/brand-tectra`](https://github.com/cosmiklabs/brand-tectra) | Tectra tokens, Latch, its review board and the Tectra guide |
 
 Each family's repository is the authority for its identity, approvals, artwork,

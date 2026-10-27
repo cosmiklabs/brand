@@ -455,3 +455,9 @@ This supersedes the earlier header sizing pass. Container dimensions alone did n
 - Executed the Chromium browser suite, including 64 reference page/theme/width cases. Separately checked 144 local browser combinations: 3 brands × 8 pages (Overview, Guide index, Identity, Assets, Tokens, Components, Typography, Color) × 3 widths (1440, 390, 320) × 2 themes. No horizontal overflow or unloaded images. All headers measured 88 px desktop / 72 px narrow; labels shared font, size, line height and x-position; desktop overview cards measured the same height.
 - Inspected rendered overview, header, artwork and index comparisons, including the settled dark-theme artwork. An early capture omitted artwork during repaint; a settled capture and reload confirmed both original variants render. Screenshot timing is not counted as a site defect fixed by this change.
 - Family palettes, heading faces, approved logo proportions and source-specific chapters remain distinct. These checks do not constitute accessibility certification.
+
+## 2026-10-26 — Remove retired brand material
+
+Removed the Historical navigation/page from the shared reference builder. Retired HPLX Ember assets, lockups, icons, builders and asset tests, plus Cosmik’s superseded guides and alternate artwork, are recoverable from Git history. Current approved assets, font notices, licence terms and pinned foundations remain unchanged. Manifest and navigation checks reject references to the retired page and HPLX distribution entries.
+
+Executed builds and checks: 104 Cosmik, 24 current HPLX and 36 Tectra tests passed. HPLX’s seven retired-asset tests were removed with their assets; current Glimmer geometry, manifest, vendoring and navigation checks remain. Inspected the local HPLX Guide index and confirmed that neither navigation nor index contains an Archive/Historical section.

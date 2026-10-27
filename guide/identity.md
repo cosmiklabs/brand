@@ -9,10 +9,9 @@ Use one approved source for each identity role. Keep the original compositions a
 | Original square and banner (`kits/cosmik/assets/approved-raster/`) | Approved raster compositions | Intact, proportionally scaled, on their black background |
 | Traced emblem and its exact reverses (`kits/cosmik/assets/vector/`) | Accepted vector master | The reusable symbol; proof it in the final medium |
 | App icons (`kits/cosmik/icons/`) | Generated from the vector master | Executables, windows, bundles and touch icons |
-| Generated light PNGs (`kits/cosmik/assets/archive/`) | Archived alternatives | Reference only: their geometry differs from the original |
 | Traced vector lockup (`kits/cosmik/assets/vector/cosmik-lockup-*`) | Accepted vector lockup | The reusable logo; never recreate the wordmark (see below) |
 
-**One shape across colours.** The vector reverses use the same geometry with a different fill; derive every transparent and solid-background export from the accepted vector source, never from the archived PNGs.
+**One shape across colours.** The vector reverses use the same geometry with a different fill; derive every transparent and solid-background export from the accepted vector source, never from an alternative reconstruction.
 
 **Never** redraw, stretch, rotate, recolour outside the supplied variants, crop into the flare, add effects, or recreate the COSMIK wordmark in another typeface (Inter included).
 

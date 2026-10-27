@@ -22,8 +22,9 @@ The terms for reusing artwork are in [LICENSE.md](../LICENSE.md).
 | Release history | `CHANGELOG.md` and immutable `vX.Y.Z` tags |
 
 Generated token files and artwork exports are consumer deliverables, not separate
-sources to edit. Historical artwork stays intact when replaced. Deprecate entry
-points deliberately, retain provenance and explain migration before removing them.
+sources to edit. Retired artwork and superseded guides belong in Git history rather than archive
+folders. Remove their build steps, manifest entries and navigation together;
+retain provenance for current assets and explain consumer migration.
 
 ## Proposing and implementing a change
 

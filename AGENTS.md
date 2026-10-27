@@ -2,6 +2,7 @@
 
 - Read the root README, `guide/families.md` and `guide/governance.md`. Inspect
   the working tree and preserve unrelated work. Keep the requested scope clear.
+- Retired artwork and superseded guides belong in Git history, not archive folders.
 - Preserve approved marks, palettes and fonts unless the owner explicitly approves
   changing them. Do not turn an interface improvement into a new identity or a
   product, pricing or availability promise.

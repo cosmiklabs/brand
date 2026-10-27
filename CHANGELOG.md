@@ -1,5 +1,9 @@
 # Changes
 
+## Unreleased
+
+- Removed superseded guide documents and archived alternate artwork from the current tree; recover them from Git history. Removed Historical navigation from the shared reference sites.
+
 Versions follow semver; release tags are `vX.Y.Z`. Newest first. Family kits carry
 their own version in `family.json`; from 0.8.0 they live in their own repositories.
 

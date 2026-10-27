@@ -29,7 +29,6 @@ export function buildFamilyReference(directory,output=path.join(directory,'site'
  ];
  if(fs.existsSync(path.join(directory,'tokens/README.md')))documents.push(['tokens/README.md','token-guide.html','Family token guide','Resources']);
  if(fs.existsSync(path.join(directory,'validation.md')))documents.push(['validation.md','kit-validation.html','Kit validation','Resources']);
- if(fs.existsSync(path.join(directory,'EMBER-HISTORICAL.md')))documents.push(['EMBER-HISTORICAL.md','historical.html','Historical Ember','Archive']);
  const nav=normalizeNavigation([['index.html','Overview','Start here'],['guide.html','Guide index','Start here'],...documents.map(([,url,title,group])=>[url,title,group]),['assets.html','Asset library','Tools'],['tokens.html','Token reference','Tools'],['components.html','Component examples','Tools']]);
  const routes=new Map(documents.map(([source,url])=>[source,url]));
  const downloads=new Set(['asset-manifest.json',...Object.values(identity),...Object.values(manifest.entry_points.tokens[family]),manifest.entry_points.controls,...manifest.entry_points.web_fonts,...manifest.entry_points.desktop_fonts,...manifest.entry_points.font_licenses]);
@@ -49,6 +48,7 @@ export function buildFamilyReference(directory,output=path.join(directory,'site'
  };
  const navigation=current=>referenceNavigation(nav,current);
  const search=[];fs.mkdirSync(output,{recursive:true});
+ fs.rmSync(path.join(output,'historical.html'),{force:true});
  const write=(file,data)=>{const target=path.join(output,file);fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,data);};
  let baseHref='./';if(baseUrl){const url=new URL(baseUrl);if(url.protocol!=='https:'||url.username||url.password||url.search||url.hash)throw Error('Reference base URL must be HTTPS without credentials, query or fragment.');baseHref=url.pathname.replace(/\/?$/,'/');}
  const sourceLink=source=>source.startsWith('vendor/brand/')?`https://github.com/cosmiklabs/brand/blob/${lock.tag}/${source.slice(13)}`:`https://github.com/${repository}/blob/main/${source}`;
@@ -70,10 +70,9 @@ export function buildFamilyReference(directory,output=path.join(directory,'site'
  }
  for(const [source,url,title] of documents){
   let markdown=read(source);
-  if(url==='historical.html'){let first=true;markdown=markdown.replace(/^# (.+)$/gm,(_,title)=>{const h=first?'# ':'## ';first=false;return h+title;});}
   const rendered=renderMarkdown(markdown,href=>linkFor(source,href));
   const inherited=source.startsWith('vendor/brand/');
-  const note=inherited?`<p class="notice">Shared Cosmik guidance from the foundation pinned by this family: <strong>${lock.tag}</strong>. Family-specific identity and exceptions are in the <a href="family-guide.html">${name} guide</a>. The linked Cosmik site may describe a newer foundation.</p>`:url==='historical.html'?'<p class="notice">Deprecated Ember history. New integrations use Glimmer. These files are not promoted in the current asset library.</p>':'';
+  const note=inherited?`<p class="notice">Shared Cosmik guidance from the foundation pinned by this family: <strong>${lock.tag}</strong>. Family-specific identity and exceptions are in the <a href="family-guide.html">${name} guide</a>. The linked Cosmik site may describe a newer foundation.</p>`:'';
   let content=rendered.html.replace(/(<h1[^>]*>)[\s\S]*?(<\/h1>)/,(_,open,close)=>open+escape(nav.find(n=>n[0]===url)?.[1]??title)+close).replace(/<\/h1>/,end=>end+exhibits(url));
   const toc=headingNotes[url]?[{level:2,id:headingNotes[url][0],title:headingNotes[url][1]},...rendered.headings]:rendered.headings;
   page({url,title:nav.find(n=>n[0]===url)?.[1]??title,description:`${title} for the ${name} brand family.`,body:note+`<article class="prose">${content}</article>`,toc,source});

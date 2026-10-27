@@ -81,7 +81,7 @@ Pin an exact `vX.Y.Z` tag. Never depend on `main` for production assets.
   consumer's history.
 
 Canonical entry points and asset status are in [asset-manifest.json](asset-manifest.json).
-Do not choose a deprecated asset just because an old filename still exists. Keep
+Retired assets and superseded guides are recoverable from Git history. Keep
 application components outside the vendored kit. [Web and native examples](kits/README.md)
 explain token, theme, font and motion integration.
 
@@ -89,10 +89,10 @@ explain token, theme, font and motion integration.
 
 | Path | Responsibility |
 | --- | --- |
-| `guide/` | Identity, design and interaction rules; historical documents in `guide/archive/` |
+| `guide/` | Current identity, design and interaction rules |
 | `kits/cosmik/tokens/` | Baseline token source plus generated CSS, JSON, DTCG JSON and Rust |
 | `kits/cosmik/components/` | The framework-neutral controls layer |
-| `kits/cosmik/assets/` | Approved sources, generated mark variants and explicitly historical artwork |
+| `kits/cosmik/assets/` | Approved sources and generated mark variants |
 | `kits/cosmik/icons/` | Cosmik platform icons |
 | `fonts/` | Desktop and web typefaces with licence notices |
 | `specimens/` | Interactive component reference and its validation record |
